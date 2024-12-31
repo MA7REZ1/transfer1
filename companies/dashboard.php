@@ -13,6 +13,10 @@ $stmt = $conn->prepare("SELECT name, logo FROM companies WHERE id = ?");
 $stmt->execute([$company_id]);
 $company = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// Get delivery fee from settings
+$stmt = $conn->query("SELECT value FROM settings WHERE name = 'delivery_fee'");
+$delivery_fee = floatval($stmt->fetchColumn() ?: 20);
+
 // Get company statistics
 $stmt = $conn->prepare("
     SELECT 
@@ -20,14 +24,34 @@ $stmt = $conn->prepare("
         SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) as pending_count,
         SUM(CASE WHEN status = 'in_transit' THEN 1 ELSE 0 END) as active_count,
         SUM(CASE WHEN status = 'delivered' THEN 1 ELSE 0 END) as delivered_count,
-        SUM(CASE WHEN status = 'delivered' THEN total_cost ELSE 0 END) as total_earnings,
         SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) as cancelled_requests,
-        AVG(CASE WHEN status = 'delivered' THEN TIMESTAMPDIFF(HOUR, created_at, updated_at) END) as avg_delivery_time
+        AVG(CASE WHEN status = 'delivered' THEN TIMESTAMPDIFF(HOUR, created_at, updated_at) END) as avg_delivery_time,
+        COALESCE(SUM(CASE 
+            WHEN status = 'delivered' AND payment_method = 'cash'
+            THEN total_cost
+            ELSE 0 
+        END), 0) as cash_in_hand,
+        COALESCE(
+            (SELECT SUM(CASE 
+                WHEN status = 'delivered' AND payment_method = 'cash'
+                THEN total_cost
+                ELSE 0 
+            END) - SUM(delivery_fee)
+            FROM requests 
+            WHERE company_id = ? 
+            AND created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+            AND status = 'delivered'
+        ), 0) as amount_owed,
+        COALESCE(SUM(CASE 
+            WHEN status = 'delivered'
+            THEN delivery_fee
+            ELSE 0 
+        END), 0) as amount_due
     FROM requests 
     WHERE company_id = ? 
     AND created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
 ");
-$stmt->execute([$_SESSION['company_id']]);
+$stmt->execute([$_SESSION['company_id'], $_SESSION['company_id']]);
 $stats = $stmt->fetch();
 
 // Initialize stats if null
@@ -36,10 +60,11 @@ if (!$stats) {
         'active_count' => 0,
         'pending_count' => 0,
         'delivered_count' => 0,
-        'total_earnings' => 0,
         'total_requests' => 0,
         'cancelled_requests' => 0,
-        'avg_delivery_time' => 0
+        'avg_delivery_time' => 0,
+        'amount_owed' => 0,
+        'amount_due' => 0
     ];
 }
 
@@ -432,11 +457,47 @@ $active_complaints = $stmt->fetchColumn();
                     <div class="card-body" style="background: linear-gradient(45deg, #0082c8, #0082c8);">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="card-title text-white mb-2">إجمالي الأرباح</h6>
-                                <h3 class="mb-0 text-white"><?php echo number_format($stats['total_earnings'], 2); ?> ريال</h3>
+                                <h6 class="card-title text-white mb-2">سعر التوصيل</h6>
+                                <h3 class="mb-0 text-white"><?php echo number_format($delivery_fee, 2); ?> ريال</h3>
                             </div>
                             <div class="stat-icon text-white">
                                 <i class="bi bi-currency-dollar"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Status Cards -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <div class="card stat-card">
+                    <div class="card-body" style="background: linear-gradient(45deg, #FF416C, #FF4B2B);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="card-title text-white mb-2">المبلغ المستحق عليه (نقدي)</h6>
+                                <h3 class="mb-0 text-white"><?php echo number_format($stats['cash_in_hand'], 2); ?> ريال</h3>
+                                <small class="text-white">المبلغ بعد خصم التوصيل: <?php echo number_format($stats['amount_owed'], 2); ?> ريال</small>
+                            </div>
+                            <div class="stat-icon text-white">
+                                <i class="bi bi-cash-coin"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card stat-card">
+                    <div class="card-body" style="background: linear-gradient(45deg, #11998e, #38ef7d);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="card-title text-white mb-2">المبلغ المستحق له</h6>
+                                <h3 class="mb-0 text-white"><?php echo number_format($stats['amount_due'], 2); ?> ريال</h3>
+                                <small class="text-white">إجمالي رسوم التوصيل</small>
+                            </div>
+                            <div class="stat-icon text-white">
+                                <i class="bi bi-truck"></i>
                             </div>
                         </div>
                     </div>
@@ -523,6 +584,20 @@ $active_complaints = $stmt->fetchColumn();
                                                 <i class="bi bi-pencil"></i>
                                             </button>
                                         <?php endif; ?>
+                                        <button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp(<?php 
+                                            echo htmlspecialchars(json_encode([
+                                                'phone' => $request['customer_phone'],
+                                                'orderNumber' => $request['order_number'],
+                                                'customerName' => $request['customer_name'],
+                                                'pickupLocation' => $request['pickup_location'],
+                                                'deliveryLocation' => $request['delivery_location'],
+                                                'deliveryDate' => date('Y-m-d', strtotime($request['delivery_date'])),
+                                                'totalCost' => $request['total_cost'],
+                                                'status' => $status_text
+                                            ])); 
+                                        ?>)" title="فتح محادثة واتساب">
+                                            <i class="bi bi-whatsapp"></i>
+                                        </button>
                                         <?php if ($request['driver_id']): ?>
                                             <button type="button" class="btn btn-sm btn-success" onclick="rateDriver(<?php echo $request['driver_id']; ?>)" title="تقييم السائق">
                                                 <i class="bi bi-star"></i>
@@ -710,7 +785,32 @@ $active_complaints = $stmt->fetchColumn();
             });
         });
 
-        // Existing event listeners and functions...
+        // دالة لفتح محادثة واتساب
+        function openWhatsApp(orderData) {
+            // تنسيق رقم الهاتف (إزالة الصفر الأول إذا وجد وإضافة رمز الدولة)
+            let phone = orderData.phone.replace(/^0+/, '');
+            if (!phone.startsWith('966')) {
+                phone = '966' + phone;
+            }
+            
+            // إنشاء نص الرسالة
+            const message = `
+مرحباً ${orderData.customerName}،
+تفاصيل طلبك رقم: ${orderData.orderNumber}
+
+موقع الاستلام: ${orderData.pickupLocation}
+موقع التوصيل: ${orderData.deliveryLocation}
+تاريخ التوصيل: ${orderData.deliveryDate}
+التكلفة: ${orderData.totalCost} ريال
+الحالة: ${orderData.status}
+
+شكراً لاختيارك خدماتنا!
+            `.trim();
+
+            // فتح رابط واتساب مع الرسالة المجهزة
+            const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
     </script>
 </body>
 </html> 

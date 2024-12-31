@@ -17,6 +17,7 @@ $required_fields = [
     'customer_name' => 'اسم العميل',
     'customer_phone' => 'هاتف العميل',
     'delivery_date' => 'تاريخ التوصيل',
+    'delivery_time' => 'وقت التوصيل',
     'pickup_location' => 'موقع الاستلام',
     'delivery_location' => 'موقع التوصيل',
     'items_count' => 'عدد القطع',
@@ -37,6 +38,9 @@ try {
     // Generate order number
     $order_number = 'ORD-' . date('Ymd') . '-' . rand(1000, 9999);
     
+    // Combine date and time
+    $delivery_datetime = date('Y-m-d H:i:s', strtotime($_POST['delivery_date'] . ' ' . $_POST['delivery_time']));
+    
     // Start transaction
     $conn->beginTransaction();
     
@@ -50,7 +54,9 @@ try {
             customer_phone,
             delivery_date,
             pickup_location,
+            pickup_location_link,
             delivery_location,
+            delivery_location_link,
             items_count,
             total_cost,
             payment_method,
@@ -60,7 +66,10 @@ try {
             created_at,
             updated_at
         ) VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW(), NOW()
+            ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?,
+            'pending', NOW(), NOW()
         )
     ");
 
@@ -70,9 +79,11 @@ try {
         $_POST['order_type'],
         $_POST['customer_name'],
         $_POST['customer_phone'],
-        $_POST['delivery_date'],
+        $delivery_datetime,
         $_POST['pickup_location'],
+        $_POST['pickup_location_link'],
         $_POST['delivery_location'],
+        $_POST['delivery_location_link'],
         $_POST['items_count'],
         $_POST['total_cost'],
         $_POST['payment_method'],

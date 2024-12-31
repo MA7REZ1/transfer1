@@ -33,8 +33,7 @@ body {
     box-shadow: var(--card-shadow);
     display: flex;
     flex-direction: column;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    
 }
 
 .sidebar.collapsed {
@@ -81,7 +80,7 @@ body {
     justify-content: center;
     border-radius: 8px;
     transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
+   
 }
 
 .sidebar-toggle:hover {
@@ -167,28 +166,12 @@ body {
     padding: 2rem;
     color: white;
     position: relative;
-    overflow: hidden;
     box-shadow: var(--card-shadow);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    height: 100%;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.stats-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-    z-index: 1;
 }
 
 .stats-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: var(--hover-shadow);
+    transform: none;
+    box-shadow: var(--card-shadow);
 }
 
 .stat-value {
@@ -249,8 +232,7 @@ body {
     overflow: hidden;
     height: 100%;
     background: white;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+ 
 }
 
 .card:hover {
@@ -282,7 +264,11 @@ body {
     box-shadow: var(--card-shadow);
     height: 100%;
     position: relative;
-    overflow: hidden;
+}
+
+.chart-card:hover {
+    transform: none;
+    box-shadow: var(--card-shadow);
 }
 
 .chart-card::before {
@@ -296,9 +282,6 @@ body {
 }
 
 .chart-container {
-    position: relative;
-    height: 400px;
-    width: 100%;
     padding: 1.5rem;
 }
 
@@ -443,8 +426,7 @@ body {
     box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
     padding: 1rem !important;
     border: none !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
+
 }
 
 /* Additional Chart Styles */
@@ -559,8 +541,7 @@ body {
     transform-origin: top right !important;
     animation: notificationDropdown 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
     background: rgba(255, 255, 255, 0.98) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
+   
 }
 
 @keyframes notificationDropdown {
@@ -841,8 +822,7 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+ 
 }
 
 .alert-overlay.show {

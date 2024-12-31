@@ -34,17 +34,17 @@
         
         <div class="sidebar-divider"></div>
         
-        <a href="analytics/orders.php" class="sidebar-item <?php echo strpos($_SERVER['PHP_SELF'], 'analytics/orders.php') !== false ? 'active' : ''; ?>">
+        <a href="orders.php" class="sidebar-item <?php echo strpos($_SERVER['PHP_SELF'], 'orders.php') !== false ? 'active' : ''; ?>">
             <i class="fas fa-chart-line"></i>
             <span>تحليل الطلبات</span>
         </a>
         
-        <a href="analytics/drivers.php" class="sidebar-item <?php echo strpos($_SERVER['PHP_SELF'], 'analytics/drivers.php') !== false ? 'active' : ''; ?>">
+        <a href="drivers.php" class="sidebar-item <?php echo strpos($_SERVER['PHP_SELF'], 'drivers.php') !== false ? 'active' : ''; ?>">
             <i class="fas fa-chart-bar"></i>
             <span>تحليل أداء السائقين</span>
         </a>
         
-        <a href="analytics/revenue.php" class="sidebar-item <?php echo strpos($_SERVER['PHP_SELF'], 'analytics/revenue.php') !== false ? 'active' : ''; ?>">
+        <a href="revenue.php" class="sidebar-item <?php echo strpos($_SERVER['PHP_SELF'], 'revenue.php') !== false ? 'active' : ''; ?>">
             <i class="fas fa-dollar-sign"></i>
             <span>التحليل المالي</span>
         </a>

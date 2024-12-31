@@ -110,7 +110,105 @@ $drivers = $stmt->fetchAll();
 // Include header after all possible redirects
 require_once 'includes/header.php';
 ?>
+<style>
+.action-btn-group {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-start;
+    align-items: center;
+}
 
+.action-btn {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    border: none;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.action-btn i {
+    font-size: 1rem;
+}
+
+.action-btn.edit-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+.action-btn.edit-btn:hover {
+    background-color: #2980b9;
+}
+
+.action-btn.whatsapp-btn {
+    background-color: #25D366;
+    color: white;
+}
+
+.action-btn.whatsapp-btn:hover {
+    background-color: #128C7E;
+}
+
+.action-btn.deactivate-btn {
+    background-color: #f1c40f;
+    color: white;
+}
+
+.action-btn.deactivate-btn:hover {
+    background-color: #f39c12;
+}
+
+.action-btn.activate-btn {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.action-btn.activate-btn:hover {
+    background-color: #27ae60;
+}
+
+.action-btn.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.action-btn.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Tooltip styles */
+.action-btn::after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover::after {
+    visibility: visible;
+    opacity: 1;
+    bottom: calc(100% + 5px);
+}
+</style>
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h3 mb-0">إدارة السائقين</h1>
     <a href="driver_form.php" class="btn btn-primary">
@@ -186,30 +284,36 @@ require_once 'includes/header.php';
                             </td>
                             <td><?php echo date('Y/m/d', strtotime($driver['created_at'])); ?></td>
                             <td>
-                                <div class="btn-group">
+                                <div class="action-btn-group">
+                                    <button type="button" 
+                                           class="action-btn whatsapp-btn"
+                                           onclick="openCompanyWhatsApp('<?php echo htmlspecialchars($driver['phone']); ?>')"
+                                           data-title="تواصل عبر واتساب">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </button>
                                     <a href="driver_form.php?id=<?php echo $driver['id']; ?>" 
-                                       class="btn btn-sm btn-info" 
-                                       title="تعديل">
+                                       class="action-btn edit-btn"
+                                       data-title="تعديل">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <?php if ($driver['is_active']): ?>
                                         <a href="?action=deactivate&id=<?php echo $driver['id']; ?>&token=<?php echo $_SESSION['token']; ?>" 
-                                           class="btn btn-sm btn-warning" 
-                                           title="تعطيل"
+                                           class="action-btn deactivate-btn"
+                                           data-title="تعطيل"
                                            onclick="return confirm('هل أنت متأكد من تعطيل هذا السائق؟')">
                                             <i class="fas fa-ban"></i>
                                         </a>
                                     <?php else: ?>
                                         <a href="?action=activate&id=<?php echo $driver['id']; ?>&token=<?php echo $_SESSION['token']; ?>" 
-                                           class="btn btn-sm btn-success" 
-                                           title="تفعيل"
+                                           class="action-btn activate-btn"
+                                           data-title="تفعيل"
                                            onclick="return confirm('هل أنت متأكد من تفعيل هذا السائق؟')">
                                             <i class="fas fa-check"></i>
                                         </a>
                                     <?php endif; ?>
                                     <a href="?action=delete&id=<?php echo $driver['id']; ?>&token=<?php echo $_SESSION['token']; ?>" 
-                                       class="btn btn-sm btn-danger" 
-                                       title="حذف"
+                                       class="action-btn delete-btn"
+                                       data-title="حذف"
                                        onclick="return confirm('هل أنت متأكد من حذف هذا السائق؟')">
                                         <i class="fas fa-trash"></i>
                                     </a>
@@ -257,4 +361,20 @@ function copyDriverInfo(name, email, phone, password) {
         console.error('فشل في نسخ البيانات:', err);
     });
 }
-</script> 
+
+// دالة لفتح محادثة واتساب مع الشركة
+function openCompanyWhatsApp(phone) {
+    // تنسيق رقم الهاتف (إزالة الصفر الأول إذا وجد وإضافة رمز الدولة)
+    let formattedPhone = phone.replace(/^0+/, '');
+    if (!formattedPhone.startsWith('966')) {
+        formattedPhone = '966' + formattedPhone;
+    }
+    
+    // إنشاء نص الرسالة
+    const message = `مرحباً، أود الاستفسار عن خدماتكم`;
+
+    // فتح رابط واتساب
+    const whatsappUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+}
+</script>

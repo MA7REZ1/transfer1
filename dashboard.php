@@ -12,6 +12,16 @@ $drivers_count = $stmt->fetchColumn();
 $stmt = $conn->query("SELECT COUNT(*) FROM requests WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)");
 $monthly_orders = $stmt->fetchColumn();
 
+// Get delivery fee statistics
+$stmt = $conn->query("
+    SELECT 
+        ROUND(AVG(delivery_fee), 2) as avg_delivery_fee,
+        ROUND(SUM(delivery_fee), 2) as total_delivery_fee
+    FROM requests 
+    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+");
+$delivery_stats = $stmt->fetch(PDO::FETCH_ASSOC);
+
 $stmt = $conn->query("SELECT COUNT(*) FROM complaints WHERE status = 'new'");
 $new_complaints = $stmt->fetchColumn();
 
@@ -142,7 +152,7 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
 <div class="row fade-in-up">
     <div class="col-md-3 mb-4">
         <div class="stats-card" style="background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);">
-            <div class="stat-value"><?php echo number_format($order_stats['avg_order_value']); ?> ر.س</div>
+            <div class="stat-value"><?php echo number_format($delivery_stats['avg_delivery_fee'], 2); ?> ر.س</div>
             <div class="stat-label">متوسط قيمة الطلب</div>
             <i class="fas fa-coins"></i>
             <div class="progress mt-2">
@@ -153,7 +163,7 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
     
     <div class="col-md-3 mb-4">
         <div class="stats-card" style="background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);">
-            <div class="stat-value"><?php echo number_format($order_stats['total_revenue']); ?> ر.س</div>
+            <div class="stat-value"><?php echo number_format($delivery_stats['total_delivery_fee'], 2); ?>  ر.س</div>
             <div class="stat-label">إجمالي الإيرادات</div>
             <i class="fas fa-chart-line"></i>
             <div class="progress mt-2">
@@ -440,7 +450,7 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
                     border-left: 1px solid rgba(230, 126, 34, 0.1);
                 }
 
-                /* تأثير حركي لأيق��نة الجرس */
+                /* تأثير حركي لأيقونة الجرس */
                 @keyframes bellRing {
                     0% { transform: rotate(0); }
                     10% { transform: rotate(15deg); }

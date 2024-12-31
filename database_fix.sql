@@ -106,6 +106,12 @@ CREATE TABLE IF NOT EXISTS `requests` (
     `additional_notes` text,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `pickup_location_link` VARCHAR(500) DEFAULT NULL,
+    `delivery_location_link` VARCHAR(500) DEFAULT NULL,
+    `pickup_lat` DECIMAL(10, 8) DEFAULT NULL,
+    `pickup_lng` DECIMAL(11, 8) DEFAULT NULL,
+    `delivery_lat` DECIMAL(10, 8) DEFAULT NULL,
+    `delivery_lng` DECIMAL(11, 8) DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `order_number` (`order_number`),
     KEY `company_id` (`company_id`),
@@ -247,3 +253,16 @@ VALUES (
     );
 -- Re-enable foreign key checks
 SET FOREIGN_KEY_CHECKS = 1;
+-- تحديث جدول الطلبات لإضافة حقل وقت التوصيل
+ALTER TABLE requests
+MODIFY COLUMN delivery_date DATETIME NOT NULL;
+-- تحديث البيانات القديمة
+UPDATE requests
+SET delivery_date = CONCAT(DATE(delivery_date), ' 00:00:00')
+WHERE TIME(delivery_date) = '00:00:00';
+-- إضافة أعمدة روابط المواقع
+ALTER TABLE requests
+ADD COLUMN pickup_location_link VARCHAR(500) NULL
+AFTER pickup_location,
+    ADD COLUMN delivery_location_link VARCHAR(500) NULL
+AFTER delivery_location;

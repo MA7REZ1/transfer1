@@ -116,9 +116,9 @@ $drivers = $stmt->fetchAll();
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h3 mb-0">إدارة الطلبات</h1>
-    <a href="order_form.php" class="btn btn-primary">
+    <!-- <a href="order_form.php" class="btn btn-primary">
         <i class="fas fa-plus me-1"></i> إضافة طلب جديد
-    </a>
+    </a> -->
 </div>
 
 <div class="card">
@@ -154,6 +154,7 @@ $drivers = $stmt->fetchAll();
                         <th>العميل</th>
                         <th>نوع الطلب</th>
                         <th>تاريخ التوصيل</th>
+                        <th>وقت الطلب</th>
                         <th>التكلفة</th>
                         <th>حالة الدفع</th>
                         <th>السائق</th>
@@ -168,7 +169,8 @@ $drivers = $stmt->fetchAll();
                             <td><?php echo htmlspecialchars($order['company_name']); ?></td>
                             <td><?php echo htmlspecialchars($order['customer_name']); ?></td>
                             <td><?php echo htmlspecialchars($order['order_type']); ?></td>
-                            <td><?php echo date('Y/m/d', strtotime($order['delivery_date'])); ?></td>
+                            <td><?php echo date('Y/m/d H:i', strtotime($order['delivery_date'])); ?></td>
+                            <td><?php echo date('Y/m/d H:i:s', strtotime($order['created_at'])); ?></td>
                             <td><?php echo number_format($order['total_cost'], 2); ?> ريال</td>
                             <td>
                                 <span class="badge bg-<?php echo $order['payment_status'] === 'paid' ? 'success' : 'warning'; ?>">
