@@ -1,8 +1,7 @@
 <?php
 require_once '../config.php';
-
-if (!isset($_SESSION['company_id'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['company_email'])) {
+      header("Location: login.php");
     exit();
 }
 

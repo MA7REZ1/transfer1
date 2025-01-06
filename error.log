@@ -1,0 +1,782 @@
+[03-Jan-2025 09:06:03 Asia/Riyadh] === بداية البحث عن الطلبات المتاحة ===
+[03-Jan-2025 09:06:03 Asia/Riyadh] SQL Query: SELECT r.*, 
+                         c.name as customer_name,
+                         c.phone as customer_phone,
+                         c.address as customer_address,
+                         comp.name as company_name,
+                         comp.phone as company_phone,
+                         comp.address as company_address,
+                         comp.latitude as company_latitude,
+                         comp.longitude as company_longitude
+                  FROM requests r 
+                  JOIN customers c ON r.customer_id = c.id
+                  JOIN companies comp ON r.company_id = comp.id
+                  WHERE r.status = 'pending' 
+                  AND r.is_active = 1
+                  ORDER BY r.created_at DESC
+[03-Jan-2025 09:06:03 Asia/Riyadh] Error getting available requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.customers' doesn't exist
+[03-Jan-2025 09:06:03 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:03 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:03 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:03 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:06:03 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:06:04 Asia/Riyadh] === بداية البحث عن الطلبات المتاحة ===
+[03-Jan-2025 09:06:04 Asia/Riyadh] SQL Query: SELECT r.*, 
+                         c.name as customer_name,
+                         c.phone as customer_phone,
+                         c.address as customer_address,
+                         comp.name as company_name,
+                         comp.phone as company_phone,
+                         comp.address as company_address,
+                         comp.latitude as company_latitude,
+                         comp.longitude as company_longitude
+                  FROM requests r 
+                  JOIN customers c ON r.customer_id = c.id
+                  JOIN companies comp ON r.company_id = comp.id
+                  WHERE r.status = 'pending' 
+                  AND r.is_active = 1
+                  ORDER BY r.created_at DESC
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting available requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.customers' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:06:04 Asia/Riyadh] === بداية البحث عن الطلبات المتاحة ===
+[03-Jan-2025 09:06:04 Asia/Riyadh] SQL Query: SELECT r.*, 
+                         c.name as customer_name,
+                         c.phone as customer_phone,
+                         c.address as customer_address,
+                         comp.name as company_name,
+                         comp.phone as company_phone,
+                         comp.address as company_address,
+                         comp.latitude as company_latitude,
+                         comp.longitude as company_longitude
+                  FROM requests r 
+                  JOIN customers c ON r.customer_id = c.id
+                  JOIN companies comp ON r.company_id = comp.id
+                  WHERE r.status = 'pending' 
+                  AND r.is_active = 1
+                  ORDER BY r.created_at DESC
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting available requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.customers' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:06:04 Asia/Riyadh] === بداية البحث عن الطلبات المتاحة ===
+[03-Jan-2025 09:06:04 Asia/Riyadh] SQL Query: SELECT r.*, 
+                         c.name as customer_name,
+                         c.phone as customer_phone,
+                         c.address as customer_address,
+                         comp.name as company_name,
+                         comp.phone as company_phone,
+                         comp.address as company_address,
+                         comp.latitude as company_latitude,
+                         comp.longitude as company_longitude
+                  FROM requests r 
+                  JOIN customers c ON r.customer_id = c.id
+                  JOIN companies comp ON r.company_id = comp.id
+                  WHERE r.status = 'pending' 
+                  AND r.is_active = 1
+                  ORDER BY r.created_at DESC
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting available requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.customers' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:06:04 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:06:05 Asia/Riyadh] === بداية البحث عن الطلبات المتاحة ===
+[03-Jan-2025 09:06:05 Asia/Riyadh] SQL Query: SELECT r.*, 
+                         c.name as customer_name,
+                         c.phone as customer_phone,
+                         c.address as customer_address,
+                         comp.name as company_name,
+                         comp.phone as company_phone,
+                         comp.address as company_address,
+                         comp.latitude as company_latitude,
+                         comp.longitude as company_longitude
+                  FROM requests r 
+                  JOIN customers c ON r.customer_id = c.id
+                  JOIN companies comp ON r.company_id = comp.id
+                  WHERE r.status = 'pending' 
+                  AND r.is_active = 1
+                  ORDER BY r.created_at DESC
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting available requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.customers' doesn't exist
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:06:05 Asia/Riyadh] === بداية البحث عن الطلبات المتاحة ===
+[03-Jan-2025 09:06:05 Asia/Riyadh] SQL Query: SELECT r.*, 
+                         c.name as customer_name,
+                         c.phone as customer_phone,
+                         c.address as customer_address,
+                         comp.name as company_name,
+                         comp.phone as company_phone,
+                         comp.address as company_address,
+                         comp.latitude as company_latitude,
+                         comp.longitude as company_longitude
+                  FROM requests r 
+                  JOIN customers c ON r.customer_id = c.id
+                  JOIN companies comp ON r.company_id = comp.id
+                  WHERE r.status = 'pending' 
+                  AND r.is_active = 1
+                  ORDER BY r.created_at DESC
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting available requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.customers' doesn't exist
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:06:05 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:06:34 Asia/Riyadh] خطأ في جلب الطلبات المتاحة: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'is_active' in 'where clause'
+[03-Jan-2025 09:06:34 Asia/Riyadh] SQL State: 42S22
+[03-Jan-2025 09:06:34 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:34 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:34 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:34 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:06:34 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:06:36 Asia/Riyadh] خطأ في جلب الطلبات المتاحة: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'is_active' in 'where clause'
+[03-Jan-2025 09:06:36 Asia/Riyadh] SQL State: 42S22
+[03-Jan-2025 09:06:36 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:36 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:36 Asia/Riyadh] Error getting driver requests: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_status_history' doesn't exist
+[03-Jan-2025 09:06:36 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:06:36 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:06:37 Asia/Riyadh] PHP Warning:  Undefined array key "vehicle_plate" in C:\xampp\htdocs\proo\driver_profile.php on line 359
+[03-Jan-2025 09:06:37 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\driver_profile.php on line 359
+[03-Jan-2025 09:08:03 Asia/Riyadh] PHP Warning:  Undefined array key "vehicle_plate" in C:\xampp\htdocs\proo\driver_profile.php on line 359
+[03-Jan-2025 09:08:03 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\driver_profile.php on line 359
+[03-Jan-2025 09:08:05 Asia/Riyadh] عدد الطلبات المعلقة في الجدول: 2
+[03-Jan-2025 09:08:05 Asia/Riyadh] === تنفيذ استعلام SQL ===
+[03-Jan-2025 09:08:05 Asia/Riyadh] Query: SELECT r.* 
+                  FROM requests r 
+                  WHERE r.status = 'pending' 
+                  ORDER BY r.created_at DESC
+[03-Jan-2025 09:08:05 Asia/Riyadh] === نتائج البحث عن الطلبات المتاحة ===
+[03-Jan-2025 09:08:05 Asia/Riyadh] عدد النتائج: 2
+[03-Jan-2025 09:08:05 Asia/Riyadh] طلب رقم: 8, الحالة: pending
+[03-Jan-2025 09:08:05 Asia/Riyadh] طلب رقم: 3, الحالة: pending
+[03-Jan-2025 09:08:05 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:08:05 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:08:05 Asia/Riyadh] PHP Warning:  Undefined array key "customer_address" in C:\xampp\htdocs\proo\driver_dashboard.php on line 234
+[03-Jan-2025 09:08:05 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\driver_dashboard.php on line 234
+[03-Jan-2025 09:08:05 Asia/Riyadh] PHP Warning:  Undefined array key "customer_address" in C:\xampp\htdocs\proo\driver_dashboard.php on line 234
+[03-Jan-2025 09:08:05 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\driver_dashboard.php on line 234
+[03-Jan-2025 09:08:09 Asia/Riyadh] عدد الطلبات المعلقة في الجدول: 2
+[03-Jan-2025 09:08:09 Asia/Riyadh] === تنفيذ استعلام SQL ===
+[03-Jan-2025 09:08:09 Asia/Riyadh] Query: SELECT r.* 
+                  FROM requests r 
+                  WHERE r.status = 'pending' 
+                  ORDER BY r.created_at DESC
+[03-Jan-2025 09:08:09 Asia/Riyadh] === نتائج البحث عن الطلبات المتاحة ===
+[03-Jan-2025 09:08:09 Asia/Riyadh] عدد النتائج: 2
+[03-Jan-2025 09:08:09 Asia/Riyadh] طلب رقم: 8, الحالة: pending
+[03-Jan-2025 09:08:09 Asia/Riyadh] طلب رقم: 3, الحالة: pending
+[03-Jan-2025 09:08:09 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:08:09 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:08:09 Asia/Riyadh] PHP Warning:  Undefined array key "customer_address" in C:\xampp\htdocs\proo\driver_dashboard.php on line 234
+[03-Jan-2025 09:08:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\driver_dashboard.php on line 234
+[03-Jan-2025 09:08:09 Asia/Riyadh] PHP Warning:  Undefined array key "customer_address" in C:\xampp\htdocs\proo\driver_dashboard.php on line 234
+[03-Jan-2025 09:08:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\driver_dashboard.php on line 234
+[03-Jan-2025 09:09:40 Asia/Riyadh] عدد الطلبات المعلقة في الجدول: 2
+[03-Jan-2025 09:09:40 Asia/Riyadh] === تنفيذ استعلام SQL ===
+[03-Jan-2025 09:09:40 Asia/Riyadh] Query: SELECT id, order_number, customer_name, customer_phone, 
+                         delivery_address, total_cost, status, created_at
+                  FROM requests 
+                  WHERE status = 'pending' 
+                  ORDER BY created_at DESC
+[03-Jan-2025 09:09:40 Asia/Riyadh] خطأ في جلب الطلبات المتاحة: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'delivery_address' in 'field list'
+[03-Jan-2025 09:09:40 Asia/Riyadh] SQL State: 42S22
+[03-Jan-2025 09:09:40 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:09:40 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:09:43 Asia/Riyadh] عدد الطلبات المعلقة في الجدول: 2
+[03-Jan-2025 09:09:43 Asia/Riyadh] === تنفيذ استعلام SQL ===
+[03-Jan-2025 09:09:43 Asia/Riyadh] Query: SELECT id, order_number, customer_name, customer_phone, 
+                         delivery_address, total_cost, status, created_at
+                  FROM requests 
+                  WHERE status = 'pending' 
+                  ORDER BY created_at DESC
+[03-Jan-2025 09:09:43 Asia/Riyadh] خطأ في جلب الطلبات المتاحة: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'delivery_address' in 'field list'
+[03-Jan-2025 09:09:43 Asia/Riyadh] SQL State: 42S22
+[03-Jan-2025 09:09:43 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:09:43 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:09:48 Asia/Riyadh] عدد الطلبات المعلقة في الجدول: 2
+[03-Jan-2025 09:09:48 Asia/Riyadh] === تنفيذ استعلام SQL ===
+[03-Jan-2025 09:09:48 Asia/Riyadh] Query: SELECT id, order_number, customer_name, customer_phone, 
+                         delivery_address, total_cost, status, created_at
+                  FROM requests 
+                  WHERE status = 'pending' 
+                  ORDER BY created_at DESC
+[03-Jan-2025 09:09:48 Asia/Riyadh] خطأ في جلب الطلبات المتاحة: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'delivery_address' in 'field list'
+[03-Jan-2025 09:09:48 Asia/Riyadh] SQL State: 42S22
+[03-Jan-2025 09:09:48 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:09:48 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:11:13 Asia/Riyadh] عدد الطلبات المعلقة في الجدول: 2
+[03-Jan-2025 09:11:13 Asia/Riyadh] === تنفيذ استعلام SQL ===
+[03-Jan-2025 09:11:13 Asia/Riyadh] Query: SELECT id, order_number, customer_name, customer_phone, 
+                         pickup_location, delivery_location, 
+                         pickup_location_link, delivery_location_link,
+                         pickup_lat, pickup_lng, delivery_lat, delivery_lng,
+                         total_cost, status, created_at, order_type,
+                         items_count, payment_method, payment_status,
+                         is_fragile, additional_notes
+                  FROM requests 
+                  WHERE status = 'pending' 
+                  ORDER BY created_at DESC
+[03-Jan-2025 09:11:13 Asia/Riyadh] خطأ في جلب الطلبات المتاحة: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'pickup_lat' in 'field list'
+[03-Jan-2025 09:11:13 Asia/Riyadh] SQL State: 42S22
+[03-Jan-2025 09:11:13 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:11:13 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:11:14 Asia/Riyadh] عدد الطلبات المعلقة في الجدول: 2
+[03-Jan-2025 09:11:14 Asia/Riyadh] === تنفيذ استعلام SQL ===
+[03-Jan-2025 09:11:14 Asia/Riyadh] Query: SELECT id, order_number, customer_name, customer_phone, 
+                         pickup_location, delivery_location, 
+                         pickup_location_link, delivery_location_link,
+                         pickup_lat, pickup_lng, delivery_lat, delivery_lng,
+                         total_cost, status, created_at, order_type,
+                         items_count, payment_method, payment_status,
+                         is_fragile, additional_notes
+                  FROM requests 
+                  WHERE status = 'pending' 
+                  ORDER BY created_at DESC
+[03-Jan-2025 09:11:14 Asia/Riyadh] خطأ في جلب الطلبات المتاحة: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'pickup_lat' in 'field list'
+[03-Jan-2025 09:11:14 Asia/Riyadh] SQL State: 42S22
+[03-Jan-2025 09:11:14 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:11:14 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:11:14 Asia/Riyadh] عدد الطلبات المعلقة في الجدول: 2
+[03-Jan-2025 09:11:14 Asia/Riyadh] === تنفيذ استعلام SQL ===
+[03-Jan-2025 09:11:14 Asia/Riyadh] Query: SELECT id, order_number, customer_name, customer_phone, 
+                         pickup_location, delivery_location, 
+                         pickup_location_link, delivery_location_link,
+                         pickup_lat, pickup_lng, delivery_lat, delivery_lng,
+                         total_cost, status, created_at, order_type,
+                         items_count, payment_method, payment_status,
+                         is_fragile, additional_notes
+                  FROM requests 
+                  WHERE status = 'pending' 
+                  ORDER BY created_at DESC
+[03-Jan-2025 09:11:14 Asia/Riyadh] خطأ في جلب الطلبات المتاحة: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'pickup_lat' in 'field list'
+[03-Jan-2025 09:11:14 Asia/Riyadh] SQL State: 42S22
+[03-Jan-2025 09:11:14 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:11:14 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:11:15 Asia/Riyadh] عدد الطلبات المعلقة في الجدول: 2
+[03-Jan-2025 09:11:15 Asia/Riyadh] === تنفيذ استعلام SQL ===
+[03-Jan-2025 09:11:15 Asia/Riyadh] Query: SELECT id, order_number, customer_name, customer_phone, 
+                         pickup_location, delivery_location, 
+                         pickup_location_link, delivery_location_link,
+                         pickup_lat, pickup_lng, delivery_lat, delivery_lng,
+                         total_cost, status, created_at, order_type,
+                         items_count, payment_method, payment_status,
+                         is_fragile, additional_notes
+                  FROM requests 
+                  WHERE status = 'pending' 
+                  ORDER BY created_at DESC
+[03-Jan-2025 09:11:15 Asia/Riyadh] خطأ في جلب الطلبات المتاحة: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'pickup_lat' in 'field list'
+[03-Jan-2025 09:11:15 Asia/Riyadh] SQL State: 42S22
+[03-Jan-2025 09:11:15 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:11:15 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:11:15 Asia/Riyadh] عدد الطلبات المعلقة في الجدول: 2
+[03-Jan-2025 09:11:15 Asia/Riyadh] === تنفيذ استعلام SQL ===
+[03-Jan-2025 09:11:15 Asia/Riyadh] Query: SELECT id, order_number, customer_name, customer_phone, 
+                         pickup_location, delivery_location, 
+                         pickup_location_link, delivery_location_link,
+                         pickup_lat, pickup_lng, delivery_lat, delivery_lng,
+                         total_cost, status, created_at, order_type,
+                         items_count, payment_method, payment_status,
+                         is_fragile, additional_notes
+                  FROM requests 
+                  WHERE status = 'pending' 
+                  ORDER BY created_at DESC
+[03-Jan-2025 09:11:15 Asia/Riyadh] خطأ في جلب الطلبات المتاحة: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'pickup_lat' in 'field list'
+[03-Jan-2025 09:11:15 Asia/Riyadh] SQL State: 42S22
+[03-Jan-2025 09:11:15 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:11:15 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:11:15 Asia/Riyadh] عدد الطلبات المعلقة في الجدول: 2
+[03-Jan-2025 09:11:15 Asia/Riyadh] === تنفيذ استعلام SQL ===
+[03-Jan-2025 09:11:15 Asia/Riyadh] Query: SELECT id, order_number, customer_name, customer_phone, 
+                         pickup_location, delivery_location, 
+                         pickup_location_link, delivery_location_link,
+                         pickup_lat, pickup_lng, delivery_lat, delivery_lng,
+                         total_cost, status, created_at, order_type,
+                         items_count, payment_method, payment_status,
+                         is_fragile, additional_notes
+                  FROM requests 
+                  WHERE status = 'pending' 
+                  ORDER BY created_at DESC
+[03-Jan-2025 09:11:15 Asia/Riyadh] خطأ في جلب الطلبات المتاحة: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'pickup_lat' in 'field list'
+[03-Jan-2025 09:11:15 Asia/Riyadh] SQL State: 42S22
+[03-Jan-2025 09:11:15 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:11:15 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:13:33 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:13:33 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:13:33 Asia/Riyadh] عدد النتائج: 2
+[03-Jan-2025 09:13:33 Asia/Riyadh] نموذج للبيانات المسترجعة:
+[03-Jan-2025 09:13:33 Asia/Riyadh] Array
+(
+    [id] => 8
+    [order_number] => ORD-20250103-7959
+    [company_id] => 11
+    [driver_id] => 
+    [customer_name] => محمود1
+    [customer_phone] => 0111111111
+    [order_type] => delivery
+    [delivery_date] => 2025-01-28 16:39:00
+    [pickup_location] => 111111111
+    [delivery_location] => 1111111
+    [items_count] => 2
+    [total_cost] => 20.00
+    [delivery_fee] => 20.00
+    [payment_method] => cash
+    [payment_status] => unpaid
+    [is_fragile] => 1
+    [invoice_file] => 
+    [status] => pending
+    [additional_notes] => 111111111111111111
+    [created_at] => 2025-01-03 05:34:56
+    [updated_at] => 2025-01-03 05:34:56
+    [pickup_location_link] => https://www.openstreetmap.org/?mlat=24.716797632384722&mlon=46.684765862287435
+    [delivery_location_link] => https://www.openstreetmap.org/?mlat=24.699292833787997&mlon=46.67653016346712
+)
+
+[03-Jan-2025 09:13:33 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:13:33 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:14:00 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:14:00 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:14:00 Asia/Riyadh] عدد النتائج: 2
+[03-Jan-2025 09:14:00 Asia/Riyadh] نموذج للبيانات المسترجعة:
+[03-Jan-2025 09:14:00 Asia/Riyadh] Array
+(
+    [id] => 8
+    [order_number] => ORD-20250103-7959
+    [company_id] => 11
+    [driver_id] => 
+    [customer_name] => محمود1
+    [customer_phone] => 0111111111
+    [order_type] => delivery
+    [delivery_date] => 2025-01-28 16:39:00
+    [pickup_location] => 111111111
+    [delivery_location] => 1111111
+    [items_count] => 2
+    [total_cost] => 20.00
+    [delivery_fee] => 20.00
+    [payment_method] => cash
+    [payment_status] => unpaid
+    [is_fragile] => 1
+    [invoice_file] => 
+    [status] => pending
+    [additional_notes] => 111111111111111111
+    [created_at] => 2025-01-03 05:34:56
+    [updated_at] => 2025-01-03 05:34:56
+    [pickup_location_link] => https://www.openstreetmap.org/?mlat=24.716797632384722&mlon=46.684765862287435
+    [delivery_location_link] => https://www.openstreetmap.org/?mlat=24.699292833787997&mlon=46.67653016346712
+)
+
+[03-Jan-2025 09:14:00 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:14:00 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:14:05 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:14:05 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:14:05 Asia/Riyadh] عدد النتائج: 2
+[03-Jan-2025 09:14:05 Asia/Riyadh] نموذج للبيانات المسترجعة:
+[03-Jan-2025 09:14:05 Asia/Riyadh] Array
+(
+    [id] => 8
+    [order_number] => ORD-20250103-7959
+    [company_id] => 11
+    [driver_id] => 
+    [customer_name] => محمود1
+    [customer_phone] => 0111111111
+    [order_type] => delivery
+    [delivery_date] => 2025-01-28 16:39:00
+    [pickup_location] => 111111111
+    [delivery_location] => 1111111
+    [items_count] => 2
+    [total_cost] => 20.00
+    [delivery_fee] => 20.00
+    [payment_method] => cash
+    [payment_status] => unpaid
+    [is_fragile] => 1
+    [invoice_file] => 
+    [status] => pending
+    [additional_notes] => 111111111111111111
+    [created_at] => 2025-01-03 05:34:56
+    [updated_at] => 2025-01-03 05:34:56
+    [pickup_location_link] => https://www.openstreetmap.org/?mlat=24.716797632384722&mlon=46.684765862287435
+    [delivery_location_link] => https://www.openstreetmap.org/?mlat=24.699292833787997&mlon=46.67653016346712
+)
+
+[03-Jan-2025 09:14:05 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:14:05 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:15:48 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:15:48 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:15:48 Asia/Riyadh] عدد النتائج: 2
+[03-Jan-2025 09:15:48 Asia/Riyadh] نموذج للبيانات المسترجعة:
+[03-Jan-2025 09:15:48 Asia/Riyadh] Array
+(
+    [id] => 8
+    [order_number] => ORD-20250103-7959
+    [company_id] => 11
+    [driver_id] => 
+    [customer_name] => محمود1
+    [customer_phone] => 0111111111
+    [order_type] => delivery
+    [delivery_date] => 2025-01-28 16:39:00
+    [pickup_location] => 111111111
+    [delivery_location] => 1111111
+    [items_count] => 2
+    [total_cost] => 20.00
+    [delivery_fee] => 20.00
+    [payment_method] => cash
+    [payment_status] => unpaid
+    [is_fragile] => 1
+    [invoice_file] => 
+    [status] => pending
+    [additional_notes] => 111111111111111111
+    [created_at] => 2025-01-03 05:34:56
+    [updated_at] => 2025-01-03 05:34:56
+    [pickup_location_link] => https://www.openstreetmap.org/?mlat=24.716797632384722&mlon=46.684765862287435
+    [delivery_location_link] => https://www.openstreetmap.org/?mlat=24.699292833787997&mlon=46.67653016346712
+)
+
+[03-Jan-2025 09:15:48 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:15:48 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:15:51 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:15:51 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:15:51 Asia/Riyadh] عدد النتائج: 1
+[03-Jan-2025 09:15:51 Asia/Riyadh] نموذج للبيانات المسترجعة:
+[03-Jan-2025 09:15:51 Asia/Riyadh] Array
+(
+    [id] => 3
+    [order_number] => ORD-20241224-5110
+    [company_id] => 12
+    [driver_id] => 
+    [customer_name] => محمود
+    [customer_phone] => 0111111111
+    [order_type] => transport
+    [delivery_date] => 2025-01-10 00:00:00
+    [pickup_location] => ا
+    [delivery_location] => ب
+    [items_count] => 3
+    [total_cost] => 11.00
+    [delivery_fee] => 10.00
+    [payment_method] => bank_transfer
+    [payment_status] => unpaid
+    [is_fragile] => 1
+    [invoice_file] => 
+    [status] => pending
+    [additional_notes] => 0000000
+    [created_at] => 2024-12-24 20:50:13
+    [updated_at] => 2024-12-31 06:20:44
+    [pickup_location_link] => 
+    [delivery_location_link] => 
+)
+
+[03-Jan-2025 09:15:51 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:15:51 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:16:04 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:16:04 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:16:04 Asia/Riyadh] عدد النتائج: 1
+[03-Jan-2025 09:16:04 Asia/Riyadh] نموذج للبيانات المسترجعة:
+[03-Jan-2025 09:16:04 Asia/Riyadh] Array
+(
+    [id] => 3
+    [order_number] => ORD-20241224-5110
+    [company_id] => 12
+    [driver_id] => 
+    [customer_name] => محمود
+    [customer_phone] => 0111111111
+    [order_type] => transport
+    [delivery_date] => 2025-01-10 00:00:00
+    [pickup_location] => ا
+    [delivery_location] => ب
+    [items_count] => 3
+    [total_cost] => 11.00
+    [delivery_fee] => 10.00
+    [payment_method] => bank_transfer
+    [payment_status] => unpaid
+    [is_fragile] => 1
+    [invoice_file] => 
+    [status] => pending
+    [additional_notes] => 0000000
+    [created_at] => 2024-12-24 20:50:13
+    [updated_at] => 2024-12-31 06:20:44
+    [pickup_location_link] => 
+    [delivery_location_link] => 
+)
+
+[03-Jan-2025 09:16:04 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:16:04 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:16:07 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:16:07 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:16:07 Asia/Riyadh] عدد النتائج: 1
+[03-Jan-2025 09:16:07 Asia/Riyadh] نموذج للبيانات المسترجعة:
+[03-Jan-2025 09:16:07 Asia/Riyadh] Array
+(
+    [id] => 3
+    [order_number] => ORD-20241224-5110
+    [company_id] => 12
+    [driver_id] => 
+    [customer_name] => محمود
+    [customer_phone] => 0111111111
+    [order_type] => transport
+    [delivery_date] => 2025-01-10 00:00:00
+    [pickup_location] => ا
+    [delivery_location] => ب
+    [items_count] => 3
+    [total_cost] => 11.00
+    [delivery_fee] => 10.00
+    [payment_method] => bank_transfer
+    [payment_status] => unpaid
+    [is_fragile] => 1
+    [invoice_file] => 
+    [status] => pending
+    [additional_notes] => 0000000
+    [created_at] => 2024-12-24 20:50:13
+    [updated_at] => 2024-12-31 06:20:44
+    [pickup_location_link] => 
+    [delivery_location_link] => 
+)
+
+[03-Jan-2025 09:16:07 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:16:07 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:16:28 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:16:28 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:16:28 Asia/Riyadh] عدد النتائج: 1
+[03-Jan-2025 09:16:28 Asia/Riyadh] نموذج للبيانات المسترجعة:
+[03-Jan-2025 09:16:28 Asia/Riyadh] Array
+(
+    [id] => 3
+    [order_number] => ORD-20241224-5110
+    [company_id] => 12
+    [driver_id] => 
+    [customer_name] => محمود
+    [customer_phone] => 0111111111
+    [order_type] => transport
+    [delivery_date] => 2025-01-10 00:00:00
+    [pickup_location] => ا
+    [delivery_location] => ب
+    [items_count] => 3
+    [total_cost] => 11.00
+    [delivery_fee] => 10.00
+    [payment_method] => bank_transfer
+    [payment_status] => unpaid
+    [is_fragile] => 1
+    [invoice_file] => 
+    [status] => pending
+    [additional_notes] => 0000000
+    [created_at] => 2024-12-24 20:50:13
+    [updated_at] => 2024-12-31 06:20:44
+    [pickup_location_link] => 
+    [delivery_location_link] => 
+)
+
+[03-Jan-2025 09:16:28 Asia/Riyadh] Error getting driver earnings: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'driver_id' in where clause is ambiguous
+[03-Jan-2025 09:16:28 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:20:30 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:20:30 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:20:30 Asia/Riyadh] عدد النتائج: 1
+[03-Jan-2025 09:20:30 Asia/Riyadh] نموذج للبيانات المسترجعة:
+[03-Jan-2025 09:20:30 Asia/Riyadh] Array
+(
+    [id] => 3
+    [order_number] => ORD-20241224-5110
+    [company_id] => 12
+    [driver_id] => 
+    [customer_name] => محمود
+    [customer_phone] => 0111111111
+    [order_type] => transport
+    [delivery_date] => 2025-01-10 00:00:00
+    [pickup_location] => ا
+    [delivery_location] => ب
+    [items_count] => 3
+    [total_cost] => 11.00
+    [delivery_fee] => 10.00
+    [payment_method] => bank_transfer
+    [payment_status] => unpaid
+    [is_fragile] => 1
+    [invoice_file] => 
+    [status] => pending
+    [additional_notes] => 0000000
+    [created_at] => 2024-12-24 20:50:13
+    [updated_at] => 2024-12-31 06:20:44
+    [pickup_location_link] => 
+    [delivery_location_link] => 
+)
+
+[03-Jan-2025 09:20:30 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:20:34 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:20:34 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:20:34 Asia/Riyadh] عدد النتائج: 1
+[03-Jan-2025 09:20:34 Asia/Riyadh] نموذج للبيانات المسترجعة:
+[03-Jan-2025 09:20:34 Asia/Riyadh] Array
+(
+    [id] => 3
+    [order_number] => ORD-20241224-5110
+    [company_id] => 12
+    [driver_id] => 
+    [customer_name] => محمود
+    [customer_phone] => 0111111111
+    [order_type] => transport
+    [delivery_date] => 2025-01-10 00:00:00
+    [pickup_location] => ا
+    [delivery_location] => ب
+    [items_count] => 3
+    [total_cost] => 11.00
+    [delivery_fee] => 10.00
+    [payment_method] => bank_transfer
+    [payment_status] => unpaid
+    [is_fragile] => 1
+    [invoice_file] => 
+    [status] => pending
+    [additional_notes] => 0000000
+    [created_at] => 2024-12-24 20:50:13
+    [updated_at] => 2024-12-31 06:20:44
+    [pickup_location_link] => 
+    [delivery_location_link] => 
+)
+
+[03-Jan-2025 09:20:34 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:20:36 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:20:36 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:20:36 Asia/Riyadh] عدد النتائج: 1
+[03-Jan-2025 09:20:36 Asia/Riyadh] نموذج للبيانات المسترجعة:
+[03-Jan-2025 09:20:36 Asia/Riyadh] Array
+(
+    [id] => 3
+    [order_number] => ORD-20241224-5110
+    [company_id] => 12
+    [driver_id] => 
+    [customer_name] => محمود
+    [customer_phone] => 0111111111
+    [order_type] => transport
+    [delivery_date] => 2025-01-10 00:00:00
+    [pickup_location] => ا
+    [delivery_location] => ب
+    [items_count] => 3
+    [total_cost] => 11.00
+    [delivery_fee] => 10.00
+    [payment_method] => bank_transfer
+    [payment_status] => unpaid
+    [is_fragile] => 1
+    [invoice_file] => 
+    [status] => pending
+    [additional_notes] => 0000000
+    [created_at] => 2024-12-24 20:50:13
+    [updated_at] => 2024-12-31 06:20:44
+    [pickup_location_link] => 
+    [delivery_location_link] => 
+)
+
+[03-Jan-2025 09:20:36 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:20:41 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:20:41 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:20:41 Asia/Riyadh] عدد النتائج: 0
+[03-Jan-2025 09:20:41 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:20:56 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:20:56 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:20:56 Asia/Riyadh] عدد النتائج: 0
+[03-Jan-2025 09:20:56 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:25:17 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:25:17 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:25:17 Asia/Riyadh] عدد النتائج: 0
+[03-Jan-2025 09:25:17 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:25:18 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:25:18 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:25:18 Asia/Riyadh] عدد النتائج: 0
+[03-Jan-2025 09:25:18 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:25:18 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:25:18 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:25:18 Asia/Riyadh] عدد النتائج: 0
+[03-Jan-2025 09:25:18 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:35:25 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:35:25 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:35:25 Asia/Riyadh] عدد النتائج: 0
+[03-Jan-2025 09:35:25 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:35:43 Asia/Riyadh] === تنفيذ استعلام الطلبات المتاحة ===
+[03-Jan-2025 09:35:43 Asia/Riyadh] SQL Query: SELECT * FROM requests WHERE status = 'pending' ORDER BY created_at DESC
+[03-Jan-2025 09:35:43 Asia/Riyadh] عدد النتائج: 0
+[03-Jan-2025 09:35:43 Asia/Riyadh] Error getting driver notifications: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[03-Jan-2025 09:40:37 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:40:37 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:40:40 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:40:40 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:43:41 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:43:41 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:43:42 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:43:42 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:43:43 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:43:43 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:46:30 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:46:30 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:46:31 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:46:31 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:48:40 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:48:40 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:50:28 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:50:28 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:52:52 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\prooDrivers/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:52:52 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\prooDrivers/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_dashboard.php on line 3
+[03-Jan-2025 09:52:53 Asia/Riyadh] PHP Warning:  require_once(config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_auth.php on line 2
+[03-Jan-2025 09:52:53 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'config.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_auth.php:2
+Stack trace:
+#0 C:\xampp\htdocs\proo\Drivers\driver_dashboard.php(3): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_auth.php on line 2
+[03-Jan-2025 09:52:55 Asia/Riyadh] PHP Warning:  require_once(config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_auth.php on line 2
+[03-Jan-2025 09:52:55 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'config.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_auth.php:2
+Stack trace:
+#0 C:\xampp\htdocs\proo\Drivers\driver_dashboard.php(3): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_auth.php on line 2
+[03-Jan-2025 09:53:20 Asia/Riyadh] PHP Warning:  require_once(config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_auth.php on line 2
+[03-Jan-2025 09:53:20 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'config.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_auth.php:2
+Stack trace:
+#0 C:\xampp\htdocs\proo\Drivers\driver_dashboard.php(3): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_auth.php on line 2
+[03-Jan-2025 10:22:57 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_profile.php on line 3
+[03-Jan-2025 10:22:57 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_profile.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_profile.php on line 3
+[03-Jan-2025 10:32:11 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_profile.php on line 3
+[03-Jan-2025 10:32:11 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_profile.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_profile.php on line 3
+[03-Jan-2025 10:41:41 Asia/Riyadh] PHP Warning:  require_once(C:\xampp\htdocs\proo/driver_auth.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\Drivers\driver_profile.php on line 3
+[03-Jan-2025 10:41:41 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\proo/driver_auth.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\Drivers\driver_profile.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\Drivers\driver_profile.php on line 3

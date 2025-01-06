@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if ($company && password_verify($password, $company['password'])) {
                         $_SESSION['company_id'] = $company['id'];
                         $_SESSION['company_name'] = $company['name'];
-                        
+                        $_SESSION['company_email'] = $company['email'];
                         if (isset($_POST['remember_me']) && $_POST['remember_me'] == 1) {
                             $token = bin2hex(random_bytes(32));
                             $expires = time() + (30 * 24 * 60 * 60); // 30 days
@@ -342,6 +342,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <a href="register.php">
                         <i class="fas fa-user-plus me-1"></i>
                         تسجيل شركة جديدة
+                    </a>
+                    <span class="mx-2">|</span>
+                    <a href="staff_login.php">
+                        <i class="fas fa-users"></i>
+                        تسجيل دخول الموظفين
                     </a>
                 </div>
             </form>

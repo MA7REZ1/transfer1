@@ -21,6 +21,25 @@ CREATE TABLE IF NOT EXISTS `companies` (
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
+-- Create company_staff table
+CREATE TABLE IF NOT EXISTS `company_staff` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `company_id` int(11) NOT NULL,
+    `name` varchar(100) NOT NULL,
+    `email` varchar(100) NOT NULL UNIQUE,
+    `password` varchar(255) NOT NULL,
+    `phone` varchar(20) DEFAULT NULL,
+    `role` enum('order_manager', 'staff') DEFAULT 'staff',
+    `is_active` tinyint(1) DEFAULT 1,
+    `last_login` timestamp NULL DEFAULT NULL,
+    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `company_id` (`company_id`),
+    CONSTRAINT `company_staff_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
 -- Drop old tables if they exist (in correct order)
 DROP TABLE IF EXISTS `driver_earnings`;
 DROP TABLE IF EXISTS `driver_ratings`;
