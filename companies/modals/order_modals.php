@@ -99,7 +99,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                         <div class="col-12">
                             <div class="mb-3">
                                 <label class="form-label">طريقة الدفع <span class="text-danger">*</span></label>
-                                <select class="form-select" name="payment_method" required>
+                                <select class="form-select" name="payment_method" id="payment_method" required onchange="toggleTotalCost(this.value)">
                                     <option value="">اختر طريقة الدفع</option>
                                     <option value="cash">نقدي</option>
                                     <option value="card">بطاقة</option>
@@ -268,24 +268,32 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-star"></i> تقيم السائق</h5>
+                <h5 class="modal-title"><i class="bi bi-star"></i> تقييم السائق</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="rateDriverForm">
+                <input type="hidden" name="request_id" id="rate_request_id">
+                <input type="hidden" name="driver_id" id="rate_driver_id">
                 <div class="modal-body">
-                    <input type="hidden" name="driver_id" id="rateDriverId">
-                    <div class="mb-3">
-                        <label class="form-label">التقييم</label>
-                        <div class="rating">
-                            <?php for($i = 5; $i >= 1; $i--): ?>
-                            <input type="radio" name="rating" value="<?php echo $i; ?>" id="star<?php echo $i; ?>">
-                            <label for="star<?php echo $i; ?>">☆</label>
-                            <?php endfor; ?>
+                    <div class="rating-stars mb-3">
+                        <div class="stars-container text-center">
+                            <div class="stars d-flex justify-content-center flex-row-reverse gap-2">
+                                <input type="radio" id="star5" name="rating" value="5">
+                                <label for="star5" title="5 نجوم">★</label>
+                                <input type="radio" id="star4" name="rating" value="4">
+                                <label for="star4" title="4 نجوم">★</label>
+                                <input type="radio" id="star3" name="rating" value="3">
+                                <label for="star3" title="3 نجوم">★</label>
+                                <input type="radio" id="star2" name="rating" value="2">
+                                <label for="star2" title="نجمتان">★</label>
+                                <input type="radio" id="star1" name="rating" value="1">
+                                <label for="star1" title="نجمة واحدة">★</label>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">تعليق</label>
-                        <textarea class="form-control" name="comment" rows="3"></textarea>
+                        <label class="form-label">تعليق على التقييم (اختياري)</label>
+                        <textarea class="form-control" name="rating_comment" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -306,15 +314,24 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="complaintForm">
+                <input type="hidden" name="request_id" id="complaint_request_id">
+                <input type="hidden" name="driver_id" id="complaint_driver_id">
                 <div class="modal-body">
-                    <input type="hidden" name="request_id" id="complaintRequestId">
-                    <div class="mb-3">
-                        <label class="form-label">موضوع الشكوى</label>
-                        <input type="text" class="form-control" name="subject" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">تفاصيل الشكوى</label>
-                        <textarea class="form-control" name="details" rows="3" required></textarea>
+                        <div class="mb-3">
+                            <label class="form-label">موضوع الشكوى</label>
+                            <input type="text" class="form-control" name="complaint_subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">وصف الشكوى</label>
+                        <textarea class="form-control" name="complaint_description" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">الأولوية</label>
+                            <select class="form-select" name="complaint_priority">
+                                <option value="low">منخفضة</option>
+                                <option value="medium" selected>متوسطة</option>
+                                <option value="high">عالية</option>
+                            </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -428,6 +445,29 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
     .map-container {
         height: 250px;
     }
+}
+
+.rating-stars {
+    direction: ltr;
+}
+.rating-stars .stars {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+.rating-stars input[type="radio"] {
+    display: none;
+}
+.rating-stars label {
+    cursor: pointer;
+    font-size: 30px;
+    color: #ddd;
+    transition: all 0.2s ease;
+}
+.rating-stars label:hover,
+.rating-stars label:hover ~ label,
+.rating-stars input[type="radio"]:checked ~ label {
+    color: #ffd700;
 }
 </style>
 
@@ -764,4 +804,273 @@ document.addEventListener('click', function(e) {
         });
     }
 });
+
+// دالة للتحكم في ظقل التكلفة الإجمالية
+function toggleTotalCost(paymentMethod) {
+    const totalCostInput = document.querySelector('[name="total_cost"]');
+    if (paymentMethod === 'cash') {
+        totalCostInput.value = '';  // Reset value for cash payments
+        totalCostInput.readOnly = false;  // Allow editing for cash payments
+    } else {
+        totalCostInput.value = '0';  // Set to 0 for non-cash payments
+        totalCostInput.readOnly = true;  // Prevent editing for non-cash payments
+    }
+}
+
+// تهيئة حالة حقل التكلفة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    const paymentMethod = document.querySelector('[name="payment_method"]');
+    if (paymentMethod) {
+    toggleTotalCost(paymentMethod.value);
+    }
+});
+
+// تحديث حالة حقل التكلفة في نموذج التعديل
+document.getElementById('editOrderModal').addEventListener('shown.bs.modal', function() {
+    const editPaymentMethod = document.getElementById('edit_payment_method');
+    const editTotalCostInput = document.getElementById('edit_total_cost');
+    
+    editPaymentMethod.addEventListener('change', function() {
+        if (this.value === 'cash') {
+            editTotalCostInput.value = '';  // Reset value for cash payments
+            editTotalCostInput.readOnly = false;  // Allow editing for cash payments
+        } else {
+            editTotalCostInput.value = '0';  // Set to 0 for non-cash payments
+            editTotalCostInput.readOnly = true;  // Prevent editing for non-cash payments
+        }
+    });
+    
+    // تهيئة الحالة الأولية
+    if (editPaymentMethod.value === 'cash') {
+        editTotalCostInput.readOnly = false;  // Allow editing for cash payments
+    } else {
+        editTotalCostInput.value = '0';  // Set to 0 for non-cash payments
+        editTotalCostInput.readOnly = true;  // Prevent editing for non-cash payments
+    }
+});
+
+// Rating form submission
+document.getElementById('rateDriverForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const rating = this.querySelector('input[name="rating"]:checked');
+    if (!rating) {
+        showAlert('الرجاء اختيار تقييم', 'danger');
+        return;
+    }
+    
+    const formData = new FormData(this);
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    
+    console.log('Sending rating data:', Object.fromEntries(formData));
+    
+    fetch('ajax/submit_rating.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.text().then(text => {
+            console.log('Raw response:', text);
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                console.error('Failed to parse response:', text);
+                throw new Error('خطأ في استجابة الخادم');
+            }
+        });
+    })
+    .then(data => {
+        console.log('Response data:', data);
+        if (data.success) {
+            // First hide the modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('rateDriverModal'));
+            if (modal) {
+                modal.hide();
+            }
+            
+            // Then reset the form
+            this.reset();
+            
+            // Show the alert
+            showAlert(data.message || 'تم إرسال التقييم بنجاح', 'success');
+            
+            // Wait a bit longer before reloading to ensure alert is visible
+            setTimeout(() => location.reload(), 2000);
+        } else {
+            // Show the specific error message from the server
+            showAlert(data.message || 'حدث خطأ أثناء إرسال التقييم', 'danger');
+            submitBtn.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.error('Error details:', error);
+        showAlert(error.message || 'حدث خطأ في الاتصال بالخادم', 'danger');
+        submitBtn.disabled = false;
+    });
+});
+
+// Complaint form submission
+document.getElementById('complaintForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const subject = this.querySelector('input[name="complaint_subject"]').value.trim();
+    const description = this.querySelector('textarea[name="complaint_description"]').value.trim();
+    const requestId = document.getElementById('complaint_request_id').value;
+    const driverId = document.getElementById('complaint_driver_id').value;
+    
+    if (!subject || !description) {
+        showAlert('خطأ', 'الرجاء ملء جميع الحقول المطلوبة');
+        return;
+    }
+    
+    if (!requestId || !driverId) {
+        showAlert('خطأ', 'بيانات الطلب غير مكتملة');
+        return;
+    }
+    
+    const formData = new FormData(this);
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    
+    console.log('Sending complaint data:', {
+        request_id: requestId,
+        driver_id: driverId,
+        subject: subject,
+        description: description,
+        priority: formData.get('complaint_priority')
+    });
+    
+    fetch('ajax/submit_complaint.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.text().then(text => {
+            console.log('Raw response:', text);
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                console.error('Failed to parse response:', text);
+                throw new Error('خطأ في استجابة الخادم');
+            }
+        });
+    })
+    .then(data => {
+        console.log('Response data:', data);
+        if (data.success) {
+            // First hide the modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('complaintModal'));
+            if (modal) {
+                modal.hide();
+            }
+            
+            // Then reset the form
+            this.reset();
+            
+            // Show the alert
+            showAlert(data.message || 'تم إرسال الشكوى بنجاح', 'success');
+            
+            // Wait a bit longer before reloading to ensure alert is visible
+            setTimeout(() => location.reload(), 2000);
+        } else {
+            // Show the specific error message from the server
+            showAlert('خطأ', data.message || 'حدث خطأ أثناء إرسال الشكوى');
+            submitBtn.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.error('Error details:', error);
+        showAlert('خطأ', error.message || 'حدث خطأ في الاتصال بالخادم');
+        submitBtn.disabled = false;
+    });
+});
+
+// Function to show alerts
+function showAlert(message, type = 'success') {
+    // Create alert container if it doesn't exist
+    let alertContainer = document.getElementById('alertContainer');
+    if (!alertContainer) {
+        alertContainer = document.createElement('div');
+        alertContainer.id = 'alertContainer';
+        alertContainer.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            width: 90%;
+            max-width: 500px;
+        `;
+        document.body.appendChild(alertContainer);
+    }
+
+    // Remove any existing alerts
+    const existingAlerts = alertContainer.querySelectorAll('.alert');
+    existingAlerts.forEach(alert => alert.remove());
+
+    // Create new alert
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.style.cssText = `
+        text-align: right;
+        direction: rtl;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        margin-bottom: 10px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    `;
+
+    // Add appropriate icon based on type
+    let icon = '';
+    switch (type) {
+        case 'success':
+            icon = '<i class="bi bi-check-circle-fill me-2"></i>';
+            break;
+        case 'danger':
+            icon = '<i class="bi bi-exclamation-circle-fill me-2"></i>';
+            break;
+        case 'warning':
+            icon = '<i class="bi bi-exclamation-triangle-fill me-2"></i>';
+            break;
+        case 'info':
+            icon = '<i class="bi bi-info-circle-fill me-2"></i>';
+            break;
+    }
+
+    alertDiv.innerHTML = `
+        <div style="display: flex; align-items: center;">
+            ${icon}
+            <div style="flex-grow: 1; margin: 0 10px;">${message}</div>
+        </div>
+        <button type="button" class="btn-close" style="margin-right: 10px;" onclick="this.parentElement.remove()"></button>
+    `;
+
+    // Add alert to container
+    alertContainer.appendChild(alertDiv);
+
+    // Force a reflow to ensure the animation plays
+    alertDiv.offsetHeight;
+
+    // Show the alert
+    alertDiv.style.opacity = '1';
+
+    // Auto hide after 5 seconds
+    setTimeout(() => {
+        alertDiv.style.opacity = '0';
+        setTimeout(() => alertDiv.remove(), 300);
+
+        // Remove container if empty
+        if (alertContainer.children.length === 0) {
+            alertContainer.remove();
+        }
+    }, 5000);
+}
 </script>

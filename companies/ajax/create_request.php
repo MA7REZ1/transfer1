@@ -21,7 +21,7 @@ $required_fields = [
     'pickup_location' => 'موقع الاستلام',
     'delivery_location' => 'موقع التوصيل',
     'items_count' => 'عدد القطع',
-    'total_cost' => 'التكلفة الإجمالية',
+  
     'payment_method' => 'طريقة الدفع'
 ];
 

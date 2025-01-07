@@ -199,5 +199,88 @@
             color: #6c757d;
             font-size: 0.875rem;
         }
+          .alert-float {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 300px;
+            z-index: 9999;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.5s ease-out;
+            display: none;
+        }
+        .alert-float.show {
+            display: block;
+        }
+
+        .alert-float .close-btn {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .alert-float .close-btn:hover {
+            opacity: 1;
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .highlight-update {
+            animation: highlightRow 2s ease-in-out;
+        }
+
+        @keyframes highlightRow {
+            0% { background-color: #fff; }
+            50% { background-color: #e3f2fd; }
+            100% { background-color: #fff; }
+        }
+
+        .invalid-feedback {
+            display: block;
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 0.25rem;
+        }
+
+        .alert-float {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>

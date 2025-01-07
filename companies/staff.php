@@ -41,32 +41,103 @@ if (isset($_POST['toggle_status']) && isset($_POST['staff_id'])) {
 
 // Generate new password if requested
 if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
-    // Get company name for password
-    $stmt = $conn->prepare("SELECT name FROM companies WHERE id = ?");
-    $stmt->execute([$company_id]);
-    $company = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    $new_password = $company['name']; // Use company name as password
-    $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-    
-    $stmt = $conn->prepare("UPDATE company_staff SET password = ? WHERE id = ? AND company_id = ?");
-    $stmt->execute([$hashed_password, $_POST['staff_id'], $company_id]);
-    
-    // Get staff info
-    $stmt = $conn->prepare("SELECT name, email, phone FROM company_staff WHERE id = ? AND company_id = ?");
-    $stmt->execute([$_POST['staff_id'], $company_id]);
-    $staff_info = $stmt->fetch();
-    
-    $_SESSION['temp_password'] = [
-        'staff_id' => $_POST['staff_id'],
-        'password' => $new_password,
-        'name' => $staff_info['name'],
-        'email' => $staff_info['email'],
-        'phone' => $staff_info['phone']
-    ];
-    
-    header("Location: staff.php?success=تم تحديث كلمة المرور بنجاح");
-    exit();
+    try {
+        error_log("Starting password reset for staff ID: {$_POST['staff_id']}");
+        
+        // Get company name for password
+        $stmt = $conn->prepare("SELECT name FROM companies WHERE id = ?");
+        $stmt->execute([$company_id]);
+        $company = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$company) {
+            error_log("Company not found for ID: {$company_id}");
+            throw new Exception('Company not found');
+        }
+        
+        // Debug company info
+        error_log("Company found: " . print_r($company, true));
+        
+        // Generate a simple password using company name
+        $new_password = $company['name']; // Use company name without trimming
+        
+        // Debug password info
+        error_log("New password: " . $new_password);
+        
+        // Hash the password with default options
+        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        error_log("Generated hash: " . $hashed_password);
+        
+        // Test password verification immediately
+        $verify_test = password_verify($new_password, $hashed_password);
+        error_log("Initial hash verification test: " . ($verify_test ? "SUCCESS" : "FAILED"));
+        
+        if (!$verify_test) {
+            throw new Exception('Password hash verification failed');
+        }
+        
+        // Update password in database
+        $stmt = $conn->prepare("UPDATE company_staff SET password = ? WHERE id = ? AND company_id = ?");
+        $result = $stmt->execute([$hashed_password, $_POST['staff_id'], $company_id]);
+        
+        if (!$result) {
+            error_log("Database update failed");
+            throw new Exception('Failed to update password in database');
+        }
+        
+        if ($stmt->rowCount() === 0) {
+            error_log("No rows updated. Staff ID: {$_POST['staff_id']}, Company ID: {$company_id}");
+            throw new Exception('No staff member was updated');
+        }
+        
+        // Verify the password was saved correctly
+        $verify_stmt = $conn->prepare("SELECT password FROM company_staff WHERE id = ? AND company_id = ?");
+        $verify_stmt->execute([$_POST['staff_id'], $company_id]);
+        $saved_data = $verify_stmt->fetch();
+        
+        if (!$saved_data) {
+            throw new Exception('Could not verify saved password');
+        }
+        
+        $final_verify = password_verify($new_password, $saved_data['password']);
+        error_log("Final verification test: " . ($final_verify ? "SUCCESS" : "FAILED"));
+        
+        if (!$final_verify) {
+            throw new Exception('Saved password verification failed');
+        }
+        
+        // Get staff info for session
+        $stmt = $conn->prepare("SELECT name, email, phone FROM company_staff WHERE id = ? AND company_id = ?");
+        $stmt->execute([$_POST['staff_id'], $company_id]);
+        $staff_info = $stmt->fetch();
+        
+        if (!$staff_info) {
+            throw new Exception('Staff member not found');
+        }
+        
+        // Store password temporarily
+        $_SESSION['temp_password'] = [
+            'staff_id' => $_POST['staff_id'],
+            'password' => $new_password,
+            'name' => $staff_info['name'],
+            'email' => $staff_info['email'],
+            'phone' => $staff_info['phone']
+        ];
+        
+        // Log success
+        error_log("Password reset successful");
+        error_log("Staff info: " . print_r($staff_info, true));
+        error_log("New password: " . $new_password);
+        
+        // Redirect with success message
+        header("Location: staff.php?success=تم تحديث كلمة المرور بنجاح&staff_id={$_POST['staff_id']}&new_password=" . urlencode($new_password));
+        exit();
+        
+    } catch (Exception $e) {
+        error_log("Password reset error: " . $e->getMessage());
+        error_log("Stack trace: " . $e->getTraceAsString());
+        header("Location: staff.php?error=حدث خطأ أثناء تحديث كلمة المرور: " . urlencode($e->getMessage()));
+        exit();
+    }
 }
 ?>
 
@@ -345,6 +416,120 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
         .navbar-nav .nav-link.active {
             background: rgba(255, 255, 255, 0.2);
             color: white !important;
+        }
+
+        /* Alert Styles */
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 400px;
+            max-width: 90%;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: slideDown 0.5s ease-out forwards;
+            font-size: 1rem;
+            line-height: 1.5;
+            direction: rtl;
+        }
+
+        .custom-alert.error {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+        }
+
+        .custom-alert .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .custom-alert i {
+            font-size: 1.5rem;
+            margin-left: 0.5rem;
+        }
+
+        .custom-alert .alert-message {
+            flex: 1;
+            padding-left: 1rem;
+        }
+
+        .custom-alert .close-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+            margin-right: 1rem;
+        }
+
+        .custom-alert .close-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .custom-alert .password-display {
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            font-family: monospace;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .custom-alert .copy-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .custom-alert .copy-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translate(-50%, -100%);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+            to {
+                opacity: 0;
+                transform: translate(-50%, -20px);
+            }
         }
     </style>
 </head>
@@ -650,7 +835,7 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
                                                                             } elseif (isset($_SESSION['new_staff']) && $_SESSION['new_staff']['staff_id'] == $staff['id']) {
                                                                                 echo htmlspecialchars($_SESSION['new_staff']['password']);
                                                                             } else {
-                                                                                echo htmlspecialchars($staff['password']);
+                                                                                echo htmlspecialchars($company['name']);
                                                                             }
                                                                          ?>')">
                                                 <i class="bi bi-clipboard"></i> نسخ البيانات
@@ -686,7 +871,7 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
                                                 </button>
                                             </form>
                                             <form method="post" class="d-inline" 
-                                                  onsubmit="return showPasswordResetWarning();">
+                                                  onsubmit="return confirmPasswordReset();">
                                                 <input type="hidden" name="staff_id" value="<?php echo $staff['id']; ?>">
                                                 <button type="submit" name="reset_password" class="btn btn-reset" title="إعادة تعيين كلمة المرور">
                                                     <i class="bi bi-key"></i>
@@ -813,7 +998,12 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function showStaffInfo(name, email, phone, password = '') {
-            const loginUrl = window.location.origin + '../companies/staff_login.php';
+            const loginUrl = window.location.origin + '/companies/staff_login.php';
+            // إذا كانت كلمة المرور تحتوي على $ (علامة الهاش)، نستخدم اسم الشركة كبديل
+            if (password.includes('$')) {
+                password = '<?php echo htmlspecialchars($company['name']); ?>';
+            }
+            
             let infoText = 
                 `معلومات الحساب:\n` +
                 `------------------\n` +
@@ -844,72 +1034,65 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
         document.getElementById('overlay').addEventListener('click', hideStaffInfo);
 
         // دالة لعرض التنبيه
-        function showAlert(message) {
-            const alert = document.getElementById('alertFloat');
-            const messageElement = document.getElementById('alertMessage');
-            messageElement.textContent = message;
-            alert.classList.add('show');
+        function showAlert(message, type = 'success') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `custom-alert ${type}`;
             
-            // إخفاء التنبيه تلقائياً بعد 3 ثواني
-            setTimeout(() => {
-                hideAlert();
-            }, 3000);
-        }
-
-        // دالة لإخفاء التنبيه
-        function hideAlert() {
-            const alert = document.getElementById('alertFloat');
-            alert.classList.remove('show');
-        }
-
-        // إضافة مستمع للنموذج
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // إرسال النموذج باستخدام Fetch API
-                    fetch(form.action, {
-                        method: 'POST',
-                        body: new FormData(form)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            showAlert(data.message);
-                            form.reset();
-                            // تحديث الجدول إذا لزم الأمر
-                            setTimeout(() => {
-                                location.reload();
-                            }, 3000);
-                        } else {
-                            showAlert(data.message || 'حدث خطأ ما');
-                        }
-                    })
-                    .catch(error => {
-                        showAlert('حدث خطأ في إرسال البيانات');
-                    });
-                });
+            // إذا كانت الرسالة تحتوي على كلمة مرور
+            if (message.includes('كلمة المرور الجديدة')) {
+                const [title, ...rest] = message.split('كلمة المرور الجديدة هي:');
+                const password = rest.join('').split('يرجى')[0].trim();
+                
+                alertDiv.innerHTML = `
+                    <div class="alert-content">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <div class="alert-message">
+                            ${title}
+                            <div class="password-display">
+                                <span>${password}</span>
+                                <button class="copy-btn" onclick="copyPassword('${password}')">
+                                    <i class="bi bi-clipboard"></i> نسخ
+                                </button>
+                            </div>
+                            <div>يرجى حفظ كلمة المرور في مكان آمن</div>
+                        </div>
+                    </div>
+                    <button class="close-btn" onclick="closeAlert(this)">
+                        <i class="bi bi-x"></i>
+                    </button>
+                `;
+            } else {
+                alertDiv.innerHTML = `
+                    <div class="alert-content">
+                        <i class="bi bi-${type === 'success' ? 'check-circle-fill' : 'exclamation-circle-fill'}"></i>
+                        <div class="alert-message">${message}</div>
+                    </div>
+                    <button class="close-btn" onclick="closeAlert(this)">
+                        <i class="bi bi-x"></i>
+                    </button>
+                `;
             }
-        });
-
-        let currentForm = null;
-        const passwordResetModal = new bootstrap.Modal(document.getElementById('passwordResetModal'));
-
-        function showPasswordResetWarning() {
-            currentForm = event.target;
-            event.preventDefault();
-            passwordResetModal.show();
-            return false;
+            
+            document.body.appendChild(alertDiv);
         }
 
-        document.getElementById('confirmResetBtn').addEventListener('click', function() {
-            if (currentForm) {
-                passwordResetModal.hide();
-                currentForm.submit();
-            }
-        });
+        // دالة إغلاق التنبيه
+        function closeAlert(button) {
+            const alertDiv = button.closest('.custom-alert');
+            alertDiv.style.animation = 'fadeOut 0.5s ease-out forwards';
+            setTimeout(() => alertDiv.remove(), 500);
+        }
+
+        // دالة نسخ كلمة المرور
+        function copyPassword(password) {
+            navigator.clipboard.writeText(password).then(() => {
+                const copyBtn = event.target.closest('.copy-btn');
+                copyBtn.innerHTML = '<i class="bi bi-check"></i> تم النسخ';
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="bi bi-clipboard"></i> نسخ';
+                }, 2000);
+            });
+        }
 
         // عند نجاح تغيير كلمة المرور
         <?php if (isset($_SESSION['temp_password'])): ?>
@@ -949,18 +1132,27 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
                     bootstrap.Modal.getInstance(document.getElementById('editStaffModal')).hide();
                     // عرض رسالة النجاح
                     showAlert(data.message || 'تم تحديث بيانات الموظف بنجاح');
-                    // إعادة تحميل الصفحة بعد 3 ثواني
-                    setTimeout(() => {
-                        location.reload();
-                    }, 3000);
                 } else {
-                    showAlert(data.message || 'حدث خطأ أثناء تحديث بيانات الموظف');
+                    showAlert(data.message || 'حدث خطأ أثناء تحديث بيانات الموظف', 'error');
                 }
             })
             .catch(error => {
-                showAlert('حدث خطأ في إرسال البيانات');
+                showAlert('حدث خطأ في إرسال البيانات', 'error');
             });
         });
+
+        function confirmPasswordReset() {
+            return confirm('هل أنت متأكد من تغيير كلمة المرور؟ سيتم تعيين كلمة المرور الجديدة إلى اسم الشركة.');
+        }
+
+        // إذا كان هناك رسالة نجاح مع كلمة مرور جديدة
+        <?php if (isset($_GET['success']) && isset($_GET['new_password'])): ?>
+        window.onload = function() {
+            showAlert(`تم تغيير كلمة المرور بنجاح
+                     كلمة المرور الجديدة هي: <?php echo htmlspecialchars($_GET['new_password']); ?>
+                     يرجى حفظ كلمة المرور في مكان آمن`);
+        };
+        <?php endif; ?>
     </script>
 </body>
 </html>

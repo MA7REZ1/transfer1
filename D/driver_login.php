@@ -1,9 +1,14 @@
 <?php
-if (!file_exists('driver_auth.php')) {
-    die('ملف driver_auth.php غير موجود');
-}
 require_once 'config.php';
 require_once 'driver_auth.php';
+
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Initialize DriverAuth class
+$driverAuth = new DriverAuth($conn);
 
 // إضافة رسائل تصحيح الأخطاء
 error_reporting(E_ALL);
@@ -12,18 +17,35 @@ ini_set('display_errors', 1);
 // اختبار اتصال قاعدة البيانات
 try {
     $testConnection = $conn->query('SELECT 1');
-    // echo "اتصال قاعدة البيانات يعمل بنجاح";
 } catch (PDOException $e) {
     die("خطأ في الاتصال بقاعدة البيانات: " . $e->getMessage());
 }
 
 // Redirect if already logged in
-if (isDriverLoggedIn()) {
+if ($driverAuth->isDriverLoggedIn()) {
     header('Location: driver_dashboard.php');
     exit;
 }
 
 $error = '';
+$success = '';
+$pending_orders = 0;
+
+// Get pending orders count
+try {
+    $stmt = $conn->prepare("
+        SELECT COUNT(*) as count 
+        FROM requests 
+        WHERE status = 'pending' 
+        AND driver_id IS NULL
+        AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+    ");
+    $stmt->execute();
+    $result = $stmt->fetch();
+    $pending_orders = $result['count'];
+} catch (PDOException $e) {
+    error_log("Error getting pending orders: " . $e->getMessage());
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
@@ -32,18 +54,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($email) || empty($password)) {
         $error = "الرجاء إدخال البريد الإلكتروني وكلمة المرور";
     } else {
-        // إضافة رسائل تصحيح الأخطاء لتتبع عملية المصادقة
         try {
-            if (authenticateDriver($email, $password)) {
+            $result = $driverAuth->authenticateDriver($email, $password);
+            if ($result['success']) {
+                // Set success message in session
+                $_SESSION['success_message'] = 'تم تسجيل الدخول بنجاح';
                 header('Location: driver_dashboard.php');
                 exit;
             } else {
-                $error = "بيانات الدخول غير صحيحة";
+                $error = $result['message'];
+                // Log failed attempt
+                error_log("Failed login attempt for email: $email");
             }
         } catch (Exception $e) {
-            $error = "حدث خطأ في المصادقة: " . $e->getMessage();
+            error_log("Login error: " . $e->getMessage());
+            $error = "حدث خطأ في تسجيل الدخول. الرجاء المحاولة مرة أخرى";
         }
     }
+}
+
+// Clear any existing error messages
+if (isset($_SESSION['error_message'])) {
+    unset($_SESSION['error_message']);
 }
 ?>
 <!DOCTYPE html>
@@ -119,6 +151,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 1.75rem;
             font-weight: 600;
             margin: 0;
+        }
+
+        .orders-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-weight: 500;
+        }
+
+        .orders-badge i {
+            margin-left: 0.5rem;
         }
 
         .form-control {
@@ -224,6 +270,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 font-size: 1.5rem;
             }
         }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
     </style>
 </head>
 <body>
@@ -232,15 +288,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <i class="fas fa-car"></i>
             <h2>تسجيل دخول السائق</h2>
             <p class="text-muted">مرحباً بك في نظام إدارة التوصيل</p>
+            <?php if ($pending_orders > 0): ?>
+                <div class="orders-badge pulse">
+                    <i class="fas fa-bell"></i>
+                    يوجد <?php echo $pending_orders; ?> طلب جديد في انتظار التوصيل
+                </div>
+            <?php endif; ?>
         </div>
         
-        <?php if (!empty($error)): ?>
-            <div class="alert alert-danger">
+        <?php if ($error): ?>
+            <div class="alert alert-danger" role="alert">
                 <?php echo htmlspecialchars($error); ?>
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="" id="loginForm">
+        <?php if (!empty($success)): ?>
+            <div class="alert alert-success">
+                <?php echo htmlspecialchars($success); ?>
+            </div>
+        <?php endif; ?>
+
+        <form method="POST" action="" id="loginForm" autocomplete="off">
             <div class="input-group">
                 <i class="fas fa-envelope input-icon"></i>
                 <input type="email" 
@@ -248,9 +316,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        id="email" 
                        name="email" 
                        placeholder="البريد الإلكتروني"
+                       value="<?php echo htmlspecialchars($email ?? ''); ?>"
                        required>
             </div>
-
             <div class="input-group">
                 <i class="fas fa-lock input-icon"></i>
                 <input type="password" 
@@ -263,37 +331,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <i class="fas fa-eye"></i>
                 </button>
             </div>
-
-            <button type="submit" class="btn btn-login" id="submitBtn">
+            <button type="submit" class="btn btn-login">
                 <i class="fas fa-sign-in-alt me-2"></i>
-                دخول
+                تسجيل الدخول
             </button>
         </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function togglePassword() {
             const passwordInput = document.getElementById('password');
-            const icon = document.querySelector('.password-toggle i');
+            const toggleButton = document.querySelector('.password-toggle i');
             
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
+                toggleButton.classList.remove('fa-eye');
+                toggleButton.classList.add('fa-eye-slash');
             } else {
                 passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
+                toggleButton.classList.remove('fa-eye-slash');
+                toggleButton.classList.add('fa-eye');
             }
         }
 
-        // Add loading state to submit button
-        document.getElementById('loginForm').addEventListener('submit', function() {
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> جاري التحقق...';
-            submitBtn.disabled = true;
-        });
+        // Prevent form resubmission on page refresh
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        // Auto-refresh pending orders count every minute
+        setInterval(function() {
+            fetch('check_pending_orders.php')
+                .then(response => response.json())
+                .then(data => {
+                    const badge = document.querySelector('.orders-badge');
+                    if (data.count > 0) {
+                        if (!badge) {
+                            location.reload();
+                        }
+                    } else {
+                        if (badge) {
+                            badge.remove();
+                        }
+                    }
+                });
+        }, 60000);
     </script>
 </body>
 </html>

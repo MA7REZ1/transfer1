@@ -34,6 +34,10 @@ function isLoggedIn() {
     return isset($_SESSION['admin_id']);
 }
 
+function isDriverLoggedIn() {
+    return isset($_SESSION['driver_id']) && !empty($_SESSION['driver_id']);
+}
+
 function hasPermission($requiredRole) {
     return $_SESSION['admin_role'] === $requiredRole || $_SESSION['admin_role'] === 'super_admin';
 }

@@ -1,47 +1,46 @@
 <?php
-if (!file_exists('driver_auth.php')) {
-    die('ملف driver_auth.php غير موجود');
-}
-require_once 'config.php';
-require_once 'driver_auth.php';
+require_once '../config.php';
 
-// إضافة رسائل تصحيح الأخطاء
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
-// اختبار اتصال قاعدة البيانات
-try {
-    $testConnection = $conn->query('SELECT 1');
-    // echo "اتصال قاعدة البيانات يعمل بنجاح";
-} catch (PDOException $e) {
-    die("خطأ في الاتصال بقاعدة البيانات: " . $e->getMessage());
-}
-
-// Redirect if already logged in
-if (isDriverLoggedIn()) {
-    header('Location: driver_dashboard.php');
-    exit;
-}
-
-$error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $error = '';
+    
     $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'] ?? '';
     
     if (empty($email) || empty($password)) {
         $error = "الرجاء إدخال البريد الإلكتروني وكلمة المرور";
     } else {
-        // إضافة رسائل تصحيح الأخطاء لتتبع عملية المصادقة
         try {
-            if (authenticateDriver($email, $password)) {
-                header('Location: driver_dashboard.php');
+            $stmt = $conn->prepare("SELECT * FROM drivers WHERE email = ? AND is_active = 1");
+            $stmt->execute([$email]);
+            $driver = $stmt->fetch();
+            
+            if ($driver && password_verify($password, $driver['password'])) {
+                session_regenerate_id(true);
+                $_SESSION['driver_id'] = $driver['id'];
+                $_SESSION['driver_username'] = $driver['username'];
+                
+                // Update last login time
+                $stmt = $conn->prepare("UPDATE drivers SET last_login = CURRENT_TIMESTAMP WHERE id = ?");
+                $stmt->execute([$driver['id']]);
+                
+                // Log successful login
+                $stmt = $conn->prepare("INSERT INTO activity_log (driver_id, action, details) VALUES (?, 'login_success', 'Driver logged in successfully')");
+                $stmt->execute([$driver['id']]);
+                
+                header('Location: orders.php');
                 exit;
             } else {
+                // Log failed login attempt
+                $stmt = $conn->prepare("INSERT INTO activity_log (driver_id, action, details) VALUES (NULL, 'login_failed', ?)");
+                $stmt->execute(['Failed login attempt for email: ' . $email]);
+                
                 $error = "بيانات الدخول غير صحيحة";
             }
-        } catch (Exception $e) {
-            $error = "حدث خطأ في المصادقة: " . $e->getMessage();
+        } catch (PDOException $e) {
+            $error = "حدث خطأ في النظام";
         }
     }
 }
@@ -51,7 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل دخول السائق</title>
+    <meta name="description" content="لوحة تحكم الإدارة">
+    <title>تسجيل الدخول</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <style>
@@ -121,6 +121,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 0;
         }
 
+        .form-label {
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
         .form-control {
             border-radius: 8px;
             padding: 0.75rem 1rem;
@@ -133,22 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        .input-group {
+        .password-wrapper {
             position: relative;
-            margin-bottom: 1.5rem;
-        }
-
-        .input-icon {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #64748b;
-        }
-
-        .form-control {
-            padding-right: 2.5rem;
-            padding-left: 2.5rem;
         }
 
         .password-toggle {
@@ -178,6 +170,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 8px;
             color: white;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-login:hover {
@@ -224,19 +218,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 font-size: 1.5rem;
             }
         }
+
+        .form-floating {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+
+        .form-control {
+            padding-right: 2.5rem;
+            padding-left: 2.5rem;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
         <div class="login-logo">
-            <i class="fas fa-car"></i>
-            <h2>تسجيل دخول السائق</h2>
-            <p class="text-muted">مرحباً بك في نظام إدارة التوصيل</p>
+            <i class="fas fa-user-shield"></i>
+            <h2>تسجيل الدخول</h2>
+            <p class="text-muted">مرحباً بك في لوحة التحكم</p>
         </div>
         
         <?php if (!empty($error)): ?>
             <div class="alert alert-danger">
-                <?php echo htmlspecialchars($error); ?>
+                <?php echo sanitizeInput($error); ?>
             </div>
         <?php endif; ?>
 
@@ -294,6 +311,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> جاري التحقق...';
             submitBtn.disabled = true;
         });
+
+        // Add floating label effect
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.parentElement.classList.remove('focused');
+                }
+            });
+        });
     </script>
 </body>
-</html>
+</html> 

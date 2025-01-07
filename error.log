@@ -780,3 +780,2066 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in C:\xampp\htdocs\proo\Drivers\driver_profile.php on line 3
+[06-Jan-2025 21:11:22 Asia/Riyadh] Login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:11:22 Asia/Riyadh] Failed login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:11:22 Asia/Riyadh] Password verification failed for staff ID: 2
+[06-Jan-2025 21:11:34 Asia/Riyadh] Login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:11:34 Asia/Riyadh] Failed login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:11:34 Asia/Riyadh] Password verification failed for staff ID: 2
+[06-Jan-2025 21:12:09 Asia/Riyadh] Login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:12:09 Asia/Riyadh] Failed login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:12:09 Asia/Riyadh] Password verification failed for staff ID: 2
+[06-Jan-2025 21:12:19 Asia/Riyadh] Login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:12:19 Asia/Riyadh] Failed login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:12:19 Asia/Riyadh] Password verification failed for staff ID: 2
+[06-Jan-2025 21:23:36 Asia/Riyadh] Login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:23:36 Asia/Riyadh] Failed login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:23:36 Asia/Riyadh] Password verification failed for staff ID: 2
+[06-Jan-2025 21:30:45 Asia/Riyadh] Login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:30:45 Asia/Riyadh] Failed login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:30:45 Asia/Riyadh] Password verification failed for staff ID: 2
+[06-Jan-2025 21:30:53 Asia/Riyadh] Login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:30:53 Asia/Riyadh] Failed login attempt for email: ahmed@gmail.com
+[06-Jan-2025 21:30:53 Asia/Riyadh] Password verification failed for staff ID: 2
+[06-Jan-2025 21:53:00 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 21:53:00 Asia/Riyadh] Password length: 6
+[06-Jan-2025 21:53:00 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 21:53:00 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 21:53:00 Asia/Riyadh] Stored password hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 21:53:00 Asia/Riyadh] Attempting password verification...
+[06-Jan-2025 21:53:01 Asia/Riyadh] Password verification result: false
+[06-Jan-2025 21:53:01 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 21:53:01 Asia/Riyadh] Provided password: 123456
+[06-Jan-2025 21:53:01 Asia/Riyadh] Stored hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 21:53:09 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 21:53:09 Asia/Riyadh] Password length: 6
+[06-Jan-2025 21:53:09 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 21:53:09 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 21:53:09 Asia/Riyadh] Stored password hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 21:53:09 Asia/Riyadh] Attempting password verification...
+[06-Jan-2025 21:53:09 Asia/Riyadh] Password verification result: false
+[06-Jan-2025 21:53:10 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 21:53:10 Asia/Riyadh] Provided password: 123456
+[06-Jan-2025 21:53:10 Asia/Riyadh] Stored hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 21:55:13 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 21:55:13 Asia/Riyadh] Password length: 6
+[06-Jan-2025 21:55:13 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 21:55:13 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 21:55:13 Asia/Riyadh] Stored password hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 21:55:13 Asia/Riyadh] Attempting password verification...
+[06-Jan-2025 21:55:13 Asia/Riyadh] Password verification result: false
+[06-Jan-2025 21:55:14 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 21:55:14 Asia/Riyadh] Provided password: ma7rez
+[06-Jan-2025 21:55:14 Asia/Riyadh] Stored hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 22:03:36 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 22:03:36 Asia/Riyadh] Password: ةش7قثئ
+[06-Jan-2025 22:03:36 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 22:03:36 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 22:03:36 Asia/Riyadh] Stored hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 22:03:36 Asia/Riyadh] Attempting verification with password: ةش7قثئ
+[06-Jan-2025 22:03:37 Asia/Riyadh] Password verification result: FAILED
+[06-Jan-2025 22:03:37 Asia/Riyadh] Password verification failed
+[06-Jan-2025 22:03:37 Asia/Riyadh] Input password: ةش7قثئ
+[06-Jan-2025 22:03:37 Asia/Riyadh] Stored hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 22:03:37 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 22:03:43 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 22:03:43 Asia/Riyadh] Password: ma7rez
+[06-Jan-2025 22:03:43 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 22:03:43 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 22:03:43 Asia/Riyadh] Stored hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 22:03:43 Asia/Riyadh] Attempting verification with password: ma7rez
+[06-Jan-2025 22:03:43 Asia/Riyadh] Password verification result: FAILED
+[06-Jan-2025 22:03:43 Asia/Riyadh] Password verification failed
+[06-Jan-2025 22:03:43 Asia/Riyadh] Input password: ma7rez
+[06-Jan-2025 22:03:43 Asia/Riyadh] Stored hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 22:03:43 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 22:11:32 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 22:11:32 Asia/Riyadh] Password: ةش7قثئ
+[06-Jan-2025 22:11:32 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 22:11:32 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 22:11:32 Asia/Riyadh] Stored hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 22:11:32 Asia/Riyadh] Attempting verification with password: ةش7قثئ
+[06-Jan-2025 22:11:32 Asia/Riyadh] Password verification result: FAILED
+[06-Jan-2025 22:11:32 Asia/Riyadh] Password verification failed
+[06-Jan-2025 22:11:32 Asia/Riyadh] Input password: ةش7قثئ
+[06-Jan-2025 22:11:32 Asia/Riyadh] Stored hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 22:11:32 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 22:11:34 Asia/Riyadh] Login attempt failed: Empty email or password
+[06-Jan-2025 22:11:57 Asia/Riyadh] Starting password reset for staff ID: 2
+[06-Jan-2025 22:11:57 Asia/Riyadh] Company found: Array
+(
+    [name] => ma7rez
+)
+
+[06-Jan-2025 22:11:57 Asia/Riyadh] New password: ma7rez
+[06-Jan-2025 22:11:57 Asia/Riyadh] Generated hash: $2y$10$JqNrCMComZVWzijEg1kdQuZMYWs6Sbd2vbEhll1ntZv3NBTnA0D82
+[06-Jan-2025 22:11:58 Asia/Riyadh] Initial hash verification test: SUCCESS
+[06-Jan-2025 22:11:58 Asia/Riyadh] Password reset successful
+[06-Jan-2025 22:11:58 Asia/Riyadh] Staff info: Array
+(
+    [name] => ahmed mahrez
+    [email] => ahmed@gmail.com
+    [phone] => 01011965099
+)
+
+[06-Jan-2025 22:11:58 Asia/Riyadh] New password: ma7rez
+[06-Jan-2025 22:12:12 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 22:12:12 Asia/Riyadh] Password: ةش7قثئ
+[06-Jan-2025 22:12:12 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 22:12:12 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 22:12:12 Asia/Riyadh] Stored hash: $2y$10$JqNrCMComZVWzijEg1kdQuZMYWs6Sbd2vbEhll1ntZv3NBTnA0D82
+[06-Jan-2025 22:12:12 Asia/Riyadh] Attempting verification with password: ةش7قثئ
+[06-Jan-2025 22:12:12 Asia/Riyadh] Password verification result: FAILED
+[06-Jan-2025 22:12:12 Asia/Riyadh] Password verification failed
+[06-Jan-2025 22:12:12 Asia/Riyadh] Input password: ةش7قثئ
+[06-Jan-2025 22:12:12 Asia/Riyadh] Stored hash: $2y$10$JqNrCMComZVWzijEg1kdQuZMYWs6Sbd2vbEhll1ntZv3NBTnA0D82
+[06-Jan-2025 22:12:12 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 22:12:18 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 22:12:18 Asia/Riyadh] Password: ma7rez
+[06-Jan-2025 22:12:18 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 22:12:18 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 22:12:18 Asia/Riyadh] Stored hash: $2y$10$JqNrCMComZVWzijEg1kdQuZMYWs6Sbd2vbEhll1ntZv3NBTnA0D82
+[06-Jan-2025 22:12:18 Asia/Riyadh] Attempting verification with password: ma7rez
+[06-Jan-2025 22:12:18 Asia/Riyadh] Password verification result: SUCCESS
+[06-Jan-2025 22:12:18 Asia/Riyadh] Password verified successfully
+[06-Jan-2025 22:12:18 Asia/Riyadh] Login successful - Staff ID: 2
+[06-Jan-2025 22:12:18 Asia/Riyadh] Session variables set: Array
+(
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+)
+
+[06-Jan-2025 22:14:57 Asia/Riyadh] Starting password reset for staff ID: 2
+[06-Jan-2025 22:14:57 Asia/Riyadh] Company found: Array
+(
+    [name] => ma7rez
+)
+
+[06-Jan-2025 22:14:57 Asia/Riyadh] New password: ma7rez
+[06-Jan-2025 22:14:58 Asia/Riyadh] Generated hash: $2y$10$U3IhjRcqBhBGIBEHmje8K.nAp2uKkU8ilOQmfTv2E4cTQfemGedry
+[06-Jan-2025 22:14:59 Asia/Riyadh] Initial hash verification test: SUCCESS
+[06-Jan-2025 22:15:00 Asia/Riyadh] Final verification test: SUCCESS
+[06-Jan-2025 22:15:00 Asia/Riyadh] Password reset successful
+[06-Jan-2025 22:15:00 Asia/Riyadh] Staff info: Array
+(
+    [name] => ahmed mahrez
+    [email] => ahmed@gmail.com
+    [phone] => 01011965099
+)
+
+[06-Jan-2025 22:15:00 Asia/Riyadh] New password: ma7rez
+[06-Jan-2025 22:20:48 Asia/Riyadh] Starting password reset for staff ID: 2
+[06-Jan-2025 22:20:48 Asia/Riyadh] Company found: Array
+(
+    [name] => ma7rez
+)
+
+[06-Jan-2025 22:20:48 Asia/Riyadh] New password: ma7rez
+[06-Jan-2025 22:20:48 Asia/Riyadh] Generated hash: $2y$10$UnNB/miMlG9.P7JDRlxPT.H9XzAfSSdw0lnlZflGSVF150uf5e9cW
+[06-Jan-2025 22:20:48 Asia/Riyadh] Initial hash verification test: SUCCESS
+[06-Jan-2025 22:20:49 Asia/Riyadh] Final verification test: SUCCESS
+[06-Jan-2025 22:20:49 Asia/Riyadh] Password reset successful
+[06-Jan-2025 22:20:49 Asia/Riyadh] Staff info: Array
+(
+    [name] => ahmed mahrez
+    [email] => ahmed@gmail.com
+    [phone] => 01011965099
+)
+
+[06-Jan-2025 22:20:49 Asia/Riyadh] New password: ma7rez
+[06-Jan-2025 22:34:21 Asia/Riyadh] Password change error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'active' in 'where clause'
+[06-Jan-2025 22:34:31 Asia/Riyadh] Password change error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'active' in 'where clause'
+[06-Jan-2025 22:34:45 Asia/Riyadh] Password change error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'active' in 'where clause'
+[06-Jan-2025 22:49:00 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[06-Jan-2025 22:58:19 Asia/Riyadh] Login attempt - Email: a100@gmail.com
+[06-Jan-2025 22:58:19 Asia/Riyadh] Password: ma7rez
+[06-Jan-2025 22:58:19 Asia/Riyadh] Executing query for email: a100@gmail.com
+[06-Jan-2025 22:58:19 Asia/Riyadh] Staff found - ID: 1, Active: 1
+[06-Jan-2025 22:58:19 Asia/Riyadh] Stored hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 22:58:19 Asia/Riyadh] Attempting verification with password: ma7rez
+[06-Jan-2025 22:58:19 Asia/Riyadh] Password verification result: FAILED
+[06-Jan-2025 22:58:19 Asia/Riyadh] Password verification failed
+[06-Jan-2025 22:58:19 Asia/Riyadh] Input password: ma7rez
+[06-Jan-2025 22:58:19 Asia/Riyadh] Stored hash: $2y$10$nKL5beZ9TSUVsS3m/JfWyObcdh7K1hIaJG3FlwcKu/2bUmYQvZ4fu
+[06-Jan-2025 22:58:19 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 22:58:39 Asia/Riyadh] Login attempt - Email: ahmed.0@gmail.com
+[06-Jan-2025 22:58:39 Asia/Riyadh] Password: 123456
+[06-Jan-2025 22:58:39 Asia/Riyadh] Executing query for email: ahmed.0@gmail.com
+[06-Jan-2025 22:58:39 Asia/Riyadh] No staff found with email: ahmed.0@gmail.com
+[06-Jan-2025 22:58:39 Asia/Riyadh] Login failed - Staff not found
+[06-Jan-2025 22:58:58 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 22:58:58 Asia/Riyadh] Password: ma7rez
+[06-Jan-2025 22:58:58 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 22:58:58 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 22:58:58 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 22:58:58 Asia/Riyadh] Attempting verification with password: ma7rez
+[06-Jan-2025 22:58:58 Asia/Riyadh] Password verification result: FAILED
+[06-Jan-2025 22:58:58 Asia/Riyadh] Password verification failed
+[06-Jan-2025 22:58:58 Asia/Riyadh] Input password: ma7rez
+[06-Jan-2025 22:58:58 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 22:58:59 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 23:00:12 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 23:00:12 Asia/Riyadh] Password: ma7rez
+[06-Jan-2025 23:00:12 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 23:00:12 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 23:00:12 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 23:00:12 Asia/Riyadh] Attempting verification with password: ma7rez
+[06-Jan-2025 23:00:13 Asia/Riyadh] Password verification result: FAILED
+[06-Jan-2025 23:00:13 Asia/Riyadh] Password verification failed
+[06-Jan-2025 23:00:13 Asia/Riyadh] Input password: ma7rez
+[06-Jan-2025 23:00:13 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 23:00:13 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 23:01:50 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 23:01:50 Asia/Riyadh] Password: ma7rez
+[06-Jan-2025 23:01:50 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 23:01:50 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 23:01:50 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 23:01:50 Asia/Riyadh] Attempting verification with password: ma7rez
+[06-Jan-2025 23:01:50 Asia/Riyadh] Password verification result: FAILED
+[06-Jan-2025 23:01:50 Asia/Riyadh] Password verification failed
+[06-Jan-2025 23:01:50 Asia/Riyadh] Input password: ma7rez
+[06-Jan-2025 23:01:50 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 23:01:50 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 23:04:30 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 23:04:30 Asia/Riyadh] Password: ةش7قثئ
+[06-Jan-2025 23:04:30 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 23:04:30 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 23:04:30 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 23:04:30 Asia/Riyadh] Attempting verification with password: ةش7قثئ
+[06-Jan-2025 23:04:30 Asia/Riyadh] Password verification result: FAILED
+[06-Jan-2025 23:04:30 Asia/Riyadh] Password verification failed
+[06-Jan-2025 23:04:30 Asia/Riyadh] Input password: ةش7قثئ
+[06-Jan-2025 23:04:30 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 23:04:31 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 23:04:34 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 23:04:34 Asia/Riyadh] Password: ةش7قثئ
+[06-Jan-2025 23:04:35 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 23:04:35 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 23:04:35 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 23:04:35 Asia/Riyadh] Attempting verification with password: ةش7قثئ
+[06-Jan-2025 23:04:35 Asia/Riyadh] Password verification result: FAILED
+[06-Jan-2025 23:04:35 Asia/Riyadh] Password verification failed
+[06-Jan-2025 23:04:35 Asia/Riyadh] Input password: ةش7قثئ
+[06-Jan-2025 23:04:35 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 23:04:36 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 23:19:36 Asia/Riyadh] Login attempt - Email: ahmed@gmail.com
+[06-Jan-2025 23:19:36 Asia/Riyadh] Password: ma7rez
+[06-Jan-2025 23:19:36 Asia/Riyadh] Executing query for email: ahmed@gmail.com
+[06-Jan-2025 23:19:36 Asia/Riyadh] Staff found - ID: 2, Active: 1
+[06-Jan-2025 23:19:36 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 23:19:36 Asia/Riyadh] Attempting verification with password: ma7rez
+[06-Jan-2025 23:19:37 Asia/Riyadh] Password verification result: FAILED
+[06-Jan-2025 23:19:37 Asia/Riyadh] Password verification failed
+[06-Jan-2025 23:19:37 Asia/Riyadh] Input password: ma7rez
+[06-Jan-2025 23:19:37 Asia/Riyadh] Stored hash: $2y$10$N05oj6LACl.WtatIXzlY/umw.HV9IlM7e6umN5wecKrNGBCSqZQYu
+[06-Jan-2025 23:19:38 Asia/Riyadh] Login failed - Invalid password
+[06-Jan-2025 23:26:38 Asia/Riyadh] Starting password reset for staff ID: 2
+[06-Jan-2025 23:26:38 Asia/Riyadh] Company found: Array
+(
+    [name] => ma7rez
+)
+
+[06-Jan-2025 23:26:38 Asia/Riyadh] New password: ma7rez
+[06-Jan-2025 23:26:39 Asia/Riyadh] Generated hash: $2y$10$Bf5T7wrP0tBq4NCIv2uLSuIXoPWzHanq8JjJEDu8TLNarUci8l83e
+[06-Jan-2025 23:26:39 Asia/Riyadh] Initial hash verification test: SUCCESS
+[06-Jan-2025 23:26:39 Asia/Riyadh] Final verification test: SUCCESS
+[06-Jan-2025 23:26:39 Asia/Riyadh] Password reset successful
+[06-Jan-2025 23:26:39 Asia/Riyadh] Staff info: Array
+(
+    [name] => ahmed mahrez
+    [email] => ahmed@gmail.com
+    [phone] => 01011965099
+)
+
+[06-Jan-2025 23:26:39 Asia/Riyadh] New password: ma7rez
+[06-Jan-2025 23:29:40 Asia/Riyadh] Starting password reset for staff ID: 2
+[06-Jan-2025 23:29:40 Asia/Riyadh] Company found: Array
+(
+    [name] => ma7rez
+)
+
+[06-Jan-2025 23:29:40 Asia/Riyadh] New password: ma7rez
+[06-Jan-2025 23:29:40 Asia/Riyadh] Generated hash: $2y$10$PCcF3AJSMPBEGTLSimg5UOTSYgJudVVEovUQYqHcVnHX.adKh.LpG
+[06-Jan-2025 23:29:40 Asia/Riyadh] Initial hash verification test: SUCCESS
+[06-Jan-2025 23:29:41 Asia/Riyadh] Final verification test: SUCCESS
+[06-Jan-2025 23:29:41 Asia/Riyadh] Password reset successful
+[06-Jan-2025 23:29:41 Asia/Riyadh] Staff info: Array
+(
+    [name] => ahmed mahrez
+    [email] => ahmed@gmail.com
+    [phone] => 01011965099
+)
+
+[06-Jan-2025 23:29:41 Asia/Riyadh] New password: ma7rez
+[07-Jan-2025 01:11:10 Asia/Riyadh] PHP Warning:  include(modals/order_modals.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\companies\dashboard.php on line 477
+[07-Jan-2025 01:11:10 Asia/Riyadh] PHP Warning:  include(): Failed opening 'modals/order_modals.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\companies\dashboard.php on line 477
+[07-Jan-2025 01:44:05 Asia/Riyadh] PHP Warning:  Undefined variable $company_id in C:\xampp\htdocs\proo\companies\ajax\create_request.php on line 75
+[07-Jan-2025 01:51:14 Asia/Riyadh] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 31
+[07-Jan-2025 02:23:20 Asia/Riyadh] PHP Warning:  Undefined array key "driver_id" in C:\xampp\htdocs\proo\Drivers\orders.php on line 10
+[07-Jan-2025 03:46:28 Asia/Riyadh] Complaint POST data: Array
+(
+    [request_id] => 9
+    [driver_id] => 1
+    [complaint_subject] => السواق
+    [complaint_description] => ببببببببببب
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 04:05:16 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 04:05:16 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 04:05:27 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 04:05:27 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 04:05:27 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 04:05:27 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 04:05:27 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 04:05:27 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 04:05:27 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 04:05:27 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 04:48:23 Asia/Riyadh] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cancelled_at' in 'field list'
+[07-Jan-2025 04:48:31 Asia/Riyadh] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cancelled_at' in 'field list'
+[07-Jan-2025 04:48:38 Asia/Riyadh] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cancelled_at' in 'field list'
+[07-Jan-2025 04:49:35 Asia/Riyadh] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.company_notifications' doesn't exist
+[07-Jan-2025 04:49:42 Asia/Riyadh] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.company_notifications' doesn't exist
+[07-Jan-2025 04:53:39 Asia/Riyadh] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[07-Jan-2025 04:53:45 Asia/Riyadh] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[07-Jan-2025 05:13:58 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:13:58 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:13:58 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:13:58 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:13:58 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:13:58 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:13:58 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:13:58 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:14:56 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:14:56 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:14:56 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:14:56 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:14:56 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:14:56 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:14:56 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:14:56 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:12 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:12 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:12 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:12 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:12 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:12 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:12 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:12 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:33 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:33 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:33 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:33 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:33 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:33 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:33 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:33 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:46 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:46 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:46 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:46 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:46 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:46 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:46 Asia/Riyadh] PHP Warning:  Undefined array key "company_phone" in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:15:46 Asia/Riyadh] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\proo\Drivers\orders.php on line 647
+[07-Jan-2025 05:30:43 Asia/Riyadh] PHP Warning:  include(modals/edit_request_modal.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\companies\orders.php on line 466
+[07-Jan-2025 05:30:43 Asia/Riyadh] PHP Warning:  include(): Failed opening 'modals/edit_request_modal.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\companies\orders.php on line 466
+[07-Jan-2025 05:31:24 Asia/Riyadh] PHP Warning:  include(modals/edit_request_modal.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\companies\orders.php on line 466
+[07-Jan-2025 05:31:24 Asia/Riyadh] PHP Warning:  include(): Failed opening 'modals/edit_request_modal.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\companies\orders.php on line 466
+[07-Jan-2025 05:31:40 Asia/Riyadh] معرف الطلب غير صالح
+[07-Jan-2025 05:31:40 Asia/Riyadh] معرف الطلب غير صالح
+[07-Jan-2025 05:31:52 Asia/Riyadh] معرف الطلب غير صالح
+[07-Jan-2025 05:31:52 Asia/Riyadh] معرف الطلب غير صالح
+[07-Jan-2025 05:34:15 Asia/Riyadh] معرف الطلب غير صالح
+[07-Jan-2025 05:34:15 Asia/Riyadh] معرف الطلب غير صالح
+[07-Jan-2025 05:42:12 Asia/Riyadh] PHP Warning:  Undefined variable $required_fields in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 05:42:12 Asia/Riyadh] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 05:42:12 Asia/Riyadh] PHP Warning:  Undefined variable $required_fields in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 05:42:12 Asia/Riyadh] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 05:42:28 Asia/Riyadh] PHP Warning:  Undefined variable $required_fields in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 05:42:28 Asia/Riyadh] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 05:42:28 Asia/Riyadh] PHP Warning:  Undefined variable $required_fields in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 05:42:28 Asia/Riyadh] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 05:43:05 Asia/Riyadh] PHP Warning:  Undefined variable $required_fields in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 05:43:05 Asia/Riyadh] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 05:43:05 Asia/Riyadh] PHP Warning:  Undefined variable $required_fields in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 05:43:05 Asia/Riyadh] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 31
+[07-Jan-2025 06:08:51 Asia/Riyadh] [2025-01-07 06:08:51] Update Order - Start
+[07-Jan-2025 06:08:51 Asia/Riyadh] [2025-01-07 06:08:51] POST Data: Array
+(
+    [order_id] => 11
+    [order_type] => transport
+    [customer_name] => محمود محمد
+    [customer_phone] => 0111111111
+    [delivery_date] => 2025-01-20
+    [delivery_time] => 12:59
+    [pickup_location] => العباس بن مرداس، السليمانية، الرياض، منطقة الرياض، السعودية
+    [pickup_location_link] => https://www.openstreetmap.org/?mlat=24.716330456496394&mlon=46.685999724202716
+    [delivery_location] => القيروان، السليمانية، الرياض، منطقة الرياض، السعودية
+    [delivery_location_link] => https://www.openstreetmap.org/?mlat=24.71368307934326&mlon=46.69201365537513
+    [items_count] => 3
+    [total_cost] => 0
+    [payment_method] => card
+    [is_fragile] => on
+    [additional_notes] => 222222222222222222
+)
+
+[07-Jan-2025 06:08:51 Asia/Riyadh] [2025-01-07 06:08:51] Total Cost Value: 0
+[07-Jan-2025 06:08:51 Asia/Riyadh] Order update error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_logs' doesn't exist
+[07-Jan-2025 06:08:52 Asia/Riyadh] [2025-01-07 06:08:52] Update Order - Start
+[07-Jan-2025 06:08:52 Asia/Riyadh] [2025-01-07 06:08:52] POST Data: Array
+(
+    [order_id] => 11
+    [order_type] => transport
+    [customer_name] => محمود محمد
+    [customer_phone] => 0111111111
+    [delivery_date] => 2025-01-20
+    [delivery_time] => 12:59
+    [pickup_location] => العباس بن مرداس، السليمانية، الرياض، منطقة الرياض، السعودية
+    [pickup_location_link] => https://www.openstreetmap.org/?mlat=24.716330456496394&mlon=46.685999724202716
+    [delivery_location] => القيروان، السليمانية، الرياض، منطقة الرياض، السعودية
+    [delivery_location_link] => https://www.openstreetmap.org/?mlat=24.71368307934326&mlon=46.69201365537513
+    [items_count] => 3
+    [total_cost] => 0
+    [payment_method] => card
+    [is_fragile] => on
+    [additional_notes] => 222222222222222222
+)
+
+[07-Jan-2025 06:08:52 Asia/Riyadh] [2025-01-07 06:08:52] Total Cost Value: 0
+[07-Jan-2025 06:08:52 Asia/Riyadh] Order update error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.request_logs' doesn't exist
+[07-Jan-2025 06:37:35 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined function formatPhoneForWhatsApp() in C:\xampp\htdocs\proo\companies\dashboard.php:378
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 378
+[07-Jan-2025 06:37:54 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined function formatPhoneForWhatsApp() in C:\xampp\htdocs\proo\companies\dashboard.php:378
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 378
+[07-Jan-2025 06:38:20 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined function formatPhoneForWhatsApp() in C:\xampp\htdocs\proo\companies\dashboard.php:378
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 378
+[07-Jan-2025 06:42:24 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''10' OFFSET '0'' at line 6 in C:\xampp\htdocs\proo\companies\dashboard.php:124
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(124): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 124
+[07-Jan-2025 06:42:38 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''10' OFFSET '0'' at line 6 in C:\xampp\htdocs\proo\companies\dashboard.php:124
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(124): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 124
+[07-Jan-2025 06:43:42 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''10' OFFSET '0'' at line 6 in C:\xampp\htdocs\proo\companies\dashboard.php:131
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(131): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 131
+[07-Jan-2025 06:43:44 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''10' OFFSET '0'' at line 6 in C:\xampp\htdocs\proo\companies\dashboard.php:131
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(131): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 131
+[07-Jan-2025 06:43:44 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''10' OFFSET '0'' at line 6 in C:\xampp\htdocs\proo\companies\dashboard.php:131
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(131): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 131
+[07-Jan-2025 06:43:46 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''10' OFFSET '0'' at line 6 in C:\xampp\htdocs\proo\companies\dashboard.php:131
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(131): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 131
+[07-Jan-2025 06:43:50 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''10' OFFSET '0'' at line 6 in C:\xampp\htdocs\proo\companies\dashboard.php:131
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(131): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 131
+[07-Jan-2025 06:46:07 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters in C:\xampp\htdocs\proo\companies\dashboard.php:134
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(134): PDOStatement->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 134
+[07-Jan-2025 06:47:46 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters in C:\xampp\htdocs\proo\companies\dashboard.php:134
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(134): PDOStatement->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 134
+[07-Jan-2025 06:47:47 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters in C:\xampp\htdocs\proo\companies\dashboard.php:134
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(134): PDOStatement->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 134
+[07-Jan-2025 06:47:48 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters in C:\xampp\htdocs\proo\companies\dashboard.php:134
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(134): PDOStatement->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 134
+[07-Jan-2025 06:48:30 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters in C:\xampp\htdocs\proo\companies\dashboard.php:124
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(124): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 124
+[07-Jan-2025 06:48:54 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined function formatPhoneForWhatsApp() in C:\xampp\htdocs\proo\companies\dashboard.php:610
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 610
+[07-Jan-2025 06:49:15 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined function formatPhoneForWhatsApp() in C:\xampp\htdocs\proo\companies\dashboard.php:610
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 610
+[07-Jan-2025 06:49:25 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined function formatPhoneForWhatsApp() in C:\xampp\htdocs\proo\companies\dashboard.php:610
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 610
+[07-Jan-2025 06:49:32 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\proo\companies\dashboard.php:124
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\dashboard.php(124): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 124
+[07-Jan-2025 06:49:35 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined function formatPhoneForWhatsApp() in C:\xampp\htdocs\proo\companies\dashboard.php:610
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 610
+[07-Jan-2025 06:50:45 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined function formatPhoneForWhatsApp() in C:\xampp\htdocs\proo\companies\dashboard.php:378
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 378
+[07-Jan-2025 06:50:49 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined function formatPhoneForWhatsApp() in C:\xampp\htdocs\proo\companies\dashboard.php:378
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 378
+[07-Jan-2025 06:59:32 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined function formatPhoneForWhatsApp() in C:\xampp\htdocs\proo\companies\dashboard.php:377
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\companies\dashboard.php on line 377
+[07-Jan-2025 07:45:48 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 10
+    [driver_id] => 1
+    [complaint_subject] => سسسسس
+    [complaint_description] => سسسسسسسسس
+    [complaint_priority] => high
+)
+
+[07-Jan-2025 07:45:48 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 07:45:48 Asia/Riyadh] PHP Warning:  Undefined array key "staff_id" in C:\xampp\htdocs\proo\companies\ajax\submit_complaint.php on line 27
+[07-Jan-2025 07:45:48 Asia/Riyadh] Complaint submission - Checking request with: request_id=10, driver_id=1, company_id=11
+[07-Jan-2025 07:45:48 Asia/Riyadh] Complaint submission - Successfully submitted complaint: COMP202501075013
+[07-Jan-2025 07:46:34 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => ييييييييييييي
+    [complaint_priority] => high
+)
+
+[07-Jan-2025 07:46:34 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 07:46:34 Asia/Riyadh] PHP Warning:  Undefined array key "staff_id" in C:\xampp\htdocs\proo\companies\ajax\submit_complaint.php on line 27
+[07-Jan-2025 07:46:34 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 07:46:34 Asia/Riyadh] Complaint submission - Successfully submitted complaint: COMP202501072019
+[07-Jan-2025 07:48:39 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 10
+    [driver_id] => 1
+    [complaint_subject] => سسسسس
+    [complaint_description] => اااااااااااااا
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 07:48:39 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 07:48:39 Asia/Riyadh] PHP Warning:  Undefined array key "staff_id" in C:\xampp\htdocs\proo\companies\ajax\submit_complaint.php on line 27
+[07-Jan-2025 07:48:39 Asia/Riyadh] Complaint submission - Checking request with: request_id=10, driver_id=1, company_id=11
+[07-Jan-2025 07:48:39 Asia/Riyadh] Complaint submission - Successfully submitted complaint: COMP202501077783
+[07-Jan-2025 07:52:58 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => نننننننننننن
+    [complaint_priority] => low
+)
+
+[07-Jan-2025 07:52:58 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 07:52:58 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 07:52:58 Asia/Riyadh] Complaint submission - Successfully submitted complaint: COMP202501079239
+[07-Jan-2025 07:53:15 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 10
+    [driver_id] => 1
+    [complaint_subject] => ب
+    [complaint_description] => ب
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 07:53:15 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 07:53:15 Asia/Riyadh] Complaint submission - Checking request with: request_id=10, driver_id=1, company_id=11
+[07-Jan-2025 07:53:15 Asia/Riyadh] Complaint submission - Successfully submitted complaint: COMP202501073583
+[07-Jan-2025 07:55:24 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 8
+    [driver_id] => 1
+    [complaint_subject] => ب
+    [complaint_description] => بببببببب
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 07:55:24 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 07:55:24 Asia/Riyadh] Complaint submission - Checking request with: request_id=8, driver_id=1, company_id=11
+[07-Jan-2025 07:55:24 Asia/Riyadh] Complaint submission - Successfully submitted complaint: COMP202501079390
+[07-Jan-2025 07:57:13 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => السواق
+    [complaint_description] => تتت
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 07:57:13 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 07:57:13 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 07:57:13 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 07:57:13 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 07:57:21 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 10
+    [driver_id] => 1
+    [complaint_subject] => السواق
+    [complaint_description] => نننننننننن
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 07:57:21 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 07:57:21 Asia/Riyadh] Complaint submission - Checking request with: request_id=10, driver_id=1, company_id=11
+[07-Jan-2025 07:57:21 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 10
+[07-Jan-2025 07:57:21 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 07:57:43 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 8
+    [driver_id] => 1
+    [complaint_subject] => السواق
+    [complaint_description] => ننننننن
+    [complaint_priority] => high
+)
+
+[07-Jan-2025 07:57:43 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 07:57:43 Asia/Riyadh] Complaint submission - Checking request with: request_id=8, driver_id=1, company_id=11
+[07-Jan-2025 07:57:43 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 8
+[07-Jan-2025 07:57:43 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 07:58:47 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => السواق
+    [complaint_description] => تااا
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 07:58:47 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 07:58:47 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 07:58:47 Asia/Riyadh] Complaint submission - Successfully submitted complaint: COMP202501078686
+[07-Jan-2025 07:58:55 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => السواقب
+    [complaint_description] => ببببببب
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 07:58:55 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 07:58:55 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 07:58:55 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 07:58:55 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 07:59:16 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 8
+    [driver_id] => 1
+    [complaint_subject] => سسسسس
+    [complaint_description] => ففففففففف
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 07:59:16 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 07:59:16 Asia/Riyadh] Complaint submission - Checking request with: request_id=8, driver_id=1, company_id=11
+[07-Jan-2025 07:59:16 Asia/Riyadh] Complaint submission - Successfully submitted complaint: COMP202501077665
+[07-Jan-2025 07:59:26 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 10
+    [driver_id] => 1
+    [complaint_subject] => يييييييييي
+    [complaint_description] => يييييييييييييييييييييييييي
+    [complaint_priority] => high
+)
+
+[07-Jan-2025 07:59:26 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 07:59:26 Asia/Riyadh] Complaint submission - Checking request with: request_id=10, driver_id=1, company_id=11
+[07-Jan-2025 07:59:26 Asia/Riyadh] Complaint submission - Successfully submitted complaint: COMP202501078781
+[07-Jan-2025 08:01:41 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 9
+    [driver_id] => 1
+    [complaint_subject] => يييييييييي
+    [complaint_description] => لابلارؤ
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:01:41 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:01:41 Asia/Riyadh] Complaint submission - Checking request with: request_id=9, driver_id=1, company_id=11
+[07-Jan-2025 08:01:41 Asia/Riyadh] Complaint submission - Successfully submitted complaint: COMP202501074676
+[07-Jan-2025 08:10:23 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 10
+    [driver_id] => 1
+    [complaint_subject] => سسسسس
+    [complaint_description] => 4444444444445
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:10:23 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:10:23 Asia/Riyadh] Complaint submission - Checking request with: request_id=10, driver_id=1, company_id=11
+[07-Jan-2025 08:10:23 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 10
+[07-Jan-2025 08:10:23 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:10:24 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 10
+    [driver_id] => 1
+    [complaint_subject] => سسسسس
+    [complaint_description] => 4444444444445
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:10:24 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:10:24 Asia/Riyadh] Complaint submission - Checking request with: request_id=10, driver_id=1, company_id=11
+[07-Jan-2025 08:10:24 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 10
+[07-Jan-2025 08:10:24 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:23:55 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => gggg
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:23:55 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:23:55 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:23:55 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:23:55 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:23:56 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => gggg
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:23:56 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:23:56 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:23:56 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:23:56 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:24:32 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => jjjjjjj
+    [complaint_description] => jjjjjjjjjjjjjjj
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:24:32 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:24:32 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:24:32 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:24:32 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:24:33 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => jjjjjjj
+    [complaint_description] => jjjjjjjjjjjjjjj
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:24:33 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:24:33 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:24:33 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:24:33 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:24:33 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => jjjjjjj
+    [complaint_description] => jjjjjjjjjjjjjjj
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:24:33 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:24:33 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:24:33 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:24:33 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:24:36 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => jjjjjjj
+    [complaint_description] => jjjjjjjjjjjjjjj
+    [complaint_priority] => low
+)
+
+[07-Jan-2025 08:24:36 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:24:36 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:24:36 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:24:36 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:24:37 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => jjjjjjj
+    [complaint_description] => jjjjjjjjjjjjjjj
+    [complaint_priority] => low
+)
+
+[07-Jan-2025 08:24:37 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:24:37 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:24:37 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:24:37 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:25:36 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => ssssssssssssssssss
+    [complaint_description] => ssssssssssssssssssssssssssssssssssssssssss
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:25:36 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:25:36 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:25:36 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:25:36 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:25:36 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => ssssssssssssssssss
+    [complaint_description] => ssssssssssssssssssssssssssssssssssssssssss
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:25:36 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:25:36 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:25:36 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:25:36 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => ssssssssssssssssss
+    [complaint_description] => ssssssssssssssssssssssssssssssssssssssssss
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => ssssssssssssssssss
+    [complaint_description] => ssssssssssssssssssssssssssssssssssssssssss
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => ssssssssssssssssss
+    [complaint_description] => ssssssssssssssssssssssssssssssssssssssssss
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => ssssssssssssssssss
+    [complaint_description] => ssssssssssssssssssssssssssssssssssssssssss
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:25:37 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:25:46 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => s
+    [complaint_description] => sssssss
+    [complaint_priority] => low
+)
+
+[07-Jan-2025 08:25:46 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:25:46 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:25:46 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:25:46 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:26:20 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => s
+    [complaint_description] => sssssss
+    [complaint_priority] => low
+)
+
+[07-Jan-2025 08:26:20 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:26:20 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:26:20 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:26:20 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:31:05 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => تتتتتتتتت
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:31:05 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:31:05 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:31:05 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:31:05 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => تتتتتتتتت
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => تتتتتتتتت
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => تتتتتتتتت
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => تتتتتتتتت
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:31:07 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => تتتتتتتتت
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => تتتتتتتتت
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => تتتتتتتتت
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => تتتتتتتتت
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:31:08 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:33:23 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => م
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:33:23 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:33:23 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:33:23 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:33:23 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:33:24 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => م
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:33:24 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:33:24 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:33:24 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:33:24 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => م
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => م
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => م
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => م
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => م
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:33:25 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:33:26 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => م
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:33:26 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:33:26 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:33:26 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:33:26 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:33:45 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => السواق
+    [complaint_description] => ي
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:33:45 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 08:33:45 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:33:45 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:33:45 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:36:50 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => السواق
+    [complaint_description] => ي
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:36:50 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 08:36:50 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:36:50 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:36:50 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:37:10 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => السواق
+    [complaint_description] => 22222
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:37:10 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 08:37:10 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:37:10 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:37:10 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:37:11 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => السواق
+    [complaint_description] => 22222
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:37:11 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 08:37:11 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:37:11 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:37:11 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:37:11 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => السواق
+    [complaint_description] => 22222
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:37:11 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 08:37:11 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:37:11 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:37:11 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:39:04 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => 00
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:39:04 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:39:04 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:39:04 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:39:04 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:42:05 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => السواق
+    [complaint_description] => 22222
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:42:05 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 08:42:05 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:42:05 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:42:05 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:42:06 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => السواق
+    [complaint_description] => 22222
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:42:06 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 08:42:06 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:42:06 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:42:06 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:42:59 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => ه
+    [complaint_description] => ه
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:42:59 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:42:59 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:42:59 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:42:59 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:43:02 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => ه
+    [complaint_description] => ه
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:43:02 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:43:02 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:43:02 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:43:02 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:44:20 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => اااااااااا
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:44:20 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:44:20 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:44:20 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:44:20 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:44:21 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => اااااااااا
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:44:21 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:44:21 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:44:22 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:44:22 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:44:27 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => اااااااااا
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:44:27 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:44:27 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:44:27 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:44:27 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:46:05 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => م
+    [complaint_description] => م
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:46:05 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:46:05 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:46:05 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:46:05 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:48:16 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => ىلاى
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:48:16 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:48:16 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:48:16 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:48:16 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:48:20 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => ىلاى
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:48:20 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:48:20 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:48:20 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:48:20 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:48:28 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => ىلاى
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:48:28 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:48:28 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:48:28 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:48:28 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:50:54 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => 0
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:50:54 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:50:54 Asia/Riyadh] Complaint submission - Validation failed: Missing description
+[07-Jan-2025 08:51:00 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => 0ءؤؤ
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:51:00 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 08:51:00 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:51:00 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:51:00 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:51:15 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => ئئئئئئئئئ
+    [complaint_description] => ئئئئئ
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:51:15 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 08:51:15 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:51:15 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:51:15 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 08:53:26 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => ت
+    [complaint_description] => ت
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 08:53:26 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [staff_id] => 2
+    [staff_name] => ahmed mahrez
+    [staff_role] => order_manager
+    [company_id] => 11
+    [company_name] => ma7rez
+    [admin_id] => 6
+    [admin_role] => super_admin
+    [admin_username] => المدير العام
+    [admin_department] => 
+)
+
+[07-Jan-2025 08:53:26 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 08:53:26 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 08:53:26 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً
+[07-Jan-2025 09:16:36 Asia/Riyadh] Complaint submission - POST data: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [complaint_subject] => سسسسس
+    [complaint_description] => 
+من
+    [complaint_priority] => medium
+)
+
+[07-Jan-2025 09:16:36 Asia/Riyadh] Complaint submission - SESSION data: Array
+(
+    [driver_id] => 1
+    [driver_username] => ahmed
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[07-Jan-2025 09:16:36 Asia/Riyadh] Complaint submission - Checking request with: request_id=11, driver_id=2, company_id=11
+[07-Jan-2025 09:16:36 Asia/Riyadh] Complaint submission - Duplicate complaint found for request_id: 11
+[07-Jan-2025 09:16:36 Asia/Riyadh] Complaint submission - Error: تم تقديم شكوى على هذا الطلب مسبقاً

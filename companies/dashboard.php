@@ -380,12 +380,29 @@ $active_complaints = $stmt->fetchColumn();
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-info" onclick="viewOrderDetails(<?php echo $request['id']; ?>)" title="عرض التفاصيل">
+                                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="collapse" data-bs-target="#details-<?php echo $request['id']; ?>" title="عرض التفاصيل">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                         <?php if ($request['status'] === 'pending'): ?>
                                             <button type="button" class="btn btn-sm btn-warning" onclick="editOrder(<?php echo $request['id']; ?>)" title="تعديل الطلب">
                                                 <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="cancelOrder(<?php echo $request['id']; ?>)" title="إلغاء الطلب">
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
+                                        <?php endif; ?>
+                                        <?php if (in_array($request['status'], ['accepted', 'in_transit', 'delivered']) && $request['driver_id']): ?>
+                                            <button type="button" class="btn btn-sm btn-danger" 
+                                                    onclick="openComplaint(<?php echo $request['id']; ?>, <?php echo $request['driver_id']; ?>)" 
+                                                    title="تقديم شكوى">
+                                                <i class="bi bi-exclamation-triangle"></i>
+                                            </button>
+                                        <?php endif; ?>
+                                        <?php if ($request['status'] === 'delivered' && $request['driver_id']): ?>
+                                            <button type="button" class="btn btn-sm btn-primary" 
+                                                    onclick="openRating(<?php echo $request['id']; ?>, <?php echo $request['driver_id']; ?>)" 
+                                                    title="تقييم السائق">
+                                                <i class="bi bi-star"></i>
                                             </button>
                                         <?php endif; ?>
                                         <button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp(<?php 
@@ -402,12 +419,9 @@ $active_complaints = $stmt->fetchColumn();
                                         ?>)" title="فتح محادثة واتساب">
                                             <i class="bi bi-whatsapp"></i>
                                         </button>
-                                        <?php if ($request['driver_id']): ?>
-                                            <button type="button" class="btn btn-sm btn-success" onclick="rateDriver(<?php echo $request['driver_id']; ?>)" title="تقييم السائق">
-                                                <i class="bi bi-star"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-danger" onclick="submitComplaint(<?php echo $request['id']; ?>)" title="تقديم شكوى">
-                                                <i class="bi bi-exclamation-triangle"></i>
+                                        <?php if ($request['status'] === 'cancelled'): ?>
+                                            <button type="button" class="btn btn-sm btn-success" onclick="revertOrder(<?php echo $request['id']; ?>)" title="إرجاع للانتظار">
+                                                <i class="bi bi-arrow-counterclockwise"></i>
                                             </button>
                                         <?php endif; ?>
                                     </div>
@@ -489,16 +503,16 @@ $active_complaints = $stmt->fetchColumn();
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Close modal and reload page
+                    showAlert('نجاح', 'تم إنشاء الطلب بنجاح');
                     bootstrap.Modal.getInstance(document.getElementById('newRequestModal')).hide();
                     location.reload();
                 } else {
-                    alert(data.message);
+                    showAlert('خطأ', data.message || 'حدث خطأ أثناء إنشاء الطلب');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('حدث خطأ أثناء إنشاء الطلب');
+                showAlert('خطأ', 'حدث خطأ أثناء إنشاء الطلب');
             });
         }
 
@@ -517,60 +531,92 @@ $active_complaints = $stmt->fetchColumn();
         }
 
         function editOrder(orderId) {
-            // Fetch order details and show edit modal
+            // Fetch order details
             fetch('ajax/get_order.php?id=' + orderId)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Populate edit modal with order data
-                        const order = data.order;
-                        document.getElementById('edit_order_id').value = order.id;
-                        document.getElementById('edit_order_type').value = order.order_type;
-                        document.getElementById('edit_customer_name').value = order.customer_name;
-                        document.getElementById('edit_customer_phone').value = order.customer_phone;
-                        document.getElementById('edit_delivery_date').value = order.delivery_date;
-                        document.getElementById('edit_pickup_location').value = order.pickup_location;
-                        document.getElementById('edit_delivery_location').value = order.delivery_location;
-                        document.getElementById('edit_items_count').value = order.items_count;
-                        document.getElementById('edit_total_cost').value = order.total_cost;
-                        document.getElementById('edit_payment_method').value = order.payment_method;
-                        document.getElementById('edit_is_fragile').checked = order.is_fragile == 1;
-                        document.getElementById('edit_additional_notes').value = order.additional_notes || '';
-
-                        // Handle invoice image
-                        const currentInvoiceDiv = document.getElementById('current_invoice');
-                        if (order.invoice_file) {
-                            currentInvoiceDiv.innerHTML = `
-                                <div class="d-flex align-items-center">
-                                    <img src="../uploads/invoices/${order.invoice_file}" alt="صورة الفاتورة الحالية" class="img-thumbnail" style="max-height: 100px;">
-                                    <div class="ms-2">
-                                        <small class="text-muted d-block">الصورة الحالية</small>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" name="remove_invoice" id="remove_invoice">
-                                            <label class="form-check-label" for="remove_invoice">إزالة الصورة</label>
-                                        </div>
-                                    </div>
-                                </div>`;
-                        } else {
-                            currentInvoiceDiv.innerHTML = '<small class="text-muted">لا توجد صورة فاتورة حالية</small>';
-                        }
-
+                        // Fill the edit modal with order data
+                        populateEditForm(data.order);
+                        // Show the edit modal
                         new bootstrap.Modal(document.getElementById('editOrderModal')).show();
                     } else {
-                        alert(data.message);
+                        showAlert('خطأ', data.message || 'حدث خطأ في جلب بيانات الطلب');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('حدث خطأ أثناء جلب بيانات الطلب');
+                    showAlert('خطأ', 'حدث خطأ في جلب بيانات الطلب');
                 });
         }
 
-        // Add event listener for edit form submission
-        document.getElementById('editOrderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
+        function populateEditForm(order) {
+            // Set the order ID
+            document.getElementById('edit_order_id').value = order.id;
             
+            // Set order type
+            document.getElementById('edit_order_type').value = order.order_type;
+            
+            // Set customer details
+            document.getElementById('edit_customer_name').value = order.customer_name;
+            document.getElementById('edit_customer_phone').value = order.customer_phone;
+            
+            // Set delivery date and time
+            const deliveryDateTime = new Date(order.delivery_date);
+            document.getElementById('edit_delivery_date').value = deliveryDateTime.toISOString().split('T')[0];
+            document.getElementById('edit_delivery_time').value = deliveryDateTime.toTimeString().slice(0,5);
+            
+            // Set locations
+            document.getElementById('edit_pickup_location').value = order.pickup_location;
+            if (order.pickup_location_link) {
+                document.getElementById('edit_pickup_location_link').value = order.pickup_location_link;
+            }
+            
+            document.getElementById('edit_delivery_location').value = order.delivery_location;
+            if (order.delivery_location_link) {
+                document.getElementById('edit_delivery_location_link').value = order.delivery_location_link;
+            }
+            
+            // Set other details
+            document.getElementById('edit_items_count').value = order.items_count;
+            document.getElementById('edit_total_cost').value = order.total_cost;
+            document.getElementById('edit_payment_method').value = order.payment_method;
+            
+            // Set fragile checkbox
+            document.getElementById('edit_is_fragile').checked = order.is_fragile == 1;
+            
+            // Set additional notes
+            if (order.additional_notes) {
+                document.getElementById('edit_additional_notes').value = order.additional_notes;
+            }
+        }
+
+        function updateOrder(orderId) {
+            // Clear previous errors
+            clearFormErrors();
+            
+            const form = document.getElementById('editOrderForm');
+            const formData = new FormData(form);
+            
+            // Validate form before submission
+            if (!validateOrderForm()) {
+                return false;
+            }
+
+            // Show confirmation dialog
+            if (!confirm('هل أنت متأكد من تحديث بيانات الطلب؟')) {
+                return false;
+            }
+            
+            // Show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> جاري التحديث...';
+            submitBtn.disabled = true;
+
+            // Show loading overlay
+            showLoadingOverlay();
+
             fetch('ajax/update_order.php', {
                 method: 'POST',
                 body: formData
@@ -578,26 +624,112 @@ $active_complaints = $stmt->fetchColumn();
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    location.reload(); // Reload page to show updated data
+                    showAlert('نجاح', 'تم تحديث الطلب بنجاح');
+                    bootstrap.Modal.getInstance(document.getElementById('editOrderModal')).hide();
+                    location.reload();
                 } else {
-                    alert(data.message);
+                    if (data.errors && Array.isArray(data.errors)) {
+                        data.errors.forEach(error => {
+                            showFormError(error);
+                        });
+                    } else {
+                        showAlert('خطأ', data.message || 'حدث خطأ أثناء تحديث الطلب');
+                    }
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('حدث خطأ أثناء تحديث الطلب');
+                showAlert('خطأ', 'حدث خطأ في الاتصال بالخادم');
+            })
+            .finally(() => {
+                // Restore button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                // Hide loading overlay
+                hideLoadingOverlay();
             });
-        });
+        }
 
-        // دالة لفتح محادثة واتساب
+        function cancelOrder(orderId) {
+            if (confirm('هل أنت متأكد من إلغاء هذا الطلب؟')) {
+                fetch('ajax/cancel_order.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        request_id: orderId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showAlert('نجاح', 'تم إلغاء الطلب بنجاح');
+                        location.reload();
+                    } else {
+                        showAlert('خطأ', data.message || 'حدث خطأ أثناء إلغاء الطلب');
+                    }
+                })
+                .catch(error => {
+                    showAlert('خطأ', 'حدث خطأ في إرسال البيانات');
+                });
+            }
+        }
+
+        function revertOrder(orderId) {
+            if (confirm('هل أنت متأكد من إرجاع هذا الطلب إلى حالة الانتظار؟')) {
+                fetch('ajax/revert_order.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        request_id: orderId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showAlert('نجاح', 'تم إرجاع الطلب إلى حالة الانتظار بنجاح');
+                        location.reload();
+                    } else {
+                        showAlert('خطأ', data.message || 'حدث خطأ أثناء إرجاع الطلب');
+                    }
+                })
+                .catch(error => {
+                    showAlert('خطأ', 'حدث خطأ في إرسال البيانات');
+                });
+            }
+        }
+
+        function openRating(requestId, driverId) {
+            document.getElementById('rate_request_id').value = requestId;
+            document.getElementById('rate_driver_id').value = driverId;
+            
+            // Reset form
+            document.getElementById('rateDriverForm').reset();
+            
+            // Show modal
+            new bootstrap.Modal(document.getElementById('rateDriverModal')).show();
+        }
+
+        function openComplaint(requestId, driverId) {
+            document.getElementById('complaint_request_id').value = requestId;
+            document.getElementById('complaint_driver_id').value = driverId;
+            
+            // Reset form
+            document.getElementById('complaintForm').reset();
+            
+            // Show modal
+            new bootstrap.Modal(document.getElementById('complaintModal')).show();
+        }
+
         function openWhatsApp(orderData) {
-            // تنسيق رقم الهاتف (إزالة الصفر الأول إذا وجد وإضافة رمز الدولة)
             let phone = orderData.phone.replace(/^0+/, '');
             if (!phone.startsWith('966')) {
                 phone = '966' + phone;
             }
             
-            // إنشاء نص الرسالة
             const message = `
 مرحباً ${orderData.customerName}،
 تفاصيل طلبك رقم: ${orderData.orderNumber}
@@ -611,10 +743,302 @@ $active_complaints = $stmt->fetchColumn();
 شكراً لاختيارك خدماتنا!
             `.trim();
 
-            // فتح رابط واتساب مع الرسالة المجهزة
             const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
+
+        function validateOrderForm() {
+            const form = document.getElementById('editOrderForm');
+            let isValid = true;
+
+            // Validate customer name
+            const customerName = form.querySelector('[name="customer_name"]');
+            if (!customerName.value.trim()) {
+                showFormError('اسم العميل مطلوب');
+                isValid = false;
+            }
+
+            // Validate phone number
+            const phoneNumber = form.querySelector('[name="customer_phone"]');
+            if (!phoneNumber.value.match(/^[0-9]{10}$/)) {
+                showFormError('رقم الهاتف يجب أن يتكون من 10 أرقام');
+                isValid = false;
+            }
+
+            // Validate delivery date and time
+            const deliveryDate = form.querySelector('[name="delivery_date"]');
+            const deliveryTime = form.querySelector('[name="delivery_time"]');
+            if (deliveryDate.value && deliveryTime.value) {
+                const deliveryDateTime = new Date(deliveryDate.value + ' ' + deliveryTime.value);
+                if (deliveryDateTime < new Date()) {
+                    showFormError('لا يمكن تحديد تاريخ ووقت توصيل في الماضي');
+                    isValid = false;
+                }
+            }
+
+            // Validate items count
+            const itemsCount = form.querySelector('[name="items_count"]');
+            if (!itemsCount.value || itemsCount.value < 1) {
+                showFormError('عدد القطع يجب أن يكون رقماً موجباً');
+                isValid = false;
+            }
+
+            // Validate total cost
+            const totalCost = form.querySelector('[name="total_cost"]');
+            const costValue = totalCost.value.trim();
+            if (costValue === '') {
+                showFormError('التكلفة الإجمالية مطلوبة');
+                isValid = false;
+            } else if (isNaN(costValue) || parseFloat(costValue) < 0) {
+                showFormError('التكلفة الإجمالية يجب أن تكون رقماً صفر أو أكبر');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showLoadingOverlay() {
+            const overlay = document.createElement('div');
+            overlay.className = 'loading-overlay';
+            overlay.innerHTML = `
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">جاري التحميل...</span>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+
+        function hideLoadingOverlay() {
+            const overlay = document.querySelector('.loading-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+
+        function showAlert(type, message) {
+            // Remove any existing alerts first
+            const existingAlerts = document.querySelectorAll('.custom-alert');
+            existingAlerts.forEach(alert => alert.remove());
+
+            // Map Arabic type to CSS class
+            const typeClass = {
+                'نجاح': 'success',
+                'خطأ': 'danger',
+                'تحذير': 'warning',
+                'معلومات': 'info',
+                // Keep English types for backward compatibility
+                'success': 'success',
+                'danger': 'danger',
+                'warning': 'warning',
+                'info': 'info'
+            }[type] || 'info';
+
+            // Create alert container
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `custom-alert alert-${typeClass}`;
+            
+            // Create icon based on alert type
+            const icon = document.createElement('i');
+            switch(typeClass) {
+                case 'success':
+                    icon.className = 'bi bi-check-circle-fill';
+                    break;
+                case 'danger':
+                    icon.className = 'bi bi-x-circle-fill';
+                    break;
+                case 'warning':
+                    icon.className = 'bi bi-exclamation-triangle-fill';
+                    break;
+                case 'info':
+                    icon.className = 'bi bi-info-circle-fill';
+                    break;
+            }
+            
+            // Create message container
+            const messageSpan = document.createElement('span');
+            messageSpan.className = 'alert-message';
+            messageSpan.textContent = message;
+            
+            // Create close button
+            const closeButton = document.createElement('button');
+            closeButton.className = 'alert-close';
+            closeButton.innerHTML = '×';
+            closeButton.onclick = function() {
+                alertDiv.classList.add('fade-out');
+                setTimeout(() => alertDiv.remove(), 300);
+            };
+            
+            // Assemble alert
+            alertDiv.appendChild(icon);
+            alertDiv.appendChild(messageSpan);
+            alertDiv.appendChild(closeButton);
+            
+            // Add to document
+            document.body.appendChild(alertDiv);
+            
+            // Trigger entrance animation
+            setTimeout(() => alertDiv.classList.add('show'), 100);
+            
+            // Auto dismiss after 5 seconds
+            setTimeout(() => {
+                if (alertDiv && document.body.contains(alertDiv)) {
+                    alertDiv.classList.add('fade-out');
+                    setTimeout(() => alertDiv.remove(), 300);
+                }
+            }, 5000);
+        }
+
+        function clearFormErrors() {
+            document.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+            document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+        }
+
+        function showFormError(error) {
+            const fields = {
+                'نوع الطلب': 'edit_order_type',
+                'اسم العميل': 'edit_customer_name',
+                'رقم هاتف العميل': 'edit_customer_phone',
+                'تاريخ التوصيل': 'edit_delivery_date',
+                'وقت التوصيل': 'edit_delivery_time',
+                'موقع الاستلام': 'edit_pickup_location',
+                'موقع التوصيل': 'edit_delivery_location',
+                'عدد القطع': 'edit_items_count',
+                'التكلفة الإجمالية': 'edit_total_cost',
+                'طريقة الدفع': 'edit_payment_method'
+            };
+
+            let fieldId = null;
+            for (const [label, id] of Object.entries(fields)) {
+                if (error.includes(label)) {
+                    fieldId = id;
+                    break;
+                }
+            }
+
+            if (fieldId) {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.classList.add('is-invalid');
+                    const feedback = document.createElement('div');
+                    feedback.className = 'invalid-feedback';
+                    feedback.textContent = error;
+                    field.parentNode.appendChild(feedback);
+                }
+            } else {
+                showAlert('خطأ', error);
+            }
+        }
+
+        // Add form validation before submission
+        document.getElementById('editOrderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            updateOrder(document.getElementById('edit_order_id').value);
+        });
+
+        // Initialize form fields when modal opens
+        document.getElementById('editOrderModal').addEventListener('show.bs.modal', function () {
+            clearFormErrors();
+        });
+
+        // Clear form when modal closes
+        document.getElementById('editOrderModal').addEventListener('hidden.bs.modal', function () {
+            document.getElementById('editOrderForm').reset();
+            clearFormErrors();
+        });
+
+        // Auto refresh functionality
+        const autoRefreshInterval = setInterval(function() {
+            location.reload();
+        }, 60000); // Refresh every minute
+
+        // Add CSS styles at the end of the file
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            .custom-alert {
+                position: fixed;
+                top: 30px;
+                left: 50%;
+                transform: translate(-50%, -150%);
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                min-width: 350px;
+                max-width: 450px;
+                z-index: 9999;
+                direction: rtl;
+                transition: transform 0.3s ease;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .custom-alert.show {
+                transform: translate(-50%, 0);
+            }
+
+            .custom-alert.fade-out {
+                transform: translate(-50%, -150%);
+            }
+
+            .custom-alert i {
+                font-size: 1.4rem;
+                color: #fff;
+            }
+
+            .custom-alert .alert-message {
+                flex-grow: 1;
+                font-size: 0.95rem;
+                font-weight: 500;
+                color: #fff;
+            }
+
+            .custom-alert .alert-close {
+                background: none;
+                border: none;
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 0;
+                line-height: 1;
+                transition: all 0.2s;
+                margin-right: 5px;
+            }
+
+            .custom-alert .alert-close:hover {
+                color: #fff;
+                transform: scale(1.1);
+            }
+
+            .alert-success {
+                background: #10B981;
+                box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+            }
+
+            .alert-danger {
+                background: #EF4444;
+                box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+            }
+
+            .alert-warning {
+                background: #F59E0B;
+                box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+            }
+
+            .alert-info {
+                background: #3B82F6;
+                box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+            }
+
+            @media (max-width: 576px) {
+                .custom-alert {
+                    min-width: 90%;
+                    margin: 0 20px;
+                    padding: 12px 20px;
+                }
+            }
+        `;
+        document.head.appendChild(styleSheet);
     </script>
 </body>
-</html> 
+</html>

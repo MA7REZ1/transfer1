@@ -1,0 +1,979 @@
+[07-Jan-2025 03:46:16 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 03:46:16 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 03:46:16 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 8
+    [driver_id] => 1
+    [rating] => 4
+    [rating_comment] => ت
+)
+
+[07-Jan-2025 03:46:16 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 03:46:16 Asia/Riyadh] Transaction started
+[07-Jan-2025 03:46:16 Asia/Riyadh] Request check result: Array
+(
+    [id] => 8
+    [status] => delivered
+)
+
+[07-Jan-2025 03:46:16 Asia/Riyadh] Existing rating check result: Not found
+[07-Jan-2025 03:46:16 Asia/Riyadh] Rating insertion result: Success
+[07-Jan-2025 03:46:16 Asia/Riyadh] Driver rating update result: Success
+[07-Jan-2025 03:46:16 Asia/Riyadh] Transaction committed successfully
+[07-Jan-2025 04:28:41 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 04:28:41 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 04:28:41 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 8
+    [driver_id] => 1
+    [rating] => 1
+    [rating_comment] => ا
+)
+
+[07-Jan-2025 04:28:41 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 04:28:41 Asia/Riyadh] Transaction started
+[07-Jan-2025 04:28:41 Asia/Riyadh] Request check result: Array
+(
+    [id] => 8
+    [status] => delivered
+)
+
+[07-Jan-2025 04:28:41 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 04:28:41 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 04:28:41 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 04:28:58 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 04:28:58 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 04:28:58 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 8
+    [driver_id] => 1
+    [rating] => 1
+    [rating_comment] => ا
+)
+
+[07-Jan-2025 04:28:58 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 04:28:58 Asia/Riyadh] Transaction started
+[07-Jan-2025 04:28:58 Asia/Riyadh] Request check result: Array
+(
+    [id] => 8
+    [status] => delivered
+)
+
+[07-Jan-2025 04:28:58 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 04:28:58 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 04:28:58 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 04:29:02 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 04:29:02 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 04:29:02 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 8
+    [driver_id] => 1
+    [rating] => 1
+    [rating_comment] => ا
+)
+
+[07-Jan-2025 04:29:02 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 04:29:02 Asia/Riyadh] Transaction started
+[07-Jan-2025 04:29:02 Asia/Riyadh] Request check result: Array
+(
+    [id] => 8
+    [status] => delivered
+)
+
+[07-Jan-2025 04:29:02 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 04:29:02 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 04:29:02 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 04:30:55 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 04:30:55 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 04:30:55 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 8
+    [driver_id] => 1
+    [rating] => 1
+    [rating_comment] => ا
+)
+
+[07-Jan-2025 04:30:55 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 04:30:55 Asia/Riyadh] Transaction started
+[07-Jan-2025 04:30:55 Asia/Riyadh] Request check result: Array
+(
+    [id] => 8
+    [status] => delivered
+)
+
+[07-Jan-2025 04:30:55 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 04:30:55 Asia/Riyadh] Error submitting rating: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[07-Jan-2025 04:31:08 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 04:31:08 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 04:31:08 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 8
+    [driver_id] => 1
+    [rating] => 2
+    [rating_comment] => بببببب
+)
+
+[07-Jan-2025 04:31:08 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 04:31:08 Asia/Riyadh] Transaction started
+[07-Jan-2025 04:31:08 Asia/Riyadh] Request check result: Array
+(
+    [id] => 8
+    [status] => delivered
+)
+
+[07-Jan-2025 04:31:08 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 04:31:08 Asia/Riyadh] Error submitting rating: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[07-Jan-2025 04:32:53 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 04:32:53 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 04:32:53 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 8
+    [driver_id] => 1
+    [rating] => 1
+    [rating_comment] => للللللللللللللل
+)
+
+[07-Jan-2025 04:32:53 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 04:32:53 Asia/Riyadh] Transaction started
+[07-Jan-2025 04:32:53 Asia/Riyadh] Request check result: Array
+(
+    [id] => 8
+    [status] => delivered
+)
+
+[07-Jan-2025 04:32:53 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 04:32:53 Asia/Riyadh] Error submitting rating: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[07-Jan-2025 04:34:05 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 04:34:05 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 04:34:05 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 9
+    [driver_id] => 1
+    [rating] => 2
+    [rating_comment] => ه
+)
+
+[07-Jan-2025 04:34:05 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 04:34:05 Asia/Riyadh] Transaction started
+[07-Jan-2025 04:34:05 Asia/Riyadh] Request check result: Array
+(
+    [id] => 9
+    [status] => delivered
+)
+
+[07-Jan-2025 04:34:05 Asia/Riyadh] Existing rating check result: Not found
+[07-Jan-2025 04:34:05 Asia/Riyadh] Rating insertion result: Success
+[07-Jan-2025 04:34:05 Asia/Riyadh] Driver rating update result: Success
+[07-Jan-2025 04:34:05 Asia/Riyadh] Transaction committed successfully
+[07-Jan-2025 06:52:05 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 06:52:05 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 06:52:05 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 9
+    [driver_id] => 1
+    [rating] => 3
+    [rating_comment] => خخخخخخخخخخخخ
+)
+
+[07-Jan-2025 06:52:05 Asia/Riyadh] Authentication failed: staff_id=not set, company_id=11
+[07-Jan-2025 07:40:18 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 07:40:18 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 07:40:18 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 9
+    [driver_id] => 1
+    [rating] => 4
+    [rating_comment] => ي
+)
+
+[07-Jan-2025 07:40:18 Asia/Riyadh] PHP Warning:  Undefined array key "staff_id" in C:\xampp\htdocs\proo\companies\ajax\submit_rating.php on line 30
+[07-Jan-2025 07:40:18 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 07:40:18 Asia/Riyadh] Transaction started
+[07-Jan-2025 07:40:18 Asia/Riyadh] Request check result: Array
+(
+    [id] => 9
+    [status] => delivered
+)
+
+[07-Jan-2025 07:40:18 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 07:40:18 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 07:40:18 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 07:45:56 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 07:45:56 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 07:45:56 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 8
+    [driver_id] => 1
+    [rating] => 4
+    [rating_comment] => سسسسسسسسس
+)
+
+[07-Jan-2025 07:45:56 Asia/Riyadh] PHP Warning:  Undefined array key "staff_id" in C:\xampp\htdocs\proo\companies\ajax\submit_rating.php on line 30
+[07-Jan-2025 07:45:56 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 07:45:56 Asia/Riyadh] Transaction started
+[07-Jan-2025 07:45:56 Asia/Riyadh] Request check result: Array
+(
+    [id] => 8
+    [status] => delivered
+)
+
+[07-Jan-2025 07:45:56 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 07:45:56 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 07:45:56 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 07:53:48 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 07:53:48 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 07:53:48 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 9
+    [driver_id] => 1
+    [rating] => 4
+    [rating_comment] => نننننننن
+)
+
+[07-Jan-2025 07:53:48 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 07:53:48 Asia/Riyadh] Transaction started
+[07-Jan-2025 07:53:48 Asia/Riyadh] Request check result: Array
+(
+    [id] => 9
+    [status] => delivered
+)
+
+[07-Jan-2025 07:53:48 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 07:53:48 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 07:53:48 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 07:54:54 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 07:54:54 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 07:54:54 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 4
+    [rating_comment] => تتتتتتتتتتتت
+)
+
+[07-Jan-2025 07:54:54 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 07:54:54 Asia/Riyadh] Transaction started
+[07-Jan-2025 07:54:54 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 07:54:54 Asia/Riyadh] Existing rating check result: Not found
+[07-Jan-2025 07:54:54 Asia/Riyadh] Rating insertion result: Success
+[07-Jan-2025 07:54:54 Asia/Riyadh] Driver rating update result: Success
+[07-Jan-2025 07:54:54 Asia/Riyadh] Transaction committed successfully
+[07-Jan-2025 07:55:02 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 07:55:02 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 07:55:02 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 4
+    [rating_comment] => عععععععععع
+)
+
+[07-Jan-2025 07:55:02 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 07:55:02 Asia/Riyadh] Transaction started
+[07-Jan-2025 07:55:02 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 07:55:02 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 07:55:02 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 07:55:02 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 07:55:03 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 07:55:03 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 07:55:03 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 4
+    [rating_comment] => عععععععععع
+)
+
+[07-Jan-2025 07:55:03 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 07:55:03 Asia/Riyadh] Transaction started
+[07-Jan-2025 07:55:03 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 07:55:03 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 07:55:03 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 07:55:03 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 07:57:33 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 07:57:33 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 07:57:33 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 4
+    [rating_comment] => ن
+)
+
+[07-Jan-2025 07:57:33 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 07:57:33 Asia/Riyadh] Transaction started
+[07-Jan-2025 07:57:33 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 07:57:33 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 07:57:33 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 07:57:33 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:03:51 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:03:51 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:03:51 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => عع
+)
+
+[07-Jan-2025 08:03:51 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:03:51 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:03:51 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:03:51 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:03:51 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:03:51 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:04:13 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:04:13 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:04:13 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:04:13 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:04:13 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:04:13 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:04:13 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:04:13 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:04:13 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:04:36 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:04:36 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:04:36 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:04:36 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:04:36 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:04:36 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:04:36 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:04:36 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:04:36 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:04:58 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:04:58 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:04:58 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:04:58 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:04:58 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:04:58 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:04:58 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:04:58 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:04:58 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:05:06 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:05:06 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:05:06 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:05:06 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:05:06 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:05:06 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:05:06 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:05:06 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:05:06 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:05:17 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:05:17 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:05:17 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:05:17 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:05:17 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:05:17 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:05:17 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:05:17 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:05:17 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:05:29 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:05:29 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:05:29 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:05:29 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:05:29 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:05:29 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:05:29 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:05:29 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:05:29 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:07:02 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:07:02 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:07:02 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:07:02 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:07:02 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:07:02 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:07:02 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:07:02 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:07:02 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:10:06 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:10:06 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:10:06 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:10:06 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:10:06 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:10:06 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:10:06 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:10:06 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:10:06 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:11:40 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:11:40 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:11:40 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:11:40 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:11:40 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:11:40 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:11:40 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:11:40 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:11:40 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:11:50 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:11:50 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:11:51 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:11:51 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:11:52 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:11:52 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:11:52 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:11:52 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:11:52 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:12:20 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:12:20 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:12:20 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:12:20 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:12:20 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:12:20 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:12:20 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:12:20 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:12:20 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:12:34 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:12:34 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:12:34 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:12:34 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:12:34 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:12:34 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:12:34 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:12:34 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:12:34 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:12:50 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:12:50 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:12:50 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:12:50 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:12:50 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:12:50 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:12:50 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:12:50 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:12:50 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:12:57 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:12:57 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:12:57 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:12:57 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:12:57 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:12:57 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:12:57 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:12:57 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:12:57 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:14:45 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:14:45 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:14:45 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:14:45 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:14:45 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:14:45 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:14:45 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:14:45 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:14:45 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:14:56 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:14:56 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:14:56 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:14:56 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:14:56 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:14:56 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:14:56 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:14:56 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:14:56 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:15:30 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:15:30 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:15:30 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:15:30 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:15:30 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:15:30 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:15:30 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:15:30 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:15:30 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:15:49 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:15:49 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:15:49 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:15:49 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:15:49 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:15:49 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:15:49 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:15:49 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:15:49 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:16:05 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:16:05 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:16:05 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:16:05 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:16:05 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:16:05 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:16:05 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:16:05 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:16:05 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:16:14 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:16:14 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:16:14 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:16:14 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:16:14 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:16:14 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:16:14 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:16:14 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:16:14 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:16:29 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:16:29 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:16:29 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => 
+)
+
+[07-Jan-2025 08:16:29 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:16:29 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:16:29 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:16:29 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:16:29 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:16:29 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:16:41 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:16:41 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:16:41 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => undefined
+)
+
+[07-Jan-2025 08:16:41 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:16:41 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:16:41 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:16:41 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:16:41 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:16:41 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:16:49 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:16:49 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:16:49 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => undefined
+)
+
+[07-Jan-2025 08:16:49 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:16:49 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:16:49 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:16:49 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:16:49 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:16:49 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:16:56 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:16:56 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:16:56 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => undefined
+)
+
+[07-Jan-2025 08:16:56 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:16:56 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:16:56 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:16:56 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:16:56 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:16:56 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:17:05 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:17:05 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:17:05 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => undefined
+)
+
+[07-Jan-2025 08:17:05 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:17:05 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:17:05 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:17:05 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:17:05 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:17:05 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:33:33 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:33:33 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:33:33 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 3
+    [rating_comment] => alert-float alert alert-تم تقييم هذا الطلب مسبقاً alert-dismissible fade show
+)
+
+[07-Jan-2025 08:33:33 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:33:33 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:33:33 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:33:33 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:33:33 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:33:33 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:41:17 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:41:17 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:41:17 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 4
+    [rating_comment] => ت
+)
+
+[07-Jan-2025 08:41:17 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:41:17 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:41:17 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:41:17 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:41:17 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:41:17 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:41:18 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:41:18 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:41:18 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 4
+    [rating_comment] => ت
+)
+
+[07-Jan-2025 08:41:18 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:41:18 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:41:18 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:41:18 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:41:18 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:41:18 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:41:18 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:41:18 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:41:18 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 4
+    [rating_comment] => ت
+)
+
+[07-Jan-2025 08:41:18 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:41:18 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:41:18 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:41:18 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:41:18 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:41:18 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
+[07-Jan-2025 08:41:19 Asia/Riyadh] Request Method: POST
+[07-Jan-2025 08:41:19 Asia/Riyadh] Raw POST data: 
+[07-Jan-2025 08:41:19 Asia/Riyadh] POST array: Array
+(
+    [request_id] => 11
+    [driver_id] => 2
+    [rating] => 4
+    [rating_comment] => ت
+)
+
+[07-Jan-2025 08:41:19 Asia/Riyadh] Database connection status: Connected
+[07-Jan-2025 08:41:19 Asia/Riyadh] Transaction started
+[07-Jan-2025 08:41:19 Asia/Riyadh] Request check result: Array
+(
+    [id] => 11
+    [status] => delivered
+)
+
+[07-Jan-2025 08:41:19 Asia/Riyadh] Existing rating check result: Found
+[07-Jan-2025 08:41:19 Asia/Riyadh] Transaction rolled back
+[07-Jan-2025 08:41:19 Asia/Riyadh] Error submitting rating: تم تقييم هذا الطلب مسبقاً
