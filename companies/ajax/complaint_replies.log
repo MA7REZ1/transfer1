@@ -1,0 +1,6 @@
+[11-Jan-2025 18:20:09 Asia/Riyadh] Raw input: complaint_id=COMP202501074676&response=%D8%B4%D9%83%D8%B1%D8%A7+%D9%84%D9%83%D9%85%0D%0A
+[11-Jan-2025 18:20:09 Asia/Riyadh] Processed data - complaint_id: COMP202501074676, reply length: 0
+[11-Jan-2025 18:20:09 Asia/Riyadh] Missing required data
+[11-Jan-2025 18:25:10 Asia/Riyadh] Raw input: complaint_id=COMP202501074676&response=%D8%B4%D9%83%D8%B1%D8%A7%0D%0A
+[11-Jan-2025 18:25:10 Asia/Riyadh] Processed data - complaint_id: COMP202501074676, reply length: 0
+[11-Jan-2025 18:25:10 Asia/Riyadh] Missing required data

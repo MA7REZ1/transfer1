@@ -2,13 +2,49 @@
 require_once '../config.php';
 
 if (!isset($_SESSION['company_email'])) {
-      header("Location: login.php");
+      header("Location: orders.php");
     exit();
 }
     
 
 
 $company_id = $_SESSION['company_id'];
+
+
+
+// Get unread notifications count
+$stmt = $conn->prepare("
+    SELECT COUNT(*) 
+    FROM company_notifications 
+    WHERE company_id = ? AND is_read = 0
+");
+$stmt->execute([$company_id]);
+$unread_notifications = $stmt->fetchColumn();
+
+// Get recent notifications with complaint information
+$stmt = $conn->prepare("
+    SELECT 
+        n.*,
+        CASE 
+            WHEN n.type = 'complaint_response' THEN c.complaint_number 
+            ELSE NULL 
+        END as complaint_number,
+        CASE 
+            WHEN n.type = 'complaint_response' THEN '#'
+            ELSE n.link 
+        END as link,
+        CASE 
+            WHEN n.is_read = 0 THEN 0
+            ELSE 1
+        END as is_read
+    FROM company_notifications n
+    LEFT JOIN complaints c ON n.reference_id = c.id
+    WHERE n.company_id = ? 
+    ORDER BY n.created_at DESC 
+    LIMIT 5
+");
+$stmt->execute([$company_id]);
+$notifications = $stmt->fetchAll();
 
 // Get company information
 $stmt = $conn->prepare("SELECT name, logo FROM companies WHERE id = ?");
@@ -77,7 +113,7 @@ $stmt = $conn->prepare("
     LEFT JOIN drivers d ON r.driver_id = d.id
     WHERE r.company_id = ?
     ORDER BY r.created_at DESC
-    LIMIT 5
+    LIMIT 10
 ");
 $stmt->execute([$_SESSION['company_id']]);
 $requests = $stmt->fetchAll();
@@ -126,7 +162,7 @@ $stmt = $conn->prepare("
     AND r.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
     GROUP BY d.id, d.username
     ORDER BY total_deliveries DESC
-    LIMIT 5
+    LIMIT 10
 ");
 $stmt->execute([$_SESSION['company_id']]);
 $top_drivers = $stmt->fetchAll();
@@ -166,8 +202,25 @@ $stmt = $conn->prepare("
     AND status IN ('new', 'in_progress')
 ");
 $stmt->execute([$_SESSION['company_id']]);
-$active_complaints = $stmt->fetchColumn();
+$ب = $stmt->fetchColumn();
+
+// Add this after the ب query
+$stmt = $conn->prepare("
+    SELECT 
+        cr.*, c.complaint_number, c.subject,
+        a.username as admin_name
+    FROM complaint_responses cr
+    JOIN complaints c ON cr.complaint_id = c.id
+    JOIN admins a ON cr.admin_id = a.id
+    WHERE c.company_id = ?
+    AND cr.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+    ORDER BY cr.created_at DESC
+    LIMIT 5
+");
+$stmt->execute([$_SESSION['company_id']]);
+$complaint_responses = $stmt->fetchAll();
 ?>
+
 
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
@@ -198,8 +251,55 @@ $active_complaints = $stmt->fetchColumn();
                     <li class="nav-item">
                         <a class="nav-link" href="staff.php"><i class="bi bi-people"></i> إدارة الموظفين</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="complaints.php">
+                            <i class="bi bi-exclamation-circle"></i> الشكاوى
+                            <?php if ($ب > 0): ?>
+                                <span class="badge bg-danger"><?php echo $ب; ?></span>
+                            <?php endif; ?>
+                        </a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav">
+                    <!-- Notifications Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <?php if ($unread_notifications > 0): ?>
+                            <span class="badge bg-danger"><?php echo $unread_notifications; ?></span>
+                        <?php endif; ?>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+                        <h6 class="dropdown-header">الإشعارات</h6>
+                        <?php if (empty($notifications)): ?>
+                            <div class="dropdown-item text-muted">لا توجد إشعارات</div>
+                        <?php else: ?>
+                            <?php foreach ($notifications as $notification): ?>
+                                <div class="dropdown-item <?php echo $notification['is_read'] ? '' : 'bg-light'; ?>" 
+                                   onclick="handleNotificationClick(<?php echo $notification['id']; ?>, '<?php echo htmlspecialchars($notification['link']); ?>', event)"
+                                   data-notification-id="<?php echo $notification['id']; ?>"
+                                   data-type="<?php echo htmlspecialchars($notification['type']); ?>"
+                                   <?php if ($notification['type'] === 'complaint_response' && $notification['complaint_number']): ?>
+                                   data-complaint-number="<?php echo htmlspecialchars($notification['complaint_number']); ?>"
+                                   <?php endif; ?>>
+                                    <div class="notification-content">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1"><?php echo htmlspecialchars($notification['title']); ?></h6>
+                                            <small class="text-muted">
+                                                <?php echo date('Y-m-d H:i', strtotime($notification['created_at'])); ?>
+                                            </small>
+                                        </div>
+                                        <p class="mb-1"><?php echo htmlspecialchars($notification['message']); ?></p>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-center" href="#" onclick="markAllNotificationsAsRead(event)">
+                                تعليم الكل كمقروء
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout.php"><i class="bi bi-box-arrow-right"></i> تسجيل الخروج</a>
                     </li>
@@ -419,6 +519,9 @@ $active_complaints = $stmt->fetchColumn();
                                         ?>)" title="فتح محادثة واتساب">
                                             <i class="bi bi-whatsapp"></i>
                                         </button>
+                                        <button type="button" class="btn btn-sm btn-info" onclick="trackOrder('<?php echo $request['order_number']; ?>')" title="تتبع الطلب">
+                                            <i class="bi bi-search"></i>
+                                        </button>
                                         <?php if ($request['status'] === 'cancelled'): ?>
                                             <button type="button" class="btn btn-sm btn-success" onclick="revertOrder(<?php echo $request['id']; ?>)" title="إرجاع للانتظار">
                                                 <i class="bi bi-arrow-counterclockwise"></i>
@@ -482,13 +585,43 @@ $active_complaints = $stmt->fetchColumn();
                 </div>
             </div>
         </div>
+
+        <!-- Complaint Responses Section -->
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+                <h5 class="mb-0"><i class="bi bi-chat-dots"></i> الردود على الشكاوى</h5>
+            </div>
+            <div class="card-body">
+                <?php if (empty($complaint_responses)): ?>
+                    <p class="text-muted text-center">لا توجد ردود على الشكاوى حتى الآن</p>
+                <?php else: ?>
+                    <div class="list-group">
+                        <?php foreach ($complaint_responses as $response): ?>
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-1">
+                                        شكوى رقم: <?php echo htmlspecialchars($response['complaint_number']); ?>
+                                        <small class="text-muted">(<?php echo htmlspecialchars($response['subject']); ?>)</small>
+                                    </h6>
+                                    <small class="text-muted">
+                                        <?php echo date('Y-m-d H:i', strtotime($response['created_at'])); ?>
+                                    </small>
+                                </div>
+                                <p class="mb-1"><?php echo nl2br(htmlspecialchars($response['response'])); ?></p>
+                                <small class="text-muted">
+                                    رد من: <?php echo htmlspecialchars($response['admin_name']); ?>
+                                </small>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 
-    <!-- Define BASEPATH constant -->
-    <?php define('BASEPATH', true); ?>
-    
     <!-- Include existing modals -->
     <?php include 'modals/order_modals.php'; ?>
+    <?php include 'modals/complaint_modals.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -730,6 +863,10 @@ $active_complaints = $stmt->fetchColumn();
                 phone = '966' + phone;
             }
             
+            // Get the current domain
+            const domain = window.location.protocol + '//' + window.location.host;
+            const trackingUrl = domain + '/track_order.php?order_number=' + orderData.orderNumber;
+            
             const message = `
 مرحباً ${orderData.customerName}،
 تفاصيل طلبك رقم: ${orderData.orderNumber}
@@ -739,6 +876,9 @@ $active_complaints = $stmt->fetchColumn();
 تاريخ التوصيل: ${orderData.deliveryDate}
 التكلفة: ${orderData.totalCost} ريال
 الحالة: ${orderData.status}
+
+يمكنك تتبع طلبك من خلال الرابط التالي:
+${trackingUrl}
 
 شكراً لاختيارك خدماتنا!
             `.trim();
@@ -1039,6 +1179,199 @@ $active_complaints = $stmt->fetchColumn();
             }
         `;
         document.head.appendChild(styleSheet);
+
+        function trackOrder(orderNumber) {
+            // Get the current domain
+            const domain = window.location.protocol + '//' + window.location.host;
+            const trackingUrl = domain + '/track_order.php?order_number=' + orderNumber;
+            
+            // Open tracking page in new tab
+            window.open(trackingUrl, '_blank');
+        }
+
+        // Function to fetch complaint responses live
+        function fetchComplaintResponses() {
+            fetch('ajax/get_complaint_responses.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const responsesContainer = document.querySelector('.list-group');
+                        if (responsesContainer) {
+                            if (data.responses.length === 0) {
+                                responsesContainer.innerHTML = '<p class="text-muted text-center">لا توجد ردود على الشكاوى حتى الآن</p>';
+                            } else {
+                                responsesContainer.innerHTML = data.responses.map(response => `
+                                    <div class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h6 class="mb-1">
+                                                شكوى رقم: ${response.complaint_number}
+                                                <small class="text-muted">(${response.subject})</small>
+                                            </h6>
+                                            <small class="text-muted">
+                                                ${new Date(response.created_at).toLocaleString('ar-SA')}
+                                            </small>
+                                        </div>
+                                        <p class="mb-1">${response.response}</p>
+                                        <small class="text-muted">
+                                            رد من: ${response.admin_name}
+                                        </small>
+                                    </div>
+                                `).join('');
+                            }
+                        }
+                    }
+                })
+                .catch(error => console.error('Error fetching responses:', error));
+        }
+
+        // Function to update notification count
+        function updateNotificationCount(change) {
+            // Update dropdown badge (notifications)
+            const dropdownBadge = document.querySelector('#notificationsDropdown .badge.bg-danger');
+            if (dropdownBadge) {
+                const currentCount = parseInt(dropdownBadge.textContent || '0');
+                const newCount = Math.max(0, currentCount + change);
+                if (newCount <= 0) {
+                    dropdownBadge.remove();
+                } else {
+                    dropdownBadge.textContent = newCount;
+                }
+            }
+
+            // Update complaints badge (in the main menu)
+            const complaintsBadge = document.querySelector('a[href="complaints.php"] .badge.bg-danger');
+            if (complaintsBadge) {
+                const currentCount = parseInt(complaintsBadge.textContent || '0');
+                const newCount = Math.max(0, currentCount + change);
+                if (newCount <= 0) {
+                    complaintsBadge.remove();
+                } else {
+                    complaintsBadge.textContent = newCount;
+                }
+            }
+        }
+
+        // Function to handle notification click
+        function handleNotificationClick(notificationId, link, event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const notificationElement = event.currentTarget;
+            if (!notificationElement) return;
+
+            const notificationType = notificationElement.getAttribute('data-type');
+            const complaintNumber = notificationElement.getAttribute('data-complaint-number');
+            
+            // Only proceed if notification is unread (has bg-light class)
+            if (notificationElement.classList.contains('bg-light')) {
+                // Mark notification as read
+                fetch('ajax/mark_notification_read.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        notification_id: notificationId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update UI
+                        notificationElement.classList.remove('bg-light');
+                        
+                        // Update notification count based on server response
+                        const dropdownBadge = document.querySelector('#notificationsDropdown .badge.bg-danger');
+                        if (dropdownBadge) {
+                            if (data.unread_count <= 0) {
+                                dropdownBadge.remove();
+                            } else {
+                                dropdownBadge.textContent = data.unread_count;
+                            }
+                        }
+                        
+                        // Navigate after successful update
+                        setTimeout(() => {
+                            navigateToDestination(notificationType, complaintNumber, link);
+                        }, 100);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    navigateToDestination(notificationType, complaintNumber, link);
+                });
+            } else {
+                navigateToDestination(notificationType, complaintNumber, link);
+            }
+        }
+
+        // Helper function for navigation
+        function navigateToDestination(notificationType, complaintNumber, link) {
+            if (notificationType === 'complaint_response' && complaintNumber) {
+                window.location.href = `complaints.php?id=${complaintNumber}`;
+            } else if (link && link !== '#') {
+                window.location.href = link;
+            }
+        }
+
+        function markAllNotificationsAsRead(event) {
+            event.preventDefault();
+            
+            // Count unread notifications before marking them as read
+            const unreadCount = document.querySelectorAll('.dropdown-item.bg-light').length;
+            
+            if (unreadCount > 0) {
+                fetch('ajax/mark_all_notifications_read.php', {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update UI
+                        document.querySelectorAll('.dropdown-item').forEach(item => {
+                            item.classList.remove('bg-light');
+                        });
+                        
+                        // Update notification count
+                        updateNotificationCount(-unreadCount);
+                    }
+                });
+            }
+        }
+
+        // Add event listeners when document is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to all notification items
+            document.querySelectorAll('.dropdown-item[data-notification-id]').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const notificationId = this.dataset.notificationId;
+                    const link = this.getAttribute('href') || '#';
+                    handleNotificationClick(notificationId, link, e);
+                });
+            });
+
+            // Add click handler to "Mark all as read" button
+            const markAllReadBtn = document.querySelector('#markAllRead');
+            if (markAllReadBtn) {
+                markAllReadBtn.addEventListener('click', markAllNotificationsAsRead);
+            }
+
+            // Log initial badge elements to verify selectors
+            console.log('Notifications Badge:', document.querySelector('#notificationsDropdown .badge.bg-danger'));
+            console.log('Complaints Badge:', document.querySelector('a[href="complaints.php"] .badge.bg-danger'));
+        });
+
+        // Prevent dropdown from closing when clicking inside
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            if (dropdownMenu) {
+                dropdownMenu.addEventListener('click', function(e) {
+                    if (e.target.closest('.notification-content') || e.target.closest('.reply-form')) {
+                        e.stopPropagation();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>

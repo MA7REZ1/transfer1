@@ -67,7 +67,34 @@ function formatPhoneForWhatsApp($phone) {
     }
     return $phone;
 }
+
+$stmt = $conn->prepare("
+    SELECT COUNT(*) 
+    FROM complaints 
+    WHERE company_id = ? 
+    AND status IN ('new', 'in_progress')
+");
+$stmt->execute([$_SESSION['company_id']]);
+$active_complaints = $stmt->fetchColumn();
+
+// Add this after the active_complaints query
+$stmt = $conn->prepare("
+    SELECT 
+        cr.*, c.complaint_number, c.subject,
+        a.username as admin_name
+    FROM complaint_responses cr
+    JOIN complaints c ON cr.complaint_id = c.id
+    JOIN admins a ON cr.admin_id = a.id
+    WHERE c.company_id = ?
+    AND cr.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+    ORDER BY cr.created_at DESC
+    LIMIT 5
+");
+$stmt->execute([$_SESSION['company_id']]);
+$complaint_responses = $stmt->fetchAll();
 ?>
+
+
 
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
@@ -139,23 +166,135 @@ function formatPhoneForWhatsApp($phone) {
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0,0,0,0.05);
         }
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        .btn:hover::before {
+            width: 300%;
+            height: 300%;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+        .btn-group .btn {
+            margin: 0 2px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.875rem;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #4158D0, #C850C0);
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #3a4ec0, #b846b0);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .btn-info {
+            background: linear-gradient(45deg, #00c6fb, #005bea);
+            border: none;
+            color: white;
+        }
+        .btn-info:hover {
+            background: linear-gradient(45deg, #00b3e6, #0052d6);
+            transform: translateY(-2px);
+        }
+        .btn-warning {
+            background: linear-gradient(45deg, #f6d365, #fda085);
+            border: none;
+            color: white;
+        }
+        .btn-warning:hover {
+            background: linear-gradient(45deg, #f5cc5d, #fc9578);
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            border: none;
+        }
+        .btn-danger:hover {
+            background: linear-gradient(45deg, #f53b63, #ff3e1f);
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: linear-gradient(45deg, #00b09b, #96c93d);
+            border: none;
+        }
+        .btn-success:hover {
+            background: linear-gradient(45deg, #009b88, #88b935);
+            transform: translateY(-2px);
+        }
+        .btn i {
+            margin-right: 4px;
+            font-size: 1rem;
+            vertical-align: middle;
+        }
         .btn-light {
             background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
+            backdrop-filter: blur(5px);
         }
         .btn-light:hover {
             background: rgba(255, 255, 255, 0.3);
             color: white;
             transform: translateY(-2px);
         }
-        .btn-danger {
-            background: rgba(220, 53, 69, 0.9);
-            border: none;
+        .btn-group {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            background: white;
+            padding: 2px;
         }
-        .btn-danger:hover {
-            background: rgba(220, 53, 69, 1);
-            transform: translateY(-2px);
+        .btn-group .btn {
+            border-radius: 6px;
+            margin: 2px;
+        }
+        .btn-group .btn:hover {
+            z-index: 2;
+        }
+        .badge {
+            padding: 0.5em 0.8em;
+            border-radius: 6px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .badge.bg-danger {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b) !important;
+        }
+        .badge.bg-success {
+            background: linear-gradient(45deg, #00b09b, #96c93d) !important;
+        }
+        .badge.bg-warning {
+            background: linear-gradient(45deg, #f6d365, #fda085) !important;
+            color: white;
+        }
+        .badge.bg-info {
+            background: linear-gradient(45deg, #00c6fb, #005bea) !important;
+            color: white;
+        }
+        .badge.bg-secondary {
+            background: linear-gradient(45deg, #8e9eab, #eef2f3) !important;
+            color: #2c3e50;
         }
         .alert-float {
             position: fixed;
@@ -320,12 +459,20 @@ function formatPhoneForWhatsApp($phone) {
                         <a href="logout.php" class="btn btn-danger btn-sm">
                             <i class="bi bi-box-arrow-right"></i> تسجيل الخروج
                         </a>
+                        <a class="nav-link" href="complaints.php">
+                            <i class="bi bi-exclamation-circle"></i> الشكاوى
+                            <?php if ($active_complaints > 0): ?>
+                                <span class="badge bg-danger"><?php echo $active_complaints; ?></span>
+                            <?php endif; ?>
+                        </a>
                     </div>
+                        
+                    
                 </div>
             </div>
         </div>
     </div>
-
+ 
     <div class="container py-4">
         <!-- Orders Table -->
         <div class="card shadow-sm">
@@ -449,6 +596,9 @@ function formatPhoneForWhatsApp($phone) {
                                             ])); 
                                         ?>)" title="فتح محادثة واتساب">
                                             <i class="bi bi-whatsapp"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-info" onclick="trackOrder('<?php echo $request['order_number']; ?>')" title="تتبع الطلب">
+                                            <i class="bi bi-search"></i>
                                         </button>
                                         <?php if ($request['status'] === 'cancelled'): ?>
                                             <button type="button" class="btn btn-sm btn-success" onclick="revertOrder(<?php echo $request['id']; ?>)" title="إرجاع للانتظار">
@@ -751,6 +901,10 @@ function formatPhoneForWhatsApp($phone) {
                 phone = '966' + phone;
             }
             
+            // Get the current domain
+            const domain = window.location.protocol + '//' + window.location.host;
+            const trackingUrl = domain + '/track_order.php?order_number=' + orderData.orderNumber;
+            
             const message = `
 مرحباً ${orderData.customerName}،
 تفاصيل طلبك رقم: ${orderData.orderNumber}
@@ -760,6 +914,9 @@ function formatPhoneForWhatsApp($phone) {
 تاريخ التوصيل: ${orderData.deliveryDate}
 التكلفة: ${orderData.totalCost} ريال
 الحالة: ${orderData.status}
+
+يمكنك تتبع طلبك من خلال الرابط التالي:
+${trackingUrl}
 
 شكراً لاختيارك خدماتنا!
             `.trim();
@@ -1079,6 +1236,15 @@ function formatPhoneForWhatsApp($phone) {
             document.getElementById('editOrderForm').reset();
             clearFormErrors();
         });
+
+        function trackOrder(orderNumber) {
+            // Get the current domain
+            const domain = window.location.protocol + '//' + window.location.host;
+            const trackingUrl = domain + '/track_order.php?order_number=' + orderNumber;
+            
+            // Open tracking page in new tab
+            window.open(trackingUrl, '_blank');
+        }
     </script>
 </body>
 </html> 

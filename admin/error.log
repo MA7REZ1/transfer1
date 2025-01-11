@@ -1,0 +1,30 @@
+[10-Jan-2025 01:24:12 Asia/Riyadh] PHP Warning:  require_once(includes/header.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\dashboard.php on line 3
+[10-Jan-2025 01:24:12 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'includes/header.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\dashboard.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\dashboard.php on line 3
+[10-Jan-2025 01:33:34 Asia/Riyadh] PHP Warning:  require_once(includes/header.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\orders.php on line 3
+[10-Jan-2025 01:33:34 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'includes/header.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\orders.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\orders.php on line 3
+[10-Jan-2025 01:40:19 Asia/Riyadh] PHP Warning:  require_once(includes/header.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\companies.php on line 98
+[10-Jan-2025 01:40:19 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'includes/header.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\companies.php:98
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\companies.php on line 98
+[10-Jan-2025 01:44:48 Asia/Riyadh] PHP Warning:  require_once(includes/header.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\drivers.php on line 111
+[10-Jan-2025 01:44:48 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'includes/header.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\drivers.php:111
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\drivers.php on line 111
+[10-Jan-2025 01:45:50 Asia/Riyadh] PHP Warning:  require_once(includes/footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\drivers.php on line 352
+[10-Jan-2025 01:45:50 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'includes/footer.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\drivers.php:352
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\drivers.php on line 352
+[10-Jan-2025 01:47:16 Asia/Riyadh] PHP Warning:  require_once(includes/header.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\revenue.php on line 3
+[10-Jan-2025 01:47:16 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'includes/header.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\revenue.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\revenue.php on line 3

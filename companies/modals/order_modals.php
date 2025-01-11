@@ -1,7 +1,9 @@
 <?php
-// Prevent direct access
-if (!defined('BASEPATH')) exit('No direct script access allowed');
-?>
+require_once '../config.php';
+if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
+        echo json_encode(['success' => false, 'message' => 'غير مصرح لك بالوصول']);
+    exit();
+}?>
 
 <!-- New Order Modal -->
 <div class="modal fade" id="newRequestModal" tabindex="-1">
