@@ -17,9 +17,20 @@
         
         <div class="sidebar-divider"></div>
         
+        <?php if ($_SESSION['admin_role'] === 'مدير_عام'): ?>
+        <a href="manage_employees.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'manage_employees.php' ? 'active' : ''; ?>">
+            <i class="fas fa-users-cog"></i>
+            <span>إدارة الموظفين</span>
+        </a>
+        <?php endif; ?>
+        
         <a href="orders.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'orders.php' ? 'active' : ''; ?>">
             <i class="fas fa-box"></i>
             <span>إدارة الطلبات</span>
+        </a>
+         <a href="employees.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'employees.php' ? 'active' : ''; ?>">
+            <i class="fas fa-box"></i>
+            <span>إدارة الموظفين</span>
         </a>
         
         <a href="companies.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'companies.php' ? 'active' : ''; ?>">
@@ -79,7 +90,6 @@
         </a>
     </div>
 </div>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Handle sidebar toggle

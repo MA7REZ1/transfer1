@@ -53,6 +53,9 @@ $unread_notifications = $stmt->fetchColumn();
                         case 'profile':
                             echo 'الملف الشخصي';
                             break;
+                        case 'employees':
+                            echo 'إدارة الموظفين';
+                            break;
                         default:
                             echo 'نظام إدارة النقل';
                     }
@@ -61,6 +64,14 @@ $unread_notifications = $stmt->fetchColumn();
             </div>
             
             <div class="header-actions d-flex align-items-center">
+                <!-- زر إدارة الموظفين -->
+                <?php if ($_SESSION['admin_role'] === 'مدير_عام'): ?>
+                <a href="manage_employees.php" class="btn btn-primary me-3">
+                    <i class="fas fa-users-cog me-2"></i>
+                    إدارة الموظفين
+                </a>
+                <?php endif; ?>
+
                 <!-- Notifications Dropdown -->
                 <style>
                 .notification-icon {
@@ -339,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         container.innerHTML = `
                             <div class="text-center py-4">
                                 <i class="far fa-bell-slash fa-2x text-muted mb-2"></i>
-                                <p class="text-muted">لا توجد إشعارا�� جديدة</p>
+                                <p class="text-muted">لا توجد إشعارات جديدة</p>
                             </div>
                         `;
                     }

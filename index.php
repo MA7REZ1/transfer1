@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $conn->prepare("UPDATE admins SET last_login = CURRENT_TIMESTAMP WHERE id = ?");
                 $stmt->execute([$admin['id']]);
                 
-                header('Location: dashboard.php');
+                header('Location: admin/dashboard.php');
                 exit;
             } else {
                 $error = "بيانات الدخول غير صحيحة";
