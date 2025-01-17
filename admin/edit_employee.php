@@ -27,9 +27,29 @@ if (!$employee) {
     exit;
 }
 
+// التحقق من صلاحيات التعديل
+if ($_SESSION['admin_role'] !== 'super_admin' && 
+    $_SESSION['admin_id'] !== $employee['id'] && 
+    $_SESSION['admin_role'] !== 'مدير_عام') {
+    $_SESSION['error'] = "ليس لديك صلاحية تعديل بيانات هذا الموظف";
+    header('Location: employees.php');
+    exit;
+}
+
 // التحقق من عدم تعديل بيانات المدير العام من قبل غير المدير العام نفسه
-if ($employee['role'] === 'مدير_عام' && $_SESSION['user_id'] !== $employee['id']) {
+if ($employee['role'] === 'مدير_عام' && 
+    $_SESSION['admin_id'] !== $employee['id'] && 
+    $_SESSION['admin_role'] !== 'super_admin') {
     $_SESSION['error'] = "لا يمكن تعديل بيانات المدير العام";
+    header('Location: employees.php');
+    exit;
+}
+
+// التحقق من عدم تعديل بيانات مدير النظام من قبل غير مدير النظام نفسه
+if ($employee['role'] === 'super_admin' && 
+    $_SESSION['admin_id'] !== $employee['id'] && 
+    $_SESSION['admin_role'] !== 'super_admin') {
+    $_SESSION['error'] = "لا يمكن تعديل بيانات مدير النظام";
     header('Location: employees.php');
     exit;
 }
@@ -198,13 +218,23 @@ include '../includes/header.php';
                                         <label class="form-label">الدور</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
-                                            <select class="form-select" name="role" required <?php echo $employee['role'] === 'مدير_عام' ? 'disabled' : ''; ?>>
+                                            <select class="form-select" name="role" required 
+                                                <?php echo ($_SESSION['admin_role'] !== 'super_admin' && 
+                                                          ($employee['role'] === 'مدير_عام' || 
+                                                           $employee['role'] === 'super_admin')) ? 'disabled' : ''; ?>>
                                                 <option value="موظف" <?php echo $employee['role'] === 'موظف' ? 'selected' : ''; ?>>موظف</option>
+                                                <?php if ($_SESSION['admin_role'] === 'مدير_عام' || $_SESSION['admin_role'] === 'super_admin'): ?>
                                                 <option value="مدير_عام" <?php echo $employee['role'] === 'مدير_عام' ? 'selected' : ''; ?>>مدير عام</option>
+                                                <?php endif; ?>
+                                                <?php if ($_SESSION['admin_role'] === 'super_admin'): ?>
+                                                <option value="super_admin" <?php echo $employee['role'] === 'super_admin' ? 'selected' : ''; ?>>مدير النظام</option>
+                                                <?php endif; ?>
                                             </select>
                                         </div>
-                                        <?php if ($employee['role'] === 'مدير_عام'): ?>
-                                            <input type="hidden" name="role" value="مدير_عام">
+                                        <?php if ($_SESSION['admin_role'] !== 'super_admin' && 
+                                                ($employee['role'] === 'مدير_عام' || 
+                                                 $employee['role'] === 'super_admin')): ?>
+                                            <input type="hidden" name="role" value="<?php echo $employee['role']; ?>">
                                         <?php endif; ?>
                                     </div>
 
@@ -212,13 +242,18 @@ include '../includes/header.php';
                                         <label class="form-label">الحالة</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
-                                            <select class="form-select" name="status" required <?php echo $employee['role'] === 'مدير_عام' ? 'disabled' : ''; ?>>
+                                            <select class="form-select" name="status" required 
+                                                <?php echo ($_SESSION['admin_role'] !== 'super_admin' && 
+                                                          ($employee['role'] === 'مدير_عام' || 
+                                                           $employee['role'] === 'super_admin')) ? 'disabled' : ''; ?>>
                                                 <option value="active" <?php echo $employee['status'] === 'active' ? 'selected' : ''; ?>>نشط</option>
                                                 <option value="inactive" <?php echo $employee['status'] === 'inactive' ? 'selected' : ''; ?>>غير نشط</option>
                                             </select>
                                         </div>
-                                        <?php if ($employee['role'] === 'مدير_عام'): ?>
-                                            <input type="hidden" name="status" value="active">
+                                        <?php if ($_SESSION['admin_role'] !== 'super_admin' && 
+                                                ($employee['role'] === 'مدير_عام' || 
+                                                 $employee['role'] === 'super_admin')): ?>
+                                            <input type="hidden" name="status" value="<?php echo $employee['status']; ?>">
                                         <?php endif; ?>
                                     </div>
                                 </div>

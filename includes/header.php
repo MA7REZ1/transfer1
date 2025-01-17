@@ -18,6 +18,35 @@ $unread_notifications = $stmt->fetchColumn();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
+    <style>
+    /* تثبيت السايدبار */
+    .main-sidebar {
+        position: fixed !important;
+        width: 250px !important;
+        right: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        z-index: 1040 !important;
+        transition: none !important;
+        transform: none !important;
+    }
+    .main-sidebar * {
+        transition: none !important;
+    }
+    .main-sidebar .nav-link {
+        transition: none !important;
+    }
+    .main-sidebar:hover {
+        width: 250px !important;
+    }
+    .content-wrapper {
+        margin-right: 250px !important;
+        transition: none !important;
+    }
+    body {
+        overflow-x: hidden !important;
+    }
+    </style>
 </head>
 <body>
     <?php include 'sidebar.php'; ?>
@@ -65,12 +94,7 @@ $unread_notifications = $stmt->fetchColumn();
             
             <div class="header-actions d-flex align-items-center">
                 <!-- زر إدارة الموظفين -->
-                <?php if ($_SESSION['admin_role'] === 'مدير_عام'): ?>
-                <a href="manage_employees.php" class="btn btn-primary me-3">
-                    <i class="fas fa-users-cog me-2"></i>
-                    إدارة الموظفين
-                </a>
-                <?php endif; ?>
+               
 
                 <!-- Notifications Dropdown -->
                 <style>
@@ -250,7 +274,7 @@ $unread_notifications = $stmt->fetchColumn();
                     transition: color 0.3s ease;
                 }
 
-                .notification-icon i.ringing {
+                .ncation-icon i.ringing {
                     animation: bellRing 1s ease-in-out;
                 }
                 </style>

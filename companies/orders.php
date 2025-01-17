@@ -6,6 +6,10 @@ if (!defined('BASEPATH')) {
     define('BASEPATH', true);
 }
 
+if (!isset($_SESSION['staff_id'])) {
+      header("Location: login.php");
+    exit();
+}
 if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
     echo json_encode(['success' => false, 'message' => 'غير مصرح']);
     exit;

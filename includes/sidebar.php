@@ -45,17 +45,17 @@
         
         <div class="sidebar-divider"></div>
         
-        <a href="orders.php" class="sidebar-item <?php echo strpos($_SERVER['PHP_SELF'], 'orders.php') !== false ? 'active' : ''; ?>">
+        <a href="order_analysis.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'order_analysis.php' ? 'active' : ''; ?>">
             <i class="fas fa-chart-line"></i>
             <span>تحليل الطلبات</span>
         </a>
         
-        <a href="drivers.php" class="sidebar-item <?php echo strpos($_SERVER['PHP_SELF'], 'drivers.php') !== false ? 'active' : ''; ?>">
+        <a href="driver_analysis.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'driver_analysis.php' ? 'active' : ''; ?>">
             <i class="fas fa-chart-bar"></i>
             <span>تحليل أداء السائقين</span>
         </a>
         
-        <a href="revenue.php" class="sidebar-item <?php echo strpos($_SERVER['PHP_SELF'], 'revenue.php') !== false ? 'active' : ''; ?>">
+        <a href="revenue.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'revenue.php' ? 'active' : ''; ?>">
             <i class="fas fa-dollar-sign"></i>
             <span>التحليل المالي</span>
         </a>
@@ -74,12 +74,12 @@
         
         <div class="sidebar-divider"></div>
         
-        <a href="settings.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'settings.php' ? 'active' : ''; ?>">
+        <!-- <a href="settings.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'settings.php' ? 'active' : ''; ?>">
             <i class="fas fa-cog"></i>
             <span>الإعدادات</span>
-        </a>
+        </a> -->
         
-        <a href="profile.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'profile.php' ? 'active' : ''; ?>">
+        <a href="admin_profile.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'admin_profile.php' ? 'active' : ''; ?>">
             <i class="fas fa-user"></i>
             <span>الملف الشخصي</span>
         </a>

@@ -559,7 +559,7 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="orders.php">
+                            <a class="nav-link" href="dashboard.php#requests">
                                 <i class="bi bi-list-check"></i> الطلبات
                             </a>
                         </li>
@@ -583,7 +583,7 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
-                                <a class="dropdown-item" href="settings.php">
+                                <a class="dropdown-item" href="profile.php">
                                     <i class="bi bi-gear"></i> الإعدادات
                                 </a>
                             </li>

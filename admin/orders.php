@@ -3,10 +3,11 @@ require_once '../config.php';
 require_once '../includes/header.php';
 
 // Check permissions
-if (!hasPermission('admin') && !hasPermission('super_admin')) {
-    header('Location: dashboard.php');
-    exit;
+if (!isLoggedIn()) {
+    header("Location: login.php");
+    exit();
 }
+
 
 // Handle order status update
 if (isset($_POST['update_status']) && isset($_POST['order_id']) && isset($_POST['status'])) {
@@ -93,7 +94,8 @@ $stmt = $conn->prepare("
         r.driver_id,
         r.created_at,
         r.updated_at,
-        d.username as driver_name
+        d.username as driver_name,
+        d.phone as driver_phone
     FROM requests r 
     LEFT JOIN companies c ON r.company_id = c.id
     LEFT JOIN drivers d ON r.driver_id = d.id" . 
@@ -217,7 +219,23 @@ $drivers = $stmt->fetchAll();
                             </td>
                             <td>
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-bs-toggle="dropdown">
+                                    <!-- عرض التفاصيل -->
+                                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewOrderModal<?php echo $order['id']; ?>" title="عرض التفاصيل">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    
+                                    <!-- طباعة الفاتورة -->
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="printInvoice(<?php echo $order['id']; ?>)" title="طباعة الفاتورة">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+
+                                    <!-- تتبع الطلب -->
+                                    <a href="../track_order.php?order_number=<?php echo $order['order_number']; ?>" class="btn btn-sm btn-success" target="_blank" title="تتبع الطلب">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </a>
+
+                                    <!-- القائمة المنسدلة للإجراءات الأخرى -->
+                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                                         <i class="fas fa-cog"></i>
                                     </button>
                                     <ul class="dropdown-menu">
@@ -251,9 +269,461 @@ $drivers = $stmt->fetchAll();
                                         <?php endif; ?>
                                     </ul>
                                 </div>
-                                
+
+                                <!-- View Order Details Modal -->
+                                <div class="modal fade" id="viewOrderModal<?php echo $order['id']; ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-modal="true" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-primary text-white">
+                                                <h5 class="modal-title">
+                                                    <i class="fas fa-info-circle me-2"></i>
+                                                    تفاصيل الطلب #<?php echo $order['order_number']; ?>
+                                                </h5>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row g-4">
+                                                    <!-- Order Information -->
+                                                    <div class="col-md-6">
+                                                        <div class="card h-100">
+                                                            <div class="card-header bg-light">
+                                                                <h6 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>معلومات الطلب</h6>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <ul class="list-unstyled mb-0">
+                                                                    <li class="mb-2">
+                                                                        <strong>رقم الطلب:</strong> <?php echo $order['order_number']; ?>
+                                                                    </li>
+                                                                    <li class="mb-2">
+                                                                        <strong>نوع الطلب:</strong> <?php echo $order['order_type']; ?>
+                                                                    </li>
+                                                                    <li class="mb-2">
+                                                                        <strong>تاريخ الإنشاء:</strong> <?php echo date('Y/m/d H:i', strtotime($order['created_at'])); ?>
+                                                                    </li>
+                                                                    <li class="mb-2">
+                                                                        <strong>تاريخ التوصيل:</strong> <?php echo date('Y/m/d H:i', strtotime($order['delivery_date'])); ?>
+                                                                    </li>
+                                                                    <li class="mb-2">
+                                                                        <strong>الحالة:</strong> 
+                                                                        <span class="badge bg-<?php echo $status_class; ?>"><?php echo $status_text; ?></span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Customer Information -->
+                                                    <div class="col-md-6">
+                                                        <div class="card h-100">
+                                                            <div class="card-header bg-light">
+                                                                <h6 class="mb-0"><i class="fas fa-user me-2"></i>معلومات العميل</h6>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <ul class="list-unstyled mb-0">
+                                                                    <li class="mb-2">
+                                                                        <strong>اسم العميل:</strong> <?php echo $order['customer_name']; ?>
+                                                                    </li>
+                                                                    <li class="mb-2">
+                                                                        <strong>رقم الهاتف:</strong> 
+                                                                        <a href="tel:<?php echo $order['customer_phone']; ?>" class="text-decoration-none">
+                                                                            <?php echo $order['customer_phone']; ?>
+                                                                            <i class="fas fa-phone-alt ms-1"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="mb-2">
+                                                                        <strong>الشركة:</strong> <?php echo $order['company_name']; ?>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Payment Information -->
+                                                    <div class="col-md-6">
+                                                        <div class="card h-100">
+                                                            <div class="card-header bg-light">
+                                                                <h6 class="mb-0"><i class="fas fa-money-bill me-2"></i>معلومات الدفع</h6>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <ul class="list-unstyled mb-0">
+                                                                    <li class="mb-2">
+                                                                        <strong>التكلفة الإجمالية:</strong> 
+                                                                        <span class="text-primary"><?php echo number_format($order['total_cost'], 2); ?> ريال</span>
+                                                                    </li>
+                                                                    <li class="mb-2">
+                                                                        <strong>حالة الدفع:</strong>
+                                                                        <span class="badge bg-<?php echo $order['payment_status'] === 'paid' ? 'success' : 'warning'; ?>">
+                                                                            <?php echo $order['payment_status'] === 'paid' ? 'مدفوع' : 'غير مدفوع'; ?>
+                                                                        </span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Driver Information -->
+                                                    <div class="col-md-6">
+                                                        <div class="card h-100">
+                                                            <div class="card-header bg-light">
+                                                                <h6 class="mb-0"><i class="fas fa-truck me-2"></i>معلومات السائق</h6>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <?php if ($order['driver_id']): ?>
+                                                                    <ul class="list-unstyled mb-0">
+                                                                        <li class="mb-2">
+                                                                            <strong>اسم السائق:</strong> <?php echo $order['driver_name']; ?>
+                                                                        </li>
+                                                                        <li class="mb-2">
+                                                                            <strong>رقم الهاتف:</strong>
+                                                                            <?php if (!empty($order['driver_phone'])): ?>
+                                                                                <?php
+                                                                                // معالجة رقم الهاتف للواتساب
+                                                                                $driver_phone = $order['driver_phone'];
+                                                                                $whatsapp_number = preg_replace('/[^0-9]/', '', $driver_phone);
+                                                                                if (!str_starts_with($whatsapp_number, '966')) {
+                                                                                    $whatsapp_number = '966' . ltrim($whatsapp_number, '0');
+                                                                                }
+                                                                                ?>
+                                                                                <a href="tel:<?php echo $driver_phone; ?>" class="text-decoration-none me-2">
+                                                                                    <?php echo $driver_phone; ?>
+                                                                                    <i class="fas fa-phone-alt ms-1"></i>
+                                                                                </a>
+                                                                                <a href="https://wa.me/<?php echo $whatsapp_number; ?>" class="btn btn-sm btn-success" target="_blank">
+                                                                                    <i class="fab fa-whatsapp"></i> واتساب
+                                                                                </a>
+                                                                            <?php else: ?>
+                                                                                <span class="text-muted">لا يوجد رقم هاتف</span>
+                                                                            <?php endif; ?>
+                                                                        </li>
+                                                                    </ul>
+                                                                <?php else: ?>
+                                                                    <p class="text-muted mb-0">لم يتم تعيين سائق بعد</p>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                                                <?php if ($order['driver_id'] && !empty($order['driver_phone'])): ?>
+                                                    <?php
+                                                    // معالجة رقم الهاتف للواتساب
+                                                    $whatsapp_number = preg_replace('/[^0-9]/', '', $order['driver_phone']);
+                                                    if (!str_starts_with($whatsapp_number, '966')) {
+                                                        $whatsapp_number = '966' . ltrim($whatsapp_number, '0');
+                                                    }
+                                                    ?>
+                                                    <a href="https://wa.me/<?php echo $whatsapp_number; ?>" class="btn btn-success" target="_blank">
+                                                        <i class="fab fa-whatsapp me-1"></i> تواصل عبر واتساب
+                                                    </a>
+                                                <?php endif; ?>
+                                                <button type="button" class="btn btn-primary" onclick="printInvoice(<?php echo $order['id']; ?>)">
+                                                    <i class="fas fa-print me-1"></i> طباعة الفاتورة
+                                                </button>
+                                            </div>
+
+                                            <!-- Invoice Print Section (Hidden by default) -->
+                                            <div id="invoice-print-<?php echo $order['id']; ?>" class="d-none">
+                                                <div class="invoice-print-content p-4">
+                                                    <!-- Invoice Header -->
+                                                    <div class="text-center mb-4">
+                                                        <h2 class="mb-1">فاتورة طلب توصيل</h2>
+                                                        <p class="mb-1">رقم الفاتورة: #<?php echo $order['order_number']; ?></p>
+                                                        <p class="text-muted"><?php echo date('Y/m/d H:i', strtotime($order['created_at'])); ?></p>
+                                                    </div>
+
+                                                    <div class="row mb-4">
+                                                        <!-- Company Details -->
+                                                        <div class="col-6">
+                                                            <h5 class="mb-2">تفاصيل الشركة</h5>
+                                                            <p class="mb-1"><strong>الشركة:</strong> <?php echo $order['company_name']; ?></p>
+                                                        </div>
+                                                        <!-- Customer Details -->
+                                                        <div class="col-6 text-end">
+                                                            <h5 class="mb-2">تفاصيل العميل</h5>
+                                                            <p class="mb-1"><strong>الاسم:</strong> <?php echo $order['customer_name']; ?></p>
+                                                            <p class="mb-1"><strong>الهاتف:</strong> <?php echo $order['customer_phone']; ?></p>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Order Details -->
+                                                    <div class="row mb-4">
+                                                        <div class="col-12">
+                                                            <table class="table table-bordered">
+                                                                <thead class="table-light">
+                                                                    <tr>
+                                                                        <th>تفاصيل الطلب</th>
+                                                                        <th>المعلومات</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>نوع الطلب</td>
+                                                                        <td><?php echo $order['order_type']; ?></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>تاريخ التوصيل</td>
+                                                                        <td><?php echo date('Y/m/d H:i', strtotime($order['delivery_date'])); ?></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>حالة الطلب</td>
+                                                                        <td><?php echo $status_text; ?></td>
+                                                                    </tr>
+                                                                    <?php if ($order['driver_id']): ?>
+                                                                    <tr>
+                                                                        <td>السائق</td>
+                                                                        <td><?php echo $order['driver_name']; ?></td>
+                                                                    </tr>
+                                                                    <?php endif; ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Payment Details -->
+                                                    <div class="row mb-4">
+                                                        <div class="col-12">
+                                                            <table class="table table-bordered">
+                                                                <thead class="table-light">
+                                                                    <tr>
+                                                                        <th>تفاصيل الدفع</th>
+                                                                        <th>المبلغ</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>التكلفة الإجمالية</td>
+                                                                        <td><?php echo number_format($order['total_cost'], 2); ?> ريال</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>حالة الدفع</td>
+                                                                        <td>
+                                                                            <span class="badge bg-<?php echo $order['payment_status'] === 'paid' ? 'success' : 'warning'; ?>">
+                                                                                <?php echo $order['payment_status'] === 'paid' ? 'مدفوع' : 'غير مدفوع'; ?>
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Footer -->
+                                                    <div class="text-center mt-4">
+                                                        <p class="mb-1">شكراً لاستخدامكم خدماتنا</p>
+                                                        <small class="text-muted">هذه الفاتورة تم إنشاؤها بواسطة النظام</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // تعريف المتغيرات العامة
+                                    let currentModal = null;
+                                    const modalOptions = {
+                                        backdrop: 'static',
+                                        keyboard: false,
+                                        focus: true
+                                    };
+
+                                    // تهيئة جميع المودالات
+                                    document.querySelectorAll('[id^="viewOrderModal"]').forEach(modalEl => {
+                                        // إنشاء كائن المودال
+                                        const modal = new bootstrap.Modal(modalEl, modalOptions);
+                                        
+                                        // إضافة مستمع لحدث فتح المودال
+                                        modalEl.addEventListener('show.bs.modal', function() {
+                                            currentModal = modal;
+                                            // منع التفاعل مع العناصر خلف المودال
+                                            document.body.style.pointerEvents = 'none';
+                                            modalEl.style.pointerEvents = 'auto';
+                                        });
+
+                                        // إضافة مستمع لحدث إغلاق المودال
+                                        modalEl.addEventListener('hidden.bs.modal', function() {
+                                            currentModal = null;
+                                            // إعادة التفاعل مع العناصر
+                                            document.body.style.pointerEvents = 'auto';
+                                        });
+
+                                        // منع إغلاق المودال عند النقر خارجه
+                                        modalEl.addEventListener('click', function(e) {
+                                            if (e.target === modalEl) {
+                                                e.stopPropagation();
+                                                return false;
+                                            }
+                                        });
+
+                                        // منع إغلاق المودال بزر ESC
+                                        modalEl.addEventListener('keydown', function(e) {
+                                            if (e.key === 'Escape') {
+                                                e.preventDefault();
+                                                return false;
+                                            }
+                                        });
+
+                                        // إضافة مستمع حدث لزر الإغلاق فقط
+                                        const closeBtn = modalEl.querySelector('.btn-close');
+                                        if (closeBtn) {
+                                            closeBtn.addEventListener('click', function() {
+                                                if (currentModal) {
+                                                    currentModal.hide();
+                                                }
+                                            });
+                                        }
+                                    });
+
+                                    // منع التفاعل مع العناصر خلف المودال عند فتحه
+                                    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
+                                        button.addEventListener('click', function(e) {
+                                            e.stopPropagation();
+                                        });
+                                    });
+                                });
+
+                                function printInvoice(orderId) {
+                                    // Get the invoice content
+                                    const invoiceContent = document.getElementById(`invoice-print-${orderId}`).innerHTML;
+                                    
+                                    // Create a new window
+                                    const printWindow = window.open('', '_blank');
+                                    
+                                    // Write the HTML content
+                                    printWindow.document.write(`
+                                        <!DOCTYPE html>
+                                        <html dir="rtl" lang="ar">
+                                        <head>
+                                            <meta charset="UTF-8">
+                                            <title>فاتورة #${orderId}</title>
+                                            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+                                            <style>
+                                                body {
+                                                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                                                    padding: 20px;
+                                                }
+                                                .invoice-print-content {
+                                                    max-width: 800px;
+                                                    margin: 0 auto;
+                                                }
+                                                @media print {
+                                                    .no-print {
+                                                        display: none !important;
+                                                    }
+                                                    .table {
+                                                        border-color: #dee2e6 !important;
+                                                    }
+                                                    .table-bordered {
+                                                        border: 1px solid #dee2e6 !important;
+                                                    }
+                                                    .badge {
+                                                        border: 1px solid #000;
+                                                    }
+                                                }
+                                            </style>
+                                        </head>
+                                        <body>
+                                            ${invoiceContent}
+                                            <div class="text-center mt-4 no-print">
+                                                <button onclick="window.print()" class="btn btn-primary">
+                                                    <i class="fas fa-print me-1"></i> طباعة
+                                                </button>
+                                            </div>
+                                        </body>
+                                        </html>
+                                    `);
+                                    
+                                    // Close the document
+                                    printWindow.document.close();
+                                }
+                                </script>
+
+                                <style>
+                                /* تثبيت السايدبار بشكل كامل */
+                                .main-sidebar {
+                                    position: fixed !important;
+                                    right: 0 !important;
+                                    top: 0 !important;
+                                    bottom: 0 !important;
+                                    width: 250px !important;
+                                    z-index: 1040 !important;
+                                }
+
+                                /* منع تغيير حجم السايدبار */
+                                .sidebar-mini .main-sidebar,
+                                .sidebar-mini.sidebar-collapse .main-sidebar,
+                                .sidebar-mini.sidebar-collapse .main-sidebar:hover,
+                                .sidebar-mini.sidebar-collapse .main-sidebar .nav-sidebar.nav-child-indent .nav-treeview,
+                                .sidebar-mini.sidebar-collapse .main-sidebar:hover .nav-sidebar.nav-child-indent .nav-treeview {
+                                    width: 250px !important;
+                                    transform: none !important;
+                                    transition: none !important;
+                                }
+
+                                /* إظهار النص دائماً */
+                                .sidebar-mini.sidebar-collapse .main-sidebar .nav-sidebar > .nav-item > .nav-link > span,
+                                .nav-sidebar > .nav-item .nav-icon,
+                                .nav-sidebar > .nav-item > .nav-link > span {
+                                    display: inline-block !important;
+                                    visibility: visible !important;
+                                    opacity: 1 !important;
+                                    transform: none !important;
+                                    transition: none !important;
+                                    margin-left: 0 !important;
+                                }
+
+                                /* تثبيت المحتوى */
+                                .content-wrapper {
+                                    margin-right: 250px !important;
+                                    width: calc(100% - 250px) !important;
+                                    transition: none !important;
+                                }
+
+                                /* منع التمرير الأفقي */
+                                body {
+                                    overflow-x: hidden !important;
+                                }
+
+                                /* تحسين مظهر المودال */
+                                .modal {
+                                    background-color: rgba(0, 0, 0, 0.5);
+                                }
+                                .modal-backdrop {
+                                    display: none !important;
+                                }
+                                .modal-dialog {
+                                    margin: 30px auto !important;
+                                }
+                                </style>
+
+                                <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // إلغاء خاصية طي السايدبار
+                                    const body = document.querySelector('body');
+                                    body.classList.remove('sidebar-collapse');
+                                    body.classList.add('sidebar-open');
+                                    
+                                    // منع إضافة كلاس sidebar-collapse
+                                    const observer = new MutationObserver(function(mutations) {
+                                        mutations.forEach(function(mutation) {
+                                            if (mutation.target.classList.contains('sidebar-collapse')) {
+                                                mutation.target.classList.remove('sidebar-collapse');
+                                            }
+                                        });
+                                    });
+                                    
+                                    observer.observe(body, {
+                                        attributes: true,
+                                        attributeFilter: ['class']
+                                    });
+                                });
+                                </script>
+
                                 <!-- Assign Driver Modal -->
-                                <div class="modal fade" id="assignDriverModal<?php echo $order['id']; ?>" tabindex="-1">
+                                <div class="modal fade" id="assignDriverModal<?php echo $order['id']; ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <form method="POST">
@@ -285,7 +755,7 @@ $drivers = $stmt->fetchAll();
                                 </div>
                                 
                                 <!-- Update Status Modal -->
-                                <div class="modal fade" id="updateStatusModal<?php echo $order['id']; ?>" tabindex="-1">
+                                <div class="modal fade" id="updateStatusModal<?php echo $order['id']; ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <form method="POST">

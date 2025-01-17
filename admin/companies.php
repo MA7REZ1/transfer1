@@ -250,7 +250,7 @@ require_once '../includes/header.php';
                         <?php foreach ($companies as $company): ?>
                             <tr>
                                 <td>
-                                    <img src="<?php echo !empty($company['logo']) ? 'uploads/companies/' . $company['logo'] : 'assets/img/company-placeholder.png'; ?>" 
+                                    <img src="<?php echo !empty($company['logo']) ? '../uploads/companies/' . $company['logo'] : 'assets/img/company-placeholder.png'; ?>" 
                                          alt="<?php echo htmlspecialchars($company['name']); ?>" 
                                          class="rounded-circle" 
                                          width="40" height="40">

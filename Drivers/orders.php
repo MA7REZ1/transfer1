@@ -436,7 +436,7 @@ try {
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="logout.php">
+                        <a class="nav-link text-danger" href="../logout.php">
                             <i class="fas fa-sign-out-alt"></i>
                             تسجيل الخروج
                         </a>

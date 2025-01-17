@@ -54,15 +54,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         :root {
             --primary-color: #2563eb;
             --secondary-color: #1e40af;
-            --background-color: #f1f5f9;
+            --background-color: #f8fafc;
             --text-color: #1e293b;
-            --border-radius: 12px;
-            --box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --border-radius: 16px;
+            --box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
         }
 
         body {
-            background-color: var(--background-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -74,13 +74,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .login-container {
             width: 100%;
-            max-width: 420px;
-            background: white;
+            max-width: 440px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 2rem;
+            padding: 2.5rem;
             position: relative;
             overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .login-container::before {
@@ -89,67 +102,89 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
         }
 
         .login-logo {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .login-logo i {
-            font-size: 3rem;
-            color: var(--primary-color);
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            color: transparent;
             margin-bottom: 1rem;
             display: inline-block;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .login-logo i:hover {
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(5deg);
         }
 
         .login-logo h2 {
             color: var(--text-color);
-            font-size: 1.75rem;
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: 700;
             margin: 0;
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: var(--text-color);
             margin-bottom: 0.5rem;
         }
 
-        .form-control {
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
+        .login-logo p {
+            color: #64748b;
+            font-size: 1rem;
+            margin: 0;
         }
 
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .password-wrapper {
+        .input-group {
             position: relative;
+            margin-bottom: 1.75rem;
+        }
+
+        .input-group .form-control {
+            height: 3.25rem;
+            padding: 1rem 3rem;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background-color: #fff;
+        }
+
+        .input-group .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            background-color: #fff;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            transition: color 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .input-group:focus-within .input-icon {
+            color: var(--primary-color);
         }
 
         .password-toggle {
             position: absolute;
-            left: 1rem;
+            left: 1.25rem;
             top: 50%;
             transform: translateY(-50%);
-            cursor: pointer;
-            color: #64748b;
-            transition: color 0.3s ease;
             background: none;
             border: none;
             padding: 0;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: color 0.3s ease;
         }
 
         .password-toggle:hover {
@@ -158,21 +193,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .btn-login {
             width: 100%;
-            padding: 0.875rem;
-            font-size: 1rem;
-            font-weight: 500;
-            background-color: var(--primary-color);
+            height: 3.25rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             color: white;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            margin-bottom: 1.5rem;
         }
 
         .btn-login:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
 
         .btn-login:active {
@@ -181,61 +217,77 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .alert {
             border: none;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            font-size: 0.875rem;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .alert-danger {
-            background-color: #fee2e2;
-            color: #991b1b;
+            background-color: #fef2f2;
+            color: #dc2626;
+            border-right: 4px solid #dc2626;
         }
 
-        .alert-danger::before {
-            content: '\f071';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
+        .employee-login-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .employee-login-link:hover {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+        }
+
+        .employee-login-link i {
+            font-size: 1.1rem;
         }
 
         @media (max-width: 480px) {
             .login-container {
-                padding: 1.5rem;
+                padding: 2rem;
             }
             
             .login-logo i {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
             
             .login-logo h2 {
-                font-size: 1.5rem;
+                font-size: 1.75rem;
             }
-        }
 
-        .form-floating {
-            position: relative;
-            margin-bottom: 1rem;
-        }
+            .input-group .form-control {
+                height: 3rem;
+                font-size: 0.95rem;
+            }
 
-        .input-group {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-
-        .input-icon {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #64748b;
-        }
-
-        .form-control {
-            padding-right: 2.5rem;
-            padding-left: 2.5rem;
+            .btn-login {
+                height: 3rem;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -249,11 +301,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <?php if (!empty($error)): ?>
             <div class="alert alert-danger">
+                <i class="fas fa-circle-exclamation"></i>
                 <?php echo sanitizeInput($error); ?>
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="" id="loginForm">
+        <form method="POST" action="" id="loginForm" autocomplete="off">
             <div class="input-group">
                 <i class="fas fa-envelope input-icon"></i>
                 <input type="email" 
@@ -261,7 +314,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        id="email" 
                        name="email" 
                        placeholder="البريد الإلكتروني"
-                       required>
+                       required
+                       autocomplete="off">
             </div>
 
             <div class="input-group">
@@ -271,7 +325,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        id="password" 
                        name="password" 
                        placeholder="كلمة المرور"
-                       required>
+                       required
+                       autocomplete="new-password">
                 <button type="button" class="password-toggle" onclick="togglePassword()">
                     <i class="fas fa-eye"></i>
                 </button>
@@ -279,8 +334,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <button type="submit" class="btn btn-login" id="submitBtn">
                 <i class="fas fa-sign-in-alt me-2"></i>
-                دخول
+                تسجيل الدخول
             </button>
+
+            <a href="employee-login.php" class="employee-login-link">
+                <i class="fas fa-users"></i>
+                تسجيل دخول الموظفين
+            </a>
         </form>
     </div>
 
@@ -301,14 +361,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Add loading state to submit button
-        document.getElementById('loginForm').addEventListener('submit', function() {
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             const submitBtn = document.getElementById('submitBtn');
+            const originalContent = submitBtn.innerHTML;
+            
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> جاري التحقق...';
             submitBtn.disabled = true;
+
+            // Store original content to restore if there's an error
+            setTimeout(() => {
+                if (submitBtn.disabled) {
+                    submitBtn.innerHTML = originalContent;
+                    submitBtn.disabled = false;
+                }
+            }, 10000); // Timeout after 10 seconds
         });
 
-        // Add floating label effect
+        // Add input focus effects
         document.querySelectorAll('.form-control').forEach(input => {
             input.addEventListener('focus', function() {
                 this.parentElement.classList.add('focused');
@@ -319,6 +388,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     this.parentElement.classList.remove('focused');
                 }
             });
+
+            // Check initial state
+            if (input.value) {
+                input.parentElement.classList.add('focused');
+            }
         });
     </script>
 </body>

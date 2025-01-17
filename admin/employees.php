@@ -53,20 +53,14 @@ if (isset($_POST['delete_employee'])) {
 include '../includes/header.php';
 ?>
 
-<div class="container-fluid py-4">
-    <div class="row">
+<div class="container-fluid p-0">
+    <div class="row g-0">
         <?php include '../includes/sidebar.php'; ?>
         
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <main class="col ms-sm-auto px-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h1 class="h2 mb-0">إدارة الموظفين</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0 mt-2">
-                            <li class="breadcrumb-item"><a href="index.php">الرئيسية</a></li>
-                            <li class="breadcrumb-item active">الموظفين</li>
-                        </ol>
-                    </nav>
+                    <h1 class="h3 mb-0">إدارة الموظفين</h1>
                 </div>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
                     <i class="fas fa-user-plus me-2"></i>
@@ -210,9 +204,9 @@ include '../includes/header.php';
                                             </span>
                                           </td>";
                                     echo "<td>
-                                            <span class='badge " . ($employee['role'] === 'مدير_عام' ? 'bg-primary' : 'bg-info') . "'>
-                                                <i class='fas " . ($employee['role'] === 'مدير_عام' ? 'fa-user-tie' : 'fa-user') . " me-1'></i>
-                                                " . ($employee['role'] === 'مدير_عام' ? 'مدير عام' : 'موظف') . "
+                                            <span class='badge " . ($employee['role'] === 'مدير_عام' ? 'bg-primary' : ($employee['role'] === 'super_admin' ? 'bg-dark' : 'bg-info')) . "'>
+                                                <i class='fas " . ($employee['role'] === 'مدير_عام' ? 'fa-user-tie' : ($employee['role'] === 'super_admin' ? 'fa-user-shield' : 'fa-user')) . " me-1'></i>
+                                                " . ($employee['role'] === 'مدير_عام' ? 'مدير عام' : ($employee['role'] === 'super_admin' ? 'مدير النظام' : 'موظف')) . "
                                             </span>
                                           </td>";
                                     echo "<td>
@@ -222,12 +216,15 @@ include '../includes/header.php';
                                             </span>
                                           </td>";
                                     echo "<td class='text-center'>";
-                                    if ($employee['role'] !== 'مدير_عام' || $_SESSION['user_id'] === $employee['id']) {
+                                    if ($_SESSION['admin_id'] === $employee['id'] || 
+                                        $_SESSION['admin_role'] === 'super_admin' || 
+                                        $_SESSION['admin_role'] === 'مدير_عام') {
                                         echo "<div class='btn-group'>";
                                         echo "<a href='edit_employee.php?id={$employee['id']}' class='btn btn-sm btn-outline-primary' title='تعديل'>
                                                 <i class='fas fa-edit'></i>
                                               </a>";
-                                        if ($employee['role'] !== 'مدير_عام') {
+                                        if (($_SESSION['admin_role'] === 'super_admin' && $employee['role'] !== 'super_admin') || 
+                                            ($_SESSION['admin_role'] === 'مدير_عام' && $employee['role'] === 'موظف')) {
                                             echo "<button type='button' class='btn btn-sm btn-outline-danger' onclick='confirmDelete({$employee['id']})' title='حذف'>
                                                     <i class='fas fa-trash'></i>
                                                   </button>";
@@ -325,6 +322,10 @@ include '../includes/header.php';
                                     <option value="موظف">موظف</option>
                                     <?php if ($_SESSION['admin_role'] === 'مدير_عام'): ?>
                                     <option value="مدير_عام">مدير عام</option>
+                                    <?php endif; ?>
+                                    <?php if ($_SESSION['admin_role'] === 'super_admin'): ?>
+                                    <option value="مدير_عام">مدير عام</option>
+                                    <option value="super_admin">مدير النظام</option>
                                     <?php endif; ?>
                                 </select>
                             </div>

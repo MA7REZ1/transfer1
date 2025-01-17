@@ -10,7 +10,10 @@ if (isset($_SESSION['company_id'])) {
     exit();
 }
 
+// Initialize variables
 $error = "";
+$email = '';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['email']) && !empty($_POST['password'])) {
         $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
@@ -73,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             --secondary-color: #3498db;
             --accent-color: #e74c3c;
             --success-color: #2ecc71;
-            --background-color: #f8f9fa;
+            --background-color: #f0f2f5;
         }
         body { 
             background: linear-gradient(135deg, var(--background-color) 0%, #ffffff 100%);
@@ -81,16 +84,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             min-height: 100vh;
             display: flex;
             align-items: center;
+            background-attachment: fixed;
         }
         .login-container {
             max-width: 480px;
             margin: 30px auto;
             padding: 40px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .login-container::before {
             content: '';
@@ -99,56 +105,79 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            background: linear-gradient(to right, #4158D0, #C850C0);
         }
         .company-logo {
             text-align: center;
             margin-bottom: 35px;
             padding: 20px;
+            position: relative;
+        }
+        .company-logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #4158D0, #C850C0);
+            border-radius: 2px;
         }
         .company-logo img { 
-            max-width: 200px;
-            transition: transform 0.3s ease;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+            max-width: 180px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.1));
         }
         .company-logo img:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
         .form-control {
-            padding: 14px;
-            border-radius: 10px;
-            border: 2px solid #eee;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 2px solid #eef0f7;
             transition: all 0.3s ease;
             font-size: 1rem;
+            background-color: #f8faff;
         }
         .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15);
             border-color: var(--secondary-color);
+            background-color: #ffffff;
         }
         .input-group {
             position: relative;
             margin-bottom: 1.5rem;
         }
         .input-group-text {
-            background-color: transparent;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
+            background-color: #f8faff;
+            border: 2px solid #eef0f7;
+            border-radius: 12px;
+            padding: 0.75rem 1.25rem;
             color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        .input-group:focus-within .input-group-text {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
         }
         .btn-primary {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            background: linear-gradient(135deg, #4158D0 0%, #C850C0 100%);
             border: none;
-            padding: 14px;
+            padding: 16px;
             font-weight: 600;
-            border-radius: 10px;
+            border-radius: 12px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            letter-spacing: 0.5px;
         }
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 8px 20px rgba(65, 88, 208, 0.3);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
         }
         .btn-primary::after {
             content: '';
@@ -157,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             left: -50%;
             width: 200%;
             height: 200%;
-            background: rgba(255,255,255,0.1);
+            background: linear-gradient(45deg, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0) 100%);
             transform: rotate(45deg);
             transition: all 0.3s ease;
         }
@@ -165,29 +194,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             transform: rotate(45deg) translate(50%, 50%);
         }
         .alert {
-            border-radius: 10px;
-            padding: 1rem;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
             margin-bottom: 1.5rem;
             border: none;
-            background-color: rgba(231, 76, 60, 0.1);
+            background-color: rgba(231, 76, 60, 0.08);
             color: var(--accent-color);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            box-shadow: 0 3px 6px rgba(231, 76, 60, 0.08);
         }
         .alert i {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
         }
         .form-label {
             font-weight: 600;
             color: var(--primary-color);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
         }
         .additional-links {
             text-align: center;
-            margin-top: 25px;
-            padding-top: 25px;
-            border-top: 2px solid #eee;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #eef0f7;
         }
         .additional-links a {
             color: var(--secondary-color);
@@ -196,55 +227,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-weight: 500;
             transition: all 0.3s ease;
             position: relative;
+            padding: 5px 0;
         }
         .additional-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--secondary-color);
+            background: linear-gradient(to right, #4158D0, #C850C0);
             transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        .additional-links a:hover {
+            color: #4158D0;
         }
         .additional-links a:hover::after {
             width: 100%;
         }
         .form-check {
-            padding: 0.5rem 0;
+            padding: 0.75rem 0;
+            margin-bottom: 0.5rem;
         }
         .form-check-input {
-            margin-left: 0.5rem;
+            margin-left: 0.75rem;
             cursor: pointer;
+            border: 2px solid #eef0f7;
+            transition: all 0.2s ease;
+        }
+        .form-check-input:checked {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
         }
         .form-check-label {
             cursor: pointer;
             user-select: none;
-        }
-        .password-toggle {
-            cursor: pointer;
-            padding: 14px;
             color: var(--primary-color);
-            transition: all 0.3s ease;
-        }
-        .password-toggle:hover {
-            color: var(--secondary-color);
-        }
-        .login-footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        @media (max-width: 576px) {
-            .login-container {
-                margin: 15px;
-                padding: 25px;
-            }
-            .additional-links a {
-                display: block;
-                margin: 10px 0;
-            }
+            font-weight: 500;
         }
         .loading {
             display: none;
@@ -253,25 +273,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            backdrop-filter: blur(5px);
+            border-radius: 24px;
         }
         .loading.active {
             display: flex;
         }
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
+            width: 45px;
+            height: 45px;
+            border: 4px solid #eef0f7;
             border-top: 4px solid var(--secondary-color);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
+        .login-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 576px) {
+            .login-container {
+                margin: 15px;
+                padding: 30px 20px;
+            }
+            .additional-links a {
+                display: block;
+                margin: 12px 0;
+            }
+            .additional-links span {
+                display: none;
+            }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #4158D0, #C850C0);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #3147b8, #b846ac);
         }
     </style>
 </head>
@@ -285,7 +341,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <img src="../assets/img/logo.png" alt="Logo" class="img-fluid">
             </div>
             <h2 class="text-center mb-4">تسجيل دخول الشركات</h2>
-            <?php if (!empty($error)): ?>
+            <?php if ($error): ?>
                 <div class="alert alert-danger">
                     <i class="fas fa-exclamation-circle"></i>
                     <?php echo htmlspecialchars($error); ?>
@@ -296,7 +352,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="email" class="form-label">البريد الإلكتروني</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                        <input type="email" class="form-control" id="email" name="email" required 
+                        <input type="email" class="form-control" id="email" name="email" 
+                               value="<?php echo htmlspecialchars($email); ?>" required
                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                                title="الرجاء إدخال بريد إلكتروني صحيح">
                         <div class="invalid-feedback">
@@ -319,15 +376,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
                 </div>
-                
-                <div class="mb-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me" value="1">
-                        <label class="form-check-label" for="remember_me">
-                            تذكرني
-                        </label>
-                    </div>
-                </div>
+
                 
                 <button type="submit" class="btn btn-primary w-100" id="submitBtn">
                     <i class="fas fa-sign-in-alt me-2"></i>
@@ -335,18 +384,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </button>
                 
                 <div class="additional-links">
-                    <a href="forgot-password.php">
-                        <i class="fas fa-key me-1"></i>
-                        نسيت كلمة المرور؟
-                    </a>
-                    <span class="mx-2">|</span>
-                    <a href="register.php">
-                        <i class="fas fa-user-plus me-1"></i>
-                        تسجيل شركة جديدة
-                    </a>
-                    <span class="mx-2">|</span>
+                  
                     <a href="staff_login.php">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-users me-1"></i>
                         تسجيل دخول الموظفين
                     </a>
                 </div>
@@ -398,25 +438,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             formSubmitted = true;
         });
 
-        // Add password strength indicator
-        document.getElementById('password').addEventListener('input', function() {
-            // You can add password strength logic here if needed
-        });
-
         // Disable autocomplete for security
         document.getElementById('password').setAttribute('autocomplete', 'new-password');
-
-        // Auto refresh CSRF token every 30 minutes
-        setInterval(function() {
-            fetch('refresh_csrf.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.csrf_token) {
-                        document.querySelector('input[name="csrf_token"]').value = data.csrf_token;
-                    }
-                })
-                .catch(error => console.error('Error refreshing CSRF token:', error));
-        }, 1800000); // 30 minutes
     </script>
 </body>
 </html>

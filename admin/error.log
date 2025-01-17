@@ -28,3 +28,43 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in C:\xampp\htdocs\proo\admin\revenue.php on line 3
+[13-Jan-2025 10:33:40 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 10:43:07 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 10:44:12 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 10:58:35 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 11:01:21 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 11:05:38 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 11:07:24 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 12:21:42 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 13:33:57 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 13:34:28 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 17:44:15 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::bind_param() in C:\xampp\htdocs\proo\admin\reports.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\reports.php on line 14
+[13-Jan-2025 17:45:31 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.admin' doesn't exist in C:\xampp\htdocs\proo\admin\reports.php:15
+Stack trace:
+#0 C:\xampp\htdocs\proo\admin\reports.php(15): PDOStatement->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\admin\reports.php on line 15
+[13-Jan-2025 17:45:32 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.admin' doesn't exist in C:\xampp\htdocs\proo\admin\reports.php:15
+Stack trace:
+#0 C:\xampp\htdocs\proo\admin\reports.php(15): PDOStatement->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\admin\reports.php on line 15
+[13-Jan-2025 17:45:32 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.admin' doesn't exist in C:\xampp\htdocs\proo\admin\reports.php:15
+Stack trace:
+#0 C:\xampp\htdocs\proo\admin\reports.php(15): PDOStatement->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\admin\reports.php on line 15
+[13-Jan-2025 18:40:02 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 18:48:37 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 18:58:39 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 19:13:09 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 19:23:34 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[13-Jan-2025 19:54:37 Asia/Riyadh] PHP Warning:  require_once(includes/header.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\driver_form.php on line 163
+[13-Jan-2025 19:54:37 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Failed opening required 'includes/header.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\driver_form.php:163
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\driver_form.php on line 163
+[13-Jan-2025 20:03:16 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'

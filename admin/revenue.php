@@ -153,7 +153,10 @@ try {
         COALESCE(COUNT(*), 0) as total_orders,
         COALESCE(SUM(CASE WHEN payment_method = 'cash' THEN total_cost ELSE 0 END), 0) as total_amount,
         COALESCE(SUM(delivery_fee), 0) as total_delivery_fees,
-        COALESCE(SUM(CASE WHEN payment_method = 'cash' THEN total_cost ELSE 0 END) - SUM(delivery_fee), 0) as total_minus_delivery
+        COALESCE(SUM(CASE WHEN payment_method = 'cash' THEN total_cost ELSE 0 END) - SUM(delivery_fee), 0) - 
+        COALESCE((SELECT SUM(CASE WHEN payment_type = 'outgoing' THEN amount WHEN payment_type = 'incoming' THEN -amount END) 
+                 FROM company_payments 
+                 WHERE status = 'completed'), 0) as total_minus_delivery
     FROM requests 
     WHERE status = 'delivered'";
 
@@ -173,7 +176,15 @@ try {
         COALESCE(COUNT(r.id), 0) as completed_orders,
         COALESCE(SUM(CASE WHEN r.payment_method = 'cash' THEN r.total_cost ELSE 0 END), 0) as total_amount,
         COALESCE(SUM(r.delivery_fee), 0) as total_delivery_fees,
-        COALESCE(SUM(CASE WHEN r.payment_method = 'cash' THEN r.total_cost ELSE 0 END) - SUM(r.delivery_fee), 0) as company_payable
+        COALESCE(SUM(CASE WHEN r.payment_method = 'cash' THEN r.total_cost ELSE 0 END) - SUM(r.delivery_fee), 0) as company_payable,
+        COALESCE((
+            SELECT SUM(CASE 
+                WHEN payment_type = 'outgoing' THEN amount 
+                WHEN payment_type = 'incoming' THEN -amount 
+            END)
+            FROM company_payments 
+            WHERE company_id = c.id AND status = 'completed'
+        ), 0) as paid_amount
     FROM companies c
     LEFT JOIN requests r ON c.id = r.company_id AND r.status = 'delivered'
     GROUP BY c.id, c.name
@@ -437,11 +448,40 @@ try {
             </div>
         </div>
 
+        <!-- رسائل النجاح والخطأ -->
+        <?php if (isset($_SESSION['success_message'])): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-1"></i>
+            <?php 
+            echo $_SESSION['success_message'];
+            unset($_SESSION['success_message']);
+            ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['error_message'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle me-1"></i>
+            <?php 
+            echo $_SESSION['error_message'];
+            unset($_SESSION['error_message']);
+            ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+
         <!-- جدول الشركات -->
         <div class="card mb-4">
-            <div class="card-header bg-white">
-                <i class="fas fa-table me-1"></i>
-                تفاصيل حسابات الشركات
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-table me-1"></i>
+                    تفاصيل حسابات الشركات
+                </div>
+                <a href="export_payments.php" class="btn btn-success btn-sm">
+                    <i class="fas fa-file-excel me-1"></i>
+                    تصدير العمليات
+                </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -453,28 +493,135 @@ try {
                                 <th>إجمالي المبلغ</th>
                                 <th>رسوم التوصيل</th>
                                 <th>مستحقات للشركة</th>
-                                <th>الحالة</th>
+                                <th>المبلغ المدفوع</th>
+                                <th>المتبقي</th>
+                                <th>الإجراءات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($companies as $company): ?>
-                            <tr>
+                            <?php foreach ($companies as $company): 
+                                // حساب المبلغ المدفوع من جدول المدفوعات
+                                $stmt = $conn->prepare("
+                                    SELECT 
+                                        COALESCE(SUM(CASE 
+                                            WHEN payment_type = 'outgoing' THEN amount 
+                                            WHEN payment_type = 'incoming' THEN -amount 
+                                        END), 0) as paid_amount 
+                                    FROM company_payments 
+                                    WHERE company_id = ? AND status = 'completed'
+                                ");
+                                $stmt->execute([$company['id']]);
+                                $paid_amount = $stmt->fetchColumn();
+                                
+                                // حساب المبلغ المتبقي
+                                $remaining = $company['company_payable'] - $paid_amount;
+                            ?>
+                            <tr data-company-id="<?php echo $company['id']; ?>">
                                 <td><?php echo htmlspecialchars($company['company_name']); ?></td>
                                 <td><?php echo number_format($company['completed_orders']); ?></td>
                                 <td><?php echo number_format($company['total_amount'], 2); ?> ر.س</td>
                                 <td><?php echo number_format($company['delivery_revenue'], 2); ?> ر.س</td>
                                 <td class="pending-amount"><?php echo number_format($company['company_payable'], 2); ?> ر.س</td>
-                                <td>
-                                    <?php if ($company['completed_orders'] > 0): ?>
-                                        <span class="badge bg-success">مكتمل</span>
-                                    <?php else: ?>
-                                        <span class="badge bg-warning">لا يوجد طلبات</span>
-                                    <?php endif; ?>
+                                <td class="text-success" data-paid="<?php echo $paid_amount; ?>"><?php echo number_format($paid_amount, 2); ?> ر.س</td>
+                                <td class="<?php echo $remaining > 0 ? 'text-danger' : 'text-success'; ?>" data-remaining="<?php echo $remaining; ?>"><?php echo number_format($remaining, 2); ?> ر.س</td>
+                                <td class="text-center">
+                                    <button type="button" 
+                                            class="btn btn-sm btn-primary" 
+                                            onclick="showPaymentModal(<?php echo $company['id']; ?>, '<?php echo htmlspecialchars($company['company_name']); ?>', <?php echo $remaining; ?>)">
+                                        <i class="fas fa-money-bill-wave"></i> تسجيل دفعة
+                                    </button>
+                                    <button type="button" 
+                                            class="btn btn-sm btn-info text-white" 
+                                            onclick="showPaymentHistory(<?php echo $company['id']; ?>, '<?php echo htmlspecialchars($company['company_name']); ?>')">
+                                        <i class="fas fa-history me-1"></i> السجل
+                                    </button>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
+                            <?php if (empty($companies)): ?>
+                            <tr>
+                                <td colspan="8" class="text-center py-4 text-muted">
+                                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                                    <p class="mb-0">لا يوجد شركات حالياً</p>
+                                </td>
+                            </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- نافذة تسجيل دفعة جديدة -->
+        <div class="modal fade" id="paymentModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">تسجيل دفعة</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form id="paymentForm" method="POST" action="process_payment.php">
+                        <div class="modal-body">
+                            <input type="hidden" name="company_id" id="payment_company_id">
+                            <div class="mb-3">
+                                <label class="form-label">اسم الشركة</label>
+                                <input type="text" class="form-control" id="payment_company_name" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">المبلغ المتبقي</label>
+                                <input type="text" class="form-control" id="payment_remaining" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">نوع الدفعة</label>
+                                <select class="form-select" name="payment_type" required>
+                                    <option value="">اختر نوع الدفعة</option>
+                                    <option value="outgoing">دفع للشركة</option>
+                                    <option value="incoming">استلام من الشركة</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">المبلغ</label>
+                                <input type="number" step="0.01" min="0.01" class="form-control" name="amount" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">طريقة الدفع</label>
+                                <select class="form-select" name="payment_method" required>
+                                    <option value="">اختر طريقة الدفع</option>
+                                    <option value="cash">نقدي</option>
+                                    <option value="bank_transfer">تحويل بنكي</option>
+                                    <option value="check">شيك</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">رقم المرجع</label>
+                                <input type="text" class="form-control" name="reference_number">
+                                <small class="text-muted">رقم الشيك أو رقم التحويل البنكي</small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">ملاحظات</label>
+                                <textarea class="form-control" name="notes" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                            <button type="submit" class="btn btn-primary">تسجيل الدفعة</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- نافذة سجل المدفوعات -->
+        <div class="modal fade" id="historyModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">سجل المدفوعات</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body" id="payment_history">
+                        <!-- سيتم تحميل السجل هنا -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -603,6 +750,114 @@ try {
                         }
                     }
                 }
+            });
+
+            function showPaymentModal(companyId, companyName, remaining) {
+                document.getElementById('payment_company_id').value = companyId;
+                document.getElementById('payment_company_name').value = companyName;
+                document.getElementById('payment_remaining').value = remaining.toFixed(2) + ' ر.س';
+                new bootstrap.Modal(document.getElementById('paymentModal')).show();
+            }
+
+            function showPaymentHistory(companyId, companyName) {
+                const historyModal = new bootstrap.Modal(document.getElementById('historyModal'));
+                const historyContent = document.getElementById('payment_history');
+                historyContent.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</div>';
+                historyModal.show();
+                
+                fetch('get_payment_history.php?company_id=' + companyId)
+                    .then(response => response.text())
+                    .then(html => {
+                        historyContent.innerHTML = html;
+                    })
+                    .catch(error => {
+                        historyContent.innerHTML = '<div class="alert alert-danger">حدث خطأ أثناء تحميل السجل</div>';
+                    });
+            }
+
+            // معالجة نموذج الدفع
+            document.getElementById('paymentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                
+                fetch('process_payment.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // إغلاق النافذة المنبثقة
+                        bootstrap.Modal.getInstance(document.getElementById('paymentModal')).hide();
+                        
+                        // تحديث البيانات في الجدول
+                        const companyRow = document.querySelector(`tr[data-company-id="${formData.get('company_id')}"]`);
+                        if (companyRow) {
+                            const remainingCell = companyRow.querySelector('td:nth-child(7)');
+                            const paidCell = companyRow.querySelector('td:nth-child(6)');
+                            
+                            if (remainingCell && paidCell) {
+                                const amount = parseFloat(formData.get('amount'));
+                                const currentPaid = parseFloat(paidCell.textContent.replace(/[^\d.-]/g, ''));
+                                // عند الاستلام من الشركة نقوم بطرح المبلغ من المدفوعات
+                                const newPaid = currentPaid + (formData.get('payment_type') === 'outgoing' ? amount : -amount);
+                                
+                                paidCell.textContent = newPaid.toFixed(2) + ' ر.س';
+                                remainingCell.textContent = parseFloat(data.updated_stats.remaining).toFixed(2) + ' ر.س';
+                                
+                                // تحديث لون الخلية بناءً على القيمة
+                                remainingCell.className = parseFloat(data.updated_stats.remaining) > 0 ? 'text-danger' : 'text-success';
+                            }
+                        }
+                        
+                        // عرض تفاصيل العملية
+                        const paymentDetails = `
+                            <div class="alert alert-success alert-dismissible fade show">
+                                <h5 class="alert-heading mb-2">
+                                    <i class="fas fa-check-circle me-1"></i>
+                                    تم تسجيل الدفعة بنجاح
+                                </h5>
+                                <hr>
+                                <ul class="list-unstyled mb-2">
+                                    <li><strong>رقم العملية:</strong> #${data.payment.id}</li>
+                                    <li><strong>نوع الدفعة:</strong> ${data.payment.payment_type === 'outgoing' ? 'دفع للشركة' : 'استلام من الشركة'}</li>
+                                    <li><strong>المبلغ:</strong> ${data.payment.amount} ر.س</li>
+                                    <li><strong>طريقة الدفع:</strong> ${data.payment.payment_method}</li>
+                                    <li><strong>رقم المرجع:</strong> ${data.payment.reference_number || 'لا يوجد'}</li>
+                                    <li><strong>التاريخ:</strong> ${data.payment.date}</li>
+                                </ul>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>المبلغ المتبقي:</strong> ${data.updated_stats.remaining} ر.س
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>رسوم التوصيل:</strong> ${data.updated_stats.delivery_fees} ر.س
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        `;
+                        
+                        document.querySelector('.container-fluid').insertBefore(
+                            document.createRange().createContextualFragment(paymentDetails), 
+                            document.querySelector('.container-fluid').firstChild
+                        );
+                        
+                        // إعادة تعيين النموذج
+                        this.reset();
+                        
+                        // تحديث الإحصائيات في الصفحة
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('حدث خطأ أثناء معالجة الطلب');
+                });
             });
         </script>
     </div>

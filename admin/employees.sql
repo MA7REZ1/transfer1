@@ -48,3 +48,18 @@ VALUES (
         'خدمة العملاء',
         'موظف'
     );
+-- إنشاء جدول المدفوعات للشركات
+CREATE TABLE IF NOT EXISTS company_payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    company_id INT NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    payment_date DATETIME NOT NULL,
+    payment_method ENUM('cash', 'bank_transfer', 'check') NOT NULL,
+    reference_number VARCHAR(50),
+    notes TEXT,
+    status ENUM('pending', 'completed', 'cancelled') DEFAULT 'completed',
+    created_by INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (company_id) REFERENCES companies(id),
+    FOREIGN KEY (created_by) REFERENCES employees(id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;

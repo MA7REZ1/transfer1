@@ -70,11 +70,18 @@ $stmt = $conn->prepare("
             ELSE 0 
         END), 0) as cash_in_hand,
         COALESCE(
-            (SELECT SUM(CASE 
-                WHEN status = 'delivered' AND payment_method = 'cash'
-                THEN total_cost
-                ELSE 0 
-            END) - SUM(delivery_fee)
+            (SELECT 
+                (SUM(CASE 
+                    WHEN status = 'delivered' AND payment_method = 'cash'
+                    THEN total_cost
+                    ELSE 0 
+                END) - SUM(delivery_fee)) - 
+                COALESCE((
+                    SELECT SUM(amount) 
+                    FROM company_payments 
+                    WHERE company_id = ? 
+                    AND status = 'completed'
+                ), 0)
             FROM requests 
             WHERE company_id = ? 
             AND created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
@@ -89,7 +96,7 @@ $stmt = $conn->prepare("
     WHERE company_id = ? 
     AND created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
 ");
-$stmt->execute([$_SESSION['company_id'], $_SESSION['company_id']]);
+$stmt->execute([$_SESSION['company_id'], $_SESSION['company_id'], $_SESSION['company_id']]);
 $stats = $stmt->fetch();
 
 // Initialize stats if null
@@ -245,8 +252,9 @@ $complaint_responses = $stmt->fetchAll();
                     <li class="nav-item">
                         <a class="nav-link active" href="#requests"><i class="bi bi-list-check"></i> الطلبات</a>
                     </li>
+                 
                     <li class="nav-item">
-                        <a class="nav-link" href="#statistics"><i class="bi bi-graph-up"></i> الإحصائيات</a>
+                        <a class="nav-link" href="statistics.php"><i class="bi bi-bar-chart"></i> تقارير مفصلة</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="staff.php"><i class="bi bi-people"></i> إدارة الموظفين</a>
@@ -473,6 +481,14 @@ $complaint_responses = $stmt->fetchAll();
                                         <div class="customer-info">
                                             <div><?php echo $request['driver_name']; ?></div>
                                             <div class="customer-phone"><?php echo $request['driver_phone']; ?></div>
+                                            <div class="mt-1">
+                                                <a href="tel:<?php echo $request['driver_phone']; ?>" class="btn btn-sm btn-info" title="اتصال بالسائق">
+                                                    <i class="bi bi-telephone"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-success" onclick="openDriverWhatsApp('<?php echo $request['driver_phone']; ?>', '<?php echo $request['driver_name']; ?>', '<?php echo $request['order_number']; ?>')" title="واتساب السائق">
+                                                    <i class="bi bi-whatsapp"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     <?php else: ?>
                                         <span class="text-muted">لم يتم التعيين</span>
@@ -1087,10 +1103,7 @@ ${trackingUrl}
         });
 
         // Auto refresh functionality
-        const autoRefreshInterval = setInterval(function() {
-            location.reload();
-        }, 60000); // Refresh every minute
-
+     
         // Add CSS styles at the end of the file
         const styleSheet = document.createElement('style');
         styleSheet.textContent = `
@@ -1372,6 +1385,23 @@ ${trackingUrl}
                 });
             }
         });
+
+        function openDriverWhatsApp(phone, driverName, orderNumber) {
+            let formattedPhone = phone.replace(/^0+/, '');
+            if (!formattedPhone.startsWith('966')) {
+                formattedPhone = '966' + formattedPhone;
+            }
+            
+            const message = `
+مرحباً ${driverName}،
+بخصوص الطلب رقم: ${orderNumber}
+
+كيف حال الطلب؟ هل هناك أي تحديثات؟
+            `.trim();
+
+            const whatsappUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
     </script>
 </body>
 </html>
