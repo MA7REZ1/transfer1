@@ -1,5 +1,15 @@
 <?php
 require_once '../config.php';
+
+// التحقق من الصلاحيات - فقط المدير يمكنه الوصول
+if (!isLoggedIn()) {
+    header('Location: login.php');
+    exit;
+}
+
+// التحقق من نوع المستخدم - فقط المدراء يمكنهم الوصول للوحة التحكم
+
+
 require_once '../includes/header.php';
 
 // Get statistics

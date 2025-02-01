@@ -7,7 +7,29 @@ if (!isLoggedIn()) {
     header("Location: login.php");
     exit();
 }
+// التحقق من نوع المستخدم - فقط المدراء يمكنهم الوصول للوحة التحكم
+if ($_SESSION['admin_role'] !== 'super_admin' && $_SESSION['admin_role'] !== 'مدير_عام' && $_SESSION['department'] !== 'accounting') {
+    header('Location: ../index.php');
+    exit;
+}
+// جلب تواريخ البداية والنهاية من النموذج
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+$end_date = isset($_GET['end_date']) ? $_GET['end_date'] : null;
+
+// دالة لإنشاء شرط التاريخ للاستعلامات
+function getDateCondition($start_date, $end_date, $column = 'delivery_date') {
+    $condition = "";
+    if ($start_date && $end_date) {
+        $condition = " AND $column BETWEEN '$start_date' AND '$end_date'";
+    } elseif ($start_date) {
+        $condition = " AND $column >= '$start_date'";
+    } elseif ($end_date) {
+        $condition = " AND $column <= '$end_date'";
+    }
+    return $condition;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -107,37 +129,28 @@ try {
         throw new Exception("فشل الاتصال بقاعدة البيانات");
     }
 
-    // إنشاء جدول الإعدادات إذا لم يكن موجوداً
-   
-    // Add delivery_fee column to requests table if it doesn't exist
- 
+    // إضافة عمود delivery_fee إلى جدول الشركات إذا لم يكن موجوداً
+    $conn->query("ALTER TABLE companies ADD COLUMN IF NOT EXISTS delivery_fee DECIMAL(10,2) DEFAULT 0");
 
-
-    // جلب رسوم التوصيل من الإعدادات
-    $stmt = $conn->query("SELECT value FROM settings WHERE name = 'delivery_fee'");
-    $delivery_fee = floatval($stmt->fetchColumn() ?: 20);
-
-    // تحديث رسوم التوصيل إذا تم تقديم النموذج
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delivery_fee'])) {
-        $new_fee = floatval($_POST['delivery_fee']);
+    // تحديث رسوم التوصيل للشركة إذا تم تقديم النموذج
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['company_delivery_fee'])) {
+        $company_id = intval($_POST['company_id']);
+        $new_fee = floatval($_POST['company_delivery_fee']);
         
-        // تحديث القيمة في جدول الإعدادات
-        $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'delivery_fee'");
-        $stmt->execute([$new_fee]);
+        // تحديث رسوم التوصيل للشركة
+        $stmt = $conn->prepare("UPDATE companies SET delivery_fee = ? WHERE id = ?");
+        $stmt->execute([$new_fee, $company_id]);
         
-        // تحديث رسوم التوصيل للطلبات المعلقة
+        // تحديث رسوم التوصيل فقط للطلبات الجديدة والمعلقة
         $stmt = $conn->prepare("
             UPDATE requests 
             SET delivery_fee = ? 
-            WHERE status IN ('pending', 'accepted') 
-            OR (status = 'delivered' AND payment_status = 'unpaid')
+            WHERE company_id = ? 
+            AND status IN ('pending', 'accepted')
         ");
-        $stmt->execute([$new_fee]);
+        $stmt->execute([$new_fee, $company_id]);
         
-        $delivery_fee = $new_fee;
-        
-        // إضافة رسالة نجاح إضافية
-        $success_message = "تم تحديث رسوم التوصيل بنجاح وتطبيقها على الطلبات المعلقة";
+        $success_message = "تم تحديث رسوم التوصيل للشركة بنجاح";
     }
 
     // Calculate statistics
@@ -151,14 +164,14 @@ try {
     // Get total orders and revenue
     $query = "SELECT 
         COALESCE(COUNT(*), 0) as total_orders,
-        COALESCE(SUM(CASE WHEN payment_method = 'cash' THEN total_cost ELSE 0 END), 0) as total_amount,
-        COALESCE(SUM(delivery_fee), 0) as total_delivery_fees,
-        COALESCE(SUM(CASE WHEN payment_method = 'cash' THEN total_cost ELSE 0 END) - SUM(delivery_fee), 0) - 
-        COALESCE((SELECT SUM(CASE WHEN payment_type = 'outgoing' THEN amount WHEN payment_type = 'incoming' THEN -amount END) 
-                 FROM company_payments 
-                 WHERE status = 'completed'), 0) as total_minus_delivery
+        COALESCE(SUM(CASE WHEN status = 'delivered' THEN total_cost ELSE 0 END), 0) as total_amount,
+        COALESCE(SUM(CASE WHEN status = 'delivered' THEN delivery_fee ELSE 0 END), 0) as total_delivery_fees,
+        COALESCE(SUM(CASE WHEN status = 'delivered' THEN total_cost ELSE 0 END), 0) as total_minus_delivery
     FROM requests 
     WHERE status = 'delivered'";
+
+    // إضافة شرط التاريخ إذا تم تحديده
+    $query .= getDateCondition($start_date, $end_date);
 
     $stmt = $conn->query($query);
     if ($stmt && $row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -170,35 +183,80 @@ try {
 
     // Get company statistics
     $companies = [];
+    
+    // استعلام لحساب إجمالي رسوم التوصيل للطلبات الموصلة فقط
+    $delivery_fees_query = "SELECT 
+        r.company_id,
+        c.delivery_fee as current_fee,
+        COALESCE(SUM(r.delivery_fee), 0) as total_delivery_fees,
+        COUNT(*) as total_orders
+    FROM requests r
+    JOIN companies c ON r.company_id = c.id 
+    WHERE r.status = 'delivered'";
+
+    // إضافة شرط التاريخ إذا تم تحديده
+    $delivery_fees_query .= getDateCondition($start_date, $end_date, 'r.delivery_date');
+    $delivery_fees_query .= " GROUP BY r.company_id, c.delivery_fee";
+    
+    $delivery_fees_stmt = $conn->query($delivery_fees_query);
+    $company_delivery_fees = [];
+    while ($row = $delivery_fees_stmt->fetch(PDO::FETCH_ASSOC)) {
+        $company_delivery_fees[$row['company_id']] = [
+            'total' => $row['total_delivery_fees'],
+            'per_order' => $row['total_orders'] > 0 ? ($row['total_delivery_fees'] / $row['total_orders']) : 0
+        ];
+    }
+
     $query = "SELECT 
         c.id,
         c.name as company_name,
-        COALESCE(COUNT(r.id), 0) as completed_orders,
-        COALESCE(SUM(CASE WHEN r.payment_method = 'cash' THEN r.total_cost ELSE 0 END), 0) as total_amount,
-        COALESCE(SUM(r.delivery_fee), 0) as total_delivery_fees,
-        COALESCE(SUM(CASE WHEN r.payment_method = 'cash' THEN r.total_cost ELSE 0 END) - SUM(r.delivery_fee), 0) as company_payable,
+        COALESCE(c.delivery_fee, 0) as delivery_fee,
+        COALESCE(COUNT(DISTINCT CASE WHEN r.status = 'delivered' THEN r.id END), 0) as completed_orders,
+        COALESCE(SUM(CASE 
+            WHEN r.status = 'delivered' 
+            THEN r.total_cost
+            ELSE 0 
+        END), 0) as total_amount,
+        COALESCE(SUM(CASE 
+            WHEN r.status = 'delivered' 
+            THEN r.total_cost
+            ELSE 0 
+        END), 0) as company_payable,
         COALESCE((
-            SELECT SUM(CASE 
-                WHEN payment_type = 'outgoing' THEN amount 
-                WHEN payment_type = 'incoming' THEN -amount 
-            END)
+            SELECT SUM(amount)
             FROM company_payments 
-            WHERE company_id = c.id AND status = 'completed'
-        ), 0) as paid_amount
+            WHERE company_id = c.id AND status = 'completed' AND payment_type = 'outgoing'
+        ), 0) as paid_to_company,  -- مدفوع منا إلى الشركة
+        COALESCE((
+            SELECT SUM(amount)
+            FROM company_payments 
+            WHERE company_id = c.id AND status = 'completed' AND payment_type = 'incoming'
+        ), 0) as paid_by_company  -- مدفوع من الشركة
     FROM companies c
-    LEFT JOIN requests r ON c.id = r.company_id AND r.status = 'delivered'
-    GROUP BY c.id, c.name
-    ORDER BY c.name";
+    LEFT JOIN requests r ON c.id = r.company_id
+    WHERE 1=1";
+
+    // إضافة شرط التاريخ إذا تم تحديده
+    $query .= getDateCondition($start_date, $end_date, 'r.delivery_date');
+    $query .= " GROUP BY c.id, c.name, c.delivery_fee ORDER BY c.name";
 
     $stmt = $conn->query($query);
     if ($stmt) {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $row['completed_orders'] = intval($row['completed_orders']);
             $row['total_amount'] = floatval($row['total_amount']);
-            $row['delivery_revenue'] = floatval($row['total_delivery_fees']);
+            $row['delivery_revenue'] = floatval($company_delivery_fees[$row['id']]['total'] ?? 0);
             $row['company_payable'] = floatval($row['company_payable']);
+            $row['paid_amount'] = floatval($row['paid_to_company'] - $row['paid_by_company']);
+            $row['remaining'] = $row['company_payable'] - $row['paid_amount'] - $row['delivery_revenue'];
             $companies[] = $row;
         }
+    }
+
+    // حساب إجمالي المبالغ المتبقية لجميع الشركات
+    $total_remaining = 0;
+    foreach ($companies as $company) {
+        $total_remaining += $company['remaining'];
     }
 
     // Get monthly revenue data for chart
@@ -208,10 +266,11 @@ try {
         COALESCE(COUNT(*), 0) as total_orders,
         COALESCE(SUM(delivery_fee), 0) as total_delivery_fees
     FROM requests 
-    WHERE status = 'delivered'
-        AND delivery_date >= DATE_SUB(CURRENT_DATE, INTERVAL 6 MONTH)
-    GROUP BY DATE_FORMAT(delivery_date, '%Y-%m')
-    ORDER BY month";
+    WHERE status = 'delivered'";
+
+    // إضافة شرط التاريخ إذا تم تحديده
+    $query .= getDateCondition($start_date, $end_date);
+    $query .= " GROUP BY DATE_FORMAT(delivery_date, '%Y-%m') ORDER BY month";
 
     $stmt = $conn->query($query);
     if ($stmt) {
@@ -231,8 +290,11 @@ try {
         COALESCE(COUNT(*), 0) as total_orders,
         COALESCE(SUM(delivery_fee), 0) as total_delivery_fees
     FROM requests 
-    WHERE status = 'delivered'
-    GROUP BY payment_method";
+    WHERE status = 'delivered'";
+
+    // إضافة شرط التاريخ إذا تم تحديده
+    $query .= getDateCondition($start_date, $end_date);
+    $query .= " GROUP BY payment_method";
 
     $stmt = $conn->query($query);
     if ($stmt) {
@@ -249,10 +311,37 @@ try {
     <!-- رأس الصفحة -->
     <div class="container-fluid px-4">
         <h1 class="mt-4">تحليلات الإيرادات</h1>
-        <!-- <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="dashboard.php">لوحة التحكم</a></li>
-            <li class="breadcrumb-item active">تحليلات الإيرادات</li>
-        </ol> -->
+
+        <!-- تصفية حسب التاريخ -->
+        <div class="card mb-4">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-filter me-1"></i>
+                    تصفية حسب التاريخ
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="GET" action="" class="row g-3">
+                    <div class="col-md-4">
+                        <label for="start_date" class="form-label">تاريخ البداية</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value="<?php echo $start_date; ?>">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="end_date" class="form-label">تاريخ النهاية</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value="<?php echo $end_date; ?>">
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-filter me-1"></i>
+                            تطبيق التصفية
+                        </button>
+                        <div class="col-md-3">
+                    <a href="revenue.php" class="btn btn-secondary mt-4">إعادة تعيين</a>
+                </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <!-- التقرير المحاسبي -->
         <div class="card mb-4">
@@ -285,7 +374,7 @@ try {
                                 المستحقات للشركات
                             </h5>
                             <ul class="list-unstyled mb-0">
-                                <li>• مبالغ مستحقة للشركات: <?php echo number_format($stats['total_minus_delivery'], 2); ?> ر.س</li>
+                                <li>• إجمالي المبالغ المتبقية: <?php echo number_format($total_remaining, 2); ?> ر.س</li>
                                 <li>• عدد الطلبات: <?php echo number_format($stats['completed_orders']); ?> طلب</li>
                                 <li>• متوسط قيمة الطلب: <?php echo number_format($stats['completed_orders'] ? $stats['total_minus_delivery'] / $stats['completed_orders'] : 0, 2); ?> ر.س</li>
                             </ul>
@@ -356,9 +445,29 @@ try {
                     <div class="card-body bg-gradient-warning text-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="mb-2">المستحقات للشركات</h6>
-                                <h3 class="mb-0"><?php echo number_format($stats['total_minus_delivery'], 2); ?> ر.س</h3>
-                                <small>مبالغ يجب تسديدها</small>
+                                <h6 class="mb-2"><?php if ($company): 
+                            // حساب المبلغ المتبقي بعد خصم رسوم التوصيل
+                           
+
+                            // تحديد حالة الشركة
+                            $status = '';
+                            $status_color = '';
+                            if ($total_remaining > 0) {
+                                    $status = 'مستحق علينا ⚠️';
+                                $status_color = 'text-danger';
+                            } elseif ($total_remaining < 0) {
+                              $status = 'مستحق لنا ✅';
+                                $status_color = 'text-success';
+                            } else {
+                                $status = 'لا يوجد مستحقات✅';
+                                $status_color = 'text-success';
+                            }
+
+                            // عرض الحالة
+                            echo $status;
+                        endif; ?></h6>
+                                <h3 class="mb-0"><?php echo number_format($total_remaining, 2); ?> ر.س</h3>
+                                <small>إجمالي المبالغ المتبقية</small>
                             </div>
                             <div class="stat-icon">
                                 <i class="fas fa-hand-holding-usd fa-2x"></i>
@@ -368,7 +477,7 @@ try {
                 </div>
             </div>
 
-            <!-- صجمالي رسوم التوصيل -->
+            <!-- إجمالي رسوم التوصيل -->
             <div class="col-xl-3 col-md-6">
                 <div class="card mb-4">
                     <div class="card-body bg-gradient-info text-white">
@@ -387,90 +496,6 @@ try {
             </div>
         </div>
 
-        <!-- جعدادات رسوم التوصيل -->
-        <div class="card mb-4">
-            <div class="card-header bg-white">
-                <i class="fas fa-cog me-1"></i>
-                إعدادات رسوم التوصيل
-            </div>
-            <div class="card-body">
-                <form method="POST" class="row g-3">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label fw-bold mb-2">تعديل رسوم التوصيل</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-light">
-                                    <i class="fas fa-money-bill-wave"></i>
-                                </span>
-                                <input type="number" 
-                                       step="0.01" 
-                                       min="0" 
-                                       name="delivery_fee" 
-                                       class="form-control form-control-lg" 
-                                       value="<?php echo $delivery_fee; ?>" 
-                                       required>
-                                <span class="input-group-text bg-light">ر.س</span>
-                                <button type="submit" class="btn btn-primary btn-lg">
-                                    <i class="fas fa-save me-1"></i>
-                                    حفظ التعديلات
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="alert alert-info mb-0">
-                            <h6 class="alert-heading mb-2">
-                                <i class="fas fa-info-circle me-1"></i>
-                                معلومات هامة
-                            </h6>
-                            <ul class="mb-0">
-                                <li>رسوم التوصيل الحالية: <strong><?php echo number_format($delivery_fee, 2); ?> ر.س</strong></li>
-                                <li>سيتم تطبيق الرسوم الجديدة على الطلبات القادمة فقط</li>
-                                <li>الطلبات السابقة ستحتفظ برسوم التوصيل القديمة</li>
-                            </ul>
-                        </div>
-                    </div>
-                </form>
-                <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delivery_fee'])): ?>
-                <div class="alert alert-success mt-3 mb-0">
-                    <i class="fas fa-check-circle me-1"></i>
-                    <?php echo $success_message; ?>
-                    <br>
-                    <small class="text-muted">
-                        • تم تحديث السعر إلى: <?php echo number_format(floatval($_POST['delivery_fee']), 2); ?> ر.س
-                        <br>
-                        • سيتم تطبيق السعر الجديد على الطلبات المعلقة والجديدة
-                        <br>
-                        • الطلبات المكتملة والمدفوعة ستحتفظ بأسعارها السابقة
-                    </small>
-                </div>
-                <?php endif; ?>
-            </div>
-        </div>
-
-        <!-- رسائل النجاح والخطأ -->
-        <?php if (isset($_SESSION['success_message'])): ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fas fa-check-circle me-1"></i>
-            <?php 
-            echo $_SESSION['success_message'];
-            unset($_SESSION['success_message']);
-            ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php endif; ?>
-
-        <?php if (isset($_SESSION['error_message'])): ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fas fa-exclamation-circle me-1"></i>
-            <?php 
-            echo $_SESSION['error_message'];
-            unset($_SESSION['error_message']);
-            ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php endif; ?>
-
         <!-- جدول الشركات -->
         <div class="card mb-4">
             <div class="card-header bg-white d-flex justify-content-between align-items-center">
@@ -485,45 +510,92 @@ try {
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover text-center">
                         <thead class="table-light">
                             <tr>
                                 <th>الشركة</th>
+                                <th>رسوم التوصيل</th>
                                 <th>الطلبات المكتملة</th>
                                 <th>إجمالي المبلغ</th>
                                 <th>رسوم التوصيل</th>
-                                <th>مستحقات للشركة</th>
+                                <th> المستحقات بعد خصم رسوم التوصيل </th>
                                 <th>المبلغ المدفوع</th>
                                 <th>المتبقي</th>
+                                <th>حالة الشركة</th>
                                 <th>الإجراءات</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($companies as $company): 
-                                // حساب المبلغ المدفوع من جدول المدفوعات
-                                $stmt = $conn->prepare("
-                                    SELECT 
-                                        COALESCE(SUM(CASE 
-                                            WHEN payment_type = 'outgoing' THEN amount 
-                                            WHEN payment_type = 'incoming' THEN -amount 
-                                        END), 0) as paid_amount 
-                                    FROM company_payments 
-                                    WHERE company_id = ? AND status = 'completed'
-                                ");
-                                $stmt->execute([$company['id']]);
-                                $paid_amount = $stmt->fetchColumn();
-                                
-                                // حساب المبلغ المتبقي
-                                $remaining = $company['company_payable'] - $paid_amount;
+                                // حساب المبلغ المتبقي بعد خصم رسوم التوصيل
+                                $remaining = $company['remaining'];
+
+                                // تحديد حالة الشركة
+                                $status = '';
+                                $status_color = '';
+                                if ($remaining > 0) {
+                                    $status = 'يوجد مستحقات علينا';
+                                    $status_color = 'text-danger';
+                                } elseif ($remaining < 0) {
+                                    $status = 'يوجد مستحقات لنا';
+                                    $status_color = 'text-success';
+                                } else {
+                                    $status = 'لايوجد مستحقات';
+                                    $status_color = 'text-success';
+                                }
                             ?>
                             <tr data-company-id="<?php echo $company['id']; ?>">
                                 <td><?php echo htmlspecialchars($company['company_name']); ?></td>
+                                <td>
+                                    <form method="POST" class="delivery-fee-form">
+                                        <div class="input-group input-group-sm">
+                                            <input type="hidden" name="company_id" value="<?php echo $company['id']; ?>">
+                                            <input type="number" 
+                                                   step="0.01" 
+                                                   min="0" 
+                                                   name="company_delivery_fee" 
+                                                   class="form-control form-control-sm" 
+                                                   value="<?php echo $company['delivery_fee'] ?? 0; ?>" 
+                                                   placeholder="أدخل السعر"
+                                                   required>
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-save"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </td>
                                 <td><?php echo number_format($company['completed_orders']); ?></td>
                                 <td><?php echo number_format($company['total_amount'], 2); ?> ر.س</td>
-                                <td><?php echo number_format($company['delivery_revenue'], 2); ?> ر.س</td>
-                                <td class="pending-amount"><?php echo number_format($company['company_payable'], 2); ?> ر.س</td>
-                                <td class="text-success" data-paid="<?php echo $paid_amount; ?>"><?php echo number_format($paid_amount, 2); ?> ر.س</td>
-                                <td class="<?php echo $remaining > 0 ? 'text-danger' : 'text-success'; ?>" data-remaining="<?php echo $remaining; ?>"><?php echo number_format($remaining, 2); ?> ر.س</td>
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <small class="text-muted mb-1">سعر التوصيل للطلب: <?php 
+                                            $per_order = isset($company_delivery_fees[$company['id']]) ? $company_delivery_fees[$company['id']]['per_order'] : 0;
+                                            echo number_format($per_order, 2) . ' ر.س'; 
+                                        ?></small>
+                                        <strong class="text-success">إجمالي التوصيل: <?php 
+                                            $total = isset($company_delivery_fees[$company['id']]) ? $company_delivery_fees[$company['id']]['total'] : 0;
+                                            echo number_format($total, 2); 
+                                        ?> ر.س</strong>
+                                    </div>
+                                </td>
+                                <td class="pending-amount"><?php echo number_format($company['company_payable']-$total, 2); ?> ر.س</td>
+                                <td class="text-success">
+                                    <div class="d-flex flex-column">
+                                        <small class="text-muted mb-1">مدفوع من الشركة: <?php echo number_format($company['paid_by_company'], 2); ?> ر.س</small>
+                                        <small class="text-muted">مدفوع منا إلى الشركة: <?php echo number_format($company['paid_to_company'], 2); ?> ر.س</small>
+                                    </div>
+                                </td>
+                                <td class="<?php echo $remaining > 0 ? 'text-danger' : ($remaining < 0 ? 'text-primary' : 'text-success'); ?>">
+                                    <?php echo number_format($remaining, 2); ?> ر.س
+                                    <?php if ($remaining > 0): ?>
+                                        <small class="text-danger d-block">⚠️ مستحق علينا</small>
+                                    <?php elseif ($remaining < 0): ?>
+                                        <small class="text-primary d-block">💰 مستحق لنا</small>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="<?php echo $status_color; ?>">
+                                    <?php echo $status; ?>
+                                </td>
                                 <td class="text-center">
                                     <button type="button" 
                                             class="btn btn-sm btn-primary" 
@@ -532,7 +604,7 @@ try {
                                     </button>
                                     <button type="button" 
                                             class="btn btn-sm btn-info text-white" 
-                                            onclick="showPaymentHistory(<?php echo $company['id']; ?>, '<?php echo htmlspecialchars($company['company_name']); ?>')">
+                                            onclick="window.open('get_payment_history.php?company_id=<?php echo $company['id']; ?>', '_blank', 'width=800,height=600')">
                                         <i class="fas fa-history me-1"></i> السجل
                                     </button>
                                 </td>
@@ -540,7 +612,7 @@ try {
                             <?php endforeach; ?>
                             <?php if (empty($companies)): ?>
                             <tr>
-                                <td colspan="8" class="text-center py-4 text-muted">
+                                <td colspan="10" class="text-center py-4 text-muted">
                                     <i class="fas fa-inbox fa-3x mb-3"></i>
                                     <p class="mb-0">لا يوجد شركات حالياً</p>
                                 </td>
@@ -628,12 +700,12 @@ try {
 
         <!-- الرسوم البيانية -->
         <div class="row">
-            <!-- رسم بياني للإيرادات الشهرية -->
+            <!-- رسم بياني للإيرادات  -->
             <div class="col-xl-8">
                 <div class="card mb-4">
                     <div class="card-header bg-white">
                         <i class="fas fa-chart-line me-1"></i>
-                        الإيرادات الشهرية
+                        الإيرادات 
                     </div>
                     <div class="card-body">
                         <canvas id="monthlyRevenueChart"></canvas>
@@ -662,7 +734,7 @@ try {
             const monthlyData = <?php echo json_encode($monthly_data); ?>;
             const paymentData = <?php echo json_encode($payment_data); ?>;
 
-            // رسم بياني للإيرادات الشهرية
+            // رسم بياني للإيرادات 
             const monthlyChart = new Chart(document.getElementById('monthlyRevenueChart'), {
                 type: 'line',
                 data: {
@@ -676,15 +748,17 @@ try {
                             label: 'رسوم التوصيل',
                             data: monthlyData.map(item => item.revenue),
                             borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
                             tension: 0.1,
-                            fill: false
+                            fill: true
                         },
                         {
                             label: 'عدد الطلبات',
                             data: monthlyData.map(item => item.orders),
                             borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
                             tension: 0.1,
-                            fill: false,
+                            fill: true,
                             yAxisID: 'y1'
                         }
                     ]
@@ -694,6 +768,18 @@ try {
                     interaction: {
                         mode: 'index',
                         intersect: false,
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'الإيرادات  وعدد الطلبات',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
                     },
                     scales: {
                         y: {
@@ -739,12 +825,20 @@ try {
                             'rgb(255, 99, 132)',
                             'rgb(54, 162, 235)',
                             'rgb(255, 205, 86)'
-                        ]
+                        ],
+                        hoverOffset: 4
                     }]
                 },
                 options: {
                     responsive: true,
                     plugins: {
+                        title: {
+                            display: true,
+                            text: 'توزيع طرق الدفع',
+                            font: {
+                                size: 16
+                            }
+                        },
                         legend: {
                             position: 'bottom'
                         }
@@ -859,6 +953,29 @@ try {
                     alert('حدث خطأ أثناء معالجة الطلب');
                 });
             });
+
+            // إضافة JavaScript للتعامل مع نماذج تحديث رسوم التوصيل
+            document.querySelectorAll('.delivery-fee-form').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    
+                    fetch(window.location.href, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.text())
+                    .then(() => {
+                        // تحديث الصفحة لعرض التغييرات
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('حدث خطأ أثناء تحديث رسوم التوصيل');
+                    });
+                });
+            });
         </script>
     </div>
 
@@ -872,4 +989,4 @@ try {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-</html> 
+</html>

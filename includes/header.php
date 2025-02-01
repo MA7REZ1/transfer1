@@ -54,50 +54,60 @@ $unread_notifications = $stmt->fetchColumn();
     <div class="main-content">
         <div class="content-header d-flex justify-content-between align-items-center mb-4">
             <div class="page-title">
-                <h1 class="h3 mb-0 text-gray-800">
-                    <?php
-                    $current_page = basename($_SERVER['PHP_SELF'], '.php');
-                    switch ($current_page) {
-                        case 'dashboard':
-                            echo 'لوحة التحكم';
-                            break;
-                        case 'orders':
-                            echo 'إدارة الطلبات';
-                            break;
-                        case 'companies':
-                            echo 'الشركات';
-                            break;
-                        case 'drivers':
-                            echo 'السائقين';
-                            break;
-                        case 'complaints':
-                            echo 'الشكاوى';
-                            break;
-                        case 'reports':
-                            echo 'التقارير';
-                            break;
-                        case 'settings':
-                            echo 'الإعدادات';
-                            break;
-                        case 'profile':
-                            echo 'الملف الشخصي';
-                            break;
-                        case 'employees':
-                            echo 'إدارة الموظفين';
-                            break;
-                        default:
-                            echo 'نظام إدارة النقل';
-                    }
-                    ?>
-                </h1>
+                <h1 class="h3 mb-0 text-gray-800 system-title">
+    <?php
+    $current_page = basename($_SERVER['PHP_SELF'], '.php');
+    switch ($current_page) {
+        case 'dashboard':
+            echo 'لوحة التحكم';
+            break;
+        case 'orders':
+            echo 'إدارة الطلبات';
+            break;
+        case 'companies':
+            echo 'الشركات';
+            break;
+        case 'drivers':
+            echo 'السائقين';
+            break;
+        case 'complaints':
+            echo 'الشكاوى';
+            break;
+        case 'reports':
+            echo 'التقارير';
+            break;
+        case 'settings':
+            echo 'الإعدادات';
+            break;
+        case 'profile':
+            echo 'الملف الشخصي';
+            break;
+        case 'employees':
+            echo 'إدارة الموظفين';
+            break;
+        case 'driver_earnings_settings':
+            echo 'التحصيل من السواق';
+            break;
+        default:
+            echo 'نظام إدارة النقل';
+    }
+    ?>
+</h1>
             </div>
             
             <div class="header-actions d-flex align-items-center">
-                <!-- زر إدارة الموظفين -->
-               
-
                 <!-- Notifications Dropdown -->
-                <style>
+                 <style>
+.complaints-badge {
+    background-color: #dc3545;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
                 .notification-icon {
                     color: #e67e22;
                     font-size: 20px;
@@ -274,7 +284,7 @@ $unread_notifications = $stmt->fetchColumn();
                     transition: color 0.3s ease;
                 }
 
-                .ncation-icon i.ringing {
+                .notification-icon i.ringing {
                     animation: bellRing 1s ease-in-out;
                 }
                 </style>
@@ -303,17 +313,18 @@ $unread_notifications = $stmt->fetchColumn();
                 </div>
                 
                 <!-- User Dropdown -->
-                <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                        <span class="me-2 d-none d-lg-inline text-gray-600"><?php echo htmlspecialchars($_SESSION['admin_username']); ?></span>
+                <div class="nav-item">
+                    <a class="nav-link" href="admin_profile.php">
+                        <span class="me-2 d-none d-lg-inline text-gray-600">
+                            <?php echo htmlspecialchars($_SESSION['admin_username']); ?>
+                        </span>
                         <img class="img-profile rounded-circle" src="assets/img/default-avatar.png" width="32" height="32">
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="profile.php"><i class="fas fa-user-cog me-2"></i>الملف الشخصي</a></li>
-                        <li><a class="dropdown-item" href="settings.php"><i class="fas fa-cog me-2"></i>الإعدادات</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i>تسجيل خروج</a></li>
-                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="logout.php">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -430,93 +441,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check for new notifications periodically
     setInterval(loadNotifications, 30000); // Check every 30 seconds
 });
-
-// Alert System
-const showAlert = ({
-    title = 'تنبيه',
-    message = '',
-    type = 'info',
-    confirmText = 'موافق',
-    cancelText = 'إلغاء',
-    showCancel = false,
-    onConfirm = () => {},
-    onCancel = () => {}
-}) => {
-    const overlay = document.getElementById('alertOverlay');
-    const alert = document.getElementById('customAlert');
-    const titleEl = document.getElementById('alertTitle');
-    const messageEl = document.getElementById('alertMessage');
-    const confirmBtn = document.getElementById('alertConfirm');
-    const cancelBtn = document.getElementById('alertCancel');
-    
-    // Set content
-    titleEl.textContent = title;
-    messageEl.textContent = message;
-    confirmBtn.textContent = confirmText;
-    cancelBtn.textContent = cancelText;
-    
-    // Set type
-    alert.className = 'custom-alert ' + type;
-    
-    // Show/hide cancel button
-    cancelBtn.style.display = showCancel ? 'block' : 'none';
-    
-    // Add event listeners
-    const closeAlert = (callback) => {
-        overlay.dataset.animation = 'out';
-        setTimeout(() => {
-            overlay.classList.remove('show');
-            overlay.dataset.animation = '';
-            callback();
-        }, 300);
-    };
-    
-    const confirmHandler = () => {
-        closeAlert(onConfirm);
-        confirmBtn.removeEventListener('click', confirmHandler);
-        cancelBtn.removeEventListener('click', cancelHandler);
-    };
-    
-    const cancelHandler = () => {
-        closeAlert(onCancel);
-        confirmBtn.removeEventListener('click', confirmHandler);
-        cancelBtn.removeEventListener('click', cancelHandler);
-    };
-    
-    confirmBtn.addEventListener('click', confirmHandler);
-    cancelBtn.addEventListener('click', cancelHandler);
-    
-    // Show alert
-    overlay.classList.add('show');
-    overlay.dataset.animation = 'in';
-};
-
-// Example usage:
-/*
-showAlert({
-    title: 'نجاح',
-    message: 'تم حفظ التغييرات بنجاح',
-    type: 'success',
-    onConfirm: () => {
-        console.log('��م الضغط على موافق');
-    }
-});
-
-showAlert({
-    title: 'تأكيد الحذف',
-    message: 'هل أنت متأكد من حذف هذا العنصر؟',
-    type: 'danger',
-    showCancel: true,
-    confirmText: 'نعم، احذف',
-    cancelText: 'إلغاء',
-    onConfirm: () => {
-        console.log('تم تأكيد الحذف');
-    },
-    onCancel: () => {
-        console.log('تم إلغاء الحذف');
-    }
-});
-*/
 </script>
 </body>
 </html>

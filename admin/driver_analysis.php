@@ -6,7 +6,11 @@ if (!isLoggedIn()) {
     header('Location: index.php');
     exit;
 }
-
+// التحقق من نوع المستخدم - فقط المدراء يمكنهم الوصول للوحة التحكم
+if ($_SESSION['admin_role'] !== 'super_admin' && $_SESSION['admin_role'] !== 'مدير_عام' && $_SESSION['department'] !== 'drivers_supervisor') {
+    header('Location: ../index.php');
+    exit;
+}
 // Initialize variables
 $total_drivers = 0;
 $top_drivers = [];

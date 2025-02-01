@@ -78,6 +78,35 @@ if (!isset($_GET['id'])) {
             padding: 8px 12px;
             border-radius: 6px;
         }
+        .response-item {
+            margin-bottom: 1rem;
+        }
+        .response-item .card {
+            border-radius: 15px;
+            box-shadow: none;
+        }
+        .response-item .card-body {
+            padding: 1rem;
+        }
+        .response-item .text-primary {
+            color: #0d6efd !important;
+        }
+        .response-item .text-success {
+            color: #198754 !important;
+        }
+        .response-item .text-muted {
+            color: #6c757d !important;
+        }
+        .response-item .bg-light {
+            background-color: #f0f7ff !important;
+        }
+        .response-item .bg-success.bg-opacity-10 {
+            background-color: #e8f5e9 !important;
+        }
+        .response-item .card-body > div:last-child {
+            margin-top: 0.5rem;
+            white-space: pre-wrap;
+        }
     </style>
 </head>
 <body>
@@ -400,32 +429,35 @@ if (!isset($_GET['id'])) {
                                     const date = new Date(response.created_at);
                                     const formattedDate = new Intl.DateTimeFormat('ar-SA', {
                                         year: 'numeric',
-                                        month: 'numeric',
+                                        month: 'long',
                                         day: 'numeric',
-                                        hour: '2-digit',
-                                        minute: '2-digit'
+                                        hour: 'numeric',
+                                        minute: 'numeric'
                                     }).format(date);
 
                                     html += `
                                         <div class="response-item mb-3">
-                                            <div class="card ${response.is_company_reply ? 'border-primary' : 'border-success'}">
-                                                <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="bi ${response.is_company_reply ? 'bi-building text-primary' : 'bi-shield-check text-success'} fs-4 me-2"></i>
-                                                        <div>
-                                                            <span class="badge ${response.is_company_reply ? 'bg-primary' : 'bg-success'}">
-                                                                ${response.is_company_reply ? 'رد الشركة' : 'رد الإدارة'}
-                                                            </span>
-                                                            <strong class="ms-2">${response.admin_name}</strong>
+                                            <div class="card ${response.is_company_reply ? 'bg-light border-0' : 'bg-success bg-opacity-10 border-0'}">
+                                                <div class="card-body p-3">
+                                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                                        <div class="d-flex flex-column">
+                                                            ${response.is_company_reply ? `
+                                                                <span class="text-primary">رد الشركة</span>
+                                                            ` : response.admin_role === 'super_admin' || response.admin_role === 'مدير_عام' ? `
+                                                                <span class="text-success">${response.admin_name || 'مدير النظام'}</span>
+                                                                <small class="text-muted">مدير النظام</small>
+                                                            ` : `
+                                                                <span class="text-success">${response.admin_name || response.employee_name || 'موظف'}</span>
+                                                                <small class="text-muted">موظف</small>
+                                                            `}
+                                                        </div>
+                                                        <div class="text-muted small text-end">
+                                                            ${formattedDate}
+                                                            <br>
+                                                            ${new Date(response.created_at).toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}
                                                         </div>
                                                     </div>
-                                                    <small class="text-muted">
-                                                        <i class="bi bi-clock"></i>
-                                                        ${formattedDate}
-                                                    </small>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="response-content">
+                                                    <div class="response-text">
                                                         ${response.response}
                                                     </div>
                                                 </div>

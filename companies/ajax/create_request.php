@@ -35,6 +35,18 @@ foreach ($required_fields as $field => $label) {
 try {
     $company_id = $_SESSION['company_id'];
     
+    // Get company delivery fee
+    $stmt = $conn->prepare("
+        SELECT delivery_fee
+        FROM companies 
+        WHERE id = ?
+    ");
+    $stmt->execute([$company_id]);
+    $company = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Get delivery fee from company settings
+    $delivery_fee = $company['delivery_fee'] ?? 0;
+    
     // Generate order number
     $order_number = 'ORD-' . date('Ymd') . '-' . rand(1000, 9999);
     
@@ -44,7 +56,7 @@ try {
     // Start transaction
     $conn->beginTransaction();
     
-    // Insert order into database
+    // Insert order into database with delivery fee
     $stmt = $conn->prepare("
         INSERT INTO requests (
             company_id,
@@ -59,6 +71,7 @@ try {
             delivery_location_link,
             items_count,
             total_cost,
+            delivery_fee,
             payment_method,
             is_fragile,
             additional_notes,
@@ -69,7 +82,7 @@ try {
             ?, ?, ?, ?, ?,
             ?, ?, ?, ?, ?,
             ?, ?, ?, ?, ?,
-            'pending', NOW(), NOW()
+            ?, 'pending', NOW(), NOW()
         )
     ");
 
@@ -86,6 +99,7 @@ try {
         $_POST['delivery_location_link'],
         $_POST['items_count'],
         $_POST['total_cost'],
+        $delivery_fee,
         $_POST['payment_method'],
         isset($_POST['is_fragile']) ? 1 : 0,
         $_POST['additional_notes'] ?? null

@@ -92,8 +92,23 @@ try {
         exit();
     }
 
-    // Combine date and time
-    $delivery_datetime = date('Y-m-d H:i:s', strtotime($_POST['delivery_date'] . ' ' . $_POST['delivery_time']));
+    // Get company delivery pricing
+    $stmt = $conn->prepare("
+        SELECT base_delivery_price, price_per_km
+        FROM companies 
+        WHERE id = ?
+    ");
+    $stmt->execute([$company_id]);
+    $company_pricing = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Calculate delivery fee based on distance
+    $delivery_fee = $company_pricing['base_delivery_price'];
+    
+    // If you have distance calculation logic, add it here
+    if (isset($_POST['distance_km'])) {
+        $distance = floatval($_POST['distance_km']);
+        $delivery_fee += ($distance * $company_pricing['price_per_km']);
+    }
 
     try {
         // Start transaction
@@ -116,6 +131,7 @@ try {
                 payment_method = ?,
                 is_fragile = ?,
                 additional_notes = ?,
+                delivery_fee = ?,
                 updated_at = NOW()
             WHERE id = ? AND company_id = ?
         ");
@@ -124,16 +140,17 @@ try {
             $_POST['order_type'],
             $_POST['customer_name'],
             $_POST['customer_phone'],
-            $delivery_datetime,
+            $_POST['delivery_date'],
             $_POST['pickup_location'],
             $_POST['pickup_location_link'] ?? null,
             $_POST['delivery_location'],
             $_POST['delivery_location_link'] ?? null,
             $_POST['items_count'],
-            $total_cost,
+            $_POST['total_cost'],
             $_POST['payment_method'],
             isset($_POST['is_fragile']) ? 1 : 0,
             $_POST['additional_notes'] ?? null,
+            $delivery_fee,
             $order_id,
             $company_id
         ]);

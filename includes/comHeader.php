@@ -1,3 +1,68 @@
+<?php
+
+$stmt = $conn->prepare("
+    SELECT COUNT(*) 
+    FROM company_notifications 
+    WHERE company_id = ? AND is_read = 0
+");
+$stmt->execute([$company_id]);
+$unread_notifications = $stmt->fetchColumn();
+
+
+// Get recent notifications with complaint information
+$stmt = $conn->prepare("
+    SELECT 
+        n.*,
+        CASE 
+            WHEN n.type = 'complaint_response' THEN c.complaint_number 
+            ELSE NULL 
+        END as complaint_number,
+        CASE 
+            WHEN n.type = 'complaint_response' THEN '#'
+            ELSE n.link 
+        END as link,
+        CASE 
+            WHEN n.is_read = 0 THEN 0
+            ELSE 1
+        END as is_read
+    FROM company_notifications n
+    LEFT JOIN complaints c ON n.reference_id = c.id
+    WHERE n.company_id = ? 
+    ORDER BY n.created_at DESC 
+    LIMIT 5
+");
+$stmt->execute([$company_id]);
+$notifications = $stmt->fetchAll();
+
+// Add this after the ب query
+$stmt = $conn->prepare("
+    SELECT 
+        cr.*, c.complaint_number, c.subject,
+        a.username as admin_name
+    FROM complaint_responses cr
+    JOIN complaints c ON cr.complaint_id = c.id
+    JOIN admins a ON cr.admin_id = a.id
+    WHERE c.company_id = ?
+    AND cr.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+    ORDER BY cr.created_at DESC
+    LIMIT 5
+");
+$stmt->execute([$_SESSION['company_id']]);
+$complaint_responses = $stmt->fetchAll();
+
+$stmt = $conn->prepare("
+    SELECT COUNT(*) 
+    FROM complaints 
+    WHERE company_id = ? 
+    AND status IN ('new', 'in_progress')
+");
+$stmt->execute([$_SESSION['company_id']]);
+$ب = $stmt->fetchColumn();
+
+$stmt = $conn->prepare("SELECT name, logo, delivery_fee FROM companies WHERE id = ?");
+$stmt->execute([$company_id]);
+$company = $stmt->fetch(PDO::FETCH_ASSOC);
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -284,3 +349,90 @@
         }
     </style>
 </head>
+ <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="profile.php">
+                <?php if (!empty($company['logo'])): ?>
+                    <img src="../uploads/companies/<?php echo htmlspecialchars($company['logo']); ?>" alt="شعار الشركة" class="rounded">
+                <?php else: ?>
+                    <i class="bi bi-building"></i>
+                <?php endif; ?>
+                <span class="company-name"><?php echo htmlspecialchars($company['name']); ?></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                       <li class="nav-item">
+                            <a class="nav-link active" href="dashboard.php">
+                                <i class="bi bi-speedometer2"></i> لوحة التحكم
+                            </a>
+                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#requests"><i class="bi bi-list-check"></i> الطلبات</a>
+                    </li>
+                 
+                    <li class="nav-item">
+                        <a class="nav-link" href="statistics.php"><i class="bi bi-bar-chart"></i> تقارير مفصلة</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="staff.php"><i class="bi bi-people"></i> إدارة الموظفين</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="complaints.php">
+                            <i class="bi bi-exclamation-circle"></i> الشكاوى
+                            <?php if ($ب > 0): ?>
+                                <span class="badge bg-danger"><?php echo $ب; ?></span>
+                            <?php endif; ?>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <ul class="navbar-nav">
+                    <!-- Notifications Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <?php if ($unread_notifications > 0): ?>
+                            <span class="badge bg-danger"><?php echo $unread_notifications; ?></span>
+                        <?php endif; ?>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+                        <h6 class="dropdown-header">الإشعارات</h6>
+                        <?php if (empty($notifications)): ?>
+                            <div class="dropdown-item text-muted">لا توجد إشعارات</div>
+                        <?php else: ?>
+                            <?php foreach ($notifications as $notification): ?>
+                                <div class="dropdown-item <?php echo $notification['is_read'] ? '' : 'bg-light'; ?>" 
+                                   onclick="handleNotificationClick(<?php echo $notification['id']; ?>, '<?php echo htmlspecialchars($notification['link']); ?>', event)"
+                                   data-notification-id="<?php echo $notification['id']; ?>"
+                                   data-type="<?php echo htmlspecialchars($notification['type']); ?>"
+                                   <?php if ($notification['type'] === 'complaint_response' && $notification['complaint_number']): ?>
+                                   data-complaint-number="<?php echo htmlspecialchars($notification['complaint_number']); ?>"
+                                   <?php endif; ?>>
+                                    <div class="notification-content">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1"><?php echo htmlspecialchars($notification['title']); ?></h6>
+                                            <small class="text-muted">
+                                                <?php echo date('Y-m-d H:i', strtotime($notification['created_at'])); ?>
+                                            </small>
+                                        </div>
+                                        <p class="mb-1"><?php echo htmlspecialchars($notification['message']); ?></p>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-center" href="#" onclick="markAllNotificationsAsRead(event)">
+                                تعليم الكل كمقروء
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php"><i class="bi bi-box-arrow-right"></i> تسجيل الخروج</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>

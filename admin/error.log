@@ -68,3 +68,34 @@ Stack trace:
 #0 {main}
   thrown in C:\xampp\htdocs\proo\admin\driver_form.php on line 163
 [13-Jan-2025 20:03:16 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[27-Jan-2025 02:19:16 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[27-Jan-2025 02:22:32 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[27-Jan-2025 02:26:13 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 02:19:00 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 02:21:12 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 02:31:42 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 02:39:41 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 02:46:15 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 02:51:04 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 03:18:37 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 03:25:41 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 03:32:18 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 03:40:44 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 03:56:45 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 05:29:01 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 06:41:40 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 06:44:10 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 07:02:51 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 07:06:46 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 07:08:26 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[31-Jan-2025 07:27:13 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[01-Feb-2025 01:44:50 Asia/Riyadh] PHP Warning:  Undefined variable $pdo in C:\xampp\htdocs\proo\admin\driver_earnings_settings.php on line 31
+[01-Feb-2025 01:44:50 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\proo\admin\driver_earnings_settings.php:31
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\driver_earnings_settings.php on line 31
+[01-Feb-2025 02:02:46 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[01-Feb-2025 03:20:58 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[01-Feb-2025 04:47:47 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[01-Feb-2025 04:50:50 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[01-Feb-2025 05:03:36 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'

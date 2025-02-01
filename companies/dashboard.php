@@ -2,15 +2,28 @@
 require_once '../config.php';
 
 if (!isset($_SESSION['company_email'])) {
-      header("Location: orders.php");
+    header("Location: orders.php");
     exit();
 }
-    
-
 
 $company_id = $_SESSION['company_id'];
 
+// تعريف دالة getDateCondition
+function getDateCondition($start_date, $end_date, $column = 'created_at') {
+    $condition = "";
+    if ($start_date && $end_date) {
+        $condition = " AND $column BETWEEN '$start_date' AND '$end_date'";
+    } elseif ($start_date) {
+        $condition = " AND $column >= '$start_date'";
+    } elseif ($end_date) {
+        $condition = " AND $column <= '$end_date'";
+    }
+    return $condition;
+}
 
+// جلب تواريخ البداية والنهاية من النموذج
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+$end_date = isset($_GET['end_date']) ? $_GET['end_date'] : null;
 
 // Get unread notifications count
 $stmt = $conn->prepare("
@@ -47,13 +60,9 @@ $stmt->execute([$company_id]);
 $notifications = $stmt->fetchAll();
 
 // Get company information
-$stmt = $conn->prepare("SELECT name, logo FROM companies WHERE id = ?");
+$stmt = $conn->prepare("SELECT name, logo, delivery_fee FROM companies WHERE id = ?");
 $stmt->execute([$company_id]);
 $company = $stmt->fetch(PDO::FETCH_ASSOC);
-
-// Get delivery fee from settings
-$stmt = $conn->query("SELECT value FROM settings WHERE name = 'delivery_fee'");
-$delivery_fee = floatval($stmt->fetchColumn() ?: 20);
 
 // Get company statistics
 $stmt = $conn->prepare("
@@ -80,11 +89,11 @@ $stmt = $conn->prepare("
                     SELECT SUM(amount) 
                     FROM company_payments 
                     WHERE company_id = ? 
-                    AND status = 'completed'
+                    AND status = 'completed' 
                 ), 0)
             FROM requests 
             WHERE company_id = ? 
-            AND created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+            AND created_at >= DATE_SUB(NOW(), INTERVAL 300 DAY)
             AND status = 'delivered'
         ), 0) as amount_owed,
         COALESCE(SUM(CASE 
@@ -94,7 +103,7 @@ $stmt = $conn->prepare("
         END), 0) as amount_due
     FROM requests 
     WHERE company_id = ? 
-    AND created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+    AND created_at >= DATE_SUB(NOW(), INTERVAL 300 DAY)
 ");
 $stmt->execute([$_SESSION['company_id'], $_SESSION['company_id'], $_SESSION['company_id']]);
 $stats = $stmt->fetch();
@@ -113,210 +122,221 @@ if (!$stats) {
     ];
 }
 
-// Get recent requests with driver information
-$stmt = $conn->prepare("
-    SELECT r.*, d.username as driver_name, d.phone as driver_phone
+// Calculate statistics
+$stats['completed_orders'] = $stats['delivered_count'];
+$stats['total_amount'] = $stats['amount_owed'] + $stats['amount_due'];
+$stats['delivery_revenue'] = $stats['amount_due'];
+$stats['total_minus_delivery'] = $stats['amount_owed'];
+
+// Get company statistics
+$company = [];
+    
+// استعلام لحساب إجمالي رسوم التوصيل للطلبات الموصلة فقط
+$delivery_fees_query = "SELECT 
+    r.company_id,
+    c.delivery_fee as current_fee,
+    COALESCE(SUM(r.delivery_fee), 0) as total_delivery_fees,
+    COUNT(*) as total_orders
+FROM requests r
+JOIN companies c ON r.company_id = c.id 
+WHERE r.status = 'delivered' AND r.company_id = :company_id";
+
+// إضافة شرط التاريخ إذا تم تحديده
+$delivery_fees_query .= getDateCondition($start_date, $end_date, 'r.delivery_date');
+$delivery_fees_query .= " GROUP BY r.company_id, c.delivery_fee";
+    
+$delivery_fees_stmt = $conn->prepare($delivery_fees_query);
+$delivery_fees_stmt->execute(['company_id' => $company_id]);
+$company_delivery_fees = [];
+while ($row = $delivery_fees_stmt->fetch(PDO::FETCH_ASSOC)) {
+    $company_delivery_fees[$row['company_id']] = [
+        'total' => $row['total_delivery_fees'],
+        'per_order' => $row['total_orders'] > 0 ? ($row['total_delivery_fees'] / $row['total_orders']) : 0
+    ];
+}
+
+$query = "SELECT 
+    c.id,
+    c.name as company_name,
+    COALESCE(c.delivery_fee, 0) as delivery_fee,
+    COALESCE(COUNT(DISTINCT CASE WHEN r.status = 'delivered' THEN r.id END), 0) as completed_orders,
+    COALESCE(SUM(CASE 
+        WHEN r.status = 'delivered' 
+        THEN r.total_cost
+        ELSE 0 
+    END), 0) as total_amount,
+    COALESCE(SUM(CASE 
+        WHEN r.status = 'delivered' 
+        THEN r.total_cost
+        ELSE 0 
+    END), 0) as company_payable,
+    COALESCE((
+        SELECT SUM(amount)
+        FROM company_payments 
+        WHERE company_id = c.id AND status = 'completed' AND payment_type = 'outgoing'
+    ), 0) as paid_to_company,  -- مدفوع منا إلى الشركة
+    COALESCE((
+        SELECT SUM(amount)
+        FROM company_payments 
+        WHERE company_id = c.id AND status = 'completed' AND payment_type = 'incoming'
+    ), 0) as paid_by_company  -- مدفوع من الشركة
+FROM companies c
+LEFT JOIN requests r ON c.id = r.company_id
+WHERE c.id = :company_id";
+
+// إضافة شرط التاريخ إذا تم تحديده
+$query .= getDateCondition($start_date, $end_date, 'r.delivery_date');
+$query .= " GROUP BY c.id, c.name, c.delivery_fee ORDER BY c.name";
+
+$stmt = $conn->prepare($query);
+$stmt->execute(['company_id' => $company_id]);
+if ($stmt) {
+    $company = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($company) {
+        $company['completed_orders'] = intval($company['completed_orders']);
+        $company['total_amount'] = floatval($company['total_amount']);
+        $company['delivery_revenue'] = floatval($company_delivery_fees[$company['id']]['total'] ?? 0);
+        $company['company_payable'] = floatval($company['company_payable']);
+        $company['paid_amount'] = floatval($company['paid_to_company'] - $company['paid_by_company']);
+        $company['remaining'] = $company['company_payable'] - $company['paid_amount'] - $company['delivery_revenue'];
+    }
+}
+
+// حساب إجمالي المبالغ المتبقية
+if (!is_array($company)) {
+    $company = []; // تعيين قيمة افتراضية كمصفوفة فارغة
+}
+
+// حساب إجمالي المبالغ المتبقية باستخدام عامل الدمج
+$company['remaining'] = $company['remaining'] ?? 0;
+$total_remaining = $company['remaining'];
+// Get monthly revenue data for chart
+$monthly_data = [];
+$query = "SELECT 
+    DATE_FORMAT(delivery_date, '%Y-%m') as month,
+    COALESCE(COUNT(*), 0) as total_orders,
+    COALESCE(SUM(delivery_fee), 0) as total_delivery_fees
+FROM requests 
+WHERE status = 'delivered' AND company_id = :company_id";
+
+// إضافة شرط التاريخ إذا تم تحديده
+$query .= getDateCondition($start_date, $end_date);
+$query .= " GROUP BY DATE_FORMAT(delivery_date, '%Y-%m') ORDER BY month";
+
+$stmt = $conn->prepare($query);
+$stmt->execute(['company_id' => $company_id]);
+if ($stmt) {
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $monthly_data[] = [
+            'month' => $row['month'],
+            'orders' => intval($row['total_orders']),
+            'revenue' => floatval($row['total_delivery_fees'])
+        ];
+    }
+}
+
+// Get payment method distribution for chart
+$payment_data = [];
+$query = "SELECT 
+    payment_method,
+    COALESCE(COUNT(*), 0) as total_orders,
+    COALESCE(SUM(delivery_fee), 0) as total_delivery_fees
+FROM requests 
+WHERE status = 'delivered' AND company_id = :company_id";
+
+// إضافة شرط التاريخ إذا تم تحديده
+$query .= getDateCondition($start_date, $end_date);
+$query .= " GROUP BY payment_method";
+
+$stmt = $conn->prepare($query);
+$stmt->execute(['company_id' => $company_id]);
+if ($stmt) {
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $payment_data[] = [
+            'method' => $row['payment_method'],
+            'orders' => intval($row['total_orders']),
+            'revenue' => floatval($row['total_delivery_fees'])
+        ];
+    }
+}
+
+// جلب الطلبات مع فلترة حسب التاريخ
+$requests = []; // تعيين قيمة افتراضية
+$query = "SELECT r.*, d.username as driver_name, d.phone as driver_phone
     FROM requests r
     LEFT JOIN drivers d ON r.driver_id = d.id
-    WHERE r.company_id = ?
-    ORDER BY r.created_at DESC
-    LIMIT 10
-");
-$stmt->execute([$_SESSION['company_id']]);
-$requests = $stmt->fetchAll();
+    WHERE r.company_id = :company_id";
 
-// Get requests by status
-$stmt = $conn->prepare("
-    SELECT 
-        status,
-        COUNT(*) as count
-    FROM requests
-    WHERE company_id = ?
-    AND created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
-    GROUP BY status
-");
-$stmt->execute([$_SESSION['company_id']]);
-$status_counts = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+// إضافة شرط التاريخ إذا تم تحديده
+$query .= getDateCondition($start_date, $end_date, 'r.created_at');
+$query .= " ORDER BY r.created_at DESC";
 
-// Get monthly requests data
-$stmt = $conn->prepare("
-    SELECT 
-        DATE_FORMAT(created_at, '%Y-%m') as month,
-        COUNT(*) as total_requests,
-        SUM(CASE WHEN status = 'delivered' THEN 1 ELSE 0 END) as completed_requests,
-        SUM(total_cost) as total_revenue
-    FROM requests
-    WHERE company_id = ?
-    AND created_at >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
-    GROUP BY DATE_FORMAT(created_at, '%Y-%m')
-    ORDER BY month ASC
-");
-$stmt->execute([$_SESSION['company_id']]);
-$monthly_data = $stmt->fetchAll();
+$stmt = $conn->prepare($query);
+$stmt->execute(['company_id' => $company_id]);
+$requests = $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
 
-// Get top performing drivers for this company
-$stmt = $conn->prepare("
-    SELECT 
-        d.username,
-        COUNT(r.id) as total_deliveries,
-        AVG(dr.rating) as avg_rating,
-        SUM(r.total_cost) as total_revenue
-    FROM drivers d
-    JOIN requests r ON d.id = r.driver_id
-    LEFT JOIN driver_ratings dr ON r.id = dr.request_id
-    WHERE r.company_id = ?
-    AND r.status = 'delivered'
-    AND r.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
-    GROUP BY d.id, d.username
-    ORDER BY total_deliveries DESC
-    LIMIT 10
-");
-$stmt->execute([$_SESSION['company_id']]);
-$top_drivers = $stmt->fetchAll();
-
-// Get delivery performance metrics
-$stmt = $conn->prepare("
-    SELECT 
-        AVG(CASE WHEN status = 'delivered' THEN TIMESTAMPDIFF(MINUTE, created_at, updated_at) END) as avg_delivery_time,
-        COUNT(CASE WHEN status = 'delivered' THEN 1 END) * 100.0 / COUNT(*) as completion_rate,
-        COUNT(CASE WHEN status = 'cancelled' THEN 1 END) * 100.0 / COUNT(*) as cancellation_rate
-    FROM requests
-    WHERE company_id = ?
-    AND created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
-");
-$stmt->execute([$_SESSION['company_id']]);
-$performance_metrics = $stmt->fetch();
-
-// Get customer satisfaction metrics
-$stmt = $conn->prepare("
-    SELECT 
-        AVG(dr.rating) as avg_rating,
-        COUNT(*) as total_ratings,
-        SUM(CASE WHEN dr.rating >= 4 THEN 1 ELSE 0 END) * 100.0 / COUNT(*) as satisfaction_rate
-    FROM requests r
-    JOIN driver_ratings dr ON r.id = dr.request_id
-    WHERE r.company_id = ?
-    AND r.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
-");
-$stmt->execute([$_SESSION['company_id']]);
-$satisfaction_metrics = $stmt->fetch();
-
-// Get active complaints
-$stmt = $conn->prepare("
-    SELECT COUNT(*) 
-    FROM complaints 
-    WHERE company_id = ? 
-    AND status IN ('new', 'in_progress')
-");
-$stmt->execute([$_SESSION['company_id']]);
-$ب = $stmt->fetchColumn();
-
-// Add this after the ب query
-$stmt = $conn->prepare("
-    SELECT 
-        cr.*, c.complaint_number, c.subject,
-        a.username as admin_name
-    FROM complaint_responses cr
-    JOIN complaints c ON cr.complaint_id = c.id
-    JOIN admins a ON cr.admin_id = a.id
-    WHERE c.company_id = ?
-    AND cr.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
-    ORDER BY cr.created_at DESC
-    LIMIT 5
-");
-$stmt->execute([$_SESSION['company_id']]);
-$complaint_responses = $stmt->fetchAll();
+// عرض الحالة
+if ($company) {
+    $remaining = $company['remaining'];
+    $status = '';
+    $status_color = '';
+    if ($remaining > 0) {
+        $status = 'مستحق لنا';
+        $status_color = 'text-success';
+    } elseif ($remaining < 0) {
+        $status = 'مستحق علينا ⚠️';
+        $status_color = 'text-danger';
+    } else {
+        $status = 'لا يوجد مستحقات';
+        $status_color = 'text-success';
+    }
+} else {
+    $status = 'لا يوجد بيانات';
+    $status_color = 'text-secondary';
+}
 ?>
-
 
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
 <body>
     <?php include '../includes/comHeader.php'; ?>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="profile.php">
-                <?php if (!empty($company['logo'])): ?>
-                    <img src="../uploads/companies/<?php echo htmlspecialchars($company['logo']); ?>" alt="شعار الشركة" class="rounded">
-                <?php else: ?>
-                    <i class="bi bi-building"></i>
-                <?php endif; ?>
-                <span class="company-name"><?php echo htmlspecialchars($company['name']); ?></span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#requests"><i class="bi bi-list-check"></i> الطلبات</a>
-                    </li>
-                 
-                    <li class="nav-item">
-                        <a class="nav-link" href="statistics.php"><i class="bi bi-bar-chart"></i> تقارير مفصلة</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="staff.php"><i class="bi bi-people"></i> إدارة الموظفين</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="complaints.php">
-                            <i class="bi bi-exclamation-circle"></i> الشكاوى
-                            <?php if ($ب > 0): ?>
-                                <span class="badge bg-danger"><?php echo $ب; ?></span>
-                            <?php endif; ?>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <!-- Notifications Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-bell"></i>
-                        <?php if ($unread_notifications > 0): ?>
-                            <span class="badge bg-danger"><?php echo $unread_notifications; ?></span>
-                        <?php endif; ?>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
-                        <h6 class="dropdown-header">الإشعارات</h6>
-                        <?php if (empty($notifications)): ?>
-                            <div class="dropdown-item text-muted">لا توجد إشعارات</div>
-                        <?php else: ?>
-                            <?php foreach ($notifications as $notification): ?>
-                                <div class="dropdown-item <?php echo $notification['is_read'] ? '' : 'bg-light'; ?>" 
-                                   onclick="handleNotificationClick(<?php echo $notification['id']; ?>, '<?php echo htmlspecialchars($notification['link']); ?>', event)"
-                                   data-notification-id="<?php echo $notification['id']; ?>"
-                                   data-type="<?php echo htmlspecialchars($notification['type']); ?>"
-                                   <?php if ($notification['type'] === 'complaint_response' && $notification['complaint_number']): ?>
-                                   data-complaint-number="<?php echo htmlspecialchars($notification['complaint_number']); ?>"
-                                   <?php endif; ?>>
-                                    <div class="notification-content">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h6 class="mb-1"><?php echo htmlspecialchars($notification['title']); ?></h6>
-                                            <small class="text-muted">
-                                                <?php echo date('Y-m-d H:i', strtotime($notification['created_at'])); ?>
-                                            </small>
-                                        </div>
-                                        <p class="mb-1"><?php echo htmlspecialchars($notification['message']); ?></p>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-center" href="#" onclick="markAllNotificationsAsRead(event)">
-                                تعليم الكل كمقروء
-                            </a>
-                        <?php endif; ?>
+   
+    <div class="container mt-4">
+        <!-- تصفية حسب التاريخ -->
+        <div class="card mb-4">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-filter me-1"></i>
+                    تصفية حسب التاريخ
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="GET" action="" class="row g-3">
+                    <div class="col-md-4">
+                        <label for="start_date" class="form-label">تاريخ البداية</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value="<?php echo $start_date; ?>">
                     </div>
-                </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.php"><i class="bi bi-box-arrow-right"></i> تسجيل الخروج</a>
-                    </li>
-                </ul>
+                    <div class="col-md-4">
+                        <label for="end_date" class="form-label">تاريخ النهاية</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value="<?php echo $end_date; ?>">
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-filter me-1"></i>
+                            تطبيق التصفية
+                        </button>
+                        <a href="dashboard.php" class="btn btn-secondary ms-2">إعادة تعيين</a>
+                    </div>
+                </form>
             </div>
         </div>
-    </nav>
-
-    <div class="container mt-4">
         <!-- Statistics Cards -->
         <div class="row g-4 mb-4">
             <div class="col-md-3">
@@ -370,7 +390,7 @@ $complaint_responses = $stmt->fetchAll();
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="card-title text-white mb-2">سعر التوصيل</h6>
-                                <h3 class="mb-0 text-white"><?php echo number_format($delivery_fee, 2); ?> ريال</h3>
+                                <h3 class="mb-0 text-white"><?php echo htmlspecialchars($company['delivery_fee']); ?> ريال</h3>
                             </div>
                             <div class="stat-icon text-white">
                                 <i class="bi bi-currency-dollar"></i>
@@ -388,10 +408,14 @@ $complaint_responses = $stmt->fetchAll();
                     <div class="card-body" style="background: linear-gradient(45deg, #FF416C, #FF4B2B);">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="card-title text-white mb-2">المبلغ المستحق عليه (نقدي)</h6>
-                                <h3 class="mb-0 text-white"><?php echo number_format($stats['cash_in_hand'], 2); ?> ريال</h3>
-                                <small class="text-white">المبلغ بعد خصم التوصيل: <?php echo number_format($stats['amount_owed'], 2); ?> ريال</small>
-                            </div>
+                     <h5 class="card-title <?php echo $status_color; ?>">
+                    <?php echo $status; ?>
+            </h5>
+             <h3 class="mb-0 text-white"><?php echo number_format($total_remaining, 2); ?> ر.س</h3>
+             <small class="text-white">
+                    إجمالي المبالغ المتبقية: <?php echo number_format($total_remaining, 2); ?> ر.س
+</small>    
+                </div>
                             <div class="stat-icon text-white">
                                 <i class="bi bi-cash-coin"></i>
                             </div>
@@ -421,9 +445,18 @@ $complaint_responses = $stmt->fetchAll();
         <div class="card shadow-sm">
             <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
                 <h5 class="mb-0"><i class="bi bi-list-ul"></i> الطلبات</h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newRequestModal">
-                    <i class="bi bi-plus-lg"></i> طلب جديد
-                </button>
+                <div class="d-flex gap-2 align-items-center">
+                    <div class="input-group search-container">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="text" id="orderSearch" class="form-control" placeholder="ابحث عن طلب (رقم الطلب، اسم العميل، رقم الهاتف)">
+                        <button class="btn btn-outline-secondary" type="button" onclick="clearSearch()">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newRequestModal">
+                        <i class="bi bi-plus-lg"></i> طلب جديد
+                    </button>
+                </div>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -1190,6 +1223,48 @@ ${trackingUrl}
                     padding: 12px 20px;
                 }
             }
+
+            .search-container {
+                min-width: 300px;
+                position: relative;
+            }
+
+            .search-container .input-group-text {
+                background-color: white;
+                border-left: 0;
+            }
+
+            .search-container .form-control {
+                border-right: 0;
+                border-left: 0;
+            }
+
+            .search-container .btn {
+                border-right: 1px solid #dee2e6;
+            }
+
+            .no-results {
+                text-align: center;
+                padding: 20px;
+                color: #6c757d;
+            }
+
+            @media (max-width: 768px) {
+                .card-header {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                .search-container {
+                    min-width: 100%;
+                }
+                .d-flex.gap-2 {
+                    width: 100%;
+                    flex-direction: column;
+                }
+                .btn-primary {
+                    width: 100%;
+                }
+            }
         `;
         document.head.appendChild(styleSheet);
 
@@ -1402,6 +1477,81 @@ ${trackingUrl}
             const whatsappUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
+
+        // تحسين وظيفة البحث
+        function performSearch() {
+            const searchInput = document.getElementById('orderSearch');
+            const searchValue = searchInput.value.toLowerCase().trim();
+            const tableBody = document.querySelector('table tbody');
+            const rows = tableBody.querySelectorAll('tr:not(.order-details-row)');
+            let hasResults = false;
+
+            // إزالة رسالة "لا توجد نتائج" إذا كانت موجودة
+            const existingNoResults = document.querySelector('.no-results');
+            if (existingNoResults) {
+                existingNoResults.remove();
+            }
+
+            rows.forEach(row => {
+                const orderNumber = row.querySelector('.order-number')?.textContent.toLowerCase() || '';
+                const customerInfo = row.querySelector('.customer-info')?.textContent.toLowerCase() || '';
+                const customerPhone = row.querySelector('.customer-phone')?.textContent.toLowerCase() || '';
+                
+                const matchesSearch = !searchValue || 
+                                    orderNumber.includes(searchValue) || 
+                                    customerInfo.includes(searchValue) || 
+                                    customerPhone.includes(searchValue);
+                
+                row.style.display = matchesSearch ? '' : 'none';
+                
+                if (matchesSearch) {
+                    hasResults = true;
+                }
+
+                // إخفاء/إظهار صف التفاصيل المرتبط
+                const detailsRow = row.nextElementSibling;
+                if (detailsRow && detailsRow.classList.contains('order-details-row')) {
+                    detailsRow.style.display = matchesSearch ? 'none' : 'none'; // يبدأ مخفياً دائماً
+                }
+            });
+
+            // إظهار رسالة "لا توجد نتائج" إذا لم يتم العثور على نتائج
+            if (!hasResults && searchValue) {
+                const noResultsRow = document.createElement('tr');
+                noResultsRow.className = 'no-results';
+                noResultsRow.innerHTML = `
+                    <td colspan="8" class="text-center py-4">
+                        <i class="bi bi-search" style="font-size: 2rem; color: #6c757d;"></i>
+                        <p class="mb-0 mt-2">لا توجد نتائج تطابق بحثك</p>
+                    </td>
+                `;
+                tableBody.appendChild(noResultsRow);
+            }
+        }
+
+        // دالة لمسح البحث
+        function clearSearch() {
+            const searchInput = document.getElementById('orderSearch');
+            searchInput.value = '';
+            performSearch();
+            searchInput.focus();
+        }
+
+        // إضافة مستمعي الأحداث
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('orderSearch');
+            
+            // البحث عند الكتابة
+            searchInput.addEventListener('input', performSearch);
+            
+            // البحث عند الضغط على Enter
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    performSearch();
+                }
+            });
+        });
     </script>
 </body>
 </html>

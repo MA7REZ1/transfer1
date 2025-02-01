@@ -1,9 +1,15 @@
 <?php
 require_once '../config.php';
 
-// التحقق من تسجيل الدخول والصلاحيات
+// التحقق من الصلاحيات - فقط المدير يمكنه الوصول
 if (!isLoggedIn()) {
     header('Location: login.php');
+    exit;
+}
+
+// التحقق من نوع المستخدم - فقط المدراء يمكنهم الوصول للوحة التحكم
+if ($_SESSION['admin_role'] !== 'super_admin' && $_SESSION['admin_role'] !== 'مدير_عام') {
+    header('Location: ../index.php');
     exit;
 }
 
@@ -305,11 +311,9 @@ include '../includes/header.php';
                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                 <select name="department" class="form-select" required>
                                     <option value="" disabled selected>اختر القسم</option>
-                                    <option value="إدارة">إدارة</option>
-                                    <option value="محاسبة">محاسبة</option>
-                                    <option value="خدمة عملاء">خدمة عملاء</option>
-                                    <option value="تسويق">تسويق</option>
-                                    <option value="تقنية">تقنية</option>
+                                    <option value="management">ادارة</option>
+                                    <option value="accounting">محاسبة</option>
+                                    <option value="drivers_supervisor">مشرف السواقين</option>
                                 </select>
                             </div>
                         </div>

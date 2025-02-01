@@ -6,7 +6,11 @@ if (!isLoggedIn()) {
     header('Location: login.php');
     exit();
 }
-
+// التحقق من نوع المستخدم - فقط المدراء يمكنهم الوصول للوحة التحكم
+if ($_SESSION['admin_role'] !== 'super_admin' && $_SESSION['admin_role'] !== 'مدير_عام' && $_SESSION['department'] !== 'accounting') {
+    header('Location: ../index.php');
+    exit;
+}
 try {
     // التحقق من البيانات المطلوبة
     $required_fields = ['company_id', 'amount', 'payment_method', 'payment_type'];
@@ -31,11 +35,17 @@ try {
         throw new Exception("خطأ في بيانات المستخدم");
     }
 
-    // التحقق من وجود المدير
-    $stmt = $conn->prepare("SELECT id FROM admins WHERE id = ?");
-    $stmt->execute([$created_by]);
+    // التحقق من وجود المستخدم (مدير أو موظف)
+    $stmt = $conn->prepare("
+        SELECT id FROM (
+            SELECT id FROM admins WHERE id = ?
+            UNION
+            SELECT id FROM employees WHERE id = ? AND department = 'accounting'
+        ) users
+    ");
+    $stmt->execute([$created_by, $created_by]);
     if (!$stmt->fetch()) {
-        throw new Exception("خطأ في بيانات المستخدم");
+        throw new Exception("خطأ في بيانات المستخدم - يجب أن تكون مدير أو موظف محاسبة");
     }
 
     // التحقق من وجود الشركة
@@ -46,10 +56,10 @@ try {
         throw new Exception("الشركة غير موجودة");
     }
 
-    // التحقق من المبلغ المتبقي
+    // حساب المبلغ المتبقي
     $stmt = $conn->prepare("
         SELECT 
-            (COALESCE(SUM(CASE WHEN r.payment_method = 'cash' THEN r.total_cost ELSE 0 END) - SUM(r.delivery_fee), 0) - 
+            (COALESCE(SUM(r.total_cost - r.delivery_fee), 0) - 
             COALESCE((SELECT SUM(CASE 
                 WHEN payment_type = 'outgoing' THEN amount 
                 WHEN payment_type = 'incoming' THEN -amount 
@@ -57,10 +67,8 @@ try {
             FROM company_payments 
             WHERE company_id = ? AND status = 'completed'), 0)
         ) as remaining
-        FROM companies c
-        LEFT JOIN requests r ON c.id = r.company_id AND r.status = 'delivered'
-        WHERE c.id = ?
-        GROUP BY c.id
+        FROM requests r
+        WHERE r.company_id = ? AND r.status = 'delivered'
     ");
     $stmt->execute([$company_id, $company_id]);
     $result = $stmt->fetch();
@@ -69,8 +77,10 @@ try {
         throw new Exception("لا يمكن التحقق من المبلغ المتبقي");
     }
     
+    $remaining = floatval($result['remaining']);
+
     // التحقق من المبلغ المدخل
-    if ($payment_type === 'outgoing' && $amount > $result['remaining']) {
+    if ($payment_type === 'outgoing' && $amount > $remaining) {
         throw new Exception("المبلغ المدخل أكبر من المبلغ المتبقي");
     }
 
@@ -105,7 +115,7 @@ try {
     $notification_title = "تم تسجيل دفعة " . ($payment_type === 'incoming' ? 'واردة' : 'صادرة');
     $notification_message = sprintf(
         "تم تسجيل دفعة %s بمبلغ %s ريال عن طريق %s %s",
-        $payment_type === 'incoming' ? 'واردة' : 'صادرة',
+        $payment_type === 'incoming' ? 'صادرة' : 'واردة',
         number_format($amount, 2),
         $payment_method_text,
         $reference_number ? " (رقم المرجع: $reference_number)" : ""
@@ -117,16 +127,18 @@ try {
         VALUES (?, ?, ?, 'payment', NOW())
     ");
     
-    $stmt->execute([
+    if (!$stmt->execute([
         $company_id,
         $notification_title,
         $notification_message
-    ]);
+    ])) {
+        throw new Exception("فشل في إضافة الإشعار");
+    }
 
     // تحديث الإحصائيات
     $stmt = $conn->prepare("
         SELECT 
-            (COALESCE(SUM(CASE WHEN r.payment_method = 'cash' THEN r.total_cost ELSE 0 END) - SUM(r.delivery_fee), 0) - 
+            (COALESCE(SUM(r.total_cost - r.delivery_fee), 0) - 
             COALESCE((SELECT SUM(CASE 
                 WHEN payment_type = 'outgoing' THEN amount 
                 WHEN payment_type = 'incoming' THEN -amount 
@@ -134,11 +146,9 @@ try {
             FROM company_payments 
             WHERE company_id = ? AND status = 'completed'), 0)
         ) as remaining,
-            COALESCE(SUM(delivery_fee), 0) as delivery_fees
-        FROM companies c
-        LEFT JOIN requests r ON c.id = r.company_id AND r.status = 'delivered'
-        WHERE c.id = ?
-        GROUP BY c.id
+        COALESCE(SUM(r.delivery_fee), 0) as delivery_fees
+        FROM requests r
+        WHERE r.company_id = ? AND r.status = 'delivered'
     ");
     $stmt->execute([$company_id, $company_id]);
     $updated_stats = $stmt->fetch();
@@ -170,4 +180,4 @@ try {
         'message' => $e->getMessage()
     ]);
     exit();
-} 
+}

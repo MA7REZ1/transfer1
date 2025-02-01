@@ -1,0 +1,135 @@
+API Endpoints - مسارات واجهة برمجة التطبيق
+===========================================
+
+Base URL: http://alwarsh.net/api
+
+1. تسجيل الدخول
+-----------------
+POST /login.php
+{
+    "email": "driver@example.com",
+    "password": "123456"
+}
+
+2. تحديث بيانات البروفايل
+-------------------------
+POST /update_driver_profile.php
+{
+    "driver_id": 1,
+    "username": "اسم السائق",
+    "email": "driver@example.com",
+    "phone": "0123456789",
+    "age": 25,
+    "about": "سائق محترف",
+    "address": "الرياض",
+    "id_number": "1234567890",
+    "license_number": "DL123456",
+    "vehicle_type": "سيدان",
+    "vehicle_model": "تويوتا كامري 2023",
+    "plate_number": "ABC 123"
+}
+
+3. تحديث كلمة المرور
+--------------------
+POST /update_driver_password.php
+{
+    "driver_id": 1,
+    "old_password": "كلمة_المرور_القديمة",
+    "new_password": "كلمة_المرور_الجديدة"
+}
+
+4. تحديث حالة السائق
+-------------------
+POST /update_driver_status.php
+{
+    "driver_id": 1,
+    "status": "available" // available, busy, offline
+}
+
+5. تفعيل/تعطيل حساب السائق
+-------------------------
+POST /update_driver_active_status.php
+{
+    "driver_id": 1,
+    "is_active": 1 // 1 للتفعيل، 0 للتعطيل
+}
+
+6. عرض الإشعارات
+--------------
+GET /get_driver_notifications.php?driver_id=1
+
+7. عرض تفاصيل الطلبات
+-------------------
+GET /get_orders.php  new
+
+8. عرض حالة الطلب
+---------------
+GET /get_order_status.php?request_id=1
+- يعرض حالة الطلب وتفاصيل السائق المخصص له (إن وجد)
+- الرد يتضمن:
+  * رقم الطلب
+  * حالة الطلب (pending, accepted, in_transit, delivered, cancelled)
+  * معلومات السائق (الاسم، رقم الهاتف) إذا كان مخصصاً للطلب
+
+9. قبول طلب
+----------
+POST /accept_order.php
+{
+    "driver_id": 1,
+    "request_id": 9
+}
+
+10. إلغاء طلب
+----------
+POST /cancel_order.php
+{
+    "driver_id": 1,
+    "request_id": 9
+}
+
+11. تحديث حالة الطلب
+------------------
+POST /update_order_status.php
+{
+    "driver_id": 1,
+    "request_id": 9,
+    "status": "accepted" // accepted, in_transit, delivered
+}
+
+12. عرض بيانات البروفايل
+----------------------
+GET /get_driver_profile.php?driver_id=1
+
+13. عرض الطلبات المكتملة
+----------------------
+GET /get_driver_delivered_orders.php?driver_id=1  new
+
+14. عرض الطلبات النشطة للسائق
+--------------------------
+GET /get_driver_active_orders.php?driver_id=1  new
+- يعرض الطلبات بحالة accepted و in_transit
+- الرد يتضمن:
+  * إجمالي عدد الطلبات النشطة
+  * عدد الطلبات المقبولة
+  * عدد الطلبات قيد التوصيل
+  * الطلبات مقسمة حسب الحالة
+
+Headers المطلوبة
+===============
+Content-Type: application/json
+
+شكل الرد
+========
+{
+    "status": true/false,
+    "message": "رسالة توضيحية",
+    "data": {} // البيانات المطلوبة (إن وجدت)
+}
+
+رموز الحالة HTTP
+===============
+200: نجاح العملية
+400: خطأ في البيانات المرسلة
+401: غير مصرح
+404: العنصر غير موجود
+500: خطأ في الخادم 

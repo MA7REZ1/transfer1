@@ -1,9 +1,15 @@
 <?php
 require_once '../config.php';
 
-// Check if user is logged in
+// التحقق من الصلاحيات - فقط المدير يمكنه الوصول
 if (!isLoggedIn()) {
-    header('Location: index.php');
+    header('Location: login.php');
+    exit;
+}
+
+// التحقق من نوع المستخدم - فقط المدراء يمكنهم الوصول للوحة التحكم
+if ($_SESSION['admin_role'] !== 'super_admin' && $_SESSION['admin_role'] !== 'مدير_عام') {
+    header('Location: ../index.php');
     exit;
 }
 

@@ -36,23 +36,28 @@ try {
             cr.id,
             cr.response,
             cr.created_at,
+            cr.is_company_reply,
             CASE 
-                WHEN cr.admin_id IS NULL THEN 1
-                ELSE 0
-            END as is_company_reply,
-            CASE 
-                WHEN cr.admin_id IS NULL THEN comp.name
-                ELSE a.username
-            END as responder_name
+                WHEN cr.is_company_reply = 1 THEN (SELECT name FROM companies WHERE id = ?)
+                WHEN cr.admin_id IS NOT NULL THEN COALESCE(a.username, 'مدير النظام')
+                WHEN cr.employee_id IS NOT NULL THEN COALESCE(e.full_name, 'موظف')
+                ELSE 'غير معروف'
+            END as responder_name,
+            CASE
+                WHEN cr.is_company_reply = 1 THEN 'company'
+                WHEN cr.admin_id IS NOT NULL THEN 'admin'
+                WHEN cr.employee_id IS NOT NULL THEN 'employee'
+                ELSE 'unknown'
+            END as responder_type
         FROM complaint_responses cr
         LEFT JOIN admins a ON cr.admin_id = a.id
-        JOIN complaints c ON cr.complaint_id = c.id
-        JOIN companies comp ON c.company_id = comp.id
+        LEFT JOIN employees e ON cr.employee_id = e.id
+        LEFT JOIN complaints c ON cr.complaint_id = c.id
         WHERE cr.complaint_id = ?
         ORDER BY cr.created_at DESC
     ");
 
-    $stmt->execute([$complaint['id']]);
+    $stmt->execute([$_SESSION['company_id'], $complaint['id']]);
     $responses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Log the responses for debugging
@@ -66,6 +71,7 @@ try {
                 'response' => nl2br(htmlspecialchars($response['response'])),
                 'is_company_reply' => (bool)$response['is_company_reply'],
                 'admin_name' => htmlspecialchars($response['responder_name']),
+                'responder_type' => $response['responder_type'],
                 'created_at' => $response['created_at']
             ];
         }, $responses)

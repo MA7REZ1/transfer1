@@ -1,9 +1,15 @@
 <?php
 require_once '../config.php';
 
-// التحقق من تسجيل الدخول والصلاحيات
+// التحقق من الصلاحيات - فقط المدير يمكنه الوصول
 if (!isLoggedIn()) {
     header('Location: login.php');
+    exit;
+}
+
+// التحقق من نوع المستخدم - فقط المدراء يمكنهم الوصول للوحة التحكم
+if ($_SESSION['admin_role'] !== 'super_admin' && $_SESSION['admin_role'] !== 'مدير_عام') {
+    header('Location: ../index.php');
     exit;
 }
 
@@ -205,12 +211,10 @@ include '../includes/header.php';
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             <select class="form-select" name="department" required>
-                                                <option value="إدارة" <?php echo $employee['department'] === 'إدارة' ? 'selected' : ''; ?>>إدارة</option>
-                                                <option value="محاسبة" <?php echo $employee['department'] === 'محاسبة' ? 'selected' : ''; ?>>محاسبة</option>
-                                                <option value="خدمة عملاء" <?php echo $employee['department'] === 'خدمة عملاء' ? 'selected' : ''; ?>>خدمة عملاء</option>
-                                                <option value="تسويق" <?php echo $employee['department'] === 'تسويق' ? 'selected' : ''; ?>>تسويق</option>
-                                                <option value="تقنية" <?php echo $employee['department'] === 'تقنية' ? 'selected' : ''; ?>>تقنية</option>
-                                            </select>
+                                                   <option value="management">ادارة</option>
+                                    <option value="accounting">محاسبة</option>
+                                    <option value="drivers_supervisor">مشرف السواقين</option>
+                            </select>
                                         </div>
                                     </div>
 

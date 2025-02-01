@@ -7,8 +7,6 @@ if (!isLoggedIn()) {
     exit;
 }
 
-$admin_id = $_SESSION['admin_id'];
-
 // Get notifications
 $stmt = $conn->prepare("
     SELECT n.*, 
@@ -17,16 +15,15 @@ $stmt = $conn->prepare("
            TIMESTAMPDIFF(HOUR, n.created_at, NOW()) as hours_ago,
            TIMESTAMPDIFF(DAY, n.created_at, NOW()) as days_ago
     FROM notifications n 
-    WHERE n.admin_id = ? 
     ORDER BY n.created_at DESC 
     LIMIT 10
 ");
-$stmt->execute([$admin_id]);
+$stmt->execute();
 $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Get unread count
-$stmt = $conn->prepare("SELECT COUNT(*) FROM notifications WHERE admin_id = ? AND is_read = 0");
-$stmt->execute([$admin_id]);
+$stmt = $conn->prepare("SELECT COUNT(*) FROM notifications WHERE is_read = 0");
+$stmt->execute();
 $unread_count = $stmt->fetchColumn();
 
 // Format notifications for response

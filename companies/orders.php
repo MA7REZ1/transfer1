@@ -54,7 +54,7 @@ $stmt = $conn->prepare("
     LEFT JOIN drivers d ON r.driver_id = d.id
     WHERE r.company_id = ?
     ORDER BY r.created_at DESC
-    LIMIT 10
+    LIMIT 100
 ");
 $stmt->execute([$company_id]);
 $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -395,6 +395,47 @@ $complaint_responses = $stmt->fetchAll();
                 opacity: 1;
             }
         }
+        .search-container {
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-container .input-group-text {
+            background-color: white;
+            border-left: 0;
+        }
+
+        .search-container .form-control {
+            border-right: 0;
+            border-left: 0;
+        }
+
+        .search-container .btn {
+            border-right: 1px solid #dee2e6;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            .card-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .search-container {
+                min-width: 100%;
+            }
+            .d-flex.gap-2 {
+                width: 100%;
+                flex-direction: column;
+            }
+            .btn-primary {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -482,9 +523,18 @@ $complaint_responses = $stmt->fetchAll();
         <div class="card shadow-sm">
             <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
                 <h5 class="mb-0"><i class="bi bi-list-ul"></i> الطلبات</h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newRequestModal">
-                    <i class="bi bi-plus-lg"></i> طلب جديد
-                </button>
+                <div class="d-flex gap-2 align-items-center">
+                    <div class="input-group search-container">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="text" id="orderSearch" class="form-control" placeholder="ابحث عن طلب (رقم الطلب، اسم العميل، رقم الهاتف)">
+                        <button class="btn btn-outline-secondary" type="button" onclick="clearSearch()">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newRequestModal">
+                        <i class="bi bi-plus-lg"></i> طلب جديد
+                    </button>
+                </div>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -1249,6 +1299,81 @@ ${trackingUrl}
             // Open tracking page in new tab
             window.open(trackingUrl, '_blank');
         }
+
+        // تحسين وظيفة البحث
+        function performSearch() {
+            const searchInput = document.getElementById('orderSearch');
+            const searchValue = searchInput.value.toLowerCase().trim();
+            const tableBody = document.querySelector('table tbody');
+            const rows = tableBody.querySelectorAll('tr:not(.order-details-row)');
+            let hasResults = false;
+
+            // إزالة رسالة "لا توجد نتائج" إذا كانت موجودة
+            const existingNoResults = document.querySelector('.no-results');
+            if (existingNoResults) {
+                existingNoResults.remove();
+            }
+
+            rows.forEach(row => {
+                const orderNumber = row.querySelector('.order-number')?.textContent.toLowerCase() || '';
+                const customerInfo = row.querySelector('.customer-info')?.textContent.toLowerCase() || '';
+                const customerPhone = row.querySelector('.customer-phone')?.textContent.toLowerCase() || '';
+                
+                const matchesSearch = !searchValue || 
+                                    orderNumber.includes(searchValue) || 
+                                    customerInfo.includes(searchValue) || 
+                                    customerPhone.includes(searchValue);
+                
+                row.style.display = matchesSearch ? '' : 'none';
+                
+                if (matchesSearch) {
+                    hasResults = true;
+                }
+
+                // إخفاء/إظهار صف التفاصيل المرتبط
+                const detailsRow = row.nextElementSibling;
+                if (detailsRow && detailsRow.classList.contains('order-details-row')) {
+                    detailsRow.style.display = matchesSearch ? 'none' : 'none'; // يبدأ مخفياً دائماً
+                }
+            });
+
+            // إظهار رسالة "لا توجد نتائج" إذا لم يتم العثور على نتائج
+            if (!hasResults && searchValue) {
+                const noResultsRow = document.createElement('tr');
+                noResultsRow.className = 'no-results';
+                noResultsRow.innerHTML = `
+                    <td colspan="8" class="text-center py-4">
+                        <i class="bi bi-search" style="font-size: 2rem; color: #6c757d;"></i>
+                        <p class="mb-0 mt-2">لا توجد نتائج تطابق بحثك</p>
+                    </td>
+                `;
+                tableBody.appendChild(noResultsRow);
+            }
+        }
+
+        // دالة لمسح البحث
+        function clearSearch() {
+            const searchInput = document.getElementById('orderSearch');
+            searchInput.value = '';
+            performSearch();
+            searchInput.focus();
+        }
+
+        // إضافة مستمعي الأحداث
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('orderSearch');
+            
+            // البحث عند الكتابة
+            searchInput.addEventListener('input', performSearch);
+            
+            // البحث عند الضغط على Enter
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    performSearch();
+                }
+            });
+        });
     </script>
 </body>
 </html> 

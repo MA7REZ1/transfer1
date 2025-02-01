@@ -25,14 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['admin_id'] = $employee['id'];
                 $_SESSION['admin_role'] = $employee['role'];
                 $_SESSION['admin_username'] = $employee['username'];
-                
-          
+                $_SESSION['department'] = $employee['department'];
+                $_SESSION['employee_id'] = $employee['id'];
                 
                 // تحديث آخر تسجيل دخول
                 $stmt = $conn->prepare("UPDATE employees SET updated_at = CURRENT_TIMESTAMP WHERE id = ?");
                 $stmt->execute([$employee['id']]);
                 
-                header('Location: dashboard.php');
+                header('Location: financial.php');
                 exit;
             } else {
                 $error = "بيانات الدخول غير صحيحة";

@@ -1,10 +1,16 @@
 <?php
 require_once '../config.php';
 
-// التحقق من تسجيل الدخول وصلاحيات المدير
-if (!isLoggedIn() || !hasPermission('super_admin')) {
+// التحقق من الصلاحيات - فقط المدير يمكنه الوصول
+if (!isLoggedIn()) {
     header('Location: login.php');
-    exit();
+    exit;
+}
+
+// التحقق من نوع المستخدم - فقط المدراء يمكنهم الوصول للوحة التحكم
+if ($_SESSION['admin_role'] !== 'super_admin' && $_SESSION['admin_role'] !== 'مدير_عام') {
+    header('Location: ../index.php');
+    exit;
 }
 
 // إضافة موظف جديد
@@ -14,13 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_employee'])) {
     $full_name = sanitizeInput($_POST['full_name']);
     $email = sanitizeInput($_POST['email']);
     $phone = sanitizeInput($_POST['phone']);
-    $role = sanitizeInput($_POST['role']);
     $department = sanitizeInput($_POST['department']);
-    $salary = floatval($_POST['salary']);
 
     try {
-        $stmt = $conn->prepare("INSERT INTO employees (username, password, full_name, email, phone, role, department, salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$username, $password, $full_name, $email, $phone, $role, $department, $salary]);
+        $stmt = $conn->prepare("INSERT INTO employees (username, password, full_name, email, phone, department) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$username, $password, $full_name, $email, $phone, $department]);
         $_SESSION['success'] = "تم إضافة الموظف بنجاح";
     } catch(PDOException $e) {
         $_SESSION['error'] = "حدث خطأ أثناء إضافة الموظف: " . $e->getMessage();
@@ -85,8 +89,6 @@ include '../includes/header.php';
                                     <th>الموظف</th>
                                     <th>معلومات الاتصال</th>
                                     <th>القسم</th>
-                                    <th>الدور</th>
-                                    <th>الراتب</th>
                                     <th>الحالة</th>
                                     <th>تاريخ التعيين</th>
                                     <th class="text-center">الإجراءات</th>
@@ -117,17 +119,6 @@ include '../includes/header.php';
                                         <span class="badge bg-light text-dark">
                                             <i class="fas fa-building me-1"></i>
                                             <?php echo htmlspecialchars($employee['department']); ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="badge <?php echo $employee['role'] === 'مدير_عام' ? 'bg-primary' : 'bg-info'; ?>">
-                                            <i class="fas <?php echo $employee['role'] === 'مدير_عام' ? 'fa-user-tie' : 'fa-user'; ?> me-1"></i>
-                                            <?php echo $employee['role'] === 'مدير_عام' ? 'مدير عام' : 'موظف'; ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="text-success fw-bold">
-                                            <?php echo number_format($employee['salary'], 2); ?> ريال
                                         </span>
                                     </td>
                                     <td>
@@ -230,34 +221,10 @@ include '../includes/header.php';
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                 <select name="department" class="form-select" required>
-                                    <option value="" disabled selected>اختر القسم</option>
-                                    <option value="إدارة">إدارة</option>
-                                    <option value="محاسبة">محاسبة</option>
-                                    <option value="خدمة عملاء">خدمة عملاء</option>
-                                    <option value="تسويق">تسويق</option>
-                                    <option value="تقنية">تقنية</option>
+                                    <option value="management">ادارة</option>
+                                    <option value="accounting">محاسبة</option>
+                                    <option value="drivers_supervisor">مشرف السواقين</option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">الدور الوظيفي</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
-                                <select name="role" class="form-select" required>
-                                    <option value="" disabled selected>اختر الدور</option>
-                                    <option value="موظف">موظف</option>
-                                    <?php if ($_SESSION['admin_role'] === 'مدير_عام'): ?>
-                                    <option value="مدير_عام">مدير عام</option>
-                                    <?php endif; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">الراتب</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
-                                <input type="number" name="salary" class="form-control" required>
-                                <span class="input-group-text">ريال</span>
                             </div>
                         </div>
                     </div>

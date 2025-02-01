@@ -40,17 +40,16 @@ if (!$complaint) {
 $stmt = $conn->prepare("
     SELECT 
         cr.*,
-        CASE 
-            WHEN cr.is_company_reply = 1 THEN comp.name
-            WHEN cr.admin_id IS NOT NULL THEN a.username
-        END as responder_name,
+        comp.name as company_name,
+        a.username as admin_name,
         CASE 
             WHEN cr.is_company_reply = 1 THEN 'company'
             WHEN cr.admin_id IS NOT NULL THEN 'admin'
+            ELSE 'unknown'
         END as responder_type
     FROM complaint_responses cr
-    LEFT JOIN admins a ON cr.admin_id = a.id
     LEFT JOIN companies comp ON cr.company_id = comp.id
+    LEFT JOIN admins a ON cr.admin_id = a.id
     WHERE cr.complaint_id = ?
     ORDER BY cr.created_at ASC
 ");
@@ -203,24 +202,24 @@ $priority_text = match($complaint['priority']) {
                 <?php else: ?>
                     <?php foreach ($responses as $response): ?>
                         <div class="response-item mb-3">
-                            <div class="card <?php echo $response['responder_type'] === 'admin' ? 'border-success bg-success bg-opacity-10' : 'border-primary bg-primary bg-opacity-10'; ?>">
+                            <div class="card <?php echo $response['responder_type'] === 'company' ? 'border-primary bg-primary bg-opacity-10' : ''; ?>">
                                 <div class="card-header bg-transparent d-flex justify-content-between align-items-center py-2">
                                     <div class="d-flex align-items-center">
-                                        <?php if ($response['responder_type'] === 'admin'): ?>
-                                            <div class="response-icon bg-success bg-opacity-10 rounded-circle p-2 me-2">
-                                                <i class="bi bi-shield-check text-success fs-4"></i>
-                                            </div>
-                                            <div>
-                                                <strong class="text-success"><?php echo htmlspecialchars($response['responder_name'] ?? ''); ?></strong>
-                                                <div class="text-muted small">مدير النظام</div>
-                                            </div>
-                                        <?php else: ?>
+                                        <?php if ($response['responder_type'] === 'company'): ?>
                                             <div class="response-icon bg-primary bg-opacity-10 rounded-circle p-2 me-2">
                                                 <i class="bi bi-building text-primary fs-4"></i>
                                             </div>
                                             <div>
-                                                <strong class="text-primary"><?php echo htmlspecialchars($response['responder_name'] ?? ''); ?></strong>
+                                                <strong class="text-primary"><?php echo htmlspecialchars($response['company_name'] ?? ''); ?></strong>
                                                 <div class="text-muted small">رد الشركة</div>
+                                            </div>
+                                        <?php else: ?>
+                                            <div class="response-icon bg-success bg-opacity-10 rounded-circle p-2 me-2">
+                                                <i class="bi bi-person text-success fs-4"></i>
+                                            </div>
+                                            <div>
+                                                <strong class="text-success"><?php echo htmlspecialchars($response['admin_name'] ?? ''); ?></strong>
+                                                <div class="text-muted small">رد منا</div>
                                             </div>
                                         <?php endif; ?>
                                     </div>

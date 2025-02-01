@@ -46,18 +46,37 @@ try {
     }
 
     // Insert response
-    $stmt = $conn->prepare("
-        INSERT INTO complaint_responses (
-            complaint_id, 
-            admin_id, 
-            response
-        ) VALUES (?, ?, ?)
-    ");
-    $stmt->execute([
-        $complaint_id,
-        $_SESSION['admin_id'],
-        $response
-    ]);
+    if (isset($_SESSION['employee_id'])) {
+        $stmt = $conn->prepare("
+            INSERT INTO complaint_responses (
+                complaint_id, 
+                admin_id,
+                employee_id, 
+                response,
+                is_company_reply
+            ) VALUES (?, NULL, ?, ?, 0)
+        ");
+        $stmt->execute([
+            $complaint_id,
+            $_SESSION['employee_id'],
+            $response
+        ]);
+    } else {
+        $stmt = $conn->prepare("
+            INSERT INTO complaint_responses (
+                complaint_id, 
+                admin_id,
+                employee_id, 
+                response,
+                is_company_reply
+            ) VALUES (?, ?, NULL, ?, 0)
+        ");
+        $stmt->execute([
+            $complaint_id,
+            $_SESSION['admin_id'],
+            $response
+        ]);
+    }
 
     // Update complaint status if provided
     if ($new_status && $new_status !== $complaint['status']) {

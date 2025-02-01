@@ -51,6 +51,7 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">موقع الاستلام <span class="text-danger">*</span></label>
+                                <small class="d-block text-muted mb-2">اكتب اسم الحي أو الشارع أو المنطقة للبحث عن الموقع (مثال: حي النزهة، شارع التحلية، الرياض)</small>
                                 <div class="location-input-group">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="pickup_search" placeholder="ابحث عن موقع..." autocomplete="off">
@@ -61,6 +62,7 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
                                     <div id="pickup_search_results" class="search-results"></div>
                                 </div>
                                 <div class="location-details">
+                                    <label class="form-label mb-2">تفاصيل العنوان (اكتب وصف دقيق للموقع مثل: اسم المبنى، رقم الشقة، علامة مميزة)</label>
                                     <textarea class="form-control" name="pickup_location" rows="2" required minlength="10"></textarea>
                                 <input type="text" class="form-control mt-2" name="pickup_location_link" readonly
                                        placeholder="رابط الموقع (سيتم تعبئته تلقائياً)">
@@ -71,6 +73,7 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">موقع التوصيل <span class="text-danger">*</span></label>
+                                <small class="d-block text-muted mb-2">اكتب اسم الحي أو الشارع أو المنطقة للبحث عن الموقع (مثال: حي النزهة، شارع التحلية، الرياض)</small>
                                 <div class="location-input-group">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="delivery_search" placeholder="ابحث عن موقع..." autocomplete="off">
@@ -81,6 +84,7 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
                                     <div id="delivery_search_results" class="search-results"></div>
                                 </div>
                                 <div class="location-details">
+                                    <label class="form-label mb-2">تفاصيل العنوان (اكتب وصف دقيق للموقع مثل: اسم المبنى، رقم الشقة، علامة مميزة)</label>
                                     <textarea class="form-control" name="delivery_location" rows="2" required minlength="10"></textarea>
                                 <input type="text" class="form-control mt-2" name="delivery_location_link" readonly
                                        placeholder="رابط الموقع (سيتم تعبئته تلقائياً)">
@@ -181,6 +185,7 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">موقع الاستلام</label>
+                                <small class="d-block text-muted mb-2">اكتب اسم الحي أو الشارع أو المنطقة للبحث عن الموقع (مثال: حي النزهة، شارع التحلية، الرياض)</small>
                                 <div class="location-input-group">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="edit_pickup_search" placeholder="ابحث عن موقع..." autocomplete="off">
@@ -191,6 +196,7 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
                                     <div id="edit_pickup_search_results" class="search-results"></div>
                                 </div>
                                 <div class="location-details">
+                                    <label class="form-label mb-2">تفاصيل العنوان (اكتب وصف دقيق للموقع مثل: اسم المبنى، رقم الشقة، علامة مميزة)</label>
                                 <textarea class="form-control" name="pickup_location" id="edit_pickup_location" rows="2" required></textarea>
                                 <input type="text" class="form-control mt-2" name="pickup_location_link" id="edit_pickup_location_link" readonly
                                        placeholder="رابط الموقع (سيتم تعبئته تلقائياً)">
@@ -201,6 +207,7 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">موقع التوصيل</label>
+                                <small class="d-block text-muted mb-2">اكتب اسم الحي أو الشارع أو المنطقة للبحث عن الموقع (مثال: حي النزهة، شارع التحلية، الرياض)</small>
                                 <div class="location-input-group">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="edit_delivery_search" placeholder="ابحث عن موقع..." autocomplete="off">
@@ -211,6 +218,7 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
                                     <div id="edit_delivery_search_results" class="search-results"></div>
                                 </div>
                                 <div class="location-details">
+                                    <label class="form-label mb-2">تفاصيل العنوان (اكتب وصف دقيق للموقع مثل: اسم المبنى، رقم الشقة، علامة مميزة)</label>
                                 <textarea class="form-control" name="delivery_location" id="edit_delivery_location" rows="2" required></textarea>
                                 <input type="text" class="form-control mt-2" name="delivery_location_link" id="edit_delivery_location_link" readonly
                                        placeholder="رابط الموقع (سيتم تعبئته تلقائياً)">
