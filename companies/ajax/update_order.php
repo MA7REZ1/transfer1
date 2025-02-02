@@ -92,24 +92,6 @@ try {
         exit();
     }
 
-    // Get company delivery pricing
-    $stmt = $conn->prepare("
-        SELECT base_delivery_price, price_per_km
-        FROM companies 
-        WHERE id = ?
-    ");
-    $stmt->execute([$company_id]);
-    $company_pricing = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Calculate delivery fee based on distance
-    $delivery_fee = $company_pricing['base_delivery_price'];
-    
-    // If you have distance calculation logic, add it here
-    if (isset($_POST['distance_km'])) {
-        $distance = floatval($_POST['distance_km']);
-        $delivery_fee += ($distance * $company_pricing['price_per_km']);
-    }
-
     try {
         // Start transaction
         $conn->beginTransaction();
@@ -131,7 +113,6 @@ try {
                 payment_method = ?,
                 is_fragile = ?,
                 additional_notes = ?,
-                delivery_fee = ?,
                 updated_at = NOW()
             WHERE id = ? AND company_id = ?
         ");
@@ -150,7 +131,6 @@ try {
             $_POST['payment_method'],
             isset($_POST['is_fragile']) ? 1 : 0,
             $_POST['additional_notes'] ?? null,
-            $delivery_fee,
             $order_id,
             $company_id
         ]);

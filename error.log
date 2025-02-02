@@ -2218,3 +2218,220 @@ Stack trace:
 [02-Feb-2025 06:57:51 Asia/Riyadh] Response: تم الحل
 [02-Feb-2025 06:57:53 Asia/Riyadh] Responses found for complaint COMP202501078781: 6
 [02-Feb-2025 06:57:55 Asia/Riyadh] Responses found for complaint COMP202501078781: 6
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 209
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 233
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 234
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 209
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 233
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 234
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 209
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 233
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 234
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 209
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 233
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 234
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 209
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 233
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 234
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 209
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 233
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 234
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 209
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 233
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 234
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 209
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 233
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 234
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 209
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 233
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 234
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 209
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 233
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 234
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:10:46 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 235
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 250
+[02-Feb-2025 07:12:31 Asia/Riyadh] PHP Warning:  Undefined array key "payment_status" in C:\xampp\htdocs\proo\admin\orders.php on line 267
+[02-Feb-2025 07:13:39 Asia/Riyadh] PHP Warning:  Undefined array key "payment_method" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:13:39 Asia/Riyadh] PHP Warning:  Undefined array key "payment_method" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:13:39 Asia/Riyadh] PHP Warning:  Undefined array key "payment_method" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:13:39 Asia/Riyadh] PHP Warning:  Undefined array key "payment_method" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:13:39 Asia/Riyadh] PHP Warning:  Undefined array key "payment_method" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:13:39 Asia/Riyadh] PHP Warning:  Undefined array key "payment_method" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:13:39 Asia/Riyadh] PHP Warning:  Undefined array key "payment_method" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:13:39 Asia/Riyadh] PHP Warning:  Undefined array key "payment_method" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:13:39 Asia/Riyadh] PHP Warning:  Undefined array key "payment_method" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:13:39 Asia/Riyadh] PHP Warning:  Undefined array key "payment_method" in C:\xampp\htdocs\proo\admin\orders.php on line 210
+[02-Feb-2025 07:15:08 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 07:17:15 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 07:21:28 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 711
+[02-Feb-2025 07:21:28 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 714
+[02-Feb-2025 07:21:28 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 717
+[02-Feb-2025 07:21:28 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 720
+[02-Feb-2025 07:21:28 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 807
+[02-Feb-2025 07:21:28 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 810
+[02-Feb-2025 07:21:28 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 813
+[02-Feb-2025 07:21:28 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 816
+[02-Feb-2025 07:26:59 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 07:28:25 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 07:29:03 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 711
+[02-Feb-2025 07:29:03 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 714
+[02-Feb-2025 07:29:03 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 717
+[02-Feb-2025 07:29:03 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 720
+[02-Feb-2025 07:29:03 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 807
+[02-Feb-2025 07:29:03 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 810
+[02-Feb-2025 07:29:10 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 711
+[02-Feb-2025 07:29:10 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 714
+[02-Feb-2025 07:29:10 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 717
+[02-Feb-2025 07:29:10 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 720
+[02-Feb-2025 07:29:10 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 807
+[02-Feb-2025 07:29:10 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 810
+[02-Feb-2025 07:30:23 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 706
+[02-Feb-2025 07:30:23 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 709
+[02-Feb-2025 07:30:23 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 712
+[02-Feb-2025 07:30:23 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 715
+[02-Feb-2025 07:30:23 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 802
+[02-Feb-2025 07:30:23 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 805
+[02-Feb-2025 07:32:23 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 706
+[02-Feb-2025 07:32:23 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 709
+[02-Feb-2025 07:32:23 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 797
+[02-Feb-2025 07:32:23 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 800
+[02-Feb-2025 07:34:10 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 706
+[02-Feb-2025 07:34:10 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 709
+[02-Feb-2025 07:34:10 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 797
+[02-Feb-2025 07:34:10 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 800
+[02-Feb-2025 07:35:32 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 706
+[02-Feb-2025 07:35:32 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 709
+[02-Feb-2025 07:35:32 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 797
+[02-Feb-2025 07:35:32 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 800
+[02-Feb-2025 07:36:09 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 703
+[02-Feb-2025 07:36:09 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 706
+[02-Feb-2025 07:36:09 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 794
+[02-Feb-2025 07:36:09 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 797
+[02-Feb-2025 07:37:40 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 703
+[02-Feb-2025 07:37:40 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 706
+[02-Feb-2025 07:37:40 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 794
+[02-Feb-2025 07:37:40 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 797
+[02-Feb-2025 07:39:34 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 799
+[02-Feb-2025 07:39:34 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 802
+[02-Feb-2025 07:39:45 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 799
+[02-Feb-2025 07:39:45 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 802
+[02-Feb-2025 07:42:21 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 795
+[02-Feb-2025 07:42:21 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 798
+[02-Feb-2025 07:42:34 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 795
+[02-Feb-2025 07:42:34 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 798
+[02-Feb-2025 07:43:40 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 697
+[02-Feb-2025 07:43:40 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 700
+[02-Feb-2025 07:44:01 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 697
+[02-Feb-2025 07:44:01 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 700
+[02-Feb-2025 07:45:15 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 697
+[02-Feb-2025 07:45:15 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 700
+[02-Feb-2025 07:45:43 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 799
+[02-Feb-2025 07:45:43 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 802
+[02-Feb-2025 07:49:14 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 697
+[02-Feb-2025 07:49:14 Asia/Riyadh] PHP Warning:  Undefined variable $paymentMethod in C:\xampp\htdocs\proo\admin\orders.php on line 700
+[02-Feb-2025 08:15:28 Asia/Riyadh] Order update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'base_delivery_price' in 'field list'
+[02-Feb-2025 08:15:30 Asia/Riyadh] Order update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'base_delivery_price' in 'field list'
+[02-Feb-2025 08:15:56 Asia/Riyadh] Order update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'base_delivery_price' in 'field list'
+[02-Feb-2025 08:15:58 Asia/Riyadh] Order update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'base_delivery_price' in 'field list'
+[02-Feb-2025 08:16:27 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 08:16:59 Asia/Riyadh] Order update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'base_delivery_price' in 'field list'
+[02-Feb-2025 08:17:01 Asia/Riyadh] Order update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'base_delivery_price' in 'field list'
+[02-Feb-2025 08:20:36 Asia/Riyadh] PHP Warning:  Undefined variable $delivery_fee in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 137
+[02-Feb-2025 08:20:38 Asia/Riyadh] PHP Warning:  Undefined variable $delivery_fee in C:\xampp\htdocs\proo\companies\ajax\update_order.php on line 137
+[02-Feb-2025 08:23:23 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 08:23:25 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(complaint_response_form.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 91
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'complaint_response_form.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 91
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(response_item.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'response_item.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(response_item.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'response_item.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(response_item.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'response_item.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(response_item.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'response_item.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(response_item.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'response_item.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(complaint_response_form.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 91
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'complaint_response_form.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 91
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(response_item.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'response_item.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(response_item.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'response_item.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(response_item.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'response_item.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(response_item.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'response_item.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(response_item.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 08:39:57 Asia/Riyadh] PHP Warning:  include(): Failed opening 'response_item.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\proo\admin\templates\complaint_details_template.php on line 99
+[02-Feb-2025 09:37:31 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 09:39:55 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 09:40:13 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 09:42:46 Asia/Riyadh] Responses found for complaint COMP202501078781: 7

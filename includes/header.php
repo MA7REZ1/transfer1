@@ -196,10 +196,10 @@ $unread_notifications = $stmt->fetchColumn();
                 }
 
                 .notifications-dropdown {
-                    position: absolute;
-                    top: 100%;
-                    right: -300px;
-                    width: 400px;
+    position: absolute;
+    top: 100%;
+    right: -230px;
+    width: 300px;
                     max-height: 500px;
                     overflow-y: auto;
                     background: #fff;
@@ -395,5 +395,44 @@ $unread_notifications = $stmt->fetchColumn();
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/responsive.js"></script>
 <script src="../assets/js/notifications.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fix for modals on mobile
+    const fixModalBackdrop = () => {
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('show.bs.modal', function() {
+                document.body.style.overflow = 'hidden';
+                if (window.innerWidth < 768) {
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100%';
+                }
+            });
+
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
+            });
+        });
+    };
+
+    // Call the function when DOM is ready
+    fixModalBackdrop();
+
+    // Also call it when new modals are dynamically added
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length) {
+                fixModalBackdrop();
+            }
+        });
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+});
+</script>
 </body>
 </html>

@@ -282,7 +282,7 @@ if ($company) {
     $status_color = '';
     if ($remaining > 0) {
         $status = 'مستحق لنا';
-        $status_color = 'text-success';
+        $status_color = 'text-white';
     } elseif ($remaining < 0) {
         $status = 'مستحق علينا ⚠️';
         $status_color = 'text-danger';

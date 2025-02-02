@@ -1014,3 +1014,237 @@ body {
     from { opacity: 1; }
     to { opacity: 0; }
 }
+
+/* Modal Fixes for Mobile */
+.modal-open {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.modal {
+    padding-right: 0 !important;
+}
+
+.modal-backdrop {
+    opacity: 0.5;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-backdrop.show {
+    opacity: 0.5;
+}
+
+.modal.fade .modal-dialog {
+    transform: translate(0, -50px);
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: none;
+}
+
+/* Mobile Specific Styles */
+@media (max-width: 767px) {
+    /* إلغاء جميع التأثيرات والتحولات */
+    * {
+        -webkit-tap-highlight-color: transparent !important;
+        -webkit-touch-callout: none !important;
+        -webkit-user-select: none !important;
+        user-select: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+
+    /* منع تغيير الخلفية عند الضغط */
+    *:active,
+    *:focus,
+    *:hover {
+        background: inherit !important;
+        background-color: inherit !important;
+        color: inherit !important;
+        border-color: inherit !important;
+        box-shadow: inherit !important;
+        transform: none !important;
+        outline: none !important;
+    }
+
+    /* استثناءات للأزرار الرئيسية */
+    .btn-primary,
+    .btn-primary:active,
+    .btn-primary:focus,
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca) !important;
+        color: white !important;
+        border: none !important;
+    }
+
+    /* استثناءات للعناوين */
+    .card-header.bg-primary,
+    .card-header.bg-primary:active,
+    .card-header.bg-primary:focus,
+    .card-header.bg-primary:hover {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca) !important;
+        color: white !important;
+    }
+
+    /* تثبيت خلفيات محددة */
+    .bg-white, 
+    .bg-white:active,
+    .bg-white:focus,
+    .bg-white:hover {
+        background-color: white !important;
+    }
+
+    .bg-light,
+    .bg-light:active,
+    .bg-light:focus,
+    .bg-light:hover {
+        background-color: #f8f9fa !important;
+    }
+
+    .modal-backdrop,
+    .modal-backdrop.show {
+        opacity: 1 !important;
+        background-color: white !important;
+    }
+
+    .modal,
+    .modal-content,
+    .modal-dialog {
+        background-color: white !important;
+    }
+
+    /* تثبيت الألوان للنصوص */
+    .text-primary { color: #0d6efd !important; }
+    .text-success { color: #198754 !important; }
+    .text-muted { color: #6c757d !important; }
+    
+    /* منع تأثير الضغط على الروابط */
+    a, 
+    a:active,
+    a:focus,
+    a:hover,
+    .nav-link,
+    .nav-link:active,
+    .nav-link:focus,
+    .nav-link:hover {
+        -webkit-tap-highlight-color: transparent !important;
+        background-color: transparent !important;
+    }
+
+    /* تثبيت شفافية الخلفية للقوائم المنسدلة */
+    .dropdown-item,
+    .dropdown-item:active,
+    .dropdown-item:focus,
+    .dropdown-item:hover {
+        background-color: transparent !important;
+    }
+
+    /* إلغاء تأثيرات الحركة */
+    .card,
+    .btn,
+    .badge,
+    .nav-link,
+    .dropdown-item {
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .modal-dialog {
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+    }
+    
+    .modal-content {
+        border-radius: 0.5rem;
+    }
+    
+    .modal-backdrop {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        z-index: 1040 !important;
+        opacity: 1 !important;
+    }
+    
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1050;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* منع تأثير الضغط على الموبايل */
+    * {
+        -webkit-tap-highlight-color: transparent !important;
+    }
+
+    a:active,
+    button:active,
+    .btn:active,
+    .nav-link:active,
+    .card:active,
+    .dropdown-item:active,
+    [role="button"]:active {
+        background: transparent !important;
+        background-color: transparent !important;
+        color: inherit !important;
+    }
+
+    .btn-primary:active {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca) !important;
+        color: white !important;
+    }
+
+    .card-header.bg-primary:active {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca) !important;
+        color: white !important;
+    }
+
+    /* تثبيت الألوان */
+    .text-primary, .text-success, .text-muted,
+    .bg-primary, .bg-success, .bg-light,
+    .border, .btn, .nav-link, .dropdown-item {
+        -webkit-tap-highlight-color: transparent !important;
+        -webkit-touch-callout: none !important;
+        -webkit-user-select: none !important;
+        user-select: none !important;
+    }
+
+    /* إلغاء التأثيرات */
+    * {
+        transition: none !important;
+    }
+
+    .modal-backdrop,
+    .modal-content,
+    .modal-dialog,
+    .modal {
+        background-color: transparent !important;
+    }
+
+    /* تثبيت الخلفيات */
+    .bg-white {
+        background-color: white !important;
+    }
+
+    .bg-light {
+        background-color: #f8f9fa !important;
+    }
+
+    /* منع تغيير الألوان عند الضغط */
+    *:active {
+        background-color: inherit !important;
+        color: inherit !important;
+    }
+}

@@ -333,10 +333,10 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
                 }
 
                 .notifications-dropdown {
-                    position: absolute;
-                    top: 100%;
-                    right: -300px;
-                    width: 400px;
+    position: absolute;
+    top: 100%;
+    right: -230px;
+    width: 300px;
                     max-height: 500px;
                     overflow-y: auto;
                     background: #fff;

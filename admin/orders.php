@@ -148,154 +148,184 @@ $drivers = $stmt->fetchAll();
             </div>
         </form>
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>رقم الطلب</th>
-                        <th>الشركة</th>
-                        <th>العميل</th>
-                        <th>نوع الطلب</th>
-                        <th>تاريخ التوصيل</th>
-                        <th>وقت الطلب</th>
-                        <th>التكلفة</th>
-                        <th>حالة الدفع</th>
-                        <th>السائق</th>
-                        <th>الحالة</th>
-                        <th>الإجراءات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($orders as $order): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($order['id']); ?></td>
-                            <td><?php echo htmlspecialchars($order['company_name']); ?></td>
-                            <td><?php echo htmlspecialchars($order['customer_name']); ?></td>
-                            <td><?php echo htmlspecialchars($order['order_type']); ?></td>
-                            <td><?php echo date('Y/m/d H:i', strtotime($order['delivery_date'])); ?></td>
-                            <td><?php echo date('Y/m/d H:i:s', strtotime($order['created_at'])); ?></td>
-                            <td><?php echo number_format($order['total_cost'], 2); ?> ريال</td>
-                            <td>
-                                <span class="badge bg-<?php echo $order['payment_status'] === 'paid' ? 'success' : 'warning'; ?>">
-                                    <?php echo $order['payment_status'] === 'paid' ? 'مدفوع' : 'غير مدفوع'; ?>
-                                </span>
-                            </td>
-                            <td>
-                                <?php if ($order['driver_id']): ?>
-                                    <?php echo htmlspecialchars($order['driver_name']); ?>
-                                <?php else: ?>
-                                    <span class="text-muted">لم يتم التعيين</span>
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <?php
-                                $status_class = '';
-                                $status_text = '';
+        <div class="row g-3">
+            <?php foreach ($orders as $order): ?>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm hover-shadow">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">طلب #<?php echo htmlspecialchars($order['id']); ?></h6>
+                            <span class="badge bg-<?php 
                                 switch ($order['status']) {
-                                    case 'pending':
-                                        $status_class = 'warning';
-                                        $status_text = 'قيد الانتظار';
-                                        break;
-                                    case 'accepted':
-                                        $status_class = 'info';
-                                        $status_text = 'مقبول';
-                                        break;
-                                    case 'in_transit':
-                                        $status_class = 'primary';
-                                        $status_text = 'قيد التوصيل';
-                                        break;
-                                    case 'delivered':
-                                        $status_class = 'success';
-                                        $status_text = 'تم التوصيل';
-                                        break;
-                                    case 'cancelled':
-                                        $status_class = 'danger';
-                                        $status_text = 'ملغي';
-                                        break;
+                                    case 'pending': echo 'warning'; break;
+                                    case 'accepted': echo 'info'; break;
+                                    case 'in_transit': echo 'primary'; break;
+                                    case 'delivered': echo 'success'; break;
+                                    case 'cancelled': echo 'danger'; break;
+                                    default: echo 'secondary';
+                                }
+                            ?>">
+                                <?php 
+                                switch ($order['status']) {
+                                    case 'pending': echo 'قيد الانتظار'; break;
+                                    case 'accepted': echo 'مقبول'; break;
+                                    case 'in_transit': echo 'قيد التوصيل'; break;
+                                    case 'delivered': echo 'تم التوصيل'; break;
+                                    case 'cancelled': echo 'ملغي'; break;
+                                    default: echo 'غير معروف';
                                 }
                                 ?>
-                                <span class="badge bg-<?php echo $status_class; ?>">
-                                    <?php echo $status_text; ?>
-                                </span>
-                            </td>
-                            <td>
-                                <div class="btn-group">
-                                    <!-- عرض التفاصيل -->
-                              <button type="button" class="btn btn-sm btn-info" 
-    onclick="showOrderDetails(
-        <?php echo $order['id']; ?>,
-        '<?php echo $order['order_number']; ?>',
-        '<?php echo $order['company_name']; ?>',
-        '<?php echo $order['customer_name']; ?>',
-        '<?php echo $order['customer_phone']; ?>',
-        '<?php echo $order['order_type']; ?>',
-        '<?php echo $order['delivery_date']; ?>',
-        '<?php echo $order['total_cost']; ?>',
-        '<?php echo $order['payment_status']; ?>',
-        '<?php echo $order['status']; ?>',
-        '<?php echo $order['driver_name'] ?? ''; ?>',
-        '<?php echo $order['driver_phone'] ?? ''; ?>',
-        '<?php echo $order['created_at']; ?>'
-    )" 
-    title="عرض التفاصيل">
-    <i class="fas fa-eye"></i>
-</button>
-                                    
-                                    <!-- طباعة الفاتورة -->
-                                    <button type="button" class="btn btn-sm btn-primary" onclick="printInvoice(<?php echo $order['id']; ?>, '<?php echo $order['order_number']; ?>', '<?php echo $order['customer_name']; ?>', '<?php echo $order['customer_phone']; ?>', '<?php echo $order['total_cost']; ?>', '<?php echo $order['payment_status']; ?>', '<?php echo $order['delivery_date']; ?>')" title="طباعة الفاتورة">
-                                        <i class="fas fa-print"></i>
-                                    </button>
-
-                                    <!-- تتبع الطلب -->
-                                    <a href="../track_order.php?order_number=<?php echo $order['order_number']; ?>" class="btn btn-sm btn-success" target="_blank" title="تتبع الطلب">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </a>
-
-                                    <!-- القائمة المنسدلة للإجراءات الأخرى -->
-                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                                        <i class="fas fa-cog"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a class="dropdown-item" href="order_form.php?id=<?php echo $order['id']; ?>">
-                                                <i class="fas fa-edit me-1"></i> تعديل
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#assignDriverModal<?php echo $order['id']; ?>">
-                                                <i class="fas fa-user-tie me-1"></i> تعيين سائق
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#updateStatusModal<?php echo $order['id']; ?>">
-                                                <i class="fas fa-sync-alt me-1"></i> تحديث الحالة
-                                            </a>
-                                        </li>
-                                        <?php if (hasPermission('super_admin')): ?>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li>
-                                                <form method="POST" class="d-inline" onsubmit="return confirm('هل أنت متأكد من حذف الطلب؟');">
-                                                    <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
-                                                    <button type="submit" name="delete" class="dropdown-item text-danger">
-                                                        <i class="fas fa-trash me-1"></i> حذف
-                                                    </button>
-                                                </form>
-                                            </li>
-                                        <?php endif; ?>
-                                    </ul>
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-building text-primary me-2"></i>
+                                    <strong>الشركة:</strong>
+                                    <span class="ms-2"><?php echo htmlspecialchars($order['company_name']); ?></span>
                                 </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    <?php if (empty($orders)): ?>
-                        <tr>
-                            <td colspan="10" class="text-center">لا توجد طلبات</td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-user text-primary me-2"></i>
+                                    <strong>العميل:</strong>
+                                    <span class="ms-2"><?php echo htmlspecialchars($order['customer_name']); ?></span>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-box text-primary me-2"></i>
+                                    <strong>نوع الطلب:</strong>
+                                    <span class="ms-2"><?php echo htmlspecialchars($order['order_type']); ?></span>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-calendar text-primary me-2"></i>
+                                    <strong>تاريخ التوصيل:</strong>
+                                    <span class="ms-2"><?php echo date('Y/m/d H:i', strtotime($order['delivery_date'])); ?></span>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-money-bill text-primary me-2"></i>
+                                    <strong>التكلفة:</strong>
+                                    <span class="ms-2"><?php echo number_format($order['total_cost'], 2); ?> ريال</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-credit-card text-primary me-2"></i>
+                                    <strong>حالة الدفع:</strong>
+                                    <span class="badge bg-<?php echo $order['payment_status'] === 'paid' ? 'success' : 'warning'; ?> ms-2">
+                                        <?php echo $order['payment_status'] === 'paid' ? 'مدفوع' : 'غير مدفوع'; ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-truck text-primary me-2"></i>
+                                <strong>السائق:</strong>
+                                <span class="ms-2">
+                                    <?php if ($order['driver_id']): ?>
+                                        <?php echo htmlspecialchars($order['driver_name']); ?>
+                                    <?php else: ?>
+                                        <span class="text-muted">لم يتم التعيين</span>
+                                    <?php endif; ?>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <div class="d-flex flex-column">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <small class="text-muted">
+                                        <i class="fas fa-clock me-1"></i>
+                                        <?php echo date('Y/m/d H:i', strtotime($order['created_at'])); ?>
+                                    </small>
+                                    <span class="badge bg-<?php echo $order['payment_status'] === 'paid' ? 'success' : 'warning'; ?>">
+                                        <i class="fas fa-<?php echo $order['payment_status'] === 'paid' ? 'check-circle' : 'clock'; ?> me-1"></i>
+                                        <?php echo $order['payment_status'] === 'paid' ? 'مدفوع' : 'غير مدفوع'; ?>
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-between gap-2">
+                                    <div class="btn-group flex-grow-1">
+                                        <button type="button" class="btn btn-primary btn-sm flex-grow-1" 
+                                            onclick="showOrderDetails(
+                                                <?php echo $order['id']; ?>,
+                                                '<?php echo $order['order_number']; ?>',
+                                                '<?php echo $order['company_name']; ?>',
+                                                '<?php echo $order['customer_name']; ?>',
+                                                '<?php echo $order['customer_phone']; ?>',
+                                                '<?php echo $order['order_type']; ?>',
+                                                '<?php echo $order['delivery_date']; ?>',
+                                                '<?php echo $order['total_cost']; ?>',
+                                                '<?php echo $order['payment_status']; ?>',
+                                                '<?php echo $order['status']; ?>',
+                                                '<?php echo $order['driver_name'] ?? ''; ?>',
+                                                '<?php echo $order['driver_phone'] ?? ''; ?>',
+                                                '<?php echo $order['created_at']; ?>'
+                                            )">
+                                            <i class="fas fa-eye me-1"></i>
+                                            <span class="d-none d-sm-inline">عرض التفاصيل</span>
+                                        </button>
+                                        
+                                        <button type="button" class="btn btn-outline-primary btn-sm" 
+                                            onclick="printInvoice(
+                                                <?php echo $order['id']; ?>, 
+                                                '<?php echo $order['order_number']; ?>', 
+                                                '<?php echo $order['customer_name']; ?>', 
+                                                '<?php echo $order['customer_phone']; ?>', 
+                                                '<?php echo $order['total_cost']; ?>', 
+                                                '<?php echo $order['payment_status']; ?>', 
+                                                '<?php echo $order['delivery_date']; ?>'
+                                            )" 
+                                            title="طباعة الفاتورة">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        
+                                        <a href="../track_order.php?order_number=<?php echo $order['order_number']; ?>" 
+                                            class="btn btn-outline-primary btn-sm"
+                                            target="_blank" 
+                                            title="تتبع الطلب">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <a class="dropdown-item text-primary" href="order_form.php?id=<?php echo $order['id']; ?>">
+                                                    <i class="fas fa-edit me-2"></i> تعديل الطلب
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item text-info" href="#" data-bs-toggle="modal" data-bs-target="#assignDriverModal<?php echo $order['id']; ?>">
+                                                    <i class="fas fa-user-tie me-2"></i> تعيين سائق
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item text-success" href="#" data-bs-toggle="modal" data-bs-target="#updateStatusModal<?php echo $order['id']; ?>">
+                                                    <i class="fas fa-sync-alt me-2"></i> تحديث الحالة
+                                                </a>
+                                            </li>
+                                            <?php if (hasPermission('super_admin')): ?>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <form method="POST" class="d-inline w-100" onsubmit="return confirm('هل أنت متأكد من حذف الطلب؟');">
+                                                        <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                                        <button type="submit" name="delete" class="dropdown-item text-danger">
+                                                            <i class="fas fa-trash me-2"></i> حذف الطلب
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            <?php endif; ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+            <?php if (empty($orders)): ?>
+                <div class="col-12">
+                    <div class="alert alert-info text-center">
+                        <i class="fas fa-info-circle me-2"></i>
+                        لا توجد طلبات
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
 
         <?php if ($total_pages > 1): ?>
@@ -338,43 +368,208 @@ $drivers = $stmt->fetchAll();
 </div>
 
 <style>
-.modal-backdrop {
-    --bs-backdrop-zindex: 1050;
-    --bs-backdrop-bg: #000;
-    --bs-backdrop-opacity: 0.5;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: var(--bs-backdrop-zindex);
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--bs-backdrop-bg);
+.hover-shadow {
+    transition: all 0.3s ease-in-out;
 }
 
-.modal {
-    background-color: rgba(0, 0, 0, 0.5);
+.hover-shadow:hover {
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-3px);
 }
 
-.modal-dialog {
-    margin: 30px auto;
-    max-width: 800px;
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #fff;
 }
 
-.modal-content {
+.card-header {
+    background: linear-gradient(45deg, #2b5876, #4e4376);
+    color: white;
+    border-bottom: none;
+    padding: 1rem;
+}
+
+.card-header h6 {
+    font-weight: 600;
+    margin: 0;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-body .info-item {
+    padding: 0.5rem;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    margin-bottom: 0.5rem;
+}
+
+.card-body .info-item:hover {
+    background-color: #f8f9fa;
+}
+
+.card-body .info-item i {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+    margin-right: 0.75rem;
+}
+
+.card-body strong {
+    color: #495057;
+    font-weight: 600;
+    min-width: 100px;
+    display: inline-block;
+}
+
+.card-footer {
+    background: #f8f9fa;
+    border-top: 1px solid rgba(0,0,0,.05);
+    padding: 1rem;
+}
+
+.btn-group {
+    display: inline-flex;
+    gap: 0.5rem;
+}
+
+.btn-group .btn {
+    border-radius: 10px !important;
+    padding: 0.5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-group .btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease-out, height 0.3s ease-out;
+}
+
+.btn-group .btn:hover::after {
+    width: 200%;
+    height: 200%;
+}
+
+.btn-group .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.badge {
+    padding: 0.5em 1em;
+    font-weight: 500;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: 0.85rem;
 }
 
-.modal-header {
-    border-radius: 8px 8px 0 0;
+.badge i {
+    margin-right: 0.4rem;
 }
 
-.modal-body {
-    padding: 20px;
+.dropdown-menu {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0.5rem 2rem rgba(0,0,0,0.15);
 }
 
-.modal-footer {
-    border-radius: 0 0 8px 8px;
+.dropdown-item {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-bottom: 0.25rem;
+}
+
+.dropdown-item:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(-5px);
+}
+
+.dropdown-item i {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.text-primary i {
+    background: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+}
+
+.text-info i {
+    background: rgba(13, 202, 240, 0.1);
+    color: #0dcaf0;
+}
+
+.text-success i {
+    background: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+
+.text-danger i {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .btn-group .btn {
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .card-body strong {
+        min-width: 80px;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn-group .btn {
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .btn-group .btn i {
+        margin-right: 0 !important;
+    }
+    
+    .card-body .info-item {
+        padding: 0.4rem;
+    }
 }
 </style>
 

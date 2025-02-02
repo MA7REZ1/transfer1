@@ -104,12 +104,12 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
                         </div>
                         <div class="col-12">
                             <div class="mb-3">
-                                <label class="form-label">طريقة الدفع <span class="text-danger">*</span></label>
+                                <label class="form-label">حالة الدفع<span class="text-danger">*</span></label>
                                 <select class="form-select" name="payment_method" id="payment_method" required onchange="toggleTotalCost(this.value)">
                                     <option value="">اختر طريقة الدفع</option>
-                                    <option value="cash">نقدي</option>
-                                    <option value="card">بطاقة</option>
-                                    <option value="bank_transfer">تحويل بنكي</option>
+                                    <option value="cash">الدفع عند الاستلام</option>
+                                    <option value="card">مدفوع</option>
+                                 
                                 </select>
                             </div>
                             
