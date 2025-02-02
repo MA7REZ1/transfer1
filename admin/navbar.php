@@ -3,6 +3,19 @@ if (!isset($_SESSION)) {
     session_start();
 }
 ?>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark d-lg-none">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="dashboard.php">لوحة التحكم</a>
+        <div class="ms-auto d-flex align-items-center">
+            <div class="notifications-dropdown me-3">
+                <?php include 'get_notifications.php'; ?>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<?php include 'sidebar.php'; ?>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="dashboard.php">لوحة التحكم</a>

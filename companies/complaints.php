@@ -379,7 +379,8 @@ if (!isset($_GET['id'])) {
             </div>
         </div>
     </div>
-
+<style>.company-name:hover {
+    color: darkgray !important;} </style></script>
     <script>
     $(document).ready(function() {
         // Form validation
@@ -442,7 +443,14 @@ if (!isset($_GET['id'])) {
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         <div class="d-flex flex-column">
                                                             ${response.is_company_reply ? `
-                                                                <span class="text-primary">رد الشركة</span>
+     <a class="navbar-brand d-flex align-items-center" href="profile.php">
+    <?php if (!empty($company['logo'])): ?>
+        <img src="../uploads/companies/<?php echo htmlspecialchars($company['logo']); ?>" alt="شعار الشركة" class="rounded">
+    <?php else: ?>
+        <i class="bi bi-building"></i>
+    <?php endif; ?>
+    <span class="company-name" style="color: black;"><?php echo htmlspecialchars($company['name']); ?></span>
+</a>
                                                             ` : response.admin_role === 'super_admin' || response.admin_role === 'مدير_عام' ? `
                                                                 <span class="text-success">${response.admin_name || 'مدير النظام'}</span>
                                                                 <small class="text-muted">مدير النظام</small>

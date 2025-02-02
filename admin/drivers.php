@@ -30,14 +30,24 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
     $action = $_GET['action'];
     $driver_id = $_GET['id'];
     
+    // Get driver name first
+    $stmt = $conn->prepare("SELECT username FROM drivers WHERE id = ?");
+    $stmt->execute([$driver_id]);
+    $driver_name = $stmt->fetchColumn();
+    
     switch ($action) {
         case 'activate':
             $stmt = $conn->prepare("UPDATE drivers SET is_active = 1 WHERE id = ?");
             $stmt->execute([$driver_id]);
             
             // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (admin_id, message, type, link) VALUES (?, ?, 'success', ?)");
-            $stmt->execute([$_SESSION['admin_id'], "تم تفعيل السائق بنجاح", "drivers.php"]);
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'success', ?)");
+            $stmt->execute([
+                $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
+                $_SESSION['admin_role'] ?? 'مدير_عام',
+                "تم تفعيل السائق: " . $driver_name,
+                "drivers.php"
+            ]);
             
             header('Location: drivers.php');
             exit;
@@ -47,8 +57,13 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
             $stmt->execute([$driver_id]);
             
             // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (admin_id, message, type, link) VALUES (?, ?, 'warning', ?)");
-            $stmt->execute([$_SESSION['admin_id'], "تم تعطيل السائق", "drivers.php"]);
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'warning', ?)");
+            $stmt->execute([
+                $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
+                $_SESSION['admin_role'] ?? 'مدير_عام',
+                "تم تعطيل السائق: " . $driver_name,
+                "drivers.php"
+            ]);
             
             header('Location: drivers.php');
             exit;
@@ -58,8 +73,13 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
             $stmt->execute([$driver_id]);
             
             // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (admin_id, message, type, link) VALUES (?, ?, 'danger', ?)");
-            $stmt->execute([$_SESSION['admin_id'], "تم حذف السائق", "drivers.php"]);
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'danger', ?)");
+            $stmt->execute([
+                $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
+                $_SESSION['admin_role'] ?? 'مدير_عام',
+                "تم حذف السائق: " . $driver_name,
+                "drivers.php"
+            ]);
             
             header('Location: drivers.php');
             exit;
@@ -117,11 +137,53 @@ $drivers = $stmt->fetchAll();
 require_once '../includes/header.php';
 ?>
 <style>
+.driver-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.driver-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.avatar-placeholder {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-item i {
+    width: 20px;
+}
+
+.driver-stats .col-6 > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
 .action-btn-group {
     display: flex;
-    gap: 5px;
-    justify-content: flex-start;
-    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .action-btn {
@@ -142,56 +204,12 @@ require_once '../includes/header.php';
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.action-btn i {
-    font-size: 1rem;
-}
+.action-btn.whatsapp-btn { background-color: #25D366; color: white; }
+.action-btn.edit-btn { background-color: #3498db; color: white; }
+.action-btn.deactivate-btn { background-color: #f1c40f; color: white; }
+.action-btn.activate-btn { background-color: #2ecc71; color: white; }
+.action-btn.delete-btn { background-color: #e74c3c; color: white; }
 
-.action-btn.edit-btn {
-    background-color: #3498db;
-    color: white;
-}
-
-.action-btn.edit-btn:hover {
-    background-color: #2980b9;
-}
-
-.action-btn.whatsapp-btn {
-    background-color: #25D366;
-    color: white;
-}
-
-.action-btn.whatsapp-btn:hover {
-    background-color: #128C7E;
-}
-
-.action-btn.deactivate-btn {
-    background-color: #f1c40f;
-    color: white;
-}
-
-.action-btn.deactivate-btn:hover {
-    background-color: #f39c12;
-}
-
-.action-btn.activate-btn {
-    background-color: #2ecc71;
-    color: white;
-}
-
-.action-btn.activate-btn:hover {
-    background-color: #27ae60;
-}
-
-.action-btn.delete-btn {
-    background-color: #e74c3c;
-    color: white;
-}
-
-.action-btn.delete-btn:hover {
-    background-color: #c0392b;
-}
-
-/* Tooltip styles */
 .action-btn::after {
     content: attr(data-title);
     position: absolute;
@@ -214,184 +232,15 @@ require_once '../includes/header.php';
     opacity: 1;
     bottom: calc(100% + 5px);
 }
-/* تنسيق عام للمودال */
-#driverDetailsModal .modal-content {
-    border-radius: 15px;
-    border: none;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
 
-#driverDetailsModal .modal-header {
-    background: #f8f9fa;
-    border-bottom: 2px solid #eee;
-    padding: 1rem 2rem;
-}
-
-#driverDetailsModal .modal-title {
-    font-weight: 700;
-    color: #2c3e50;
-}
-
-/* تنسيق المعلومات الرئيسية */
-#driverDetailsContent h4 {
-    color: #34495e;
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 0.5rem;
-    display: inline-block;
-}
-
-#driverDetailsContent p {
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    color: #4a5568;
-}
-
-#driverDetailsContent p strong {
-    color: #2d3748;
-    min-width: 140px;
-    display: inline-block;
-}
-
-/* تنسيق إحصائيات الرحلات */
-#driverDetailsContent p strong + span {
-    font-weight: bold;
-    padding: 0.3rem 0.8rem;
-    border-radius: 8px;
-}
-
-#driverDetailsContent p:has(strong:contains("المكتملة")) span {
-    background: #e8f5e9;
-    color: #2e7d32;
-}
-
-#driverDetailsContent p:has(strong:contains("الملغاة")) span {
-    background: #ffebee;
-    color: #c62828;
-}
-
-/* تنسيق حالة الطلبات */
-#driverDetailsContent h5 {
-    color: #2c3e50;
-    margin: 2rem 0 1rem;
-    font-size: 1.4rem;
-    position: relative;
-    padding-left: 1.5rem;
-}
-
-#driverDetailsContent h5::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 70%;
-    background: #3498db;
-    border-radius: 4px;
-}
-
-#driverDetailsContent ul {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-#driverDetailsContent ul li {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 10px;
-    border-left: 4px solid;
-    font-weight: 500;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#driverDetailsContent ul li:nth-child(1) {
-    border-color: #f1c40f;
-    background: #fffbe6;
-}
-
-#driverDetailsContent ul li:nth-child(2) {
-    border-color: #3498db;
-    background: #e3f2fd;
-}
-
-#driverDetailsContent ul li:nth-child(3) {
-    border-color: #2ecc71;
-    background: #e8f5e9;
-}
-
-/* تنسيق سجل النشاط */
-#driverDetailsContent .activity-log {
-    max-height: 300px;
-    overflow-y: auto;
-    padding-right: 1rem;
-}
-
-#driverDetailsContent .activity-log ul {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-#driverDetailsContent .activity-log li {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#driverDetailsContent .activity-log li:hover {
-    transform: translateX(5px);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-}
-
-#driverDetailsContent .activity-log small {
-    color: #718096;
-    font-size: 0.9rem;
-    min-width: 150px;
-    text-align: left;
-}
-
-/* تنسيق التواريخ */
-#driverDetailsContent time {
-    font-family: 'Courier New', monospace;
-    background: #f8f9fa;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    color: #4a5568;
-}
-
-/* تأثيرات التحويم */
-#driverDetailsContent ul li,
-#driverDetailsContent .activity-log li {
-    transition: all 0.3s ease;
-}
-
-/* تنسيق للهواتف المحمولة */
 @media (max-width: 768px) {
-    #driverDetailsContent ul {
-        grid-template-columns: 1fr;
+    .action-btn {
+        width: 32px;
+        height: 32px;
     }
-    
-    #driverDetailsContent .activity-log li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-    
-    #driverDetailsContent h4 {
-        font-size: 1.5rem;
+
+    .action-btn i {
+        font-size: 0.875rem;
     }
 }
 </style>
@@ -415,96 +264,88 @@ require_once '../includes/header.php';
             </div>
         </form>
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>الصورة</th>
-                        <th>اسم السائق</th>
-                        <th>البريد الإلكتروني</th>
-                        <th>الهاتف</th>
-                        <th>التقييم</th>
-                        <th>عدد الرحلات</th>
-                        <th>نوع المركب</th>
-                        <th> الحالة</th>
-                       
- <th> ماذا يفعل الان</th>
-  <th> مبلغ تم تحصيله</th>
-   <th>تاريخ التسجيل</th>
-                        <th>الإجراءات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($drivers as $driver): ?>
-                        <tr>
-                            <td>
-                                <?php if ($driver['profile_image']): ?>
-                                    <img src="uploads/profiles/<?php echo $driver['profile_image']; ?>" alt="Profile" class="img-thumbnail" style="width: 50px;">
-                                <?php else: ?>
-                                    <i class="fas fa-user-circle fa-2x text-muted"></i>
-                                <?php endif; ?>
-                            </td>
-                            <td><?php echo htmlspecialchars($driver['username']); ?></td>
-                            <td>
-                                <?php echo htmlspecialchars($driver['email']); ?>
-                                <button class="btn btn-sm btn-outline-secondary ms-2" 
-                                        onclick="copyDriverInfo('<?php echo htmlspecialchars($driver['username']); ?>', '<?php echo htmlspecialchars($driver['email']); ?>', '<?php echo htmlspecialchars($driver['phone']); ?>', '<?php echo htmlspecialchars($driver['username']); ?>@123')" 
-                                        title="نسخ بيانات السائق">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                            </td>
-                            <td><?php echo htmlspecialchars($driver['phone']); ?></td>
-                            <td>
-                                <div class="text-warning">
-                                    <?php
-                                    $rating = $driver['rating'];
-                                    echo str_repeat('<i class="fas fa-star"></i>', floor($rating));
-                                    echo fmod($rating, 1) > 0 ? '<i class="fas fa-star-half-alt"></i>' : '';
-                                    echo str_repeat('<i class="far fa-star"></i>', 5 - ceil($rating));
-                                    ?>
+        <div class="row g-4">
+            <?php if (!empty($drivers)): ?>
+                <?php foreach ($drivers as $driver): ?>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 driver-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="driver-avatar me-3">
+                                        <?php if ($driver['profile_image']): ?>
+                                            <img src="uploads/profiles/<?php echo $driver['profile_image']; ?>" alt="Profile" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
+                                        <?php else: ?>
+                                            <div class="avatar-placeholder">
+                                                <i class="fas fa-user-circle fa-3x text-muted"></i>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-1"><?php echo htmlspecialchars($driver['username']); ?></h5>
+                                        <span class="badge bg-<?php echo $driver['is_active'] ? 'success' : 'danger'; ?>">
+                                            <?php echo $driver['is_active'] ? 'نشط' : 'غير نشط'; ?>
+                                        </span>
+                                    </div>
                                 </div>
-                            </td>
-                            <td><?php echo $driver['total_trips']; ?></td>
-                            <td><?php echo htmlspecialchars($driver['vehicle_type']); ?></td>
-                            <td>
-                                <span class="badge bg-<?php echo $driver['is_active'] ? 'success' : 'danger'; ?>">
-                                    <?php echo $driver['is_active'] ? 'نشط' : 'غير نشط'; ?>
-                                </span>
-                            </td>
-                <td>
-    <?php
-    // تعريف الحالات الممكنة وتعريبهن
-    $status = $driver['current_status'];
-    $statusMap = [
-        'available' => [
-            'ar' => 'السائق متاح',
-            'class' => 'success'
-        ],
-        'busy' => [
-            'ar' => ' مشغول في توصيل',
-            'class' => 'warning'
-        ],
-        'offline' => [
-            'ar' => 'غير متصل',
-            'class' => 'danger'
-        ]
-    ];
-    
-    // تحديد القيم الافتراضية للحالة غير المعروفة
-    $displayStatus = $statusMap[$status]['ar'] ?? 'حالة غير معروفة';
-    $badgeClass = $statusMap[$status]['class'] ?? 'secondary';
-    ?>
-    
-    <span class="badge bg-<?php echo $badgeClass; ?>">
-        <?php echo htmlspecialchars($displayStatus); ?>
-    </span>
-</td>
-            <td>
-                <?php echo number_format($driver['total_earnings'], 2) . ' ر.س'; ?>
-            </td>
-           
-                            <td><?php echo date('Y/m/d', strtotime($driver['created_at'])); ?></td>
-                            <td>
+
+                                <div class="driver-info mb-3">
+                                    <div class="info-item mb-2">
+                                        <i class="fas fa-envelope text-muted me-2"></i>
+                                        <span class="text-truncate"><?php echo htmlspecialchars($driver['email']); ?></span>
+                                    </div>
+                                    <div class="info-item mb-2">
+                                        <i class="fas fa-phone text-muted me-2"></i>
+                                        <span><?php echo htmlspecialchars($driver['phone']); ?></span>
+                                    </div>
+                                    <div class="info-item mb-2">
+                                        <i class="fas fa-car text-muted me-2"></i>
+                                        <span><?php echo htmlspecialchars($driver['vehicle_type']); ?></span>
+                                    </div>
+                                </div>
+
+                                <div class="driver-stats mb-3">
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <div class="p-2 rounded bg-light">
+                                                <small class="d-block text-muted">التقييم</small>
+                                                <div class="text-warning">
+                                                    <?php
+                                                    $rating = $driver['rating'];
+                                                    echo str_repeat('<i class="fas fa-star"></i>', floor($rating));
+                                                    echo fmod($rating, 1) > 0 ? '<i class="fas fa-star-half-alt"></i>' : '';
+                                                    echo str_repeat('<i class="far fa-star"></i>', 5 - ceil($rating));
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="p-2 rounded bg-light">
+                                                <small class="d-block text-muted">عدد الرحلات</small>
+                                                <strong><?php echo $driver['total_trips']; ?></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="driver-status mb-3">
+                                    <?php
+                                    $status = $driver['current_status'];
+                                    $statusMap = [
+                                        'available' => ['ar' => 'السائق متاح', 'class' => 'success'],
+                                        'busy' => ['ar' => 'مشغول في توصيل', 'class' => 'warning'],
+                                        'offline' => ['ar' => 'غير متصل', 'class' => 'danger']
+                                    ];
+                                    $displayStatus = $statusMap[$status]['ar'] ?? 'حالة غير معروفة';
+                                    $badgeClass = $statusMap[$status]['class'] ?? 'secondary';
+                                    ?>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-muted">الحالة الحالية:</span>
+                                        <span class="badge bg-<?php echo $badgeClass; ?>">
+                                            <?php echo htmlspecialchars($displayStatus); ?>
+                                        </span>
+                                    </div>
+                                </div>
+
                                 <div class="action-btn-group">
                                     <button type="button" 
                                            class="action-btn whatsapp-btn"
@@ -538,23 +379,26 @@ require_once '../includes/header.php';
                                        onclick="return confirm('هل أنت متأكد من حذف هذا السائق؟')">
                                         <i class="fas fa-trash"></i>
                                     </a>
-                                    <button type="button" class="action-btn info-btn" onclick="showDriverDetails(<?php echo $driver['id']; ?>)" data-title="عرض التفاصيل">
+                                    <button type="button" 
+                                            class="action-btn info-btn" 
+                                            onclick="showDriverDetails(<?php echo $driver['id']; ?>)" 
+                                            data-title="عرض التفاصيل"
+                                            style="background-color: #17a2b8; color: white;">
                                         <i class="fas fa-info-circle"></i>
                                     </button>
                                 </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    <?php if (empty($drivers)): ?>
-                        <tr>
-                            <td colspan="10" class="text-center py-4">
-                                <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                                <p class="text-muted">لا يوجد سائقين مسجلين</p>
-                            </td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">لا يوجد سائقين مسجلين</p>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
 
         <?php if ($total_pages > 1): ?>

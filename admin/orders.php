@@ -122,9 +122,6 @@ $drivers = $stmt->fetchAll();
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h3 mb-0">إدارة الطلبات</h1>
-    <!-- <a href="order_form.php" class="btn btn-primary">
-        <i class="fas fa-plus me-1"></i> إضافة طلب جديد
-    </a> -->
 </div>
 
 <div class="card">
@@ -316,27 +313,6 @@ $drivers = $stmt->fetchAll();
         <?php endif; ?>
     </div>
 </div>
-
-<style>
-    .sidebar {
-        background-color: #1e1e1e; /* Dark background for sidebar */
-        color: #ffffff; /* Light text color */
-        height: 100vh; /* Full height */
-        position: fixed; /* Fixed position */
-        top: 0;
-        right: 0; /* Adjust if your layout is LTR */
-        width: 250px; /* Set width */
-        z-index: 1000; /* Ensure it is on top */
-    }
-
-    .sidebar a {
-        color: #ffffff; /* Light text color for links */
-    }
-
-    .sidebar a:hover {
-        background-color: #333333; /* Slightly lighter on hover */
-    }
-</style>
 
 <!-- View Order Details Modal -->
 <div class="modal fade" id="viewOrderModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">

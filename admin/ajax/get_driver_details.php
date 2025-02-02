@@ -14,7 +14,18 @@ try {
 
 
     // Fetch driver details and total trips
-    $stmt = $conn->prepare("SELECT username, email, phone, cancelled_orders, is_active, vehicle_type, COUNT(r.id) as total_trips FROM drivers d LEFT JOIN requests r ON d.id = r.driver_id WHERE d.id = ? AND r.status = 'delivered'");
+    $stmt = $conn->prepare("SELECT 
+        d.username, 
+        d.email, 
+        d.phone, 
+        d.cancelled_orders, 
+        d.is_active, 
+        d.vehicle_type, 
+        COUNT(DISTINCT CASE WHEN r.status = 'delivered' THEN r.id ELSE NULL END) as total_trips 
+    FROM drivers d 
+    LEFT JOIN requests r ON d.id = r.driver_id 
+    WHERE d.id = ? 
+    GROUP BY d.id, d.username, d.email, d.phone, d.cancelled_orders, d.is_active, d.vehicle_type");
     $stmt->execute([$driver_id]);
     $driver = $stmt->fetch(PDO::FETCH_ASSOC);
 

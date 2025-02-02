@@ -1429,3 +1429,792 @@ Stack trace:
 [01-Feb-2025 18:24:07 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
 [01-Feb-2025 18:25:09 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
 [01-Feb-2025 18:26:09 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:27:09 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:28:09 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:29:09 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:30:09 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:31:09 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:32:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:33:09 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:34:07 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:35:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:36:09 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:37:07 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:38:07 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:39:07 Asia/Riyadh] Responses found for complaint COMP202501077665: 5
+[01-Feb-2025 18:42:32 Asia/Riyadh] Payment Error: خطأ في بيانات المستخدم - يجب أن تكون مدير أو موظف محاسبة
+[01-Feb-2025 18:50:31 Asia/Riyadh] Payment Error: خطأ في بيانات المستخدم - يجب أن تكون مدير أو موظف محاسبة
+[01-Feb-2025 18:54:04 Asia/Riyadh] Payment Error: خطأ في بيانات المستخدم - يجب أن تكون مدير أو موظف محاسبة
+[01-Feb-2025 18:54:09 Asia/Riyadh] Payment Error: خطأ في بيانات المستخدم - يجب أن تكون مدير أو موظف محاسبة
+[01-Feb-2025 18:54:43 Asia/Riyadh] Payment Error: خطأ في بيانات المستخدم - يجب أن تكون مدير أو موظف محاسبة
+[01-Feb-2025 18:57:51 Asia/Riyadh] Payment Error: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[01-Feb-2025 19:03:23 Asia/Riyadh] === Database Error Details ===
+Array
+(
+    [error_code] => 23000
+    [error_message] => SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`admin_panel`.`notifications`, CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE)
+    [file] => C:\xampp\htdocs\proo\admin\driver_form.php
+    [line] => 126
+)
+
+[01-Feb-2025 19:18:17 Asia/Riyadh] PHP Warning:  move_uploaded_file(uploads/companies/679e49491dd61_Screenshot 2024-10-11 003333.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\company_form.php on line 81
+[01-Feb-2025 19:18:17 Asia/Riyadh] PHP Warning:  move_uploaded_file(): Unable to move &quot;C:\xampp\tmp\php8801.tmp&quot; to &quot;uploads/companies/679e49491dd61_Screenshot 2024-10-11 003333.png&quot; in C:\xampp\htdocs\proo\admin\company_form.php on line 81
+[01-Feb-2025 19:33:57 Asia/Riyadh] Database Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`admin_panel`.`notifications`, CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE)
+[01-Feb-2025 19:34:25 Asia/Riyadh] Database Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`admin_panel`.`notifications`, CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE)
+[01-Feb-2025 19:53:06 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'where clause' in C:\xampp\htdocs\proo\includes\header.php:9
+Stack trace:
+#0 C:\xampp\htdocs\proo\includes\header.php(9): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\proo\admin\company_form.php(223): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\proo\includes\header.php on line 9
+[01-Feb-2025 19:53:13 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'where clause' in C:\xampp\htdocs\proo\includes\header.php:9
+Stack trace:
+#0 C:\xampp\htdocs\proo\includes\header.php(9): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\proo\admin\companies.php(104): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\proo\includes\header.php on line 9
+[01-Feb-2025 19:53:19 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'where clause' in C:\xampp\htdocs\proo\includes\header.php:9
+Stack trace:
+#0 C:\xampp\htdocs\proo\includes\header.php(9): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\proo\admin\companies.php(104): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\proo\includes\header.php on line 9
+[01-Feb-2025 19:53:22 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'where clause' in C:\xampp\htdocs\proo\includes\header.php:9
+Stack trace:
+#0 C:\xampp\htdocs\proo\includes\header.php(9): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\proo\admin\companies.php(104): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\proo\includes\header.php on line 9
+[01-Feb-2025 19:57:44 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'where clause' in C:\xampp\htdocs\proo\includes\header.php:9
+Stack trace:
+#0 C:\xampp\htdocs\proo\includes\header.php(9): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\proo\admin\companies.php(104): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\proo\includes\header.php on line 9
+[01-Feb-2025 20:44:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[01-Feb-2025 20:44:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[01-Feb-2025 20:44:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[01-Feb-2025 20:44:31 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[01-Feb-2025 20:44:32 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[01-Feb-2025 20:44:32 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[01-Feb-2025 20:45:35 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[01-Feb-2025 20:45:35 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[01-Feb-2025 20:45:35 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[01-Feb-2025 20:46:13 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:46:43 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:47:13 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:47:43 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:48:03 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:48:33 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:49:03 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:49:33 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:50:03 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:50:33 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:51:03 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:51:34 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:52:03 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:53:05 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:54:05 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:55:07 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:56:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:57:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[01-Feb-2025 20:58:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:03:37 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:04:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:05:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:06:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:07:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:08:07 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:09:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:10:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:11:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:12:07 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:13:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:14:06 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:15:07 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:21:02 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:21:33 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:22:03 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:23:04 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:23:38 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:23:44 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:24:14 Asia/Riyadh] Responses found for complaint COMP202501077665: 6
+[02-Feb-2025 00:24:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:25:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:25:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:26:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:26:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:27:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:27:41 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:27:46 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:28:15 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:28:34 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 00:28:34 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 00:28:34 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 00:29:29 Asia/Riyadh] Responses found for complaint COMP202501078686: 0
+[02-Feb-2025 00:29:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:30:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:30:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:31:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:31:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:32:39 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:33:40 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:34:41 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:35:40 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:35:44 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:36:14 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:36:44 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:37:14 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:37:44 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:37:59 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:38:29 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:38:55 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:39:14 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:39:44 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:40:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:40:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:41:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:41:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:42:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:43:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:44:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:45:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:46:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:47:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:48:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:49:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:50:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:51:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:52:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:53:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:54:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:55:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:56:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:57:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:58:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 00:59:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:00:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:01:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:02:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:03:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:04:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:05:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:06:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:07:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:08:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:09:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:10:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:11:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:12:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:13:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:14:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:15:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:16:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:17:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:18:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:19:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:20:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:21:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:22:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:23:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:24:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:25:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:26:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:27:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:28:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:29:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:30:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:31:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:32:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:33:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:34:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:35:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:36:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:37:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:38:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:39:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:40:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:41:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:42:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:43:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:44:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:45:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:46:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:47:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:48:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:49:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:50:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:51:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:52:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:53:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:54:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:55:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:56:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:57:07 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:58:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 01:59:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:00:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:01:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:02:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:03:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:04:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:05:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:06:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:07:07 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:08:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:09:07 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:10:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:11:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:12:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:13:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:14:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:15:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:16:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:17:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:18:07 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:19:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:20:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:21:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:22:07 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:23:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:24:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:25:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:26:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:27:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:28:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:29:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:30:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:31:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:32:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:33:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:34:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:35:07 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:36:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:37:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:38:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:39:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:40:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:41:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:42:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:43:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:44:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:45:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:46:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:47:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:48:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:49:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:50:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:51:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:52:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:53:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:54:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:55:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:56:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:57:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:58:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 02:59:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:00:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:01:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:02:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:03:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:04:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:05:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:06:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:07:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:08:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:09:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:10:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:11:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:12:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:13:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:14:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:15:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:16:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:17:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:18:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:19:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:20:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:21:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:22:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:23:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:24:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:25:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:26:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:27:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:28:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:29:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:30:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:31:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:32:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:33:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:34:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:35:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:36:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:37:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:38:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:39:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:40:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:41:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:42:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:43:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:44:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:45:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:46:07 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:47:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:48:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:49:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:50:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:51:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:52:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:53:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:54:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:55:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:56:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:57:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:57:43 Asia/Riyadh] === Database Error Details ===
+Array
+(
+    [error_code] => 42S22
+    [error_message] => SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+    [file] => C:\xampp\htdocs\proo\admin\driver_form.php
+    [line] => 126
+)
+
+[02-Feb-2025 03:58:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 03:58:39 Asia/Riyadh] === Database Error Details ===
+Array
+(
+    [error_code] => 42S22
+    [error_message] => SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+    [file] => C:\xampp\htdocs\proo\admin\driver_form.php
+    [line] => 126
+)
+
+[02-Feb-2025 03:59:00 Asia/Riyadh] === Database Error Details ===
+Array
+(
+    [error_code] => 42S22
+    [error_message] => SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+    [file] => C:\xampp\htdocs\proo\admin\driver_form.php
+    [line] => 126
+)
+
+[02-Feb-2025 03:59:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:00:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:01:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:02:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:03:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:04:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:05:06 Asia/Riyadh] PHP Warning:  error_log(../logs/db_errors.log): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\driver_form.php on line 178
+[02-Feb-2025 04:05:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:06:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $username in C:\xampp\htdocs\proo\admin\driver_form.php on line 79
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $email in C:\xampp\htdocs\proo\admin\driver_form.php on line 80
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $phone in C:\xampp\htdocs\proo\admin\driver_form.php on line 81
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $age in C:\xampp\htdocs\proo\admin\driver_form.php on line 82
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $about in C:\xampp\htdocs\proo\admin\driver_form.php on line 83
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $address in C:\xampp\htdocs\proo\admin\driver_form.php on line 84
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $id_number in C:\xampp\htdocs\proo\admin\driver_form.php on line 85
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $license_number in C:\xampp\htdocs\proo\admin\driver_form.php on line 86
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $vehicle_type in C:\xampp\htdocs\proo\admin\driver_form.php on line 87
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $vehicle_model in C:\xampp\htdocs\proo\admin\driver_form.php on line 88
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $plate_number in C:\xampp\htdocs\proo\admin\driver_form.php on line 89
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $is_active in C:\xampp\htdocs\proo\admin\driver_form.php on line 90
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $current_status in C:\xampp\htdocs\proo\admin\driver_form.php on line 91
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $email in C:\xampp\htdocs\proo\admin\driver_form.php on line 95
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $email in C:\xampp\htdocs\proo\admin\driver_form.php on line 97
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $phone in C:\xampp\htdocs\proo\admin\driver_form.php on line 103
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $phone in C:\xampp\htdocs\proo\admin\driver_form.php on line 105
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  Undefined variable $username in C:\xampp\htdocs\proo\admin\driver_form.php on line 137
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  error_log(../logs/db_errors.log): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\driver_form.php on line 161
+[02-Feb-2025 04:07:05 Asia/Riyadh] PHP Warning:  error_log(../logs/db_errors.log): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\driver_form.php on line 316
+[02-Feb-2025 04:07:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $username in C:\xampp\htdocs\proo\admin\driver_form.php on line 79
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $email in C:\xampp\htdocs\proo\admin\driver_form.php on line 80
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $phone in C:\xampp\htdocs\proo\admin\driver_form.php on line 81
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $age in C:\xampp\htdocs\proo\admin\driver_form.php on line 82
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $about in C:\xampp\htdocs\proo\admin\driver_form.php on line 83
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $address in C:\xampp\htdocs\proo\admin\driver_form.php on line 84
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $id_number in C:\xampp\htdocs\proo\admin\driver_form.php on line 85
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $license_number in C:\xampp\htdocs\proo\admin\driver_form.php on line 86
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $vehicle_type in C:\xampp\htdocs\proo\admin\driver_form.php on line 87
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $vehicle_model in C:\xampp\htdocs\proo\admin\driver_form.php on line 88
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $plate_number in C:\xampp\htdocs\proo\admin\driver_form.php on line 89
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $is_active in C:\xampp\htdocs\proo\admin\driver_form.php on line 90
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $current_status in C:\xampp\htdocs\proo\admin\driver_form.php on line 91
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $email in C:\xampp\htdocs\proo\admin\driver_form.php on line 95
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $email in C:\xampp\htdocs\proo\admin\driver_form.php on line 97
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $phone in C:\xampp\htdocs\proo\admin\driver_form.php on line 103
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $phone in C:\xampp\htdocs\proo\admin\driver_form.php on line 105
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  Undefined variable $username in C:\xampp\htdocs\proo\admin\driver_form.php on line 137
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  error_log(../logs/db_errors.log): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\driver_form.php on line 161
+[02-Feb-2025 04:07:16 Asia/Riyadh] PHP Warning:  error_log(../logs/db_errors.log): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\driver_form.php on line 316
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $username in C:\xampp\htdocs\proo\admin\driver_form.php on line 79
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $email in C:\xampp\htdocs\proo\admin\driver_form.php on line 80
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $phone in C:\xampp\htdocs\proo\admin\driver_form.php on line 81
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $age in C:\xampp\htdocs\proo\admin\driver_form.php on line 82
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $about in C:\xampp\htdocs\proo\admin\driver_form.php on line 83
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $address in C:\xampp\htdocs\proo\admin\driver_form.php on line 84
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $id_number in C:\xampp\htdocs\proo\admin\driver_form.php on line 85
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $license_number in C:\xampp\htdocs\proo\admin\driver_form.php on line 86
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $vehicle_type in C:\xampp\htdocs\proo\admin\driver_form.php on line 87
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $vehicle_model in C:\xampp\htdocs\proo\admin\driver_form.php on line 88
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $plate_number in C:\xampp\htdocs\proo\admin\driver_form.php on line 89
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $is_active in C:\xampp\htdocs\proo\admin\driver_form.php on line 90
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $current_status in C:\xampp\htdocs\proo\admin\driver_form.php on line 91
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $email in C:\xampp\htdocs\proo\admin\driver_form.php on line 95
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $email in C:\xampp\htdocs\proo\admin\driver_form.php on line 97
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $phone in C:\xampp\htdocs\proo\admin\driver_form.php on line 103
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $phone in C:\xampp\htdocs\proo\admin\driver_form.php on line 105
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  Undefined variable $username in C:\xampp\htdocs\proo\admin\driver_form.php on line 137
+[02-Feb-2025 04:07:53 Asia/Riyadh] PHP Warning:  error_log(../logs/db_errors.log): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\driver_form.php on line 161
+[02-Feb-2025 04:08:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:09:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:10:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:11:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:12:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:13:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:14:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:15:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:15:48 Asia/Riyadh] PHP Warning:  error_log(../logs/db_errors.log): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\driver_form.php on line 272
+[02-Feb-2025 04:16:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:17:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:18:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:18:13 Asia/Riyadh] PHP Warning:  error_log(../logs/db_errors.log): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\driver_form.php on line 260
+[02-Feb-2025 04:19:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:20:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:20:58 Asia/Riyadh] PHP Warning:  error_log(../logs/error.log): Failed to open stream: No such file or directory in C:\xampp\htdocs\proo\admin\driver_form.php on line 260
+[02-Feb-2025 04:21:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[2025-02-02 04:21:29] Database Error in driver_form.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+[02-Feb-2025 04:22:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:23:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:24:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:25:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:26:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:27:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[2025-02-02 04:27:27] Database Error in driver_form.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+[02-Feb-2025 04:28:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:29:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:30:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:31:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[2025-02-02 04:31:23] Database Error in driver_form.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+[02-Feb-2025 04:32:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:33:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:34:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:35:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:36:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:37:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:38:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:39:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:40:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:41:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:42:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:43:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:44:07 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:45:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:46:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:47:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:48:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:49:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:50:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:51:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:52:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:53:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:54:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:55:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:56:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:57:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:58:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 04:59:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 05:00:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 05:00:49 Asia/Riyadh] === Database Error Details ===
+Array
+(
+    [error_code] => HY093
+    [error_message] => SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+    [file] => C:\xampp\htdocs\proo\admin\driver_form.php
+    [line] => 127
+)
+
+[02-Feb-2025 05:01:05 Asia/Riyadh] === Database Error Details ===
+Array
+(
+    [error_code] => HY093
+    [error_message] => SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+    [file] => C:\xampp\htdocs\proo\admin\driver_form.php
+    [line] => 127
+)
+
+[02-Feb-2025 05:01:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 05:02:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 05:03:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 05:04:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 05:05:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 05:22:27 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list' in C:\xampp\htdocs\proo\admin\companies.php:39
+Stack trace:
+#0 C:\xampp\htdocs\proo\admin\companies.php(39): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\admin\companies.php on line 39
+[02-Feb-2025 05:26:24 Asia/Riyadh] PHP Warning:  Undefined variable $notification_msg in C:\xampp\htdocs\proo\admin\companies.php on line 42
+[02-Feb-2025 05:26:24 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'message' cannot be null in C:\xampp\htdocs\proo\admin\companies.php:39
+Stack trace:
+#0 C:\xampp\htdocs\proo\admin\companies.php(39): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\admin\companies.php on line 39
+[02-Feb-2025 05:28:28 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list' in C:\xampp\htdocs\proo\admin\companies.php:48
+Stack trace:
+#0 C:\xampp\htdocs\proo\admin\companies.php(48): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\admin\companies.php on line 48
+[02-Feb-2025 05:30:13 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list' in C:\xampp\htdocs\proo\admin\drivers.php:40
+Stack trace:
+#0 C:\xampp\htdocs\proo\admin\drivers.php(40): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\admin\drivers.php on line 40
+[02-Feb-2025 05:39:26 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\admin\complaints.php on line 109
+[02-Feb-2025 05:39:50 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\admin\complaints.php on line 109
+[02-Feb-2025 05:41:57 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\admin\complaints.php on line 109
+[02-Feb-2025 05:57:14 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 05:57:14 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 05:57:34 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 05:57:54 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=hi+
+[02-Feb-2025 05:57:54 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 05:57:54 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 05:57:54 Asia/Riyadh] Response: hi 
+[02-Feb-2025 05:57:54 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+[02-Feb-2025 05:58:05 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 05:58:35 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 05:59:05 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 05:59:35 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:00:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:00:35 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:00:46 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=hi+%3Bddd%0D%0A
+[02-Feb-2025 06:00:46 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:00:46 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:00:46 Asia/Riyadh] Response: hi ;ddd
+
+[02-Feb-2025 06:00:46 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+[02-Feb-2025 06:01:05 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:01:35 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:01:59 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=hi+%3Bddd%0D%0A
+[02-Feb-2025 06:01:59 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:01:59 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:01:59 Asia/Riyadh] Response: hi ;ddd
+
+[02-Feb-2025 06:01:59 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+[02-Feb-2025 06:02:05 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:02:35 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:03:05 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:03:42 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:04:05 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:04:35 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:05:05 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:06:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:07:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:08:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:08:11 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=hi+%3Bddd%0D%0A
+[02-Feb-2025 06:08:11 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:08:11 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:08:11 Asia/Riyadh] Response: hi ;ddd
+
+[02-Feb-2025 06:08:11 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`admin_panel`.`complaint_responses`, CONSTRAINT `complaint_responses_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE)
+[02-Feb-2025 06:08:35 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:09:05 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:10:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:11:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:12:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:12:36 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:12:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:12:56 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=%D8%A8%D8%B3%D9%85+%D8%A7%D9%84%D9%84%D9%87+%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86+%D8%A7%D9%84%D8%B1%D8%AD%D9%8A%D9%85
+[02-Feb-2025 06:12:56 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:12:56 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:12:56 Asia/Riyadh] Response: بسم الله الرحمن الرحيم
+[02-Feb-2025 06:12:56 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+        VALUES ('10', '11', 'بسم الله الرحمن الرحيم', ...' at line 2
+[02-Feb-2025 06:13:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:13:37 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:14:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:14:22 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:14:31 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=%D8%A8%D8%B3%D9%85+%D8%A7%D9%84%D9%84%D9%87
+[02-Feb-2025 06:14:31 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:14:31 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:14:31 Asia/Riyadh] Response: بسم الله
+[02-Feb-2025 06:14:31 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+        VALUES ('10', '11', 'بسم الله', NULL, 1, NULL)' at line 2
+[02-Feb-2025 06:14:52 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:15:20 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=%D8%A8%D8%B3%D9%85+%D8%A7%D9%84%D9%84%D9%87
+[02-Feb-2025 06:15:20 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:15:20 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:15:20 Asia/Riyadh] Response: بسم الله
+[02-Feb-2025 06:15:20 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+[02-Feb-2025 06:15:22 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:15:52 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:16:12 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=%D8%A8%D8%B3%D9%85+%D8%A7%D9%84%D9%84%D9%87
+[02-Feb-2025 06:16:12 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:16:12 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:16:12 Asia/Riyadh] Response: بسم الله
+[02-Feb-2025 06:16:12 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+[02-Feb-2025 06:16:21 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:16:52 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:17:22 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:18:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:19:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:19:21 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:19:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:20:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:20:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:21:08 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:21:38 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:22:39 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:22:56 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:23:03 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=00000000000000000000000000
+[02-Feb-2025 06:23:03 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:23:03 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:23:03 Asia/Riyadh] Response: 00000000000000000000000000
+[02-Feb-2025 06:23:03 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[02-Feb-2025 06:23:26 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=fjhhhhhhhhhhhhk
+[02-Feb-2025 06:23:26 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:23:26 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:23:26 Asia/Riyadh] Response: fjhhhhhhhhhhhhk
+[02-Feb-2025 06:23:26 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[02-Feb-2025 06:23:28 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:23:56 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:24:12 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=fjhhhhhhhhhhhhk
+[02-Feb-2025 06:24:12 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:24:12 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:24:12 Asia/Riyadh] Response: fjhhhhhhhhhhhhk
+[02-Feb-2025 06:24:12 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[02-Feb-2025 06:24:26 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:24:56 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:25:57 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:26:58 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:27:59 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:28:23 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=fjhhhhhhhhhhhhk
+[02-Feb-2025 06:28:23 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:28:23 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:28:23 Asia/Riyadh] Response: fjhhhhhhhhhhhhk
+[02-Feb-2025 06:28:23 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[02-Feb-2025 06:28:26 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:28:56 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:29:26 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:29:38 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=fjhhhhhhhhhhhhk
+[02-Feb-2025 06:29:38 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:29:38 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:29:38 Asia/Riyadh] Response: fjhhhhhhhhhhhhk
+[02-Feb-2025 06:29:38 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[02-Feb-2025 06:29:53 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=fjhhhhhhhhhhhhk
+[02-Feb-2025 06:29:53 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:29:53 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:29:53 Asia/Riyadh] Response: fjhhhhhhhhhhhhk
+[02-Feb-2025 06:29:53 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[02-Feb-2025 06:29:56 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:30:22 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:30:31 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=1000
+[02-Feb-2025 06:30:31 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:30:31 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:30:31 Asia/Riyadh] Response: 1000
+[02-Feb-2025 06:30:31 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[02-Feb-2025 06:30:53 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:31:22 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:31:24 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=1000
+[02-Feb-2025 06:31:24 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:31:24 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:31:24 Asia/Riyadh] Response: 1000
+[02-Feb-2025 06:31:24 Asia/Riyadh] Error submitting complaint reply: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_id' in 'field list'
+[02-Feb-2025 06:31:52 Asia/Riyadh] Responses found for complaint COMP202501078781: 3
+[02-Feb-2025 06:32:11 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=1000
+[02-Feb-2025 06:32:11 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:32:11 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:32:11 Asia/Riyadh] Response: 1000
+[02-Feb-2025 06:32:13 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:32:23 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:32:52 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:33:53 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:34:24 Asia/Riyadh] Error submitting complaint response: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_role' in 'field list'
+[02-Feb-2025 06:34:54 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:35:29 Asia/Riyadh] Error submitting complaint response: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_role' in 'field list'
+[02-Feb-2025 06:35:55 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:36:15 Asia/Riyadh] Error submitting complaint response: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`admin_panel`.`complaint_responses`, CONSTRAINT `complaint_responses_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE)
+[02-Feb-2025 06:36:58 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:37:00 Asia/Riyadh] Error submitting complaint response: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`admin_panel`.`complaint_responses`, CONSTRAINT `complaint_responses_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE)
+[02-Feb-2025 06:37:57 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:38:31 Asia/Riyadh] Error submitting complaint response: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`admin_panel`.`complaint_responses`, CONSTRAINT `complaint_responses_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE)
+[02-Feb-2025 06:38:53 Asia/Riyadh] Error submitting complaint response: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`admin_panel`.`complaint_responses`, CONSTRAINT `complaint_responses_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE)
+[02-Feb-2025 06:38:58 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:39:59 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:40:21 Asia/Riyadh] Error submitting complaint response: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`admin_panel`.`complaint_responses`, CONSTRAINT `complaint_responses_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE)
+[02-Feb-2025 06:41:00 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:41:37 Asia/Riyadh] Error submitting complaint response: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`admin_panel`.`complaint_responses`, CONSTRAINT `complaint_responses_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE)
+[02-Feb-2025 06:42:02 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:43:03 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:43:05 Asia/Riyadh] Error submitting complaint response: خطأ في التحقق من صلاحية المشرف
+[02-Feb-2025 06:44:03 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:45:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:45:08 Asia/Riyadh] Error submitting complaint response: غير مصرح لك بالرد على الشكوى
+[02-Feb-2025 06:46:05 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:46:43 Asia/Riyadh] Error submitting complaint response: غير مصرح لك بالرد على الشكوى
+[02-Feb-2025 06:47:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:48:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:48:26 Asia/Riyadh] Error submitting complaint response: غير مصرح لك بالرد على الشكوى
+[02-Feb-2025 06:48:54 Asia/Riyadh] Error submitting complaint response: غير مصرح لك بالرد على الشكوى
+[02-Feb-2025 06:49:07 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:50:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:50:48 Asia/Riyadh] Session data: Array
+(
+    [admin_id] => 5
+    [admin_role] => مدير_عام
+    [admin_username] => ادمن
+    [department] => management
+    [employee_id] => 5
+    [token] => 47997402ccefaec5846f6a35ab591a2a10a3b609327de5555f751fef6ce87be0
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[02-Feb-2025 06:50:48 Asia/Riyadh] Checking admin ID: 5
+[02-Feb-2025 06:50:48 Asia/Riyadh] Admin not found in database for ID: 5
+[02-Feb-2025 06:50:48 Asia/Riyadh] isAdmin: false
+[02-Feb-2025 06:50:48 Asia/Riyadh] isEmployee: false
+[02-Feb-2025 06:50:48 Asia/Riyadh] userId: null
+[02-Feb-2025 06:50:48 Asia/Riyadh] Error submitting complaint response: غير مصرح لك بالرد على الشكوى
+[02-Feb-2025 06:51:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:51:16 Asia/Riyadh] Session data: Array
+(
+    [admin_id] => 5
+    [admin_role] => مدير_عام
+    [admin_username] => ادمن
+    [department] => management
+    [employee_id] => 5
+    [token] => 47997402ccefaec5846f6a35ab591a2a10a3b609327de5555f751fef6ce87be0
+    [company_id] => 11
+    [company_name] => ma7rez
+    [company_email] => ahmed.0@gmail.com
+)
+
+[02-Feb-2025 06:51:16 Asia/Riyadh] Checking admin ID: 5
+[02-Feb-2025 06:51:16 Asia/Riyadh] Admin not found in database for ID: 5
+[02-Feb-2025 06:51:16 Asia/Riyadh] isAdmin: false
+[02-Feb-2025 06:51:16 Asia/Riyadh] isEmployee: false
+[02-Feb-2025 06:51:16 Asia/Riyadh] userId: null
+[02-Feb-2025 06:51:16 Asia/Riyadh] Error submitting complaint response: غير مصرح لك بالرد على الشكوى
+[02-Feb-2025 06:52:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:52:43 Asia/Riyadh] Error submitting complaint response: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_role' in 'field list'
+[02-Feb-2025 06:53:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:53:39 Asia/Riyadh] Error submitting complaint response: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin_role' in 'field list'
+[02-Feb-2025 06:54:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:54:43 Asia/Riyadh] Error submitting complaint response: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') VALUES ('10', NULL, '5', 'الللللللللللللللللللل', 0, N...' at line 8
+[02-Feb-2025 06:55:06 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:55:27 Asia/Riyadh] Error submitting complaint response: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') VALUES ('10', NULL, '5', 'الللللللللللللللللللل', 0, N...' at line 8
+[02-Feb-2025 06:56:07 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:56:12 Asia/Riyadh] Error submitting complaint response: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') VALUES ('10', NULL, '5', 'الللللللللللللللللللل', 0, N...' at line 8
+[02-Feb-2025 06:56:20 Asia/Riyadh] Error submitting complaint response: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') VALUES ('10', NULL, '5', 'الللللللللللللللللللل', 0, N...' at line 8
+[02-Feb-2025 06:56:44 Asia/Riyadh] Error submitting complaint response: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1
+[02-Feb-2025 06:57:07 Asia/Riyadh] Responses found for complaint COMP202501078781: 4
+[02-Feb-2025 06:57:34 Asia/Riyadh] Responses found for complaint COMP202501078781: 5
+[02-Feb-2025 06:57:51 Asia/Riyadh] Raw input: complaint_id=COMP202501078781&response=%D8%AA%D9%85+%D8%A7%D9%84%D8%AD%D9%84
+[02-Feb-2025 06:57:51 Asia/Riyadh] Decoded data: 
+[02-Feb-2025 06:57:51 Asia/Riyadh] Complaint number: COMP202501078781
+[02-Feb-2025 06:57:51 Asia/Riyadh] Response: تم الحل
+[02-Feb-2025 06:57:53 Asia/Riyadh] Responses found for complaint COMP202501078781: 6
+[02-Feb-2025 06:57:55 Asia/Riyadh] Responses found for complaint COMP202501078781: 6

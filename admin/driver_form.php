@@ -121,15 +121,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt = $conn->prepare($sql);
                     $stmt->execute($params);
 
-                    // Add notification
-                    $stmt = $conn->prepare("INSERT INTO notifications (admin_id, message, type, link) VALUES (:admin_id, :message, 'info', :link)");
+                    // Add notification for driver update
+                    $notification_msg = "تم تحديث بيانات السائق: " . $username;
+                    $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'info', ?)");
                     $stmt->execute([
-                        ':admin_id' => $_SESSION['admin_id'],
-                        ':message' => "تم تحديث بيانات السائق: $username",
-                        ':link' => "drivers.php"
+                        $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
+                        $_SESSION['admin_role'] ?? 'مدير_عام',
+                        $notification_msg,
+                        "drivers.php"
                     ]);
                     
-                    $success = 'تم تحديث بيانات السائق بنجاح';
+                    // Set success message in session and redirect
+                    $_SESSION['success_message'] = 'تم تحديث بيانات السائق بنجاح';
+                    header('Location: drivers.php');
+                    exit;
                 } else {
                     $success = 'لم يتم إجراء أي تغييرات';
                 }
@@ -164,10 +169,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
                 
-                // Add notification
-                $stmt = $conn->prepare("INSERT INTO notifications (admin_id, message, type, link) VALUES (?, ?, 'success', ?)");
-                $stmt->execute([$_SESSION['admin_id'], "تم إضافة سائق جديد: $username", "drivers.php"]);
+                // Add notification for new driver
+                $notification_msg = "تم إضافة سائق جديد: " . $username;
+                if (!empty($password)) {
+                    $notification_msg .= "\n" . "كلمة المرور: " . $password;
+                }
                 
+                $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'success', ?)");
+                $stmt->execute([
+                    $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
+                    $_SESSION['admin_role'] ?? 'مدير_عام',
+                    $notification_msg,
+                    "drivers.php"
+                ]);
+                
+                // Set success message in session and redirect
+                $_SESSION['success_message'] = 'تم إضافة السائق الجديد بنجاح';
                 header('Location: drivers.php');
                 exit;
             }
@@ -186,7 +203,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // محاولة التحديث مرة أخرى بدون التحقق من التكرار
                 $stmt = $conn->prepare($sql);
                 $stmt->execute($params);
-                $success = 'تم تحديث بيانات السائق بنجاح';
+                // Set success message in session and redirect
+                $_SESSION['success_message'] = 'تم تحديث بيانات السائق بنجاح';
+                header('Location: drivers.php');
+                exit;
             } else {
                 $error = 'حدث خطأ في قاعدة البيانات. الرجاء المحاولة مرة أخرى';
             }

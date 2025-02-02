@@ -41,9 +41,12 @@ try {
             SELECT id FROM admins WHERE id = ?
             UNION
             SELECT id FROM employees WHERE id = ? AND department = 'accounting'
+              UNION
+            SELECT id FROM employees WHERE id = ? AND role = 'مدير_عام'
+      
         ) users
     ");
-    $stmt->execute([$created_by, $created_by]);
+    $stmt->execute([$created_by, $created_by, $created_by]);
     if (!$stmt->fetch()) {
         throw new Exception("خطأ في بيانات المستخدم - يجب أن تكون مدير أو موظف محاسبة");
     }

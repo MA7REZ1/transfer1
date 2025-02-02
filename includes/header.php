@@ -4,20 +4,23 @@ if (!isLoggedIn()) {
     exit;
 }
 
-$admin_id = $_SESSION['admin_id'];
-$stmt = $conn->prepare("SELECT COUNT(*) FROM notifications WHERE admin_id = ? AND is_read = 0");
-$stmt->execute([$admin_id]);
+// جلب عدد الإشعارات غير المقروءة لجميع المستخدمين
+$stmt = $conn->prepare("SELECT COUNT(*) FROM notifications WHERE is_read = 0");
+$stmt->execute();
 $unread_notifications = $stmt->fetchColumn();
 ?>
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>لوحة التحكم</title>
+    
+    <!-- CSS Files -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
+    <link href="../assets/css/responsive.css" rel="stylesheet">
     <style>
     /* تثبيت السايدبار */
     .main-sidebar {
@@ -46,9 +49,68 @@ $unread_notifications = $stmt->fetchColumn();
     body {
         overflow-x: hidden !important;
     }
+    /* Mobile Menu Toggle Button */
+    .mobile-menu-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 1050;
+        background: var(--primary-gradient);
+        border: none;
+        color: white;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-menu-toggle:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .mobile-menu-toggle i {
+        font-size: 1.25rem;
+    }
+
+    /* Hide toggle on desktop */
+    @media (min-width: 992px) {
+        .mobile-menu-toggle {
+            display: none;
+        }
+    }
+
+    /* Overlay for mobile menu */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1030;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+        opacity: 1;
+    }
     </style>
 </head>
 <body>
+    <!-- Mobile Menu Toggle Button -->
+    <button class="mobile-menu-toggle d-lg-none">
+        <i class="fas fa-bars"></i>
+    </button>
+
     <?php include 'sidebar.php'; ?>
     
     <div class="main-content">
@@ -329,118 +391,9 @@ $unread_notifications = $stmt->fetchColumn();
             </div>
         </div>
 
+<!-- JavaScript Files -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const notificationIcon = document.querySelector('.notification-icon');
-    const notificationsDropdown = document.querySelector('.notifications-dropdown');
-    
-    // Toggle notifications dropdown
-    notificationIcon.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        // Toggle dropdown visibility
-        notificationsDropdown.classList.toggle('show');
-        
-        // Add ringing animation to bell icon
-        const bellIcon = this.querySelector('i');
-        bellIcon.classList.add('ringing');
-        setTimeout(() => bellIcon.classList.remove('ringing'), 1000);
-        
-        // Load notifications if dropdown is shown
-        if (notificationsDropdown.classList.contains('show')) {
-            loadNotifications();
-        }
-    });
-    
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!notificationsDropdown.contains(e.target) && !notificationIcon.contains(e.target)) {
-            notificationsDropdown.classList.remove('show');
-        }
-    });
-    
-    // Function to load notifications
-    function loadNotifications() {
-        fetch('get_notifications.php')
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const container = document.getElementById('notificationsContainer');
-                    if (data.notifications.length > 0) {
-                        const notificationsHtml = data.notifications.map(notification => `
-                            <div class="notification-item ${notification.is_read ? '' : 'unread'}" data-id="${notification.id}">
-                                <div class="notification-content">
-                                    <p>${notification.message}</p>
-                                    <div class="notification-time">
-                                        <i class="far fa-clock"></i>
-                                        ${notification.time_ago}
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('');
-                        container.innerHTML = notificationsHtml;
-                    } else {
-                        container.innerHTML = `
-                            <div class="text-center py-4">
-                                <i class="far fa-bell-slash fa-2x text-muted mb-2"></i>
-                                <p class="text-muted">لا توجد إشعارات جديدة</p>
-                            </div>
-                        `;
-                    }
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
-    
-    // Handle notification clicks
-    document.addEventListener('click', function(e) {
-        const notificationItem = e.target.closest('.notification-item');
-        if (notificationItem) {
-            const notificationId = notificationItem.dataset.id;
-            if (notificationItem.classList.contains('unread')) {
-                markNotificationAsRead(notificationId);
-            }
-        }
-    });
-
-    // Function to mark notification as read
-    function markNotificationAsRead(notificationId) {
-        fetch('ajax/mark_notification_read.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                notification_id: notificationId
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const notificationItem = document.querySelector(`.notification-item[data-id="${notificationId}"]`);
-                if (notificationItem) {
-                    notificationItem.classList.remove('unread');
-                }
-                
-                // Update notification count
-                const countElement = document.getElementById('notificationCount');
-                if (data.unread_count > 0) {
-                    if (countElement) {
-                        countElement.textContent = data.unread_count;
-                    }
-                } else if (countElement) {
-                    countElement.remove();
-                }
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
-    // Check for new notifications periodically
-    setInterval(loadNotifications, 30000); // Check every 30 seconds
-});
-</script>
+<script src="../assets/js/responsive.js"></script>
+<script src="../assets/js/notifications.js"></script>
 </body>
 </html>

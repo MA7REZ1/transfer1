@@ -1,0 +1,572 @@
+/* Wrapper Styles */
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Sidebar Base Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: 1040;
+    transition: transform 0.3s ease;
+    background: linear-gradient(180deg, #1f31a8 0%, #102de7 100%);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    color: #fff;
+    left: 0;
+    transform: translateX(-100%);
+}
+
+/* RTL Base Styles */
+[dir="rtl"] .sidebar {
+    left: auto;
+    right: 0;
+    transform: translateX(100%);
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    width: 100%;
+    min-height: 100vh;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Desktop Styles */
+@media (min-width: 993px) {
+    .sidebar {
+        transform: translateX(0);
+    }
+
+    [dir="rtl"] .sidebar {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-right: 280px;
+        width: calc(100% - 280px);
+    }
+
+    [dir="rtl"] .main-content {
+        margin-left: 0;
+        margin-right: 280px;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%) !important;
+    }
+
+    [dir="rtl"] .sidebar {
+        transform: translateX(100%) !important;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+    }
+
+    .sidebar.show {
+        transform: translateX(0) !important;
+    }
+}
+
+/* Overlay Styles */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1039;
+    display: none;
+}
+
+.sidebar-overlay.show {
+    display: block;
+}
+
+/* Mobile Specific Styles */
+@media (max-width: 576px) {
+    .sidebar {
+        width: 85% !important;
+    }
+
+    .mobile-menu-toggle {
+        position: fixed !important;
+        top: 1rem !important;
+        right: 1rem !important;
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 12px !important;
+        border: none !important;
+        background: #172cb9 !important;
+        color: #fff !important;
+        z-index: 1050 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    }
+
+    .mobile-menu-toggle:hover,
+    .mobile-menu-toggle:focus,
+    .mobile-menu-toggle:active {
+        background: #172cb9 !important;
+        color: #fff !important;
+        opacity: 1 !important;
+    }
+
+    .mobile-menu-toggle i {
+        color: #fff !important;
+        font-size: 1.5rem !important;
+    }
+
+    [dir="rtl"] .mobile-menu-toggle {
+        right: auto !important;
+        left: 1rem !important;
+    }
+
+    .main-content {
+        padding: 0.75rem;
+    }
+
+    .stats-card {
+        padding: 1rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .card-header {
+        padding: 1rem;
+    }
+
+    .table td, .table th {
+        padding: 0.4rem;
+        font-size: 0.8125rem;
+    }
+
+    .notifications-dropdown {
+        width: 100%;
+        max-width: none;
+        position: fixed;
+        top: var(--header-height);
+        right: 0;
+        left: 0;
+        margin: 0;
+        height: calc(100vh - var(--header-height));
+        border-radius: 0;
+    }
+
+    .modal-dialog {
+        margin: 0;
+        max-width: none;
+        height: 100%;
+    }
+
+    .modal-content {
+        height: 100%;
+        border-radius: 0;
+    }
+
+    .sidebar-item {
+        padding: 1rem 1.25rem;
+        margin: 0.2rem 0.5rem;
+    }
+
+    /* تحسينات عامة للتجاوب */
+    .container-fluid {
+        padding: 0.5rem;
+    }
+
+    .row {
+        margin-right: -0.5rem;
+        margin-left: -0.5rem;
+    }
+
+    .col, [class*="col-"] {
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+    }
+
+    /* تحسين حجم النصوص */
+    h1, .h1 { font-size: 1.75rem; }
+    h2, .h2 { font-size: 1.5rem; }
+    h3, .h3 { font-size: 1.25rem; }
+    h4, .h4 { font-size: 1.125rem; }
+    h5, .h5 { font-size: 1rem; }
+
+    /* تحسين الأزرار */
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .btn-group {
+        flex-direction: column;
+    }
+
+    /* تحسين النماذج */
+    .form-control {
+        font-size: 16px; /* لمنع التكبير التلقائي في iOS */
+    }
+
+    /* تحسين الجداول */
+    .table td, .table th {
+        padding: 0.5rem !important;
+        font-size: 0.875rem;
+    }
+
+    /* تحسين المودال */
+    .modal-dialog {
+        margin: 0;
+    }
+
+    .modal-content {
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    /* تحسين البطاقات */
+    .card {
+        border-radius: 0.25rem;
+    }
+
+    /* تحسين التنبيهات */
+    .alert {
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-card {
+        margin-bottom: 1rem;
+    }
+
+    .stat-value {
+        font-size: 1.75rem;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+    }
+
+    .chart-card {
+        margin-bottom: 1rem;
+    }
+
+    .chart-container {
+        height: 300px !important;
+    }
+
+    .table td, .table th {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+}
+
+/* Fix for iOS Safari 100vh issue */
+@supports (-webkit-touch-callout: none) {
+    .sidebar, .main-content {
+        height: -webkit-fill-available;
+    }
+}
+
+/* Mobile Sidebar Improvements */
+@media (max-width: 991px) {
+    .sidebar-header {
+        padding: 1.25rem;
+    }
+
+    .sidebar-brand {
+        font-size: 1.1rem;
+    }
+
+    .sidebar-item {
+        padding: 0.75rem 1.25rem;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+    }
+
+    .sidebar-item i {
+        margin-left: 10px;
+        font-size: 1.25rem;
+        width: 25px;
+        text-align: center;
+    }
+
+    .sidebar-item span {
+        font-size: 0.95rem;
+    }
+
+    .sidebar-divider {
+        margin: 0.75rem 1.25rem;
+    }
+
+    .sidebar-item.active {
+        position: relative;
+    }
+
+    .sidebar-item.active::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+    }
+}
+
+/* تحسينات عامة للتجاوب */
+@media (max-width: 992px) {
+    /* تحسين الجداول */
+    .table-responsive {
+        width: 100%;
+        margin-bottom: 1rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        pointer-events: auto;
+    }
+
+    .table {
+        min-width: 100%;
+        white-space: nowrap;
+    }
+
+    .table td, .table th {
+        padding: 0.75rem !important;
+        vertical-align: middle !important;
+    }
+
+    /* تحسين النماذج */
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        height: auto;
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+
+    /* تحسين الأزرار */
+    .btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        white-space: nowrap;
+        touch-action: manipulation;
+    }
+
+    .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    /* تحسين البطاقات */
+    .card {
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .card-header {
+        padding: 1rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    /* تحسين المودال */
+    .modal {
+        padding: 0 !important;
+    }
+
+    .modal-dialog {
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+    }
+
+    .modal-content {
+        border-radius: 0.5rem;
+    }
+
+    .modal-header {
+        padding: 1rem;
+    }
+
+    .modal-body {
+        padding: 1rem;
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+    }
+
+    .modal-footer {
+        padding: 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    /* تحسين التنبيهات */
+    .alert {
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+
+    /* تحسين الإشعارات */
+    .dropdown-menu {
+        width: 100%;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    /* تحسين لوحة المعلومات */
+    .stats-card {
+        margin-bottom: 1rem;
+    }
+
+    .chart-container {
+        min-height: 300px;
+        margin-bottom: 1rem;
+    }
+}
+
+/* تحسينات خاصة للأجهزة اللمسية */
+@media (hover: none) {
+    /* تحسين التفاعل مع الأزرار */
+    .btn:active,
+    .form-control:active,
+    .nav-link:active,
+    .dropdown-item:active {
+        opacity: 0.7;
+    }
+
+    /* إزالة تأثيرات hover */
+    *:hover {
+        background: none !important;
+        transform: none !important;
+    }
+}
+
+/* دعم RTL */
+[dir="rtl"] {
+    /* تحسينات السايدبار */
+    .sidebar {
+        right: 0 !important;
+        left: auto !important;
+    }
+
+    /* تحسين اتجاه النصوص والعناصر */
+    .dropdown-menu {
+        text-align: right;
+    }
+
+    .modal-header .close {
+        margin: -1rem auto -1rem -1rem;
+    }
+
+    .alert {
+        text-align: right;
+    }
+
+    /* تحسين الأيقونات والمؤشرات */
+    .btn i,
+    .alert i,
+    .nav-link i {
+        margin-left: 0.5rem;
+        margin-right: 0;
+    }
+}
+
+/* تحسينات الأداء */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sidebar.show {
+    transform: none;
+    box-shadow: none;
+}
+
+[dir="rtl"] .sidebar.show {
+    transform: none;
+}
+
+.mobile-menu-toggle {
+    display: none !important; /* إخفاء الزر افتراضياً */
+}
+
+@media (max-width: 992px) {
+    .mobile-menu-toggle {
+        display: flex !important;
+        position: fixed !important;
+        top: 1rem !important;
+        right: 1rem !important;
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 12px !important;
+        border: none !important;
+        background: #172cb9 !important;
+        color: #fff !important;
+        z-index: 1050 !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    }
+
+    .mobile-menu-toggle i {
+        font-size: 1.5rem !important;
+        color: #fff !important;
+    }
+
+    .mobile-menu-toggle:active {
+        transform: scale(0.95) !important;
+    }
+
+    [dir="rtl"] .mobile-menu-toggle {
+        right: auto !important;
+        left: 1rem !important;
+    }
+}
+
+@media (min-width: 993px) {
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+}
+
+/* تحسين الجداول */
+.table-responsive {
+    width: 100%;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    pointer-events: auto;
+} 

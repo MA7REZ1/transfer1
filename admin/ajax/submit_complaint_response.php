@@ -54,6 +54,7 @@ try {
                 employee_id, 
                 response,
                 is_company_reply
+                
             ) VALUES (?, NULL, ?, ?, 0)
         ");
         $stmt->execute([
@@ -68,13 +69,13 @@ try {
                 admin_id,
                 employee_id, 
                 response,
-                is_company_reply
-            ) VALUES (?, ?, NULL, ?, 0)
+                is_company_reply) VALUES (?, ?, NULL, ?, 0)
         ");
         $stmt->execute([
             $complaint_id,
             $_SESSION['admin_id'],
-            $response
+            $response,
+   
         ]);
     }
 
@@ -107,7 +108,7 @@ try {
                 message,
                 reference_id,
                 link
-            ) VALUES (?, 'complaint_response', ?, ?, ?, '#')
+            ) VALUES (?, ?, ?, ?, ?, ?)
         ");
 
     $notification_message = 'تم إضافة رد جديد على الشكوى رقم ' . $complaint['complaint_number'];
@@ -117,9 +118,11 @@ try {
 
         $stmt->execute([
             $complaint['company_id'],
+            'complaint_response',
             'رد جديد على الشكوى',
-        $notification_message,
-            $complaint_id
+            $notification_message,
+            $complaint_id,
+            '#'
         ]);
 
     // Commit transaction
@@ -140,4 +143,4 @@ try {
         'success' => false,
         'message' => $e->getMessage()
     ]);
-} 
+}

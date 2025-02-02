@@ -81,8 +81,8 @@ try {
     // Insert the response
     $stmt = $conn->prepare("
         INSERT INTO complaint_responses 
-        (complaint_id, company_id, response, admin_id, is_company_reply) 
-        VALUES (?, ?, ?, NULL, 1)
+        (complaint_id, company_id, response, admin_id, is_company_reply, employee_id) 
+        VALUES (?, ?, ?, NULL, 1, NULL)
     ");
     
     $stmt->execute([
@@ -94,7 +94,7 @@ try {
     // Create notification for admins
     $stmt = $conn->prepare("
         INSERT INTO notifications 
-        (admin_id, message, type, link) 
+        (user_id, message, type, link) 
         VALUES (?, ?, ?, ?)
     ");
     

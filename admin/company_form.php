@@ -76,10 +76,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $errors['logo'] = 'حجم الملف كبير جداً. الحد الأقصى هو 5MB';
                 } else {
                     $logo_name = uniqid() . '_' . $_FILES['logo']['name'];
-                    $upload_path = 'uploads/companies/' . $logo_name;
+                    $upload_dir = 'C:/xampp/htdocs/proo/uploads/companies/';
+                    
+                    // التأكد من وجود المجلد وإنشائه إذا لم يكن موجوداً
+                    if (!file_exists($upload_dir)) {
+                        if (!mkdir($upload_dir, 0777, true)) {
+                            $errors['logo'] = 'فشل في إنشاء مجلد الصور';
+                            throw new Exception('فشل في إنشاء مجلد الصور');
+                        }
+                        chmod($upload_dir, 0777);
+                    }
+                    
+                    $upload_path = $upload_dir . $logo_name;
+                    
+                    if (!is_writable($upload_dir)) {
+                        $errors['logo'] = 'لا يمكن الكتابة في مجلد الصور';
+                        throw new Exception('لا يمكن الكتابة في مجلد الصور');
+                    }
                     
                     if (!move_uploaded_file($_FILES['logo']['tmp_name'], $upload_path)) {
-                        $errors['logo'] = 'فشل في رفع الصورة';
+                        $error_details = error_get_last();
+                        $errors['logo'] = 'فشل في رفع الصورة: ' . ($error_details ? $error_details['message'] : '');
+                        throw new Exception('فشل في رفع الصورة');
                     }
                 }
             }
@@ -90,37 +108,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $password = $_POST['name'] . '@123';
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                     
-                    $stmt = $conn->prepare("
-                        UPDATE companies 
-                        SET name = ?, email = ?, phone = ?, address = ?, 
-                            commercial_record = ?, tax_number = ?, 
-                            contact_person = ?, contact_phone = ?, 
-                            is_active = ?, logo = ?, password = ?
-                        WHERE id = ?
-                    ");
+                    // تحضير قائمة الحقول للتحديث
+                    $update_fields = [];
+                    
+                    // مقارنة البيانات القديمة مع الجديدة
+                    if ($company['name'] !== $_POST['name']) $update_fields['name'] = $_POST['name'];
+                    if ($company['email'] !== $_POST['email']) $update_fields['email'] = $_POST['email'];
+                    if ($company['phone'] !== $_POST['phone']) $update_fields['phone'] = $_POST['phone'];
+                    if ($company['address'] !== $_POST['address']) $update_fields['address'] = $_POST['address'];
+                    if ($company['commercial_record'] !== $_POST['commercial_record']) $update_fields['commercial_record'] = $_POST['commercial_record'];
+                    if ($company['tax_number'] !== $_POST['tax_number']) $update_fields['tax_number'] = $_POST['tax_number'];
+                    if ($company['contact_person'] !== $_POST['contact_person']) $update_fields['contact_person'] = $_POST['contact_person'];
+                    if ($company['contact_phone'] !== $_POST['contact_phone']) $update_fields['contact_phone'] = $_POST['contact_phone'];
+                    if ($company['is_active'] != (isset($_POST['is_active']) ? 1 : 0)) $update_fields['is_active'] = isset($_POST['is_active']) ? 1 : 0;
+                    
+                    // إضافة الصورة للتحديث فقط إذا تم رفع صورة جديدة
+                    if (!empty($_FILES['logo']['name'])) {
+                        $update_fields['logo'] = $logo_name;
+                    }
+
+                    // التحقق من وجود تغييرات
+                    if (!empty($update_fields)) {
+                        // بناء استعلام التحديث ديناميكياً
+                        $update_sql = "UPDATE companies SET ";
+                        $update_params = [];
+                        foreach ($update_fields as $field => $value) {
+                            $update_sql .= "$field = ?, ";
+                            $update_params[] = $value;
+                        }
+                        $update_sql = rtrim($update_sql, ", "); // إزالة الفاصلة الأخيرة
+                        $update_sql .= " WHERE id = ?";
+                        $update_params[] = $company['id'];
+
+                        $stmt = $conn->prepare($update_sql);
+                        if (!$stmt->execute($update_params)) {
+                            throw new Exception("فشل في تنفيذ الاستعلام: " . implode(", ", $stmt->errorInfo()));
+                        }
+                    }
+                    
+                    // إضافة الإشعارات بشكل مبسط
+                    $notification_msg = "تم تحديث بيانات الشركة: " . $_POST['name'];
+                    $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'info', ?)");
                     $stmt->execute([
-                        $_POST['name'],
-                        $_POST['email'],
-                        $_POST['phone'],
-                        $_POST['address'],
-                        $_POST['commercial_record'],
-                        $_POST['tax_number'],
-                        $_POST['contact_person'],
-                        $_POST['contact_phone'],
-                        isset($_POST['is_active']) ? 1 : 0,
-                        $logo_name,
-                        $hashed_password,
-                        $company['id']
+                        $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
+                        $_SESSION['admin_role'] ?? 'مدير_عام',
+                        $notification_msg,
+                        "companies.php"
                     ]);
                     
-                    // Add notification with password info
-                    $notification_msg = "تم تحديث بيانات الشركة: " . $_POST['name'] . "\n" . 
-                                     "كلمة المرور الجديدة: " . $password;
-                    $stmt = $conn->prepare("INSERT INTO notifications (admin_id, message, type, link) VALUES (?, ?, 'info', ?)");
-                    $stmt->execute([$_SESSION['admin_id'], $notification_msg, "companies.php"]);
-                    
-                    // Show success message with new password
-                    $_SESSION['success_msg'] = "تم تحديث بيانات الشركة بنجاح. كلمة المرور الجديدة هي: " . $password;
+                    // Show success message
+                    $_SESSION['success_msg'] = "تم تحديث بيانات الشركة بنجاح";
                 } else {
                     // Insert new company
                     $password = $_POST['name'] . '@123';
@@ -146,11 +183,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $hashed_password
                     ]);
                     
-                    // Add notification with password info
+                    // إضافة الإشعارات بشكل مبسط
                     $notification_msg = "تم إضافة شركة جديدة: " . $_POST['name'] . "\n" . 
                                      "كلمة المرور: " . $password;
-                    $stmt = $conn->prepare("INSERT INTO notifications (admin_id, message, type, link) VALUES (?, ?, 'success', ?)");
-                    $stmt->execute([$_SESSION['admin_id'], $notification_msg, "companies.php"]);
+                    $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'success', ?)");
+                    $stmt->execute([
+                        $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
+                        $_SESSION['admin_role'] ?? 'مدير_عام',
+                        $notification_msg,
+                        "companies.php"
+                    ]);
 
                     // Show success message with password
                     $_SESSION['success_msg'] = "تم إضافة الشركة بنجاح. كلمة المرور هي: " . $password;
@@ -162,7 +204,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } catch (PDOException $e) {
             $conn->rollBack();
-            $errors['general'] = 'حدث خطأ أثناء حفظ البيانات';
+            error_log('Database Error: ' . $e->getMessage());
+            $errors['general'] = 'حدث خطأ أثناء حفظ البيانات: ' . $e->getMessage();
+        } catch (Exception $e) {
+            $conn->rollBack();
+            error_log('General Error: ' . $e->getMessage());
+            $errors['general'] = $e->getMessage();
         }
     }
     
@@ -214,7 +261,7 @@ require_once '../includes/header.php';
                 <!-- Company Logo -->
                 <div class="col-md-12 mb-4 text-center">
                     <div class="logo-upload">
-                        <img src="<?php echo !empty($company['logo']) ? 'uploads/companies/' . $company['logo'] : 'assets/img/company-placeholder.png'; ?>" 
+                        <img src="<?php echo !empty($company['logo']) ? '/proo/uploads/companies/' . htmlspecialchars($company['logo']) : 'assets/img/company-placeholder.png'; ?>" 
                              alt="Company Logo" 
                              class="img-thumbnail mb-2" 
                              style="max-width: 200px;">

@@ -26,7 +26,7 @@ $stmt = $conn->prepare("
         (SELECT 
             CASE 
                 WHEN cr.is_company_reply = 1 THEN comp2.name
-                WHEN cr.admin_id IS NOT NULL THEN 'الإدارة'
+                WHEN cr.admin_id IS  NULL THEN 'الإدارة'
             END
          FROM complaint_responses cr
          LEFT JOIN companies comp2 ON cr.company_id = comp2.id
@@ -55,58 +55,69 @@ include '../includes/header.php';
                 <h1 class="h3 mb-0">إدارة الشكاوى</h1>
             </div>
 
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered align-middle mb-0">
-                            <thead class="bg-light">
-                                <tr>
-                                    <th>رقم الشكوى</th>
-                                    <th>الشركة</th>
-                                    <th>السائق</th>
-                                    <th>رقم الطلب</th>
-                                    <th>الموضوع</th>
-                                    <th>الأولوية</th>
-                                    <th>الحالة</th>
-                                    <th>التاريخ</th>
-                                    <th class="text-center">الإجراءات</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (empty($complaints)): ?>
-                                    <tr>
-                                        <td colspan="9" class="text-center py-4">
-                                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                                            <p class="text-muted mb-0">لا توجد شكاوى حالياً</p>
-                                        </td>
-                                    </tr>
-                                <?php else: ?>
-                                    <?php foreach ($complaints as $complaint): ?>
-                                        <tr>
-                                            <td><?php echo htmlspecialchars($complaint['complaint_number']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['company_name']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['driver_name']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['request_number']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['subject']); ?></td>
-                                            <td>
-                                                <span class="badge bg-<?php echo getPriorityClass($complaint['priority']); ?>">
-                                                    <?php echo getPriorityLabel($complaint['priority']); ?>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-<?php echo getStatusClass($complaint['status']); ?>">
-                                                    <?php echo getStatusLabel($complaint['status']); ?>
-                                                </span>
-                                                <?php if ($complaint['response_count'] > 0): ?>
-                                                    <span class="badge bg-info">
-                                                        <?php echo $complaint['response_count']; ?> رد
-                                                        <?php if ($complaint['latest_response_by']): ?>
-                                                            (<?php echo htmlspecialchars($complaint['latest_response_by']); ?>)
-                                                        <?php endif; ?>
-                                                    </span>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td>
+            <?php if (empty($complaints)): ?>
+                <div class="text-center py-5">
+                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                    <p class="text-muted mb-0">لا توجد شكاوى حالياً</p>
+                </div>
+            <?php else: ?>
+                <div class="row g-4">
+                    <?php foreach ($complaints as $complaint): ?>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card complaint-card h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-<?php echo getPriorityClass($complaint['priority']); ?>">
+                                        <i class="fas fa-flag me-1"></i>
+                                        <?php echo getPriorityLabel($complaint['priority']); ?>
+                                    </span>
+                                    <span class="badge bg-<?php echo getStatusClass($complaint['status']); ?>">
+                                        <?php echo getStatusLabel($complaint['status']); ?>
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="complaint-info mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small class="text-muted">رقم الشكوى</small>
+                                            <strong><?php echo htmlspecialchars($complaint['complaint_number'] ?? ''); ?></strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small class="text-muted">الشركة</small>
+                                            <strong><?php echo htmlspecialchars($complaint['company_name'] ?? ''); ?></strong>
+                                        </div>
+                                        <?php if (!empty($complaint['driver_name'])): ?>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small class="text-muted">السائق</small>
+                                            <strong><?php echo htmlspecialchars($complaint['driver_name'] ?? ''); ?></strong>
+                                        </div>
+                                        <?php endif; ?>
+                                        <?php if (!empty($complaint['request_number'])): ?>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small class="text-muted">رقم الطلب</small>
+                                            <strong><?php echo htmlspecialchars($complaint['request_number'] ?? ''); ?></strong>
+                                        </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <h6 class="card-subtitle mb-3 text-primary">
+                                        <?php echo htmlspecialchars($complaint['subject'] ?? ''); ?>
+                                    </h6>
+
+                                    <?php if ($complaint['response_count'] > 0): ?>
+                                        <div class="latest-response mb-3">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <i class="fas fa-reply text-info me-2"></i>
+                                                <small class="text-muted">آخر رد من: <?php echo htmlspecialchars($complaint['latest_response_by'] ?? ''); ?></small>
+                                            </div>
+                                            <div class="response-preview">
+                                                <?php echo mb_substr(htmlspecialchars($complaint['latest_response'] ?? ''), 0, 100) . '...'; ?>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <div class="complaint-footer">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small class="text-muted">
+                                                <i class="far fa-clock me-1"></i>
                                                 <?php 
                                                 if ($complaint['latest_response_date']) {
                                                     echo date('Y-m-d H:i', strtotime($complaint['latest_response_date']));
@@ -114,22 +125,27 @@ include '../includes/header.php';
                                                     echo date('Y-m-d H:i', strtotime($complaint['created_at']));
                                                 }
                                                 ?>
-                                            </td>
-                                            <td class="text-center">
-                                                <button class="btn btn-sm btn-primary" 
-                                                        onclick="viewComplaint(<?php echo $complaint['id']; ?>)">
-                                                    <i class="fas fa-eye me-1"></i>
-                                                    عرض التفاصيل
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
+                                            </small>
+                                            <?php if ($complaint['response_count'] > 0): ?>
+                                                <span class="badge bg-info">
+                                                    <i class="fas fa-comments me-1"></i>
+                                                    <?php echo $complaint['response_count']; ?> رد
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent border-top-0">
+                                    <button class="btn btn-primary w-100" onclick="viewComplaint(<?php echo $complaint['id']; ?>)">
+                                        <i class="fas fa-eye me-1"></i>
+                                        عرض التفاصيل
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-            </div>
+            <?php endif; ?>
         </main>
     </div>
 </div>
@@ -153,9 +169,51 @@ include '../includes/header.php';
 </div>
 
 <style>
-.card {
-    border-radius: 8px;
+.complaint-card {
+    transition: transform 0.2s, box-shadow 0.2s;
     border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.complaint-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.complaint-card .card-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 1rem;
+}
+
+.complaint-card .card-body {
+    padding: 1.25rem;
+}
+
+.complaint-info {
+    font-size: 0.9rem;
+}
+
+.complaint-info .text-muted {
+    font-size: 0.85rem;
+}
+
+.latest-response {
+    background: rgba(0,0,0,0.02);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.response-preview {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.complaint-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
 }
 
 .badge {
@@ -164,31 +222,27 @@ include '../includes/header.php';
     border-radius: 6px;
 }
 
-.table th {
-    font-weight: 600;
-    white-space: nowrap;
+.card-footer {
+    padding: 1rem;
 }
 
-.btn-sm {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.875rem;
-    border-radius: 6px;
+.btn-primary {
+    transition: all 0.3s ease;
 }
 
-.modal-content {
-    border-radius: 8px;
-    border: none;
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.2);
 }
 
-.modal-header {
-    border-bottom: 1px solid #e9ecef;
-    background-color: #f8f9fa;
-    border-radius: 8px 8px 0 0;
-}
-
-.modal-title {
-    font-size: 1.1rem;
-    font-weight: 600;
+@media (max-width: 768px) {
+    .complaint-card {
+        margin-bottom: 1rem;
+    }
+    
+    .complaint-info {
+        font-size: 0.85rem;
+    }
 }
 </style>
 

@@ -18,14 +18,24 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
     $action = $_GET['action'];
     $company_id = $_GET['id'];
     
+    // Get company name first
+    $stmt = $conn->prepare("SELECT name FROM companies WHERE id = ?");
+    $stmt->execute([$company_id]);
+    $company_name = $stmt->fetchColumn();
+    
     switch ($action) {
         case 'activate':
             $stmt = $conn->prepare("UPDATE companies SET is_active = 1 WHERE id = ?");
             $stmt->execute([$company_id]);
             
             // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (admin_id, message, type, link) VALUES (?, ?, 'success', ?)");
-            $stmt->execute([$_SESSION['admin_id'], "تم تفعيل الشركة بنجاح", "companies.php"]);
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'success', ?)");
+            $stmt->execute([
+                $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
+                $_SESSION['admin_role'] ?? 'مدير_عام',
+                "تم تفعيل شركة: " . $company_name,
+                "companies.php"
+            ]);
             
             header('Location: companies.php');
             exit;
@@ -35,8 +45,13 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
             $stmt->execute([$company_id]);
             
             // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (admin_id, message, type, link) VALUES (?, ?, 'warning', ?)");
-            $stmt->execute([$_SESSION['admin_id'], "تم تعطيل الشركة", "companies.php"]);
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'warning', ?)");
+            $stmt->execute([
+                $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
+                $_SESSION['admin_role'] ?? 'مدير_عام',
+                "تم تعطيل شركة: " . $company_name,
+                "companies.php"
+            ]);
             
             header('Location: companies.php');
             exit;
@@ -46,12 +61,16 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
             $stmt->execute([$company_id]);
             
             // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (admin_id, message, type, link) VALUES (?, ?, 'danger', ?)");
-            $stmt->execute([$_SESSION['admin_id'], "تم حذف الشركة", "companies.php"]);
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'danger', ?)");
+            $stmt->execute([
+                $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
+                $_SESSION['admin_role'] ?? 'مدير_عام',
+                "تم حذف شركة: " . $company_name,
+                "companies.php"
+            ]);
             
             header('Location: companies.php');
             exit;
-      
     }
 }
 
@@ -62,13 +81,17 @@ $limit = 10;
 $offset = ($page - 1) * $limit;
 
 // Prepare the base query
-$query = "SELECT * FROM companies WHERE 1=1";
-$countQuery = "SELECT COUNT(*) FROM companies WHERE 1=1";
+$query = "SELECT c.*, 
+    COUNT(DISTINCT r.id) as total_orders
+    FROM companies c
+    LEFT JOIN requests r ON c.id = r.company_id
+    WHERE 1=1";
+$countQuery = "SELECT COUNT(DISTINCT c.id) FROM companies c WHERE 1=1";
 $params = [];
 
 // Add search conditions if search is provided
 if (!empty($search)) {
-    $searchCondition = " AND (name LIKE :search1 OR email LIKE :search2 OR phone LIKE :search3)";
+    $searchCondition = " AND (c.name LIKE :search1 OR c.email LIKE :search2 OR c.phone LIKE :search3)";
     $query .= $searchCondition;
     $countQuery .= $searchCondition;
     $params = [
@@ -85,7 +108,7 @@ $total_records = $stmt->fetchColumn();
 $total_pages = ceil($total_records / $limit);
 
 // Add pagination to the main query
-$query .= " ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
+$query .= " GROUP BY c.id ORDER BY c.created_at DESC LIMIT :limit OFFSET :offset";
 
 // Get companies
 $stmt = $conn->prepare($query);
@@ -105,11 +128,58 @@ require_once '../includes/header.php';
 ?>
 
 <style>
+.company-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.company-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.company-logo {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.company-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.info-item i {
+    width: 20px;
+    color: #6c757d;
+}
+
+.company-stats {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
 .action-btn-group {
     display: flex;
-    gap: 5px;
-    justify-content: flex-start;
-    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .action-btn {
@@ -130,56 +200,12 @@ require_once '../includes/header.php';
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.action-btn i {
-    font-size: 1rem;
-}
+.action-btn.whatsapp-btn { background-color: #25D366; color: white; }
+.action-btn.edit-btn { background-color: #3498db; color: white; }
+.action-btn.deactivate-btn { background-color: #f1c40f; color: white; }
+.action-btn.activate-btn { background-color: #2ecc71; color: white; }
+.action-btn.delete-btn { background-color: #e74c3c; color: white; }
 
-.action-btn.edit-btn {
-    background-color: #3498db;
-    color: white;
-}
-
-.action-btn.edit-btn:hover {
-    background-color: #2980b9;
-}
-
-.action-btn.whatsapp-btn {
-    background-color: #25D366;
-    color: white;
-}
-
-.action-btn.whatsapp-btn:hover {
-    background-color: #128C7E;
-}
-
-.action-btn.deactivate-btn {
-    background-color: #f1c40f;
-    color: white;
-}
-
-.action-btn.deactivate-btn:hover {
-    background-color: #f39c12;
-}
-
-.action-btn.activate-btn {
-    background-color: #2ecc71;
-    color: white;
-}
-
-.action-btn.activate-btn:hover {
-    background-color: #27ae60;
-}
-
-.action-btn.delete-btn {
-    background-color: #e74c3c;
-    color: white;
-}
-
-.action-btn.delete-btn:hover {
-    background-color: #c0392b;
-}
-
-/* Tooltip styles */
 .action-btn::after {
     content: attr(data-title);
     position: absolute;
@@ -202,6 +228,17 @@ require_once '../includes/header.php';
     opacity: 1;
     bottom: calc(100% + 5px);
 }
+
+@media (max-width: 768px) {
+    .action-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .action-btn i {
+        font-size: 0.875rem;
+    }
+}
 </style>
 
 
@@ -219,9 +256,9 @@ require_once '../includes/header.php';
     </div>
 
     <!-- Search Form -->
-    <div class="card mb-4">
+    <div class="card">
         <div class="card-body">
-            <form method="GET" class="row g-3">
+            <form method="GET" class="row g-3 mb-4">
                 <div class="col-md-8">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -232,65 +269,70 @@ require_once '../includes/header.php';
                     <button type="submit" class="btn btn-primary w-100">بحث</button>
                 </div>
             </form>
-        </div>
-    </div>
 
-    <!-- Companies Table -->
-    <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead>
-                        <tr>
-                            <th>الشعار</th>
-                            <th>اسم الشركة</th>
-                            <th>البريد الإلكتروني</th>
-                            <th>الهاتف</th>
-                            <th>مسؤول الاتصال</th>
-                            <th>الحالة</th>
-                            <th>تاريخ التسجيل</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($companies as $company): ?>
-                            <tr>
-                                <td>
-                                    <img src="<?php echo !empty($company['logo']) ? '../uploads/companies/' . $company['logo'] : 'assets/img/company-placeholder.png'; ?>" 
-                                         alt="<?php echo htmlspecialchars($company['name']); ?>" 
-                                         class="rounded-circle" 
-                                         width="40" height="40">
-                                </td>
-                                <td><?php echo htmlspecialchars($company['name']); ?></td>
-                                <td>
-                                    <?php echo htmlspecialchars($company['email']); ?>
-                                    <button class="btn btn-sm btn-outline-secondary ms-2" 
-                                            onclick="copyCompanyInfo('<?php echo htmlspecialchars($company['name']); ?>', '<?php echo htmlspecialchars($company['email']); ?>', '<?php echo htmlspecialchars($company['phone']); ?>', '<?php echo htmlspecialchars($company['name']); ?>@123')" 
-                                            title="نسخ بيانات الشركة">
-                                        <i class="fas fa-copy"></i>
-                                    </button>
-                                </td>
-                                <td><?php echo htmlspecialchars($company['phone']); ?></td>
-                                <td><?php echo htmlspecialchars($company['contact_person']); ?></td>
-                                <td>
-                                    <span class="badge bg-<?php echo $company['is_active'] ? 'success' : 'danger'; ?>">
-                                        <?php echo $company['is_active'] ? 'نشط' : 'معطل'; ?>
-                                    </span>
-                                </td>
-                                <td><?php echo date('Y/m/d', strtotime($company['created_at'])); ?></td>
-                                <td>
+            <div class="row g-4">
+                <?php if (!empty($companies)): ?>
+                    <?php foreach ($companies as $company): ?>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card h-100 company-card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="company-logo me-3">
+                                            <?php if (!empty($company['logo'])): ?>
+                                                <img src="/proo/uploads/companies/<?php echo htmlspecialchars($company['logo']); ?>" 
+                                                     alt="<?php echo htmlspecialchars($company['name']); ?>">
+                                            <?php else: ?>
+                                                <i class="fas fa-building fa-3x text-muted"></i>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div>
+                                            <h5 class="card-title mb-1"><?php echo htmlspecialchars($company['name']); ?></h5>
+                                            <span class="badge bg-<?php echo $company['is_active'] ? 'success' : 'danger'; ?>">
+                                                <?php echo $company['is_active'] ? 'نشط' : 'معطل'; ?>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="company-info mb-3">
+                                        <div class="info-item">
+                                            <i class="fas fa-envelope"></i>
+                                            <span class="text-truncate"><?php echo htmlspecialchars($company['email']); ?></span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-phone"></i>
+                                            <span><?php echo htmlspecialchars($company['phone']); ?></span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-user"></i>
+                                            <span><?php echo htmlspecialchars($company['contact_person']); ?></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="company-stats">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <small class="d-block text-muted mb-1">تاريخ التسجيل</small>
+                                                <strong><?php echo date('Y/m/d', strtotime($company['created_at'])); ?></strong>
+                                            </div>
+                                            <div class="col-6">
+                                                <small class="d-block text-muted mb-1">عدد الطلبات</small>
+                                                <strong><?php echo number_format($company['total_orders']); ?></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="action-btn-group">
+                                        <button type="button" 
+                                               class="action-btn whatsapp-btn"
+                                               onclick="openCompanyWhatsApp('<?php echo htmlspecialchars($company['phone']); ?>')"
+                                               data-title="تواصل عبر واتساب">
+                                            <i class="fab fa-whatsapp"></i>
+                                        </button>
                                         <a href="company_form.php?id=<?php echo $company['id']; ?>" 
                                            class="action-btn edit-btn"
                                            data-title="تعديل">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" 
-                                           class="action-btn whatsapp-btn"
-                                           onclick="openCompanyWhatsApp('<?php echo htmlspecialchars($company['phone']); ?>')"
-                                           data-title="تواصل عبر واتساب">
-                                            <i class="fab fa-whatsapp"></i>
-                                        </button>
                                         <?php if ($company['is_active']): ?>
                                             <a href="?action=deactivate&id=<?php echo $company['id']; ?>" 
                                                class="action-btn deactivate-btn"
@@ -312,23 +354,27 @@ require_once '../includes/header.php';
                                            onclick="return confirm('هل أنت متأكد من حذف هذه الشركة؟')">
                                             <i class="fas fa-trash"></i>
                                         </a>
+                                        <button class="action-btn" 
+                                                onclick="copyCompanyInfo('<?php echo htmlspecialchars($company['name']); ?>', '<?php echo htmlspecialchars($company['email']); ?>', '<?php echo htmlspecialchars($company['phone']); ?>', '<?php echo htmlspecialchars($company['name']); ?>@123')" 
+                                                data-title="نسخ بيانات الشركة"
+                                                style="background-color: #6c757d; color: white;">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
                                     </div>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                        <?php if (empty($companies)): ?>
-                            <tr>
-                                <td colspan="8" class="text-center py-4">
-                                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                                    <p class="text-muted">لا توجد شركات مسجلة</p>
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">لا توجد شركات مسجلة</p>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
 
-            <!-- Pagination -->
             <?php if ($total_pages > 1): ?>
                 <nav aria-label="Page navigation" class="mt-4">
                     <ul class="pagination justify-content-center">
