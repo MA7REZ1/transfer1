@@ -1,6 +1,7 @@
 <?php
 require_once '../config.php';
 require_once '../includes/header.php';
+
 // التحقق من الصلاحيات - فقط المدير يمكنه الوصول
 if (!isLoggedIn()) {
     header('Location: login.php');
@@ -50,6 +51,7 @@ if (isset($_POST['delete']) && isset($_POST['order_id'])) {
     exit;
 }
 
+
 // Get orders list with search and pagination
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 $status_filter = isset($_GET['status']) ? $_GET['status'] : '';
@@ -61,7 +63,7 @@ $where = [];
 $params = [];
 
 if ($search) {
-    $where[] = "(r.id LIKE :search OR c.name LIKE :search OR r.customer_name LIKE :search)";
+    $where[] = "(r.id LIKE :search OR c.name LIKE :search OR r.customer_name LIKE :search OR r.order_number LIKE :search)";
     $params[':search'] = "%$search%";
 }
 
@@ -368,6 +370,36 @@ $drivers = $stmt->fetchAll();
 </div>
 
 <style>
+       @media (max-width: 768px) {
+       .modal-backdrop {
+           opacity: 1 !important;
+           background-color: rgba(0, 0, 0, 0.9) !important;
+       }
+       .modal-content {
+           background-color: #fff !important;
+           box-shadow: none !important;
+       }
+       .modal-dialog {
+           margin: 0.5rem !important;
+       }
+       .modal {
+           background-color: rgba(0, 0, 0, 0.9) !important;
+       }
+   }
+      .modal-content {
+       border: none !important;
+       border-radius: 15px !important;
+   }
+   .modal-header {
+       background: var(--bs-primary) !important;
+       color: white !important;
+       border-bottom: none !important;
+   }
+   .modal-footer {
+       background-color: #f8f9fa !important;
+       border-top: 1px solid #dee2e6 !important;
+       border-radius: 0 0 15px 15px !important;
+   }
 .hover-shadow {
     transition: all 0.3s ease-in-out;
 }
@@ -789,10 +821,7 @@ function showOrderDetails(
         <!-- أزرار الإجراءات -->
         <div class="row mt-4">
             <div class="col-12">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="fas fa-times me-1"></i>
-                    إغلاق
-                </button>
+                
             </div>
         </div>
     `;

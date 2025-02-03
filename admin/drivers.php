@@ -273,7 +273,7 @@ require_once '../includes/header.php';
                                 <div class="d-flex align-items-center mb-3">
                                     <div class="driver-avatar me-3">
                                         <?php if ($driver['profile_image']): ?>
-                                            <img src="uploads/profiles/<?php echo $driver['profile_image']; ?>" alt="Profile" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
+                                            <img src="..\Drivers\uploads\driver\<?php echo $driver['profile_image']; ?>" alt="Profile" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
                                         <?php else: ?>
                                             <div class="avatar-placeholder">
                                                 <i class="fas fa-user-circle fa-3x text-muted"></i>

@@ -37,7 +37,8 @@ try {
             r.payment_status,
             r.status as order_status,
             r.is_fragile,
-            r.additional_notes
+            r.additional_notes,
+            r.invoice_file
         FROM requests r
         LEFT JOIN companies c ON r.company_id = c.id
         WHERE r.status = 'pending'
@@ -51,7 +52,10 @@ try {
     // تحويل مسار الصور إلى مسار كامل
     foreach ($orders as &$order) {
         if (!empty($order['company_logo'])) {
-            $order['company_logo'] = 'http://alwarsh.net/END/uploads/company_logos/' . $order['company_logo'];
+            $order['company_logo'] = 'http://alwarsh.net/uploads/companies/' . $order['company_logo'];
+        }
+        if (!empty($order['invoice_file'])) {
+            $order['invoice_file'] = 'http://alwarsh.net/uploads/invoices/' . $order['invoice_file'];
         }
     }
 
@@ -92,7 +96,8 @@ try {
                 'payment_status' => $order['payment_status'],
                 'order_status' => $order['order_status'],
                 'is_fragile' => (bool)$order['is_fragile'],
-                'additional_notes' => $order['additional_notes']
+                'additional_notes' => $order['additional_notes'],
+                'invoice_file' => $order['invoice_file']
             ]
         ];
     }, $orders);

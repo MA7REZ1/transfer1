@@ -304,6 +304,19 @@ if ($company) {
     <title>لوحة التحكم</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- إضافة Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+        .location-link {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <?php include '../includes/comHeader.php'; ?>
@@ -591,10 +604,26 @@ if ($company) {
                                                         <div class="invoice-section-content">
                                                             <dl class="invoice-list">
                                                                 <dt>موقع الاستلام</dt>
-                                                                <dd><?php echo htmlspecialchars($request['pickup_location']); ?></dd>
+                                                                <dd>
+                                                                    <?php echo htmlspecialchars($request['pickup_location']); ?>
+                                                                    <?php if ($request['pickup_location_link']): ?>
+                                                                        <br>
+                                                                        <a class="location-link" onclick="showMap('<?php echo htmlspecialchars($request['pickup_location_link']); ?>', '<?php echo htmlspecialchars($request['pickup_location']); ?>')">
+                                                                            <i class="fas fa-map-marker-alt"></i> عرض على الخريطة
+                                                                        </a>
+                                                                    <?php endif; ?>
+                                                                </dd>
                                                                 
                                                                 <dt>موقع التوصيل</dt>
-                                                                <dd><?php echo htmlspecialchars($request['delivery_location']); ?></dd>
+                                                                <dd>
+                                                                    <?php echo htmlspecialchars($request['delivery_location']); ?>
+                                                                    <?php if ($request['delivery_location_link']): ?>
+                                                                        <br>
+                                                                        <a class="location-link" onclick="showMap('<?php echo htmlspecialchars($request['delivery_location_link']); ?>', '<?php echo htmlspecialchars($request['delivery_location']); ?>')">
+                                                                            <i class="fas fa-map-marker-alt"></i> عرض على الخريطة
+                                                                        </a>
+                                                                    <?php endif; ?>
+                                                                </dd>
                                                                 
                                                                 <dt>عدد القطع</dt>
                                                                 <dd><?php echo htmlspecialchars($request['items_count']); ?> قطعة</dd>
@@ -671,6 +700,21 @@ if ($company) {
     <!-- Include existing modals -->
     <?php include 'modals/order_modals.php'; ?>
     <?php include 'modals/complaint_modals.php'; ?>
+
+    <!-- إضافة Modal للخريطة -->
+    <div class="modal fade" id="mapModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">عرض الموقع على الخريطة</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -906,6 +950,14 @@ if ($company) {
             new bootstrap.Modal(document.getElementById('complaintModal')).show();
         }
 
+        function trackOrder(orderNumber) {
+            // استخدام المسار النسبي للوصول إلى ملف التتبع
+            const trackingUrl = '../track_order.php?order_number=' + orderNumber;
+            
+            // فتح صفحة التتبع في نافذة جديدة
+            window.open(trackingUrl, '_blank');
+        }
+
         function openWhatsApp(orderData) {
             let phone = orderData.phone.replace(/^0+/, '');
             if (!phone.startsWith('966')) {
@@ -916,8 +968,7 @@ if ($company) {
             const domain = window.location.protocol + '//' + window.location.host;
             const trackingUrl = domain + '/track_order.php?order_number=' + orderData.orderNumber;
             
-            const message = `
-مرحباً ${orderData.customerName}،
+            const message = `مرحباً ${orderData.customerName}،
 تفاصيل طلبك رقم: ${orderData.orderNumber}
 
 موقع الاستلام: ${orderData.pickupLocation}
@@ -929,8 +980,7 @@ if ($company) {
 يمكنك تتبع طلبك من خلال الرابط التالي:
 ${trackingUrl}
 
-شكراً لاختيارك خدماتنا!
-            `.trim();
+شكراً لاختيارك خدماتنا!`.trim();
 
             const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
@@ -1268,140 +1318,6 @@ ${trackingUrl}
         `;
         document.head.appendChild(styleSheet);
 
-        function trackOrder(orderNumber) {
-            // Get the current domain
-            const domain = window.location.protocol + '//' + window.location.host;
-            const trackingUrl = domain + '/track_order.php?order_number=' + orderNumber;
-            
-            // Open tracking page in new tab
-            window.open(trackingUrl, '_blank');
-        }
-
-        // Function to fetch complaint responses live
-        function fetchComplaintResponses() {
-            fetch('ajax/get_complaint_responses.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const responsesContainer = document.querySelector('.list-group');
-                        if (responsesContainer) {
-                            if (data.responses.length === 0) {
-                                responsesContainer.innerHTML = '<p class="text-muted text-center">لا توجد ردود على الشكاوى حتى الآن</p>';
-                            } else {
-                                responsesContainer.innerHTML = data.responses.map(response => `
-                                    <div class="list-group-item">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <h6 class="mb-1">
-                                                شكوى رقم: ${response.complaint_number}
-                                                <small class="text-muted">(${response.subject})</small>
-                                            </h6>
-                                            <small class="text-muted">
-                                                ${new Date(response.created_at).toLocaleString('ar-SA')}
-                                            </small>
-                                        </div>
-                                        <p class="mb-1">${response.response}</p>
-                                        <small class="text-muted">
-                                            رد من: ${response.admin_name}
-                                        </small>
-                                    </div>
-                                `).join('');
-                            }
-                        }
-                    }
-                })
-                .catch(error => console.error('Error fetching responses:', error));
-        }
-
-        // Function to update notification count
-        function updateNotificationCount(change) {
-            // Update dropdown badge (notifications)
-            const dropdownBadge = document.querySelector('#notificationsDropdown .badge.bg-danger');
-            if (dropdownBadge) {
-                const currentCount = parseInt(dropdownBadge.textContent || '0');
-                const newCount = Math.max(0, currentCount + change);
-                if (newCount <= 0) {
-                    dropdownBadge.remove();
-                } else {
-                    dropdownBadge.textContent = newCount;
-                }
-            }
-
-            // Update complaints badge (in the main menu)
-            const complaintsBadge = document.querySelector('a[href="complaints.php"] .badge.bg-danger');
-            if (complaintsBadge) {
-                const currentCount = parseInt(complaintsBadge.textContent || '0');
-                const newCount = Math.max(0, currentCount + change);
-                if (newCount <= 0) {
-                    complaintsBadge.remove();
-                } else {
-                    complaintsBadge.textContent = newCount;
-                }
-            }
-        }
-
-        // Function to handle notification click
-        function handleNotificationClick(notificationId, link, event) {
-            event.preventDefault();
-            event.stopPropagation();
-            
-            const notificationElement = event.currentTarget;
-            if (!notificationElement) return;
-
-            const notificationType = notificationElement.getAttribute('data-type');
-            const complaintNumber = notificationElement.getAttribute('data-complaint-number');
-            
-            // Only proceed if notification is unread (has bg-light class)
-            if (notificationElement.classList.contains('bg-light')) {
-                // Mark notification as read
-                fetch('ajax/mark_notification_read.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        notification_id: notificationId
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Update UI
-                        notificationElement.classList.remove('bg-light');
-                        
-                        // Update notification count based on server response
-                        const dropdownBadge = document.querySelector('#notificationsDropdown .badge.bg-danger');
-                        if (dropdownBadge) {
-                            if (data.unread_count <= 0) {
-                                dropdownBadge.remove();
-                            } else {
-                                dropdownBadge.textContent = data.unread_count;
-                            }
-                        }
-                        
-                        // Navigate after successful update
-                        setTimeout(() => {
-                            navigateToDestination(notificationType, complaintNumber, link);
-                        }, 100);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    navigateToDestination(notificationType, complaintNumber, link);
-                });
-            } else {
-                navigateToDestination(notificationType, complaintNumber, link);
-            }
-        }
-
-        // Helper function for navigation
-        function navigateToDestination(notificationType, complaintNumber, link) {
-            if (notificationType === 'complaint_response' && complaintNumber) {
-                window.location.href = `complaints.php?id=${complaintNumber}`;
-            } else if (link && link !== '#') {
-                window.location.href = link;
-            }
-        }
-
         function markAllNotificationsAsRead(event) {
             event.preventDefault();
             
@@ -1552,6 +1468,56 @@ ${trackingUrl}
                 }
             });
         });
+
+        let map;
+        let marker;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: { lat: 24.7136, lng: 46.6753 }, // الرياض كمركز افتراضي
+            });
+            marker = new google.maps.Marker({
+                map: map,
+                draggable: false
+            });
+        }
+
+        function showMap(locationLink, locationName) {
+            // استخراج الإحداثيات من رابط Google Maps
+            let lat, lng;
+            
+            if (locationLink.includes('@')) {
+                const matches = locationLink.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+                if (matches) {
+                    lat = parseFloat(matches[1]);
+                    lng = parseFloat(matches[2]);
+                }
+            } else if (locationLink.includes('?q=')) {
+                const matches = locationLink.match(/q=(-?\d+\.\d+),(-?\d+\.\d+)/);
+                if (matches) {
+                    lat = parseFloat(matches[1]);
+                    lng = parseFloat(matches[2]);
+                }
+            }
+
+            if (lat && lng) {
+                const position = { lat, lng };
+                
+                // تحديث الخريطة
+                map.setCenter(position);
+                marker.setPosition(position);
+                
+                // إضافة عنوان للماركر
+                const infoWindow = new google.maps.InfoWindow({
+                    content: locationName,
+                    position: position
+                });
+                marker.addListener('click', () => {
+                    infoWindow.open(map);
+                });
+            }
+        }
     </script>
 </body>
 </html>

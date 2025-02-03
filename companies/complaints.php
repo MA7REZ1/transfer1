@@ -18,12 +18,14 @@ if (!isset($_GET['id'])) {
         CASE 
             WHEN c.status = 'new' THEN 'جديدة'
             WHEN c.status = 'in_progress' THEN 'قيد المعالجة'
+            WHEN c.status = 'resolved' THEN 'تم الحل'
             WHEN c.status = 'closed' THEN 'مغلقة'
             ELSE c.status
         END as status_text,
         CASE 
             WHEN c.status = 'new' THEN 'danger'
             WHEN c.status = 'in_progress' THEN 'warning'
+            WHEN c.status = 'resolved' THEN 'info'
             WHEN c.status = 'closed' THEN 'success'
             ELSE 'secondary'
         END as status_class
@@ -139,53 +141,162 @@ if (!isset($_GET['id'])) {
             <div class="col-12">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>رقم الشكوى</th>
-                                        <th>الموضوع</th>
-                                        <th>رقم الطلب</th>
-                                        <th>السائق</th>
-                                        <th>التاريخ</th>
-                                        <th>الحالة</th>
-                                        <th>الإجراءات</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($complaints as $complaint): ?>
-                                    <tr>
-                                        <td><?php echo htmlspecialchars($complaint['complaint_number']); ?></td>
-                                        <td><?php echo htmlspecialchars($complaint['subject']); ?></td>
-                                        <td><?php echo htmlspecialchars($complaint['request_number']); ?></td>
-                                        <td><?php echo htmlspecialchars($complaint['driver_name']); ?></td>
-                                        <td><?php echo date('Y-m-d H:i', strtotime($complaint['created_at'])); ?></td>
-                                        <td>
-                                            <span class="badge bg-<?php echo $complaint['status_class']; ?>">
-                                                <?php echo $complaint['status_text']; ?>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <a href="complaints.php?id=<?php echo $complaint['complaint_number']; ?>" class="btn btn-sm btn-primary">
-                                                <i class="bi bi-eye"></i> عرض التفاصيل
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                            <?php if (empty($complaints)): ?>
+                        <?php if (empty($complaints)): ?>
                             <div class="text-center py-4">
                                 <i class="bi bi-emoji-smile fs-1 text-muted"></i>
                                 <p class="mt-2 text-muted">لا توجد شكاوى حتى الآن</p>
                             </div>
-                            <?php endif; ?>
-                        </div>
+                        <?php else: ?>
+                            <div class="row">
+                                <?php foreach ($complaints as $complaint): ?>
+                                    <div class="col-md-6 col-lg-4 mb-4">
+                                        <div class="complaint-card">
+                                            <div class="complaint-header">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <span class="complaint-number">
+                                                        <i class="bi bi-hash"></i>
+                                                        <?php echo htmlspecialchars($complaint['complaint_number']); ?>
+                                                    </span>
+                                                    <span class="badge bg-<?php echo $complaint['status_class']; ?>">
+                                                        <?php echo $complaint['status_text']; ?>
+                                                    </span>
+                                                </div>
+                                                <h5 class="complaint-subject">
+                                                    <i class="bi bi-exclamation-circle-fill text-danger"></i>
+                                                    <?php echo htmlspecialchars($complaint['subject']); ?>
+                                                </h5>
+                                            </div>
+                                            <div class="complaint-body">
+                                                <div class="complaint-info">
+                                                    <div class="info-item">
+                                                        <i class="bi bi-box-seam"></i>
+                                                        <span>رقم الطلب: <?php echo htmlspecialchars($complaint['request_number']); ?></span>
+                                                    </div>
+                                                    <div class="info-item">
+                                                        <i class="bi bi-person"></i>
+                                                        <span>السائق: <?php echo htmlspecialchars($complaint['driver_name']); ?></span>
+                                                    </div>
+                                                    <div class="info-item">
+                                                        <i class="bi bi-calendar3"></i>
+                                                        <span>التاريخ: <?php echo date('Y-m-d H:i', strtotime($complaint['created_at'])); ?></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="complaint-footer">
+                                                <a href="complaints.php?id=<?php echo $complaint['complaint_number']; ?>" class="btn btn-primary w-100">
+                                                    <i class="bi bi-eye"></i> عرض التفاصيل
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <style>
+        .complaint-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .complaint-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .complaint-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            background: linear-gradient(to right, #f8f9fa, #fff);
+        }
+
+        .complaint-number {
+            font-size: 1.1rem;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .complaint-subject {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #343a40;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .complaint-body {
+            padding: 1.5rem;
+        }
+
+        .complaint-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .info-item i {
+            font-size: 1.1rem;
+            color: #0d6efd;
+            width: 20px;
+            text-align: center;
+        }
+
+        .complaint-footer {
+            padding: 1rem 1.5rem;
+            background: #f8f9fa;
+        }
+
+        .complaint-footer .btn {
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .complaint-footer .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .col-md-6 {
+                padding: 0 0.5rem;
+            }
+            
+            .complaint-card {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
 
 <?php
 } else {
@@ -197,12 +308,14 @@ if (!isset($_GET['id'])) {
         CASE 
             WHEN c.status = 'new' THEN 'جديدة'
             WHEN c.status = 'in_progress' THEN 'قيد المعالجة'
+            WHEN c.status = 'resolved' THEN 'محلولة'
             WHEN c.status = 'closed' THEN 'مغلقة'
             ELSE c.status
         END as status_text,
         CASE 
             WHEN c.status = 'new' THEN 'danger'
             WHEN c.status = 'in_progress' THEN 'warning'
+            WHEN c.status = 'resolved' THEN 'info'
             WHEN c.status = 'closed' THEN 'success'
             ELSE 'secondary'
         END as status_class

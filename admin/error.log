@@ -109,3 +109,6 @@ Stack trace:
 [02-Feb-2025 05:11:50 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
 [02-Feb-2025 06:58:18 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
 [02-Feb-2025 06:59:49 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[02-Feb-2025 10:20:34 Asia/Riyadh] Logout error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'last_logout' in 'field list'
+[03-Feb-2025 02:00:48 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\proo\admin\feedback.php on line 3
+[03-Feb-2025 02:04:17 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\proo\admin\feedback.php on line 3

@@ -164,7 +164,7 @@ body {
     background: var(--primary-gradient);
     border-radius: 20px;
     padding: 2rem;
-    color: white;
+
     position: relative;
     box-shadow: var(--card-shadow);
 }

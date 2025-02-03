@@ -109,331 +109,795 @@ $complaint_responses = $stmt->fetchAll();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #34495e;
+            --primary-color: #4e73df;
+            --secondary-color: #858796;
+            --success-color: #1cc88a;
+            --info-color: #36b9cc;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --light-color: #f8f9fc;
+            --dark-color: #5a5c69;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+
         body {
-            background-color: #f8f9fa;
+            background: var(--bg-gradient);
+            font-family: 'Tajawal', sans-serif;
+            min-height: 100vh;
         }
+
         .profile-header {
-            background: linear-gradient(45deg, #4158D0, #C850C0);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 2rem 0;
             margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-header h2 {
             color: white;
-        }
-        .stats-cards {
-            margin-top: 1.5rem;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-        }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 1rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-        .stat-card .icon {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            opacity: 0.8;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
-        .stat-card .value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 0.25rem;
+
+        .profile-header .text-white-50 {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
         }
-        .stat-card .label {
-            font-size: 0.875rem;
-            opacity: 0.9;
-        }
-        @media (max-width: 768px) {
-            .stats-cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 480px) {
-            .stats-cards {
-                grid-template-columns: 1fr;
-            }
-        }
-        .table th {
-            background-color: var(--primary-color);
+
+        .profile-info {
             color: white;
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
         }
-        .table {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+
+        .profile-info i {
+            margin-right: 0.5rem;
+            color: var(--warning-color);
         }
-        .btn {
+
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
         }
-        .btn::before {
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
+            z-index: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card .label {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 15px;
+            border: none;
+            font-weight: 500;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            min-width: 160px;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2));
+            transition: all 0.3s ease;
+        }
+
+        .action-button:hover::before {
+            transform: translateX(100%);
+        }
+
+        .action-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .action-button:hover i {
+            transform: scale(1.2);
+        }
+
+        .action-button.warning {
+            background: linear-gradient(45deg, var(--warning-color), #f4b619);
+            color: white;
+        }
+
+        .action-button.danger {
+            background: linear-gradient(45deg, var(--danger-color), #d52a1a);
+            color: white;
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-button .badge {
+            position: relative;
+            top: unset;
+            right: unset;
+            background: var(--danger-color);
+            color: white;
+            border-radius: 8px;
+            min-width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            margin-right: 5px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 0 8px;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: white !important;
+            padding: 0.8rem 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-link .badge {
+            padding: 0.4rem 0.8rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        .alert-float {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            min-width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .alert-float.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            line-height: 1;
+            padding: 0;
+            color: inherit;
+            opacity: 0.7;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .close-btn:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                padding: 1rem;
+            }
+
+            .profile-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .profile-info {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .profile-info span {
+                font-size: 0.9rem;
+            }
+
+            .action-buttons {
+                justify-content: center;
+                padding: 0 1rem;
+            }
+
+            .action-button {
+                width: 100%;
+                min-width: unset;
+                padding: 0.7rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .stats-cards {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem;
+            }
+
+            .stat-card .icon {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .stat-card .value {
+                font-size: 2rem;
+            }
+
+            .stat-card .label {
+                font-size: 1rem;
+            }
+
+            .col-md-8, .col-md-4 {
+                width: 100%;
+            }
+
+            .d-flex.align-items-center.gap-4 {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .d-flex.align-items-center.gap-4 img {
+                margin-bottom: 1rem;
+            }
+
+            .text-md-end {
+                text-align: center !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .profile-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .action-button {
+                font-size: 0.85rem;
+                padding: 0.6rem 0.8rem;
+            }
+
+            .action-button i {
+                font-size: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.2rem;
+            }
+
+            .stat-card .icon {
+                font-size: 2rem;
+            }
+
+            .stat-card .value {
+                font-size: 1.8rem;
+            }
+
+            .stat-card .label {
+                font-size: 0.9rem;
+            }
+        }
+
+        .orders-container {
+            padding: 20px;
+        }
+
+        .order-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .order-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .order-header {
+            background: linear-gradient(45deg, var(--primary-color), #6f42c1);
+            color: white;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
+        }
+
+        .order-header h5 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .order-body {
+            padding: 1.5rem;
+        }
+
+        .customer-info {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .customer-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .customer-info-item i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .order-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-card {
+            background: var(--light-color);
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .detail-card .label {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-card .value {
+            color: var(--dark-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-card i {
+            color: var(--primary-color);
+        }
+
+        .order-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-action {
+            flex: 1;
+            min-width: 110px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .btn-action::before {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             width: 0;
             height: 0;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             transform: translate(-50%, -50%);
             transition: width 0.6s ease, height 0.6s ease;
         }
-        .btn:hover::before {
+
+        .btn-action:hover::before {
             width: 300%;
             height: 300%;
         }
-        .btn:active {
-            transform: scale(0.95);
-        }
-        .btn-group .btn {
-            margin: 0 2px;
-            padding: 0.4rem 0.8rem;
-            font-size: 0.875rem;
-        }
-        .btn-primary {
-            background: linear-gradient(45deg, #4158D0, #C850C0);
-            border: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .btn-primary:hover {
-            background: linear-gradient(45deg, #3a4ec0, #b846b0);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-        .btn-info {
-            background: linear-gradient(45deg, #00c6fb, #005bea);
-            border: none;
-            color: white;
-        }
-        .btn-info:hover {
-            background: linear-gradient(45deg, #00b3e6, #0052d6);
-            transform: translateY(-2px);
-        }
-        .btn-warning {
-            background: linear-gradient(45deg, #f6d365, #fda085);
-            border: none;
-            color: white;
-        }
-        .btn-warning:hover {
-            background: linear-gradient(45deg, #f5cc5d, #fc9578);
-            transform: translateY(-2px);
-        }
-        .btn-danger {
-            background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            border: none;
-        }
-        .btn-danger:hover {
-            background: linear-gradient(45deg, #f53b63, #ff3e1f);
-            transform: translateY(-2px);
-        }
-        .btn-success {
-            background: linear-gradient(45deg, #00b09b, #96c93d);
-            border: none;
-        }
-        .btn-success:hover {
-            background: linear-gradient(45deg, #009b88, #88b935);
-            transform: translateY(-2px);
-        }
-        .btn i {
-            margin-right: 4px;
-            font-size: 1rem;
-            vertical-align: middle;
-        }
-        .btn-light {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            backdrop-filter: blur(5px);
-        }
-        .btn-light:hover {
-            background: rgba(255, 255, 255, 0.3);
-            color: white;
-            transform: translateY(-2px);
-        }
-        .btn-group {
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-radius: 10px;
-            background: white;
-            padding: 2px;
-        }
-        .btn-group .btn {
-            border-radius: 6px;
-            margin: 2px;
-        }
-        .btn-group .btn:hover {
-            z-index: 2;
-        }
-        .badge {
-            padding: 0.5em 0.8em;
-            border-radius: 6px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-        .badge.bg-danger {
-            background: linear-gradient(45deg, #ff416c, #ff4b2b) !important;
-        }
-        .badge.bg-success {
-            background: linear-gradient(45deg, #00b09b, #96c93d) !important;
-        }
-        .badge.bg-warning {
-            background: linear-gradient(45deg, #f6d365, #fda085) !important;
-            color: white;
-        }
-        .badge.bg-info {
-            background: linear-gradient(45deg, #00c6fb, #005bea) !important;
-            color: white;
-        }
-        .badge.bg-secondary {
-            background: linear-gradient(45deg, #8e9eab, #eef2f3) !important;
-            color: #2c3e50;
-        }
-        .alert-float {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            min-width: 300px;
-            z-index: 9999;
-            border: none;
-            border-radius: 12px;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            animation: slideDown 0.5s ease-out;
-            display: none;
-        }
 
-        @keyframes slideDown {
-            from {
-                transform: translate(-50%, -100%);
-                opacity: 0;
-            }
-            to {
-                transform: translate(-50%, 0);
-                opacity: 1;
-            }
-        }
-
-        .alert-float.show {
-            display: block;
-        }
-
-        .alert-float .close-btn {
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: white;
+        .btn-action i {
             font-size: 1.2rem;
-            cursor: pointer;
-            opacity: 0.8;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-action:hover i {
+            transform: scale(1.2);
+        }
+
+        .btn-action.btn-primary {
+            background: linear-gradient(45deg, #4e73df, #6f42c1);
+        }
+
+        .btn-action.btn-success {
+            background: linear-gradient(45deg, #1cc88a, #15a675);
+        }
+
+        .btn-action.btn-warning {
+            background: linear-gradient(45deg, #f6c23e, #f4b619);
+        }
+
+        .btn-action.btn-danger {
+            background: linear-gradient(45deg, #e74a3b, #d52a1a);
+        }
+
+        .btn-action.btn-info {
+            background: linear-gradient(45deg, #36b9cc, #2a9aad);
+        }
+
+        .btn-action:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-action:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-action.disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .btn-action.disabled:hover {
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* تحسين أزرار الإجراءات في معلومات السائق */
+        .driver-contact {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .driver-contact .btn {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .driver-contact .btn i {
+            font-size: 1.1rem;
+        }
+
+        .driver-contact .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* تحسين أزرار الحالة */
+        .status-badge {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
 
-        .alert-float .close-btn:hover {
-            opacity: 1;
-            transform: translateY(-50%) rotate(90deg);
+        .status-badge i {
+            font-size: 0.8rem;
         }
 
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+        .status-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* تحسين حالات الطلب */
+        .status-pending { 
+            background: linear-gradient(45deg, var(--warning-color), #f4b619);
+            color: white;
+        }
+        .status-accepted { 
+            background: linear-gradient(45deg, var(--info-color), #2a9aad);
+            color: white;
+        }
+        .status-in-transit { 
+            background: linear-gradient(45deg, var(--primary-color), #6f42c1);
+            color: white;
+        }
+        .status-delivered { 
+            background: linear-gradient(45deg, var(--success-color), #15a675);
+            color: white;
+        }
+        .status-cancelled { 
+            background: linear-gradient(45deg, var(--danger-color), #d52a1a);
+            color: white;
+        }
+
+        .driver-info {
+            background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .driver-info-header {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
             display: flex;
-            justify-content: center;
             align-items: center;
-            z-index: 9999;
+            gap: 0.5rem;
         }
 
-        .highlight-update {
-            animation: highlightRow 2s ease-in-out;
+        .driver-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
         }
 
-        @keyframes highlightRow {
-            0% { background-color: #fff; }
-            50% { background-color: #e3f2fd; }
-            100% { background-color: #fff; }
+        .payment-info {
+            background: linear-gradient(45deg, #e8f5e9, #c8e6c9);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
         }
 
-        .invalid-feedback {
-            display: block;
-            color: #dc3545;
-            font-size: 0.875em;
-            margin-top: 0.25rem;
+        .payment-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            font-weight: 500;
         }
 
-        .alert-float {
-            animation: slideIn 0.5s ease-out;
+        .payment-status.paid {
+            background: var(--success-color);
+            color: white;
         }
 
-        @keyframes slideIn {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
+        .payment-status.unpaid {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .customer-info,
+            .order-details {
+                grid-template-columns: 1fr;
             }
-            to {
-                transform: translateY(0);
-                opacity: 1;
+            
+            .order-actions {
+                flex-direction: column;
+            }
+
+            .btn-action {
+                width: 100%;
+            }
+
+            .stats-cards {
+                grid-template-columns: 1fr;
             }
         }
-        .search-container {
+
+        .search-and-actions {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
             min-width: 300px;
             position: relative;
         }
 
-        .search-container .input-group-text {
-            background-color: white;
-            border-left: 0;
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 3rem;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .search-container .form-control {
-            border-right: 0;
-            border-left: 0;
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
         }
 
-        .search-container .btn {
-            border-right: 1px solid #dee2e6;
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+            font-size: 1.2rem;
         }
 
-        .no-results {
-            text-align: center;
-            padding: 20px;
-            color: #6c757d;
+        .add-order-btn {
+            padding: 0.8rem 2rem;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(45deg, var(--success-color), #15a675);
+            color: white;
+            font-weight: 500;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .add-order-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        .add-order-btn i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .add-order-btn:hover i {
+            transform: scale(1.2);
         }
 
         @media (max-width: 768px) {
-            .card-header {
+            .search-and-actions {
                 flex-direction: column;
-                gap: 10px;
+                padding: 1rem;
             }
-            .search-container {
+
+            .search-box {
                 min-width: 100%;
             }
-            .d-flex.gap-2 {
+
+            .add-order-btn {
                 width: 100%;
-                flex-direction: column;
-            }
-            .btn-primary {
-                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -442,271 +906,262 @@ $complaint_responses = $stmt->fetchAll();
     <!-- Staff Profile Header -->
     <div class="profile-header">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="d-flex align-items-center gap-4">
+                        <?php if($company['logo']): ?>
+                            <img src="../uploads/companies/<?php echo htmlspecialchars($company['logo']); ?>" alt="Company Logo" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+                        <?php endif; ?>
                         <div>
                             <h2 class="mb-0"><?php echo htmlspecialchars($staff['name']); ?></h2>
-                            <div class="text-white-50">
+                            <div class="text-white-50 mb-2">
                                 <?php echo $staff['role'] === 'order_manager' ? 'مدير طلبات' : 'موظف'; ?>
+                                - <?php echo htmlspecialchars($company['name']); ?>
                             </div>
-                        </div>
-                        <div class="text-end">
-                            <div class="mb-1">
-                                <i class="bi bi-envelope"></i> <?php echo htmlspecialchars($staff['email']); ?>
+                            <div class="profile-info">
+                                <span><i class="bi bi-envelope"></i> <?php echo htmlspecialchars($staff['email']); ?></span>
+                                <?php if ($staff['phone']): ?>
+                                    <span><i class="bi bi-telephone"></i> <?php echo htmlspecialchars($staff['phone']); ?></span>
+                                <?php endif; ?>
+                                <span><i class="bi bi-clock-history"></i> آخر دخول: <?php echo date('Y-m-d H:i', strtotime($staff['last_login'])); ?></span>
                             </div>
-                            <?php if ($staff['phone']): ?>
-                            <div class="mb-1">
-                                <i class="bi bi-telephone"></i> <?php echo htmlspecialchars($staff['phone']); ?>
-                            </div>
-                            <?php endif; ?>
                         </div>
                     </div>
-
-                    <!-- Stats Cards -->
-                    <div class="stats-cards">
-                        <div class="stat-card">
-                            <div class="icon text-primary">
-                                <i class="bi bi-list-check"></i>
-                            </div>
-                            <div class="value"><?php echo number_format($stats['total_requests']); ?></div>
-                            <div class="label">إجمالي الطلبات</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="icon text-warning">
-                                <i class="bi bi-clock-history"></i>
-                            </div>
-                            <div class="value"><?php echo number_format($stats['pending_count']); ?></div>
-                            <div class="label">قيد الانتظار</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="icon text-info">
-                                <i class="bi bi-truck"></i>
-                            </div>
-                            <div class="value"><?php echo number_format($stats['active_count']); ?></div>
-                            <div class="label">جاري التوصيل</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="icon text-success">
-                                <i class="bi bi-check-circle"></i>
-                            </div>
-                            <div class="value"><?php echo number_format($stats['delivered_count']); ?></div>
-                            <div class="label">تم التوصيل</div>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="text-center mt-4">
-                      
-                        <button type="button" class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                </div>
+                <div class="col-md-4 text-md-end mt-4 mt-md-0">
+                    <div class="action-buttons">
+                        <button type="button" class="action-button warning" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
                             <i class="bi bi-key"></i> تغيير كلمة المرور
                         </button>
-                        <a href="logout.php" class="btn btn-danger btn-sm">
+                        <a href="complaints.php" class="action-button warning">
+                            <?php if ($active_complaints > 0): ?>
+                                <span class="badge"><?php echo $active_complaints; ?></span>
+                            <?php endif; ?>
+                            <i class="bi bi-exclamation-circle"></i>
+                            الشكاوى
+                        </a>
+                        <a href="logout.php" class="action-button danger">
                             <i class="bi bi-box-arrow-right"></i> تسجيل الخروج
                         </a>
-                        <a class="nav-link" href="complaints.php">
-                            <i class="bi bi-exclamation-circle"></i> الشكاوى
-                            <?php if ($active_complaints > 0): ?>
-                                <span class="badge bg-danger"><?php echo $active_complaints; ?></span>
-                            <?php endif; ?>
-                        </a>
                     </div>
-                        
-                    
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="icon">
+                        <i class="bi bi-clock"></i>
+                    </div>
+                    <div class="value"><?php echo $stats['pending_count']; ?></div>
+                    <div class="label">قيد الانتظار</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">
+                        <i class="bi bi-truck"></i>
+                    </div>
+                    <div class="value"><?php echo $stats['active_count']; ?></div>
+                    <div class="label">جاري التوصيل</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+                    <div class="value"><?php echo $stats['delivered_count']; ?></div>
+                    <div class="label">تم التوصيل</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <div class="value"><?php echo $stats['total_requests']; ?></div>
+                    <div class="label">إجمالي الطلبات</div>
                 </div>
             </div>
         </div>
     </div>
  
-    <div class="container py-4">
-        <!-- Orders Table -->
-        <div class="card shadow-sm">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
-                <h5 class="mb-0"><i class="bi bi-list-ul"></i> الطلبات</h5>
-                <div class="d-flex gap-2 align-items-center">
-                    <div class="input-group search-container">
-                        <span class="input-group-text"><i class="bi bi-search"></i></span>
-                        <input type="text" id="orderSearch" class="form-control" placeholder="ابحث عن طلب (رقم الطلب، اسم العميل، رقم الهاتف)">
-                        <button class="btn btn-outline-secondary" type="button" onclick="clearSearch()">
-                            <i class="bi bi-x-lg"></i>
-                        </button>
-                    </div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newRequestModal">
-                        <i class="bi bi-plus-lg"></i> طلب جديد
-                    </button>
-                </div>
+    <div class="container mt-4">
+        <!-- Search and Actions Section -->
+        <div class="search-and-actions">
+            <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" id="orderSearch" placeholder="البحث في الطلبات..." onkeyup="performSearch()">
             </div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th>رقم الطلب</th>
-                                <th>العميل</th>
-                                <th>نوع الطلب</th>
-                                <th>التاريخ</th>
-                                <th>التكلفة</th>
-                                <th>الحالة</th>
-                                <th>السائق</th>
-                                <th>الإجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($requests as $request): ?>
-                            <tr>
-                                <td><span class="order-number"><?php echo $request['order_number']; ?></span></td>
-                                <td>
-                                    <div class="customer-info">
-                                        <div><?php echo $request['customer_name']; ?></div>
-                                        <div class="customer-phone"><?php echo $request['customer_phone']; ?></div>
+            <button type="button" class="add-order-btn" data-bs-toggle="modal" data-bs-target="#newRequestModal">
+                <i class="bi bi-plus-circle"></i>
+                طلب جديد
+            </button>
+        </div>
+
+        <!-- حاوية الطلبات -->
+        <div class="orders-container">
+            <div class="row">
+                <?php foreach ($requests as $request): ?>
+                <div class="col-lg-6 mb-4">
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5>
+                                    <i class="bi bi-box-seam"></i>
+                                    طلب #<?php echo $request['order_number']; ?>
+                                </h5>
+                                <?php 
+                                $status_class = match($request['status']) {
+                                    'pending' => 'status-pending',
+                                    'accepted' => 'status-accepted',
+                                    'in_transit' => 'status-in-transit',
+                                    'delivered' => 'status-delivered',
+                                    'cancelled' => 'status-cancelled',
+                                    default => 'status-pending'
+                                };
+                                $status_text = match($request['status']) {
+                                    'pending' => 'قيد الانتظار',
+                                    'accepted' => 'تم القبول',
+                                    'in_transit' => 'جاري التوصيل',
+                                    'delivered' => 'تم التوصيل',
+                                    'cancelled' => 'ملغي',
+                                    default => 'غير معروف'
+                                };
+                                ?>
+                                <span class="status-badge <?php echo $status_class; ?>">
+                                    <i class="bi bi-circle-fill"></i>
+                                    <?php echo $status_text; ?>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-body">
+                            <!-- معلومات العميل -->
+                            <div class="customer-info">
+                                <div class="customer-info-item">
+                                    <i class="bi bi-person-circle"></i>
+                                    <div>
+                                        <div class="fw-bold"><?php echo $request['customer_name']; ?></div>
+                                        <small class="text-muted">اسم العميل</small>
                                     </div>
-                                </td>
-                                <td><span class="badge bg-secondary"><?php echo $request['order_type']; ?></span></td>
-                                <td><?php echo date('Y-m-d', strtotime($request['delivery_date'])); ?></td>
-                                <td><strong><?php echo number_format($request['total_cost'], 2); ?> ريال</strong></td>
-                                <td>
-                                    <?php 
-                                    $status_class = match($request['status']) {
-                                        'pending' => 'warning',
-                                        'accepted' => 'info',
-                                        'in_transit' => 'primary',
-                                        'delivered' => 'success',
-                                        'cancelled' => 'danger',
-                                        default => 'secondary'
-                                    };
-                                    $status_text = match($request['status']) {
-                                        'pending' => 'قيد الانتظار',
-                                        'accepted' => 'تم القبول',
-                                        'in_transit' => 'جاري التوصيل',
-                                        'delivered' => 'تم التوصيل',
-                                        'cancelled' => 'ملغي',
-                                        default => 'غير معروف'
-                                    };
-                                    ?>
-                                    <span class="badge bg-<?php echo $status_class; ?>">
-                                        <?php echo $status_text; ?>
+                                </div>
+                                <div class="customer-info-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <div>
+                                        <div class="fw-bold"><?php echo $request['customer_phone']; ?></div>
+                                        <small class="text-muted">رقم الهاتف</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- تفاصيل الطلب -->
+                            <div class="order-details">
+                                <div class="detail-card">
+                                    <div class="label">موقع الاستلام</div>
+                                    <div class="value">
+                                        <i class="bi bi-geo-alt"></i>
+                                        <?php echo $request['pickup_location']; ?>
+                                    </div>
+                                </div>
+                                <div class="detail-card">
+                                    <div class="label">موقع التوصيل</div>
+                                    <div class="value">
+                                        <i class="bi bi-geo-alt"></i>
+                                        <?php echo $request['delivery_location']; ?>
+                                    </div>
+                                </div>
+                                <div class="detail-card">
+                                    <div class="label">تاريخ التوصيل</div>
+                                    <div class="value">
+                                        <i class="bi bi-calendar"></i>
+                                        <?php echo date('Y-m-d', strtotime($request['delivery_date'])); ?>
+                                    </div>
+                                </div>
+                                <div class="detail-card">
+                                    <div class="label">التكلفة</div>
+                                    <div class="value">
+                                        <i class="bi bi-currency-dollar"></i>
+                                        <?php echo number_format($request['total_cost'], 2); ?> ريال
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- معلومات السائق -->
+                            <?php if ($request['driver_id']): ?>
+                            <div class="driver-info">
+                                <div class="driver-info-header">
+                                    <i class="bi bi-person-badge"></i>
+                                    معلومات السائق
+                                </div>
+                                <div class="driver-details">
+                                    <div>
+                                        <i class="bi bi-person"></i>
+                                        <?php echo $request['driver_name']; ?>
+                                    </div>
+                                    <div>
+                                        <i class="bi bi-telephone"></i>
+                                        <?php echo $request['driver_phone']; ?>
+                                    </div>
+                                </div>
+                                <div class="driver-contact">
+                                    <button class="btn btn-sm btn-info" onclick="window.location.href='tel:<?php echo $request['driver_phone']; ?>'">
+                                        <i class="bi bi-telephone"></i> اتصال
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="openDriverWhatsApp('<?php echo $request['driver_phone']; ?>', '<?php echo $request['driver_name']; ?>', '<?php echo $request['order_number']; ?>')">
+                                        <i class="bi bi-whatsapp"></i> واتساب
+                                    </button>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+
+                            <!-- معلومات الدفع -->
+                            <div class="payment-info">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <i class="bi bi-credit-card"></i>
+                                        طريقة الدفع: <?php echo $request['payment_method']; ?>
+                                    </div>
+                                    <span class="payment-status <?php echo $request['payment_status'] === 'paid' ? 'paid' : 'unpaid'; ?>">
+                                        <i class="bi bi-<?php echo $request['payment_status'] === 'paid' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
+                                        <?php echo $request['payment_status'] === 'paid' ? 'مدفوع' : 'غير مدفوع'; ?>
                                     </span>
-                                </td>
-                                <td>
-                                    <?php if ($request['driver_id']): ?>
-                                        <div class="customer-info">
-                                            <div><?php echo $request['driver_name']; ?></div>
-                                            <div class="customer-phone"><?php echo $request['driver_phone']; ?></div>
-                                            <div class="mt-2">
-                                                <a href="https://wa.me/<?php echo formatPhoneForWhatsApp($request['driver_phone']); ?>" 
-                                                   target="_blank" 
-                                                   class="btn btn-success btn-sm">
-                                                    <i class="bi bi-whatsapp"></i>
-                                                    واتساب
-                                                </a>
-                                                <a href="tel:<?php echo formatPhoneForWhatsApp($request['driver_phone']); ?>" 
-                                                   class="btn btn-primary btn-sm ms-1">
-                                                    <i class="bi bi-telephone"></i>
-                                                    اتصال
-                                                </a>
-                                            </div>
-                                        </div>
-                                    <?php else: ?>
-                                        <span class="text-muted">لم يتم التعيين</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="collapse" data-bs-target="#details-<?php echo $request['id']; ?>" title="عرض التفاصيل">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                        <?php if ($request['status'] === 'pending'): ?>
-                                            <button type="button" class="btn btn-sm btn-warning" onclick="editOrder(<?php echo $request['id']; ?>)" title="تعديل الطلب">
-                                                <i class="bi bi-pencil"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-danger" onclick="cancelOrder(<?php echo $request['id']; ?>)" title="إلغاء الطلب">
-                                                <i class="bi bi-x-circle"></i>
-                                            </button>
-                                        <?php endif; ?>
-                                        <?php if (in_array($request['status'], ['accepted', 'in_transit', 'delivered']) && $request['driver_id']): ?>
-                                            <button type="button" class="btn btn-sm btn-danger" 
-                                                    onclick="openComplaint(<?php echo $request['id']; ?>, <?php echo $request['driver_id']; ?>)" 
-                                                    title="تقديم شكوى">
-                                                <i class="bi bi-exclamation-triangle"></i>
-                                            </button>
-                                        <?php endif; ?>
-                                        <?php if ($request['status'] === 'delivered' && $request['driver_id']): ?>
-                                            <button type="button" class="btn btn-sm btn-primary" 
-                                                    onclick="openRating(<?php echo $request['id']; ?>, <?php echo $request['driver_id']; ?>)" 
-                                                    title="تقييم السائق">
-                                                <i class="bi bi-star"></i>
-                                            </button>
-                                        <?php endif; ?>
-                                        <button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp(<?php 
-                                            echo htmlspecialchars(json_encode([
-                                                'phone' => $request['customer_phone'],
-                                                'orderNumber' => $request['order_number'],
-                                                'customerName' => $request['customer_name'],
-                                                'pickupLocation' => $request['pickup_location'],
-                                                'deliveryLocation' => $request['delivery_location'],
-                                                'deliveryDate' => date('Y-m-d', strtotime($request['delivery_date'])),
-                                                'totalCost' => $request['total_cost'],
-                                                'status' => $status_text
-                                            ])); 
-                                        ?>)" title="فتح محادثة واتساب">
-                                            <i class="bi bi-whatsapp"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-info" onclick="trackOrder('<?php echo $request['order_number']; ?>')" title="تتبع الطلب">
-                                            <i class="bi bi-search"></i>
-                                        </button>
-                                        <?php if ($request['status'] === 'cancelled'): ?>
-                                            <button type="button" class="btn btn-sm btn-success" onclick="revertOrder(<?php echo $request['id']; ?>)" title="إرجاع للانتظار">
-                                                <i class="bi bi-arrow-counterclockwise"></i>
-                                            </button>
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Order Details Row -->
-                            <tr class="collapse" id="details-<?php echo $request['id']; ?>">
-                                <td colspan="8">
-                                    <div class="card m-2 border-0">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <h6 class="mb-3">تفاصيل الطلب</h6>
-                                                    <dl class="row">
-                                                        <dt class="col-sm-4">موقع الاستلام</dt>
-                                                        <dd class="col-sm-8"><?php echo htmlspecialchars($request['pickup_location']); ?></dd>
-                                                        
-                                                        <dt class="col-sm-4">موقع التوصيل</dt>
-                                                        <dd class="col-sm-8"><?php echo htmlspecialchars($request['delivery_location']); ?></dd>
-                                                        
-                                                        <dt class="col-sm-4">عدد القطع</dt>
-                                                        <dd class="col-sm-8"><?php echo htmlspecialchars($request['items_count']); ?> قطعة</dd>
-                                                            </dl>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h6 class="mb-3">معلومات إضافية</h6>
-                                                    <dl class="row">
-                                                        <dt class="col-sm-4">طريقة الدفع</dt>
-                                                        <dd class="col-sm-8"><?php echo htmlspecialchars($request['payment_method']); ?></dd>
-                                                        
-                                                        <dt class="col-sm-4">حالة الدفع</dt>
-                                                        <dd class="col-sm-8">
-                                                            <span class="badge bg-<?php echo $request['payment_status'] === 'paid' ? 'success' : 'warning'; ?>">
-                                                                        <?php echo $request['payment_status'] === 'paid' ? 'مدفوع' : 'غير مدفوع'; ?>
-                                                                    </span>
-                                                                </dd>
-                                                                
-                                                        <dt class="col-sm-4">ملاحظات</dt>
-                                                        <dd class="col-sm-8"><?php echo $request['additional_notes'] ? htmlspecialchars($request['additional_notes']) : 'لا توجد ملاحظات'; ?></dd>
-                                                            </dl>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                                </div>
+                            </div>
+
+                            <!-- أزرار الإجراءات -->
+                            <div class="order-actions">
+                                <button class="btn-action btn-primary" onclick="trackOrder('<?php echo $request['order_number']; ?>')">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>تتبع</span>
+                                </button>
+                                
+                                <?php if ($request['status'] === 'pending'): ?>
+                                <button class="btn-action btn-warning" onclick="editOrder(<?php echo $request['id']; ?>)">
+                                    <i class="bi bi-pencil-fill"></i>
+                                    <span>تعديل</span>
+                                </button>
+                                <button class="btn-action btn-danger" onclick="cancelOrder(<?php echo $request['id']; ?>)">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                    <span>إلغاء</span>
+                                </button>
+                                <?php endif; ?>
+                                
+                                <button class="btn-action btn-success" onclick="openWhatsApp(<?php 
+                                    echo htmlspecialchars(json_encode([
+                                        'phone' => $request['customer_phone'],
+                                        'orderNumber' => $request['order_number'],
+                                        'customerName' => $request['customer_name'],
+                                        'pickupLocation' => $request['pickup_location'],
+                                        'deliveryLocation' => $request['delivery_location'],
+                                        'deliveryDate' => date('Y-m-d', strtotime($request['delivery_date'])),
+                                        'totalCost' => $request['total_cost'],
+                                        'status' => $status_text
+                                    ])); 
+                                ?>)">
+                                    <i class="bi bi-whatsapp"></i>
+                                    <span>واتساب</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
@@ -1292,11 +1747,10 @@ ${trackingUrl}
         });
 
         function trackOrder(orderNumber) {
-            // Get the current domain
-            const domain = window.location.protocol + '//' + window.location.host;
-            const trackingUrl = domain + '/track_order.php?order_number=' + orderNumber;
+            // استخدام المسار النسبي للوصول إلى ملف التتبع
+            const trackingUrl = '../track_order.php?order_number=' + orderNumber;
             
-            // Open tracking page in new tab
+            // فتح صفحة التتبع في نافذة جديدة
             window.open(trackingUrl, '_blank');
         }
 
@@ -1304,54 +1758,55 @@ ${trackingUrl}
         function performSearch() {
             const searchInput = document.getElementById('orderSearch');
             const searchValue = searchInput.value.toLowerCase().trim();
-            const tableBody = document.querySelector('table tbody');
-            const rows = tableBody.querySelectorAll('tr:not(.order-details-row)');
+            const orderCards = document.querySelectorAll('.order-card');
             let hasResults = false;
 
-            // إزالة رسالة "لا توجد نتائج" إذا كانت موجودة
-            const existingNoResults = document.querySelector('.no-results');
-            if (existingNoResults) {
-                existingNoResults.remove();
-            }
+            orderCards.forEach(card => {
+                const orderNumber = card.querySelector('h5').textContent.toLowerCase();
+                const customerName = card.querySelector('.customer-info-item:first-child .fw-bold').textContent.toLowerCase();
+                const customerPhone = card.querySelector('.customer-info-item:last-child .fw-bold').textContent.toLowerCase();
+                const pickupLocation = card.querySelector('.detail-card:nth-child(1) .value').textContent.toLowerCase();
+                const deliveryLocation = card.querySelector('.detail-card:nth-child(2) .value').textContent.toLowerCase();
+                
+                const matchesSearch = orderNumber.includes(searchValue) || 
+                                    customerName.includes(searchValue) || 
+                                    customerPhone.includes(searchValue) ||
+                                    pickupLocation.includes(searchValue) ||
+                                    deliveryLocation.includes(searchValue);
 
-            rows.forEach(row => {
-                const orderNumber = row.querySelector('.order-number')?.textContent.toLowerCase() || '';
-                const customerInfo = row.querySelector('.customer-info')?.textContent.toLowerCase() || '';
-                const customerPhone = row.querySelector('.customer-phone')?.textContent.toLowerCase() || '';
-                
-                const matchesSearch = !searchValue || 
-                                    orderNumber.includes(searchValue) || 
-                                    customerInfo.includes(searchValue) || 
-                                    customerPhone.includes(searchValue);
-                
-                row.style.display = matchesSearch ? '' : 'none';
-                
+                const parentCol = card.closest('.col-lg-6');
                 if (matchesSearch) {
+                    parentCol.style.display = '';
                     hasResults = true;
-                }
-
-                // إخفاء/إظهار صف التفاصيل المرتبط
-                const detailsRow = row.nextElementSibling;
-                if (detailsRow && detailsRow.classList.contains('order-details-row')) {
-                    detailsRow.style.display = matchesSearch ? 'none' : 'none'; // يبدأ مخفياً دائماً
+                } else {
+                    parentCol.style.display = 'none';
                 }
             });
 
-            // إظهار رسالة "لا توجد نتائج" إذا لم يتم العثور على نتائج
+            // إظهار رسالة عندما لا توجد نتائج
+            const noResultsMessage = document.getElementById('noResultsMessage');
             if (!hasResults && searchValue) {
-                const noResultsRow = document.createElement('tr');
-                noResultsRow.className = 'no-results';
-                noResultsRow.innerHTML = `
-                    <td colspan="8" class="text-center py-4">
-                        <i class="bi bi-search" style="font-size: 2rem; color: #6c757d;"></i>
-                        <p class="mb-0 mt-2">لا توجد نتائج تطابق بحثك</p>
-                    </td>
-                `;
-                tableBody.appendChild(noResultsRow);
+                if (!noResultsMessage) {
+                    const message = document.createElement('div');
+                    message.id = 'noResultsMessage';
+                    message.className = 'col-12 text-center py-5';
+                    message.innerHTML = `
+                        <div class="no-results-container">
+                            <i class="bi bi-search" style="font-size: 3rem; color: rgba(255,255,255,0.7);"></i>
+                            <h4 class="mt-3 text-white">لا توجد نتائج</h4>
+                            <p class="text-white-50">لم يتم العثور على طلبات تطابق بحثك</p>
+                            <button onclick="clearSearch()" class="btn btn-light mt-3">
+                                <i class="bi bi-x-circle"></i> مسح البحث
+                            </button>
+                        </div>
+                    `;
+                    document.querySelector('.orders-container .row').appendChild(message);
+                }
+            } else if (noResultsMessage) {
+                noResultsMessage.remove();
             }
         }
 
-        // دالة لمسح البحث
         function clearSearch() {
             const searchInput = document.getElementById('orderSearch');
             searchInput.value = '';
@@ -1359,19 +1814,56 @@ ${trackingUrl}
             searchInput.focus();
         }
 
-        // إضافة مستمعي الأحداث
+        // تحسين تجربة البحث
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('orderSearch');
             
-            // البحث عند الكتابة
-            searchInput.addEventListener('input', performSearch);
-            
+            // إضافة تأخير بسيط للبحث لتحسين الأداء
+            let searchTimeout;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(performSearch, 300);
+            });
+
             // البحث عند الضغط على Enter
             searchInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     performSearch();
                 }
+            });
+
+            // إضافة زر مسح البحث داخل حقل البحث
+            const clearButton = document.createElement('button');
+            clearButton.type = 'button';
+            clearButton.className = 'clear-search-btn';
+            clearButton.innerHTML = '<i class="bi bi-x"></i>';
+            clearButton.style.cssText = `
+                position: absolute;
+                right: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                color: var(--secondary-color);
+                cursor: pointer;
+                padding: 0.5rem;
+                display: none;
+                transition: color 0.3s ease;
+            `;
+            clearButton.addEventListener('mouseover', function() {
+                this.style.color = 'var(--danger-color)';
+            });
+            clearButton.addEventListener('mouseout', function() {
+                this.style.color = 'var(--secondary-color)';
+            });
+            clearButton.onclick = clearSearch;
+
+            searchInput.parentElement.appendChild(clearButton);
+
+            // إظهار/إخفاء زر المسح
+            searchInput.addEventListener('input', function() {
+                clearButton.style.display = this.value ? 'block' : 'none';
             });
         });
     </script>

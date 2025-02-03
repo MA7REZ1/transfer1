@@ -47,6 +47,11 @@ if ($_SESSION['admin_role'] === 'super_admin' || $_SESSION['admin_role'] === 'م
             <span>الشكاوى</span>
         </a>
         
+        <a href="feedback.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'feedback.php' ? 'active' : ''; ?>">
+            <i class="fas fa-comment-alt"></i>
+            <span>ملاحظات العملاء</span>
+        </a>
+        
         <div class="sidebar-divider"></div>
         
         <a href="reports.php" class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : ''; ?>">
@@ -176,6 +181,13 @@ if ($employee && $employee['department'] === 'accounting') {
             <i class="fas fa-exclamation-circle"></i>
             <span>الشكاوى <?php if ($unresolved_complaints > 0): ?><span class="complaints-badge"><?php echo $unresolved_complaints; ?></span><?php endif; ?></span>
         </a>
+        
+        <a href="feedback.php" class="sidebar-item <?php echo (basename($_SERVER['PHP_SELF']) == 'feedback.php') ? 'active' : ''; ?>">
+            <i class="fas fa-comment-alt"></i>
+            <span>ملاحظات العملاء</span>
+        </a>
+        
+        <div class="sidebar-divider"></div>
         
         <a href="driver_analysis.php" class="sidebar-item <?php echo (basename($_SERVER['PHP_SELF']) == 'driver_analysis.php') ? 'active' : ''; ?>">
             <i class="fas fa-chart-bar"></i>

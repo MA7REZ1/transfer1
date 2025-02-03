@@ -2435,3 +2435,60 @@ Stack trace:
 [02-Feb-2025 09:39:55 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
 [02-Feb-2025 09:40:13 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
 [02-Feb-2025 09:42:46 Asia/Riyadh] Responses found for complaint COMP202501078781: 7
+[02-Feb-2025 10:17:20 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 10:17:26 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 22:54:32 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 23:02:31 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 23:07:23 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 23:10:32 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 23:13:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 23:15:53 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 23:19:54 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 23:22:14 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 23:24:54 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 23:26:51 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[02-Feb-2025 23:28:27 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[03-Feb-2025 00:12:35 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[03-Feb-2025 00:22:03 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[03-Feb-2025 01:34:59 Asia/Riyadh] Responses found for complaint COMP202501074676: 6
+[03-Feb-2025 01:38:29 Asia/Riyadh] Responses found for complaint COMP202501074676: 6
+[03-Feb-2025 01:38:37 Asia/Riyadh] Responses found for complaint COMP202501078781: 7
+[03-Feb-2025 01:39:48 Asia/Riyadh] Responses found for complaint COMP202501074676: 6
+[03-Feb-2025 01:52:22 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'admin_panel.customer_feedback' doesn't exist in C:\xampp\htdocs\proo\track_order.php:512
+Stack trace:
+#0 C:\xampp\htdocs\proo\track_order.php(512): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\track_order.php on line 512
+[03-Feb-2025 02:07:07 Asia/Riyadh] PHP Deprecated:  addslashes(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\admin\orders.php on line 85
+[03-Feb-2025 02:09:58 Asia/Riyadh] PHP Warning:  Undefined array key "order_number" in C:\xampp\htdocs\proo\admin\orders.php on line 56
+[03-Feb-2025 02:10:46 Asia/Riyadh] PHP Deprecated:  addslashes(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\admin\orders.php on line 85
+[03-Feb-2025 02:12:10 Asia/Riyadh] PHP Deprecated:  addslashes(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\admin\orders.php on line 85
+[03-Feb-2025 02:14:11 Asia/Riyadh] PHP Warning:  Undefined variable $orderNumber in C:\xampp\htdocs\proo\admin\orders.php on line 145
+[03-Feb-2025 02:14:11 Asia/Riyadh] PHP Warning:  Undefined variable $orderType in C:\xampp\htdocs\proo\admin\orders.php on line 146
+[03-Feb-2025 02:14:11 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Class "Date" not found in C:\xampp\htdocs\proo\admin\orders.php:147
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\orders.php on line 147
+[03-Feb-2025 02:14:20 Asia/Riyadh] PHP Warning:  Undefined variable $orderNumber in C:\xampp\htdocs\proo\admin\orders.php on line 145
+[03-Feb-2025 02:14:20 Asia/Riyadh] PHP Warning:  Undefined variable $orderType in C:\xampp\htdocs\proo\admin\orders.php on line 146
+[03-Feb-2025 02:14:20 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Class "Date" not found in C:\xampp\htdocs\proo\admin\orders.php:147
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\orders.php on line 147
+[03-Feb-2025 02:15:54 Asia/Riyadh] PHP Fatal error:  Uncaught Error: Call to undefined function getStatusClass() in C:\xampp\htdocs\proo\admin\orders.php:103
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\proo\admin\orders.php on line 103
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Warning:  Undefined array key "username" in C:\xampp\htdocs\proo\Drivers\profile.php on line 28
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\proo\Drivers\profile.php on line 28
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Warning:  Undefined array key "email" in C:\xampp\htdocs\proo\Drivers\profile.php on line 29
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Warning:  Undefined array key "phone" in C:\xampp\htdocs\proo\Drivers\profile.php on line 30
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\proo\Drivers\profile.php on line 30
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Warning:  Undefined array key "address" in C:\xampp\htdocs\proo\Drivers\profile.php on line 31
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\proo\Drivers\profile.php on line 31
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Warning:  Undefined array key "vehicle_type" in C:\xampp\htdocs\proo\Drivers\profile.php on line 32
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\proo\Drivers\profile.php on line 32
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Warning:  Undefined array key "vehicle_model" in C:\xampp\htdocs\proo\Drivers\profile.php on line 33
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\proo\Drivers\profile.php on line 33
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Warning:  Undefined array key "vehicle_plate" in C:\xampp\htdocs\proo\Drivers\profile.php on line 34
+[03-Feb-2025 02:53:39 Asia/Riyadh] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\proo\Drivers\profile.php on line 34
