@@ -7,7 +7,10 @@ if (!isset($_SESSION['admin_id'])) {
     header('Location: index.php');
     exit;
 }
-
+if ($_SESSION['admin_role'] !== 'super_admin' && $_SESSION['admin_role'] !== 'مدير_عام') {
+    header('Location: index.php');
+    exit;
+}
 // Get all feedback with related information
 $query = "
     SELECT 

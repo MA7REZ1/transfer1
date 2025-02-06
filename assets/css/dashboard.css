@@ -234,11 +234,11 @@ body {
     background: white;
  
 }
-
+/* 
 .card:hover {
     transform: translateY(-3px) scale(1.01);
     box-shadow: var(--hover-shadow);
-}
+} */
 
 .card-header {
     background: white;
@@ -1061,8 +1061,7 @@ body {
     *:active,
     *:focus,
     *:hover {
-        background: inherit !important;
-        background-color: inherit !important;
+      
         color: inherit !important;
         border-color: inherit !important;
         box-shadow: inherit !important;

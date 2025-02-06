@@ -2,7 +2,7 @@
 require_once '../config.php';
 // التحقق من نوع المستخدم - فقط المدراء يمكنهم الوصول للوحة التحكم
 if ($_SESSION['admin_role'] !== 'super_admin' && $_SESSION['admin_role'] !== 'مدير_عام' && $_SESSION['department'] !== 'accounting') {
-    header('Location: ../index.php');
+    header('Location: index.php');
     exit;
 }
 // جلب التواريخ المحددة للتصفية

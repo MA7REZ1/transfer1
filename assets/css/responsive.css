@@ -467,10 +467,7 @@
     }
 
     /* إزالة تأثيرات hover */
-    *:hover {
-        background: none !important;
-        transform: none !important;
-    }
+ 
 }
 
 /* دعم RTL */

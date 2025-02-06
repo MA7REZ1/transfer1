@@ -54,7 +54,7 @@ $unread_notifications = $stmt->fetchColumn();
         position: fixed;
         top: 1rem;
         right: 1rem;
-        z-index: 1050;
+        z-index: 1 !important;
         background: var(--primary-gradient);
         border: none;
         color: white;
@@ -70,7 +70,7 @@ $unread_notifications = $stmt->fetchColumn();
     }
 
     .mobile-menu-toggle:hover {
-        transform: scale(1.05);
+        /* transform: scale(1.05); */
         box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
 
@@ -82,6 +82,7 @@ $unread_notifications = $stmt->fetchColumn();
     @media (min-width: 992px) {
         .mobile-menu-toggle {
             display: none;
+            z-index: -1;
         }
     }
 

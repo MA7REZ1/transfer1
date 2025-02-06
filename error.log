@@ -2492,3 +2492,4 @@ Stack trace:
 [03-Feb-2025 02:53:39 Asia/Riyadh] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\proo\Drivers\profile.php on line 33
 [03-Feb-2025 02:53:39 Asia/Riyadh] PHP Warning:  Undefined array key "vehicle_plate" in C:\xampp\htdocs\proo\Drivers\profile.php on line 34
 [03-Feb-2025 02:53:39 Asia/Riyadh] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\proo\Drivers\profile.php on line 34
+[03-Feb-2025 22:45:16 Asia/Riyadh] Payment Error: المبلغ المدخل أكبر من المبلغ المتبقي

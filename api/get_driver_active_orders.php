@@ -43,7 +43,7 @@ try {
             r.items_count,
             r.total_cost,
             r.delivery_fee,
-            (r.total_cost + r.delivery_fee) as total_amount,
+            (r.total_cost) as total_amount,
             r.payment_status,
             r.status as order_status,
             r.is_fragile,

@@ -10,7 +10,7 @@ if (!isLoggedIn()) {
 
 // التحقق من نوع المستخدم - فقط المدراء يمكنهم الوصول للوحة التحكم
 if ($_SESSION['admin_role'] !== 'super_admin' && $_SESSION['admin_role'] !== 'مدير_عام' && $_SESSION['department'] !== 'drivers_supervisor') {
-    header('Location: ../index.php');
+    header('Location: index.php');
     exit;
 }
 
