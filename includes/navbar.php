@@ -69,7 +69,7 @@ if ($is_staff_page) {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 1.5rem;
-    backdrop-filter: blur(10px);
+
 }
 
 .staff-avatar {

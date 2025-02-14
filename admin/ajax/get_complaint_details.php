@@ -314,14 +314,14 @@ $priority_text = match($complaint['priority']) {
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h5 class="mb-0">
                 <i class="bi bi-info-circle me-2"></i>
-                معلومات الشكوى #<?php echo htmlspecialchars($complaint['complaint_number'] ?? ''); ?>
+                <?php echo __('complaint_details'); ?> #<?php echo htmlspecialchars($complaint['complaint_number'] ?? ''); ?>
             </h5>
             <div>
                 <span class="badge bg-<?php echo $priority_class; ?> me-2">
-                    <?php echo $priority_text; ?>
+                    <?php echo __('priority_' . $complaint['priority']); ?>
                 </span>
                 <span class="badge bg-<?php echo $status_class; ?>">
-                    <?php echo $status_text; ?>
+                    <?php echo __('status_' . $complaint['status']); ?>
                 </span>
             </div>
         </div>
@@ -329,29 +329,29 @@ $priority_text = match($complaint['priority']) {
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="info-group">
-                        <label class="text-muted mb-2">معلومات الشركة والسائق</label>
+                        <label class="text-muted mb-2"><?php echo __('company_driver_info'); ?></label>
                         <div class="d-flex align-items-center p-3 border rounded">
                             <i class="bi bi-building fs-3 me-3 text-primary"></i>
                             <div>
                                 <h6 class="mb-1"><?php echo htmlspecialchars($complaint['company_name'] ?? ''); ?></h6>
-                                <div class="text-muted mb-2">السائق: <?php echo htmlspecialchars($complaint['driver_name'] ?? ''); ?></div>
-                                <span class="text-muted">رقم الطلب: <?php echo htmlspecialchars($complaint['order_number'] ?? ''); ?></span>
+                                <div class="text-muted mb-2"><?php echo __('driver'); ?>: <?php echo htmlspecialchars($complaint['driver_name'] ?? ''); ?></div>
+                                <span class="text-muted"><?php echo __('order_number'); ?>: <?php echo htmlspecialchars($complaint['order_number'] ?? ''); ?></span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="info-group">
-                        <label class="text-muted mb-2">معلومات التوصيل</label>
+                        <label class="text-muted mb-2"><?php echo __('delivery_info'); ?></label>
                         <div class="p-3 border rounded">
                             <div class="mb-3">
                                 <i class="bi bi-geo-alt text-primary"></i>
-                                <strong>موقع الاستلام:</strong>
+                                <strong><?php echo __('pickup_location'); ?>:</strong>
                                 <p class="mb-2 ms-4 mt-2"><?php echo htmlspecialchars($complaint['pickup_location'] ?? ''); ?></p>
                             </div>
                             <div>
                                 <i class="bi bi-geo text-success"></i>
-                                <strong>موقع التسليم:</strong>
+                                <strong><?php echo __('delivery_location'); ?>:</strong>
                                 <p class="mb-0 ms-4 mt-2"><?php echo htmlspecialchars($complaint['delivery_location'] ?? ''); ?></p>
                             </div>
                         </div>
@@ -384,7 +384,7 @@ $priority_text = match($complaint['priority']) {
         <div class="card-header bg-light">
             <h5 class="mb-0">
                 <i class="bi bi-chat-dots me-2 text-primary"></i>
-                الردود والمتابعة
+                <?php echo __('responses_followup'); ?>
             </h5>
         </div>
         <div class="card-body p-0">
@@ -392,7 +392,7 @@ $priority_text = match($complaint['priority']) {
                 <?php if (empty($responses)): ?>
                     <div class="text-center text-muted py-5">
                         <i class="bi bi-chat-square-text fs-1 mb-3 d-block"></i>
-                        <p class="mb-0">لا توجد ردود حتى الآن</p>
+                        <p class="mb-0"><?php echo __('no_responses'); ?></p>
                     </div>
                 <?php else: ?>
                     <?php foreach ($responses as $response): ?>
@@ -406,7 +406,7 @@ $priority_text = match($complaint['priority']) {
                                             </div>
                                             <div>
                                                 <strong class="text-primary"><?php echo htmlspecialchars($response['company_name'] ?? ''); ?></strong>
-                                                <div class="text-muted small">رد الشركة</div>
+                                                <div class="text-muted small"><?php echo __('company_response'); ?></div>
                                             </div>
                                         <?php else: ?>
                                             <div class="response-icon bg-success bg-opacity-10">
@@ -414,7 +414,7 @@ $priority_text = match($complaint['priority']) {
                                             </div>
                                             <div>
                                                 <strong class="text-success"><?php echo htmlspecialchars($response['admin_name'] ?? ''); ?></strong>
-                                                <div class="text-muted small">رد منا</div>
+                                                <div class="text-muted small"><?php echo __('admin_response'); ?></div>
                                             </div>
                                         <?php endif; ?>
                                     </div>
@@ -446,21 +446,21 @@ $priority_text = match($complaint['priority']) {
                     <div class="card-body">
                         <form id="adminResponseForm" onsubmit="submitResponse(<?php echo $complaint['id']; ?>); return false;">
                             <div class="mb-3">
-                                <label class="form-label">إضافة رد</label>
-                                <textarea class="form-control" id="adminResponse" rows="2" required placeholder="اكتب ردك هنا..."></textarea>
+                                <label class="form-label"><?php echo __('add_response'); ?></label>
+                                <textarea class="form-control" id="adminResponse" rows="2" required placeholder="<?php echo __('write_response'); ?>"></textarea>
                             </div>
                             <div class="row g-2">
                                 <div class="col">
                                     <select class="form-select" id="complaintStatus">
-                                        <option value="in_progress" <?php echo $complaint['status'] === 'in_progress' ? 'selected' : ''; ?>>قيد المعالجة</option>
-                                        <option value="resolved" <?php echo $complaint['status'] === 'resolved' ? 'selected' : ''; ?>>تم الحل</option>
-                                        <option value="closed" <?php echo $complaint['status'] === 'closed' ? 'selected' : ''; ?>>مغلقة</option>
+                                        <option value="in_progress" <?php echo $complaint['status'] === 'in_progress' ? 'selected' : ''; ?>><?php echo __('status_in_progress'); ?></option>
+                                        <option value="resolved" <?php echo $complaint['status'] === 'resolved' ? 'selected' : ''; ?>><?php echo __('status_resolved'); ?></option>
+                                        <option value="closed" <?php echo $complaint['status'] === 'closed' ? 'selected' : ''; ?>><?php echo __('status_closed'); ?></option>
                                     </select>
                                 </div>
                                 <div class="col-auto">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="bi bi-send me-2"></i>
-                                        إرسال
+                                        <?php echo __('submit_response'); ?>
                                     </button>
                                 </div>
                             </div>

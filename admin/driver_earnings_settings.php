@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_driver'])) {
     
     $stmt = $conn->prepare("UPDATE drivers SET total_earnings = ?, notes = ? WHERE id = ?");
     if ($stmt->execute([$total_earnings, $notes, $driver_id])) {
-        $success_msg = "تم تحديث بيانات السائق بنجاح";
+        $success_msg = __('driver_update_success');
     } else {
-        $error_msg = "حدث خطأ أثناء تحديث البيانات";
+        $error_msg = __('error_saving_data');
     }
 }
 
@@ -47,11 +47,11 @@ $drivers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="<?php echo $_SESSION['lang'] ?? 'ar'; ?>" dir="<?php echo $_SESSION['lang'] == 'en' ? 'ltr' : 'rtl'; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التحصيل من السواق</title>
+    <title><?php echo __('driver_earnings_management'); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
@@ -82,16 +82,16 @@ $drivers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <input type="text" 
                                        class="form-control" 
                                        name="search" 
-                                       placeholder="ابحث عن سائق (الاسم، البريد الإلكتروني، رقم الهاتف)"
+                                       placeholder="<?php echo __('search_drivers'); ?>"
                                        value="<?php echo htmlspecialchars($search); ?>">
                             </div>
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-search"></i> بحث
+                                    <i class="fas fa-search"></i> <?php echo __('search'); ?>
                                 </button>
                                 <?php if (!empty($search)): ?>
                                     <a href="driver_earnings_settings.php" class="btn btn-secondary">
-                                        <i class="fas fa-times"></i> مسح البحث
+                                        <i class="fas fa-times"></i> <?php echo __('reset'); ?>
                                     </a>
                                 <?php endif; ?>
                             </div>
@@ -128,19 +128,19 @@ $drivers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                                 
                                 <div class="col-md-2">
-                                    <label class="form-label">إجمالي الطلبات</label>
+                                    <label class="form-label"><?php echo __('total_trips'); ?></label>
                                     <div class="fw-bold"><?php echo $driver['total_trips']; ?></div>
                                 </div>
                                 
                                 <div class="col-md-2">
-                                    <label class="form-label">التقييم</label>
+                                    <label class="form-label"><?php echo __('driver_rating'); ?></label>
                                     <div class="text-warning">
                                         <?php echo number_format($driver['rating'], 1); ?> <i class="fas fa-star"></i>
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-2">
-                                    <label for="total_earnings_<?php echo $driver['id']; ?>" class="form-label">الأرباح</label>
+                                    <label for="total_earnings_<?php echo $driver['id']; ?>" class="form-label"><?php echo __('driver_earnings'); ?></label>
                                     <input type="number" 
                                            class="form-control earnings-input" 
                                            id="total_earnings_<?php echo $driver['id']; ?>"
@@ -150,7 +150,7 @@ $drivers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                                 
                                 <div class="col-md-2">
-                                    <label for="notes_<?php echo $driver['id']; ?>" class="form-label">ملاحظات</label>
+                                    <label for="notes_<?php echo $driver['id']; ?>" class="form-label"><?php echo __('notes'); ?></label>
                                     <textarea class="form-control" 
                                               id="notes_<?php echo $driver['id']; ?>"
                                               name="notes"
@@ -171,7 +171,7 @@ $drivers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <?php if (empty($drivers)): ?>
                     <div class="alert alert-info" role="alert">
-                        لا يوجد سائقين متطابقين مع البحث
+                        <?php echo __('no_drivers'); ?>
                     </div>
                 <?php endif; ?>
             </div>

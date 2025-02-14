@@ -526,7 +526,7 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="dashboard.php">
                 <?php if (!empty($company['logo'])): ?>
-                    <img src="../uploads/companies/<?php echo htmlspecialchars($company['logo']); ?>" alt="شعار الشركة" style="height: 40px; width: auto;" class="rounded me-2">
+                    <img src="../uploads/company_logos/<?php echo htmlspecialchars($company['logo']); ?>" alt="شعار الشركة" style="height: 40px; width: auto;" class="rounded me-2">
                 <?php endif; ?>
                 <span><?php echo htmlspecialchars($company['name']); ?></span>
             </a>
@@ -557,7 +557,7 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
             <div class="row align-items-center">
                 <div class="col-md-auto text-center mb-3 mb-md-0">
                     <?php if (!empty($company['logo'])): ?>
-                        <img src="../uploads/companies/<?php echo htmlspecialchars($company['logo']); ?>" alt="شعار الشركة" class="profile-image">
+                        <img src="../uploads/company_logos/<?php echo htmlspecialchars($company['logo']); ?>" alt="شعار الشركة" class="profile-image">
                     <?php else: ?>
                         <div class="profile-image d-flex align-items-center justify-content-center bg-light">
                             <i class="bi bi-building" style="font-size: 4rem; color: var(--primary-color);"></i>
@@ -589,7 +589,7 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
                             <i class="bi bi-box"></i>
                         </div>
                         <h6>إجمالي الطلبات</h6>
-                        <h3><?php echo number_format($stats['total_orders']); ?></h3>
+                        <h3><?php echo number_format($stats['total_orders'] ?? 0); ?></h3>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
@@ -598,25 +598,17 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
                             <i class="bi bi-check-circle"></i>
                         </div>
                         <h6>الطلبات المكتملة</h6>
-                        <h3><?php echo number_format($stats['completed_orders']); ?></h3>
+                        <h3><?php echo number_format($stats['completed_orders'] ?? 0); ?></h3>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="bi bi-currency-dollar"></i>
-                        </div>
-                        <h6>إجمالي الأرباح</h6>
-                        <h3><?php echo number_format($stats['total_earnings'], 2); ?> ريال</h3>
-                    </div>
-                </div>
+              
                 <div class="col-sm-6 col-lg-3">
                     <div class="stat-card">
                         <div class="stat-icon">
                             <i class="bi bi-graph-up"></i>
                         </div>
                         <h6>متوسط قيمة الطلب</h6>
-                        <h3><?php echo number_format($stats['avg_order_value'], 2); ?> ريال</h3>
+                        <h3><?php echo number_format($stats['avg_order_value'] ?? 0, 2); ?> ريال</h3>
                     </div>
                 </div>
             </div>

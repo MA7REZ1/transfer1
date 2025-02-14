@@ -565,16 +565,19 @@ try {
                                 <td>
                                     <div class="d-flex flex-column">
                                         <small class="text-muted mb-1"> متوسط سعر التوصيل للطلب: <?php 
-                                            $per_order = isset($company_delivery_fees[$company['id']]) ? $company_delivery_fees[$company['id']]['per_order'] : 0;
+                                            $per_order = isset($company_delivery_fees[$company['id']]['per_order']) ? $company_delivery_fees[$company['id']]['per_order'] : 0;
                                             echo number_format($per_order, 2) . ' ر.س'; 
                                         ?></small>
                                         <strong class="text-success">إجمالي التوصيل: <?php 
-                                            $total = isset($company_delivery_fees[$company['id']]) ? $company_delivery_fees[$company['id']]['total'] : 0;
+                                            $total = isset($company_delivery_fees[$company['id']]['total']) ? $company_delivery_fees[$company['id']]['total'] : 0;
                                             echo number_format($total, 2); 
                                         ?> ر.س</strong>
                                     </div>
                                 </td>
-                                <td class="pending-amount"><?php echo number_format($company['company_payable']-$company_delivery_fees[$company['id']]['total'], 2); ?> ر.س</td>
+                                <td class="pending-amount"><?php 
+                                    $delivery_fees = isset($company_delivery_fees[$company['id']]) ? $company_delivery_fees[$company['id']]['total'] : 0;
+                                    echo number_format($company['company_payable'] - $delivery_fees, 2); 
+                                ?> ر.س</td>
                                 <td class="text-success">
                                     <div class="d-flex flex-column">
                                         <small class="text-muted mb-1">مدفوع من الشركة: <?php echo number_format($company['paid_to_company'], 2); ?>  ر.س</small>

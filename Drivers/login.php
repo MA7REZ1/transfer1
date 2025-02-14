@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 2.5rem;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
+          
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
@@ -314,7 +314,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            backdrop-filter: blur(5px);
+          
         }
 
         .loading-overlay.active {

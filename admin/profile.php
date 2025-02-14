@@ -1,6 +1,13 @@
 <?php
 require_once '../config.php';
-include '../includes/header.php';
+
+// Get current language direction
+$dir = $_SESSION['lang'] === 'ar' ? 'rtl' : 'ltr';
+$lang = $_SESSION['lang'];
+
+// Include language file
+require_once '../includes/languages.php';
+
 if (!isLoggedIn()) {
     header('Location: employee-login.php');
     exit;
@@ -16,7 +23,7 @@ try {
     $stmt->execute([$employee_id]);
     $employee = $stmt->fetch();
 } catch (PDOException $e) {
-    $error_message = "حدث خطأ في جلب البيانات";
+    $error_message = __('error_fetching_data');
 }
 
 // معالجة تحديث البيانات
@@ -35,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $conn->prepare("UPDATE employees SET username = ?, email = ?, phone = ?, password = ? WHERE id = ?");
                 $stmt->execute([$username, $email, $phone, $password_hash, $employee_id]);
             } else {
-                $error_message = "كلمة المرور الحالية غير صحيحة";
+                $error_message = __('incorrect_current_password');
             }
         } else {
             $stmt = $conn->prepare("UPDATE employees SET username = ?, email = ?, phone = ? WHERE id = ?");
@@ -43,22 +50,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         if (!$error_message) {
-            $success_message = "تم تحديث البيانات بنجاح";
+            $success_message = __('data_updated_successfully');
             // تحديث بيانات الجلسة
             $_SESSION['admin_username'] = $username;
         }
     } catch (PDOException $e) {
-        $error_message = "حدث خطأ في تحديث البيانات";
+        $error_message = __('error_updating_data');
     }
 }
+
+include '../includes/header.php';
 ?>
+
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="<?php echo $lang; ?>" dir="<?php echo $dir; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الملف الشخصي</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title><?php echo __('profile'); ?> - <?php echo __('admin_panel'); ?></title>
+    
+    <!-- Bootstrap CSS -->
+    <?php if ($dir === 'rtl'): ?>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    <?php else: ?>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <?php endif; ?>
+    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -68,9 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="card shadow">
                     <div class="card-header bg-primary text-white">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h3 class="mb-0">الملف الشخصي</h3>
+                            <h3 class="mb-0"><?php echo __('profile'); ?></h3>
                             <a href="financial.php" class="btn btn-light">
-                                <i class="fas fa-arrow-right me-2"></i>العودة
+                                <i class="fas fa-arrow-<?php echo $dir === 'rtl' ? 'left' : 'right'; ?> <?php echo $dir === 'rtl' ? 'ms-2' : 'me-2'; ?>"></i>
+                                <?php echo __('back'); ?>
                             </a>
                         </div>
                     </div>
@@ -89,19 +107,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <form method="POST" action="">
                             <div class="mb-3">
-                                <label for="username" class="form-label">اسم المستخدم</label>
+                                <label for="username" class="form-label"><?php echo __('username'); ?></label>
                                 <input type="text" class="form-control" id="username" name="username" 
                                        value="<?php echo htmlspecialchars($employee['username'] ?? ''); ?>" required>
                             </div>
 
                             <div class="mb-3">
-                                <label for="email" class="form-label">البريد الإلكتروني</label>
+                                <label for="email" class="form-label"><?php echo __('email'); ?></label>
                                 <input type="email" class="form-control" id="email" name="email" 
                                        value="<?php echo htmlspecialchars($employee['email'] ?? ''); ?>" required>
                             </div>
 
                             <div class="mb-3">
-                                <label for="phone" class="form-label">رقم الهاتف</label>
+                                <label for="phone" class="form-label"><?php echo __('phone'); ?></label>
                                 <input type="text" class="form-control" id="phone" name="phone" 
                                        value="<?php echo htmlspecialchars($employee['phone'] ?? ''); ?>">
                             </div>
@@ -109,19 +127,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <hr>
 
                             <div class="mb-3">
-                                <label for="current_password" class="form-label">كلمة المرور الحالية</label>
+                                <label for="current_password" class="form-label"><?php echo __('current_password'); ?></label>
                                 <input type="password" class="form-control" id="current_password" name="current_password">
-                                <small class="text-muted">اتركها فارغة إذا لم ترد تغيير كلمة المرور</small>
+                                <small class="text-muted"><?php echo __('leave_empty_password'); ?></small>
                             </div>
 
                             <div class="mb-3">
-                                <label for="new_password" class="form-label">كلمة المرور الجديدة</label>
+                                <label for="new_password" class="form-label"><?php echo __('new_password'); ?></label>
                                 <input type="password" class="form-control" id="new_password" name="new_password">
                             </div>
 
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save me-2"></i>حفظ التغييرات
+                                    <i class="fas fa-save <?php echo $dir === 'rtl' ? 'ms-2' : 'me-2'; ?>"></i>
+                                    <?php echo __('save_changes'); ?>
                                 </button>
                             </div>
                         </form>

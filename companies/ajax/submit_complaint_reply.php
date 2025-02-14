@@ -92,10 +92,14 @@ try {
     ]);
 
     // Create notification for admins
+    $saudi_timezone = new DateTimeZone('Asia/Riyadh');
+    $date = new DateTime('now', $saudi_timezone);
+    $formatted_date = $date->format('Y-m-d H:i:s');
+
     $stmt = $conn->prepare("
         INSERT INTO notifications 
-        (user_id, message, type, link) 
-        VALUES (?, ?, ?, ?)
+        (user_id, message, type, link, created_at) 
+        VALUES (?, ?, ?, ?, ?)
     ");
     
     $message = "رد جديد على الشكوى #{$complaint_number} - {$complaint['company_name']}: {$complaint['subject']}";
@@ -107,7 +111,7 @@ try {
     
     // Send notification to each admin
     foreach ($admins as $admin_id) {
-        $stmt->execute([$admin_id, $message, 'complaint_response', 'complaints.php']);
+        $stmt->execute([$admin_id, $message, 'complaint_response', 'complaints.php', $formatted_date]);
     }
 
     $conn->commit();

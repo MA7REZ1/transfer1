@@ -2493,3 +2493,410 @@ Stack trace:
 [03-Feb-2025 02:53:39 Asia/Riyadh] PHP Warning:  Undefined array key "vehicle_plate" in C:\xampp\htdocs\proo\Drivers\profile.php on line 34
 [03-Feb-2025 02:53:39 Asia/Riyadh] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\proo\Drivers\profile.php on line 34
 [03-Feb-2025 22:45:16 Asia/Riyadh] Payment Error: المبلغ المدخل أكبر من المبلغ المتبقي
+[08-Feb-2025 19:05:32 Asia/Riyadh] PHP Warning:  Undefined variable $isAdminSubfolder in C:\xampp\htdocs\proo\includes\header.php on line 484
+[08-Feb-2025 19:05:32 Asia/Riyadh] PHP Warning:  Undefined variable $isAdminSubfolder in C:\xampp\htdocs\proo\includes\header.php on line 493
+[08-Feb-2025 19:05:40 Asia/Riyadh] PHP Warning:  Undefined variable $isAdminSubfolder in C:\xampp\htdocs\proo\includes\header.php on line 484
+[08-Feb-2025 19:05:40 Asia/Riyadh] PHP Warning:  Undefined variable $isAdminSubfolder in C:\xampp\htdocs\proo\includes\header.php on line 493
+[08-Feb-2025 19:06:55 Asia/Riyadh] PHP Warning:  Undefined variable $isAdminSubfolder in C:\xampp\htdocs\proo\includes\header.php on line 484
+[08-Feb-2025 19:06:55 Asia/Riyadh] PHP Warning:  Undefined variable $isAdminSubfolder in C:\xampp\htdocs\proo\includes\header.php on line 493
+[09-Feb-2025 20:28:26 Asia/Riyadh] SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'ahmed.mahrez.100@gmail.com' for key 'email'
+[09-Feb-2025 21:37:06 Asia/Riyadh] PHP Warning:  Undefined array key 16 in C:\xampp\htdocs\proo\companies\statistics.php on line 577
+[09-Feb-2025 21:37:06 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\statistics.php on line 577
+[09-Feb-2025 21:49:48 Asia/Riyadh] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\proo\companies\ajax\add_staff.php on line 24
+[09-Feb-2025 21:49:48 Asia/Riyadh] Staff addition error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'company_id' in 'field list'
+[09-Feb-2025 21:51:39 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 679
+[09-Feb-2025 21:53:00 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 682
+[09-Feb-2025 21:53:06 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 682
+[09-Feb-2025 21:54:20 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 682
+[09-Feb-2025 21:54:20 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 769
+[09-Feb-2025 21:54:20 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 828
+[09-Feb-2025 21:56:21 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 688
+[09-Feb-2025 21:56:21 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 775
+[09-Feb-2025 21:56:21 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 834
+[09-Feb-2025 21:56:32 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 688
+[09-Feb-2025 21:56:32 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 775
+[09-Feb-2025 21:56:32 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 834
+[09-Feb-2025 21:57:01 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 688
+[09-Feb-2025 21:57:01 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 775
+[09-Feb-2025 21:57:01 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 834
+[09-Feb-2025 21:58:53 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 702
+[09-Feb-2025 21:58:53 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 789
+[09-Feb-2025 21:58:53 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 848
+[09-Feb-2025 22:01:00 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 717
+[09-Feb-2025 22:01:00 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 804
+[09-Feb-2025 22:01:00 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 863
+[09-Feb-2025 22:01:24 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 717
+[09-Feb-2025 22:01:24 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 804
+[09-Feb-2025 22:01:24 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 863
+[09-Feb-2025 22:01:39 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 717
+[09-Feb-2025 22:01:39 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 804
+[09-Feb-2025 22:01:39 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 863
+[09-Feb-2025 22:01:53 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 679
+[09-Feb-2025 22:06:24 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\ajax\update_staff.php on line 15
+[09-Feb-2025 22:06:24 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: hash_equals(): Argument #1 ($known_string) must be of type string, null given in C:\xampp\htdocs\proo\companies\ajax\update_staff.php:15
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\ajax\update_staff.php(15): hash_equals(Object(SensitiveParameterValue), Object(SensitiveParameterValue))
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\ajax\update_staff.php on line 15
+[09-Feb-2025 22:08:22 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 680
+[09-Feb-2025 22:08:22 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 999
+[09-Feb-2025 22:09:33 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 680
+[09-Feb-2025 22:09:33 Asia/Riyadh] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\proo\companies\staff.php on line 999
+[09-Feb-2025 22:12:14 Asia/Riyadh] Staff update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'company_id' in 'field list'
+[09-Feb-2025 22:15:14 Asia/Riyadh] Staff update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'company_id' in 'field list'
+[09-Feb-2025 22:15:26 Asia/Riyadh] Staff update error: لم يتم العثور على الموظف أو لم يتم إجراء أي تغييرات
+[09-Feb-2025 22:15:34 Asia/Riyadh] Staff update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'company_id' in 'field list'
+[09-Feb-2025 22:15:47 Asia/Riyadh] Add staff request received: Array
+(
+    [csrf_token] => ad1fe49f0bf248535caace85ebf2ff11f76bc4dbe4bacd40403019e2d0f0b064
+    [name] => ahmed ma7rez
+    [email] => ahmed.mahrez.100@gmail.com
+    [phone] => 01011965099
+    [role] => staff
+    [is_active] => on
+)
+
+[09-Feb-2025 22:15:47 Asia/Riyadh] Staff addition error: البريد الإلكتروني مستخدم بالفعل
+[09-Feb-2025 22:15:56 Asia/Riyadh] Add staff request received: Array
+(
+    [csrf_token] => ad1fe49f0bf248535caace85ebf2ff11f76bc4dbe4bacd40403019e2d0f0b064
+    [name] => ahmed ma7rez
+    [email] => ahmed.mahre@gmail.com
+    [phone] => 01011965099
+    [role] => staff
+    [is_active] => on
+)
+
+[09-Feb-2025 22:15:56 Asia/Riyadh] Staff addition error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'company_id' in 'field list'
+[09-Feb-2025 22:17:26 Asia/Riyadh] Add staff request received: Array
+(
+    [csrf_token] => ad1fe49f0bf248535caace85ebf2ff11f76bc4dbe4bacd40403019e2d0f0b064
+    [name] => ahmed ma7rez
+    [email] => ahmed.mahre@gmail.com
+    [phone] => 01011965099
+    [role] => staff
+    [is_active] => on
+)
+
+[09-Feb-2025 22:17:27 Asia/Riyadh] Failed to log activity: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'field list'
+[09-Feb-2025 22:17:41 Asia/Riyadh] Staff update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'company_id' in 'field list'
+[09-Feb-2025 22:21:17 Asia/Riyadh] Staff update request received: Array
+(
+    [csrf_token] => ad1fe49f0bf248535caace85ebf2ff11f76bc4dbe4bacd40403019e2d0f0b064
+    [staff_id] => 3
+    [name] => ahmed ma7rez
+    [email] => ahmed.mahrez.100@gmail.com
+    [phone] => 01011965099
+    [role] => order_manager
+    [is_active] => on
+)
+
+[09-Feb-2025 22:21:17 Asia/Riyadh] Failed to log activity: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'field list'
+[09-Feb-2025 22:41:16 Asia/Riyadh] Staff update request received: Array
+(
+    [csrf_token] => ad1fe49f0bf248535caace85ebf2ff11f76bc4dbe4bacd40403019e2d0f0b064
+    [staff_id] => 5
+    [name] => ahmed ma7rez
+    [email] => ahmed.mahre@gmail.com
+    [phone] => 01011965099
+    [role] => order_manager
+    [is_active] => on
+)
+
+[09-Feb-2025 22:41:16 Asia/Riyadh] Failed to log activity: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'field list'
+[09-Feb-2025 23:37:04 Asia/Riyadh] Profile update request received: Array
+(
+    [name] => ahmed ma7rez
+    [email] => ahmed.00@gmail.com
+    [phone] => 01011965099
+    [address] => eg1
+giza444444
+    [commercial_record] => 4444444444
+    [tax_number] => 444444444555554
+    [password] => 
+)
+
+[09-Feb-2025 23:37:04 Asia/Riyadh] Logo upload details: Array
+(
+    [name] => fullstack.jpeg
+    [full_path] => fullstack.jpeg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\php292D.tmp
+    [error] => 0
+    [size] => 12515
+)
+
+[09-Feb-2025 23:37:04 Asia/Riyadh] Logo successfully uploaded: company_16_67a911f030967.jpeg
+[09-Feb-2025 23:37:04 Asia/Riyadh] Profile update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'updated_at' in 'field list'
+[09-Feb-2025 23:38:25 Asia/Riyadh] Profile update request received: Array
+(
+    [name] => ahmed ma7rez
+    [email] => ahmed.00@gmail.com
+    [phone] => 01011965099
+    [address] => eg1
+giza444444
+    [commercial_record] => 4444444444
+    [tax_number] => 444444444555554
+    [password] => 
+)
+
+[09-Feb-2025 23:38:25 Asia/Riyadh] Logo upload details: Array
+(
+    [name] => fullstack.jpeg
+    [full_path] => fullstack.jpeg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\php64FA.tmp
+    [error] => 0
+    [size] => 12515
+)
+
+[09-Feb-2025 23:38:25 Asia/Riyadh] Logo successfully uploaded: company_16_67a9124104e8e.jpeg
+[09-Feb-2025 23:38:25 Asia/Riyadh] Profile update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'field list'
+[09-Feb-2025 23:39:31 Asia/Riyadh] Profile update request received: Array
+(
+    [name] => ahmed ma7rez
+    [email] => ahmed.00@gmail.com
+    [phone] => 01011965099
+    [address] => eg1
+giza444444
+    [commercial_record] => 4444444444
+    [tax_number] => 444444444555554
+    [password] => 
+)
+
+[09-Feb-2025 23:39:31 Asia/Riyadh] Logo upload details: Array
+(
+    [name] => fullstack.jpeg
+    [full_path] => fullstack.jpeg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\php68DE.tmp
+    [error] => 0
+    [size] => 12515
+)
+
+[09-Feb-2025 23:39:31 Asia/Riyadh] Logo successfully uploaded: company_16_67a91283878f6.jpeg
+[09-Feb-2025 23:39:31 Asia/Riyadh] Profile update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'company_id' in 'field list'
+[09-Feb-2025 23:41:15 Asia/Riyadh] Profile update request received: Array
+(
+    [name] => ahmed ma7rez
+    [email] => ahmed.00@gmail.com
+    [phone] => 01011965099
+    [address] => eg1
+giza444444
+    [commercial_record] => 4444444444
+    [tax_number] => 444444444555554
+    [password] => 
+)
+
+[09-Feb-2025 23:41:15 Asia/Riyadh] Logo upload details: Array
+(
+    [name] => fullstack.jpeg
+    [full_path] => fullstack.jpeg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\phpFF9C.tmp
+    [error] => 0
+    [size] => 12515
+)
+
+[09-Feb-2025 23:41:15 Asia/Riyadh] Logo successfully uploaded: company_16_67a912ebaad0b.jpeg
+[09-Feb-2025 23:41:15 Asia/Riyadh] Profile update error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'field list'
+[09-Feb-2025 23:42:16 Asia/Riyadh] Profile update request received: Array
+(
+    [name] => ahmed ma7rez
+    [email] => ahmed.00@gmail.com
+    [phone] => 01011965099
+    [address] => eg1
+giza444444
+    [commercial_record] => 4444444444
+    [tax_number] => 444444444555554
+    [password] => 
+)
+
+[09-Feb-2025 23:42:16 Asia/Riyadh] Logo upload details: Array
+(
+    [name] => fullstack.jpeg
+    [full_path] => fullstack.jpeg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\phpEEB0.tmp
+    [error] => 0
+    [size] => 12515
+)
+
+[09-Feb-2025 23:42:16 Asia/Riyadh] Logo successfully uploaded: company_16_67a91328d52b8.jpeg
+[09-Feb-2025 23:42:39 Asia/Riyadh] Profile update request received: Array
+(
+    [name] => ahmed ma7rez
+    [email] => ahmed.00@gmail.com
+    [phone] => 01011965099
+    [address] => eg1
+giza444444
+    [commercial_record] => 4444444444
+    [tax_number] => 444444444555554
+    [password] => 
+)
+
+[09-Feb-2025 23:42:39 Asia/Riyadh] Logo upload details: Array
+(
+    [name] => fullstack.jpeg
+    [full_path] => fullstack.jpeg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\php459B.tmp
+    [error] => 0
+    [size] => 12515
+)
+
+[09-Feb-2025 23:42:39 Asia/Riyadh] Logo successfully uploaded: company_16_67a9133f20174.jpeg
+[10-Feb-2025 00:33:53 Asia/Riyadh] Profile update request received: Array
+(
+    [name] => ahmed ma7rez
+    [email] => ahmed.00@gmail.com
+    [phone] => 01011965099
+    [address] => eg1
+giza444444
+    [commercial_record] => 4444444444
+    [tax_number] => 444444444555554
+    [password] => 
+)
+
+[10-Feb-2025 00:33:53 Asia/Riyadh] Logo upload details: Array
+(
+    [name] => downlo222ad (2).jpg
+    [full_path] => downlo222ad (2).jpg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\php2DAB.tmp
+    [error] => 0
+    [size] => 55269
+)
+
+[10-Feb-2025 00:33:53 Asia/Riyadh] Logo successfully uploaded: company_16_67a91f412ef66.jpg
+[14-Feb-2025 17:33:00 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:00 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:00 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:00 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:00 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:00 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:00 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:00 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:00 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:00 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:33:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:34:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:34:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:34:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:34:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:34:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:34:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:34:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:34:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:34:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:34:34 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:52 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:52 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:52 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:52 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:52 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:52 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:52 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:52 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:52 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:52 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:57 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:57 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:57 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:57 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:57 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:57 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:57 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:57 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:57 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:35:57 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:58 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:58 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:58 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:58 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:58 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:58 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:58 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:58 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:58 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:36:58 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:28 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:53 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:53 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:53 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:53 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:53 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:53 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:53 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:53 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:53 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:37:53 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:12 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:12 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:12 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:12 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:12 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:12 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:12 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:12 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:12 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:12 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:23 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
+[14-Feb-2025 18:25:53 Asia/Riyadh] PHP Warning:  Undefined array key "employee_name" in C:\xampp\htdocs\proo\admin\drivers.php on line 72

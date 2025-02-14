@@ -29,12 +29,17 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
             $stmt->execute([$company_id]);
             
             // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'success', ?)");
-            $stmt->execute([
+            $saudi_timezone = new DateTimeZone('Asia/Riyadh');
+            $date = new DateTime('now', $saudi_timezone);
+            $formatted_date = $date->format('Y-m-d H:i:s');
+
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link, created_at) VALUES (?, ?, ?, 'success', ?, ?)");
+            $stmt->execute([ 
                 $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
                 $_SESSION['admin_role'] ?? 'مدير_عام',
                 "تم تفعيل شركة: " . $company_name,
-                "companies.php"
+                "companies.php",
+                $formatted_date
             ]);
             
             header('Location: companies.php');
@@ -45,12 +50,17 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
             $stmt->execute([$company_id]);
             
             // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'warning', ?)");
+            $saudi_timezone = new DateTimeZone('Asia/Riyadh');
+            $date = new DateTime('now', $saudi_timezone);
+            $formatted_date = $date->format('Y-m-d H:i:s');
+
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link, created_at) VALUES (?, ?, ?, 'warning', ?, ?)");
             $stmt->execute([
                 $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
                 $_SESSION['admin_role'] ?? 'مدير_عام',
                 "تم تعطيل شركة: " . $company_name,
-                "companies.php"
+                "companies.php",
+                $formatted_date
             ]);
             
             header('Location: companies.php');
@@ -61,12 +71,17 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
             $stmt->execute([$company_id]);
             
             // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'danger', ?)");
+            $saudi_timezone = new DateTimeZone('Asia/Riyadh');
+            $date = new DateTime('now', $saudi_timezone);
+            $formatted_date = $date->format('Y-m-d H:i:s');
+
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link, created_at) VALUES (?, ?, ?, 'danger', ?, ?)");
             $stmt->execute([
                 $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
                 $_SESSION['admin_role'] ?? 'مدير_عام',
                 "تم حذف شركة: " . $company_name,
-                "companies.php"
+                "companies.php",
+                $formatted_date
             ]);
             
             header('Location: companies.php');
@@ -249,175 +264,150 @@ require_once '../includes/header.php';
 
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="h3 mb-0">إدارة الشركات</h2>
+        <h2 class="h3 mb-0"><?php echo __('companies_management'); ?></h2>
         <a href="company_form.php" class="btn btn-primary">
-            <i class="fas fa-plus me-2"></i>إضافة شركة جديدة
+            <i class="fas fa-plus me-2"></i> <?php echo __('add_new'); ?>
         </a>
     </div>
 
     <!-- Search Form -->
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-body">
-            <form method="GET" class="row g-3 mb-4">
+            <form method="GET" class="row g-3">
                 <div class="col-md-8">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        <input type="text" class="form-control" name="search" placeholder="البحث عن شركة..." value="<?php echo htmlspecialchars($search); ?>">
+                        <input type="text" name="search" class="form-control" placeholder="<?php echo __('search'); ?>..." value="<?php echo htmlspecialchars($search); ?>">
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-primary w-100">بحث</button>
+                    <button type="submit" class="btn btn-primary w-100"><?php echo __('search'); ?></button>
                 </div>
             </form>
+        </div>
+    </div>
 
-            <div class="row g-4">
-                <?php if (!empty($companies)): ?>
-                    <?php foreach ($companies as $company): ?>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="card h-100 company-card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center mb-3">
-                                        <div class="company-logo me-3">
-                                            <?php if (!empty($company['logo'])): ?>
-                                                <img src="/proo/uploads/companies/<?php echo htmlspecialchars($company['logo']); ?>" 
-                                                     alt="<?php echo htmlspecialchars($company['name']); ?>">
-                                            <?php else: ?>
-                                                <i class="fas fa-building fa-3x text-muted"></i>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div>
-                                            <h5 class="card-title mb-1"><?php echo htmlspecialchars($company['name']); ?></h5>
-                                            <span class="badge bg-<?php echo $company['is_active'] ? 'success' : 'danger'; ?>">
-                                                <?php echo $company['is_active'] ? 'نشط' : 'معطل'; ?>
-                                            </span>
-                                        </div>
-                                    </div>
+    <!-- Companies Grid -->
+    <div class="row">
+        <?php foreach ($companies as $company): ?>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card company-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="company-logo me-3">
+                                <?php if (!empty($company['logo'])): ?>
+                                    <img src="../uploads/company_logos/<?php echo htmlspecialchars($company['logo']); ?>" alt="<?php echo htmlspecialchars($company['name']); ?>">
+                                <?php else: ?>
+                                    <i class="fas fa-building fa-2x text-muted"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-1"><?php echo htmlspecialchars($company['name']); ?></h5>
+                                <span class="badge <?php echo $company['is_active'] ? 'bg-success' : 'bg-warning'; ?>">
+                                    <?php echo $company['is_active'] ? __('status_active') : __('status_inactive'); ?>
+                                </span>
+                            </div>
+                        </div>
 
-                                    <div class="company-info mb-3">
-                                        <div class="info-item">
-                                            <i class="fas fa-envelope"></i>
-                                            <span class="text-truncate"><?php echo htmlspecialchars($company['email']); ?></span>
-                                        </div>
-                                        <div class="info-item">
-                                            <i class="fas fa-phone"></i>
-                                            <span><?php echo htmlspecialchars($company['phone']); ?></span>
-                                        </div>
-                                        <div class="info-item">
-                                            <i class="fas fa-user"></i>
-                                            <span><?php echo htmlspecialchars($company['contact_person']); ?></span>
-                                        </div>
-                                    </div>
+                        <div class="company-info mb-3">
+                            <div class="info-item">
+                                <i class="fas fa-envelope"></i>
+                                <span><?php echo htmlspecialchars($company['email']); ?></span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <span><?php echo htmlspecialchars($company['phone']); ?></span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span><?php echo htmlspecialchars($company['address']); ?></span>
+                            </div>
+                        </div>
 
-                                    <div class="company-stats">
-                                        <div class="row text-center">
-                                            <div class="col-6">
-                                                <small class="d-block text-muted mb-1">تاريخ التسجيل</small>
-                                                <strong><?php echo date('Y/m/d', strtotime($company['created_at'])); ?></strong>
-                                            </div>
-                                            <div class="col-6">
-                                                <small class="d-block text-muted mb-1">عدد الطلبات</small>
-                                                <strong><?php echo number_format($company['total_orders']); ?></strong>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="action-btn-group">
-                                        <button type="button" 
-                                               class="action-btn whatsapp-btn"
-                                               onclick="openCompanyWhatsApp('<?php echo htmlspecialchars($company['phone']); ?>')"
-                                               data-title="تواصل عبر واتساب">
-                                            <i class="fab fa-whatsapp"></i>
-                                        </button>
-                                        <a href="company_form.php?id=<?php echo $company['id']; ?>" 
-                                           class="action-btn edit-btn"
-                                           data-title="تعديل">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <?php if ($company['is_active']): ?>
-                                            <a href="?action=deactivate&id=<?php echo $company['id']; ?>" 
-                                               class="action-btn deactivate-btn"
-                                               data-title="تعطيل"
-                                               onclick="return confirm('هل أنت متأكد من تعطيل هذه الشركة؟')">
-                                                <i class="fas fa-ban"></i>
-                                            </a>
-                                        <?php else: ?>
-                                            <a href="?action=activate&id=<?php echo $company['id']; ?>" 
-                                               class="action-btn activate-btn"
-                                               data-title="تفعيل"
-                                               onclick="return confirm('هل أنت متأكد من تفعيل هذه الشركة؟')">
-                                                <i class="fas fa-check"></i>
-                                            </a>
-                                        <?php endif; ?>
-                                        <a href="?action=delete&id=<?php echo $company['id']; ?>" 
-                                           class="action-btn delete-btn"
-                                           data-title="حذف"
-                                           onclick="return confirm('هل أنت متأكد من حذف هذه الشركة؟')">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                        <button class="action-btn" 
-                                                onclick="copyCompanyInfo('<?php echo htmlspecialchars($company['name']); ?>', '<?php echo htmlspecialchars($company['email']); ?>', '<?php echo htmlspecialchars($company['phone']); ?>', '<?php echo htmlspecialchars($company['name']); ?>@123')" 
-                                                data-title="نسخ بيانات الشركة"
-                                                style="background-color: #6c757d; color: white;">
-                                            <i class="fas fa-copy"></i>
-                                        </button>
-                                    </div>
+                        <div class="company-stats mb-3">
+                            <div class="row text-center">
+                                <div class="col">
+                                    <h6 class="mb-1"><?php echo __('total_orders'); ?></h6>
+                                    <span class="h5"><?php echo number_format($company['total_orders']); ?></span>
                                 </div>
                             </div>
                         </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <div class="col-12">
-                        <div class="text-center py-5">
-                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                            <p class="text-muted">لا توجد شركات مسجلة</p>
+
+                        <div class="action-btn-group">
+                            <?php if (!empty($company['phone'])): ?>
+                                <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $company['phone']); ?>" 
+                                   class="action-btn whatsapp-btn" 
+                                   data-title="<?php echo __('whatsapp'); ?>" 
+                                   target="_blank">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            <?php endif; ?>
+
+                            <a href="company_form.php?id=<?php echo $company['id']; ?>" 
+                               class="action-btn edit-btn" 
+                               data-title="<?php echo __('edit'); ?>">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <?php if ($company['is_active']): ?>
+                                <a href="?action=deactivate&id=<?php echo $company['id']; ?>" 
+                                   class="action-btn deactivate-btn" 
+                                   data-title="<?php echo __('deactivate'); ?>"
+                                   onclick="return confirm('<?php echo __('confirm_deactivate'); ?>')">
+                                    <i class="fas fa-ban"></i>
+                                </a>
+                            <?php else: ?>
+                                <a href="?action=activate&id=<?php echo $company['id']; ?>" 
+                                   class="action-btn activate-btn" 
+                                   data-title="<?php echo __('activate'); ?>"
+                                   onclick="return confirm('<?php echo __('confirm_activate'); ?>')">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                            <?php endif; ?>
+
+                            <a href="?action=delete&id=<?php echo $company['id']; ?>" 
+                               class="action-btn delete-btn" 
+                               data-title="<?php echo __('delete'); ?>"
+                               onclick="return confirm('<?php echo __('confirm_delete'); ?>')">
+                                <i class="fas fa-trash"></i>
+                            </a>
                         </div>
                     </div>
-                <?php endif; ?>
+                </div>
             </div>
-
-            <?php if ($total_pages > 1): ?>
-                <nav aria-label="Page navigation" class="mt-4">
-                    <ul class="pagination justify-content-center">
-                        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                            <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
-                                <a class="page-link" href="?page=<?php echo $i; ?>&search=<?php echo urlencode($search); ?>">
-                                    <?php echo $i; ?>
-                                </a>
-                            </li>
-                        <?php endfor; ?>
-                    </ul>
-                </nav>
-            <?php endif; ?>
-        </div>
+        <?php endforeach; ?>
     </div>
+
+    <!-- Pagination -->
+    <?php if ($total_pages > 1): ?>
+        <nav aria-label="<?php echo __('page_navigation'); ?>">
+            <ul class="pagination justify-content-center">
+                <?php if ($page > 1): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?php echo ($page - 1); ?>&search=<?php echo urlencode($search); ?>">
+                            <?php echo __('previous'); ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
+                        <a class="page-link" href="?page=<?php echo $i; ?>&search=<?php echo urlencode($search); ?>">
+                            <?php echo $i; ?>
+                        </a>
+                    </li>
+                <?php endfor; ?>
+
+                <?php if ($page < $total_pages): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?php echo ($page + 1); ?>&search=<?php echo urlencode($search); ?>">
+                            <?php echo __('next'); ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+    <?php endif; ?>
 </div>
-
-<!-- Add JavaScript for copy functionality -->
-<script>
-function copyCompanyInfo(name, email, phone, password) {
-    const text = `اسم الشركة: ${name}\nالبريد الإلكتروني: ${email}\nرقم الهاتف: ${phone}\nكلمة المرور: ${password}`;
-    navigator.clipboard.writeText(text).then(() => {
-        alert('تم نسخ بيانات الشركة بنجاح');
-    }).catch(err => {
-        console.error('فشل في نسخ البيانات:', err);
-    });
-}
-
-// دالة لفتح محادثة واتساب مع الشركة
-function openCompanyWhatsApp(phone) {
-    // تنسيق رقم الهاتف (إزالة الصفر الأول إذا وجد وإضافة رمز الدولة)
-    let formattedPhone = phone.replace(/^0+/, '');
-    if (!formattedPhone.startsWith('966')) {
-        formattedPhone = '966' + formattedPhone;
-    }
-    
-    // إنشاء نص الرسالة
-    const message = `مرحباً، أود الاستفسار عن خدماتكم`;
-
-    // فتح رابط واتساب
-    const whatsappUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-}
-</script>
 
 <?php require_once '../includes/footer.php'; ?> 

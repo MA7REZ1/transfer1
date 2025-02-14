@@ -100,6 +100,10 @@ try {
     }
 
         // Create notification for company
+        $saudi_timezone = new DateTimeZone('Asia/Riyadh');
+        $date = new DateTime('now', $saudi_timezone);
+        $formatted_date = $date->format('Y-m-d H:i:s');
+
         $stmt = $conn->prepare("
             INSERT INTO company_notifications (
                 company_id,
@@ -107,8 +111,9 @@ try {
                 title,
                 message,
                 reference_id,
-                link
-            ) VALUES (?, ?, ?, ?, ?, ?)
+                link,
+                created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
         ");
 
     $notification_message = 'تم إضافة رد جديد على الشكوى رقم ' . $complaint['complaint_number'];
@@ -122,7 +127,8 @@ try {
             'رد جديد على الشكوى',
             $notification_message,
             $complaint_id,
-            '#'
+            '#',
+            $formatted_date
         ]);
 
     // Commit transaction

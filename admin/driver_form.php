@@ -122,13 +122,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt->execute($params);
 
                     // Add notification for driver update
-                    $notification_msg = "تم تحديث بيانات السائق: " . $username;
-                    $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'info', ?)");
+                    $saudi_timezone = new DateTimeZone('Asia/Riyadh');
+                    $date = new DateTime('now', $saudi_timezone);
+                    $formatted_date = $date->format('Y-m-d H:i:s');
+
+                    $notification_msg = "تم تحديث بيانات السائق " . $username;
+                    if (!empty($password)) {
+                        $notification_msg .= "\nكلمة المرور الجديدة: " . $password;
+                    }
+                    
+                    $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link, created_at) VALUES (?, ?, ?, 'info', ?, ?)");
                     $stmt->execute([
                         $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
                         $_SESSION['admin_role'] ?? 'مدير_عام',
                         $notification_msg,
-                        "drivers.php"
+                        "drivers.php",
+                        $formatted_date
                     ]);
                     
                     // Set success message in session and redirect
@@ -170,17 +179,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 
                 // Add notification for new driver
+                $saudi_timezone = new DateTimeZone('Asia/Riyadh');
+                $date = new DateTime('now', $saudi_timezone);
+                $formatted_date = $date->format('Y-m-d H:i:s');
+
                 $notification_msg = "تم إضافة سائق جديد: " . $username;
                 if (!empty($password)) {
-                    $notification_msg .= "\n" . "كلمة المرور: " . $password;
+                    $notification_msg .= "\nكلمة المرور: " . $password;
                 }
                 
-                $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'success', ?)");
+                $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link, created_at) VALUES (?, ?, ?, 'success', ?, ?)");
                 $stmt->execute([
                     $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
                     $_SESSION['admin_role'] ?? 'مدير_عام',
                     $notification_msg,
-                    "drivers.php"
+                    "drivers.php",
+                    $formatted_date
                 ]);
                 
                 // Set success message in session and redirect
@@ -219,9 +233,9 @@ require_once '../includes/header.php';
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3 mb-0"><?php echo $id > 0 ? 'تعديل بيانات السائق' : 'إضافة سائق جديد'; ?></h1>
+    <h1 class="h3 mb-0"><?php echo $id > 0 ? __('edit_driver') : __('add_new_driver'); ?></h1>
     <a href="drivers.php" class="btn btn-secondary">
-        <i class="fas fa-arrow-left me-1"></i> عودة
+        <i class="fas fa-arrow-left me-1"></i> <?php echo __('back'); ?>
     </a>
 </div>
 
@@ -234,7 +248,7 @@ require_once '../includes/header.php';
                     <?php echo $error; ?>
                     <?php if (strpos($error, 'الدعم الفني') !== false): ?>
                         <br>
-                        <small class="text-muted">رقم الخطأ: <?php echo time(); ?></small>
+                        <small class="text-muted"><?php echo __('error_code'); ?>: <?php echo time(); ?></small>
                     <?php endif; ?>
                 </div>
             </div>
@@ -249,19 +263,19 @@ require_once '../includes/header.php';
         
         <form method="POST" enctype="multipart/form-data">
             <div class="row">
-                <!-- المعلومات الأساسية -->
+                <!-- Basic Information -->
                 <div class="col-md-12 mb-4">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-primary bg-gradient text-white py-3">
                             <h5 class="card-title mb-0">
                                 <i class="fas fa-user-circle me-2"></i>
-                                المعلومات الأساسية
+                                <?php echo __('basic_info'); ?>
                             </h5>
                         </div>
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold">اسم السائق <span class="text-danger">*</span></label>
+                                    <label class="form-label fw-bold"><?php echo __('driver_name'); ?> <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                         <input type="text" class="form-control" name="username" value="<?php echo htmlspecialchars($driver['username']); ?>" required>
@@ -269,7 +283,7 @@ require_once '../includes/header.php';
                                 </div>
                                 
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold">البريد الإلكتروني <span class="text-danger">*</span></label>
+                                    <label class="form-label fw-bold"><?php echo __('driver_email'); ?> <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                         <input type="email" class="form-control" name="email" value="<?php echo htmlspecialchars($driver['email']); ?>" required>
@@ -277,18 +291,18 @@ require_once '../includes/header.php';
                                 </div>
                                 
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold"><?php echo $id > 0 ? 'كلمة المرور الجديدة' : 'كلمة المرور'; ?> <?php echo $id > 0 ? '' : '<span class="text-danger">*</span>'; ?></label>
+                                    <label class="form-label fw-bold"><?php echo $id > 0 ? __('driver_password') : __('driver_password'); ?> <?php echo $id > 0 ? '' : '<span class="text-danger">*</span>'; ?></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                         <input type="password" class="form-control" name="password" <?php echo $id > 0 ? '' : 'required'; ?>>
                                     </div>
                                     <?php if ($id > 0): ?>
-                                        <small class="text-muted"><i class="fas fa-info-circle"></i> اتركه فارغاً إذا كنت لا تريد تغيير كلمة المرور</small>
+                                        <small class="text-muted"><i class="fas fa-info-circle"></i> <?php echo __('leave_empty_password'); ?></small>
                                     <?php endif; ?>
                                 </div>
                                 
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold">رقم الهاتف <span class="text-danger">*</span></label>
+                                    <label class="form-label fw-bold"><?php echo __('driver_phone'); ?> <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                         <input type="text" class="form-control" name="phone" value="<?php echo htmlspecialchars($driver['phone']); ?>" required>
@@ -299,19 +313,19 @@ require_once '../includes/header.php';
                     </div>
                 </div>
 
-                <!-- معلومات الهوية -->
+                <!-- Identity Information -->
                 <div class="col-md-12 mb-4">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-info bg-gradient text-white py-3">
                             <h5 class="card-title mb-0">
                                 <i class="fas fa-id-card me-2"></i>
-                                معلومات الهوية
+                                <?php echo __('identity_info'); ?>
                             </h5>
                         </div>
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">العمر</label>
+                                    <label class="form-label fw-bold"><?php echo __('driver_age'); ?></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
                                         <input type="number" class="form-control" name="age" value="<?php echo htmlspecialchars($driver['age']); ?>">
@@ -319,7 +333,7 @@ require_once '../includes/header.php';
                                 </div>
                                 
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">رقم الهوية</label>
+                                    <label class="form-label fw-bold"><?php echo __('driver_id_number'); ?></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-id-badge"></i></span>
                                         <input type="text" class="form-control" name="id_number" value="<?php echo htmlspecialchars($driver['id_number']); ?>">
@@ -327,7 +341,7 @@ require_once '../includes/header.php';
                                 </div>
                                 
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">رقم رخصة القيادة</label>
+                                    <label class="form-label fw-bold"><?php echo __('driver_license'); ?></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-id-card-alt"></i></span>
                                         <input type="text" class="form-control" name="license_number" value="<?php echo htmlspecialchars($driver['license_number']); ?>">
@@ -338,19 +352,19 @@ require_once '../includes/header.php';
                     </div>
                 </div>
 
-                <!-- معلومات المركبة -->
+                <!-- Vehicle Information -->
                 <div class="col-md-12 mb-4">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-success bg-gradient text-white py-3">
                             <h5 class="card-title mb-0">
                                 <i class="fas fa-car me-2"></i>
-                                معلومات المركبة
+                                <?php echo __('vehicle_info'); ?>
                             </h5>
                         </div>
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">نوع المركبة</label>
+                                    <label class="form-label fw-bold"><?php echo __('vehicle_type'); ?></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-truck"></i></span>
                                         <input type="text" class="form-control" name="vehicle_type" value="<?php echo htmlspecialchars($driver['vehicle_type']); ?>">
@@ -358,7 +372,7 @@ require_once '../includes/header.php';
                                 </div>
                                 
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">موديل المركبة</label>
+                                    <label class="form-label fw-bold"><?php echo __('vehicle_model'); ?></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-car-side"></i></span>
                                         <input type="text" class="form-control" name="vehicle_model" value="<?php echo htmlspecialchars($driver['vehicle_model']); ?>">
@@ -366,7 +380,7 @@ require_once '../includes/header.php';
                                 </div>
                                 
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">لوحة المركبة</label>
+                                    <label class="form-label fw-bold"><?php echo __('plate_number'); ?></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-digital-tachograph"></i></span>
                                         <input type="text" class="form-control" name="plate_number" value="<?php echo htmlspecialchars($driver['plate_number']); ?>">
@@ -377,19 +391,19 @@ require_once '../includes/header.php';
                     </div>
                 </div>
 
-                <!-- معلومات إضافية -->
+                <!-- Additional Information -->
                 <div class="col-md-12 mb-4">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-secondary bg-gradient text-white py-3">
                             <h5 class="card-title mb-0">
                                 <i class="fas fa-info-circle me-2"></i>
-                                معلومات إضافية
+                                <?php echo __('additional_info'); ?>
                             </h5>
                         </div>
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-md-12">
-                                    <label class="form-label fw-bold">نبذة عن السائق</label>
+                                    <label class="form-label fw-bold"><?php echo __('about_driver'); ?></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-comment-alt"></i></span>
                                         <textarea class="form-control" name="about" rows="3"><?php echo htmlspecialchars($driver['about']); ?></textarea>
@@ -397,7 +411,7 @@ require_once '../includes/header.php';
                                 </div>
 
                                 <div class="col-md-12">
-                                    <label class="form-label fw-bold">العنوان</label>
+                                    <label class="form-label fw-bold"><?php echo __('driver_address'); ?></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                         <textarea class="form-control" name="address" rows="3"><?php echo htmlspecialchars($driver['address']); ?></textarea>
@@ -405,22 +419,22 @@ require_once '../includes/header.php';
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold">الحالة</label>
+                                    <label class="form-label fw-bold"><?php echo __('current_status'); ?></label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
                                         <select class="form-select" name="current_status">
-                                            <option value="offline" <?php echo $driver['current_status'] == 'offline' ? 'selected' : ''; ?>>غير متصل</option>
-                                            <option value="available" <?php echo $driver['current_status'] == 'available' ? 'selected' : ''; ?>>متاح</option>
-                                            <option value="busy" <?php echo $driver['current_status'] == 'busy' ? 'selected' : ''; ?>>مشغول</option>
+                                            <option value="offline" <?php echo $driver['current_status'] == 'offline' ? 'selected' : ''; ?>><?php echo __('driver_offline'); ?></option>
+                                            <option value="available" <?php echo $driver['current_status'] == 'available' ? 'selected' : ''; ?>><?php echo __('driver_available'); ?></option>
+                                            <option value="busy" <?php echo $driver['current_status'] == 'busy' ? 'selected' : ''; ?>><?php echo __('driver_busy'); ?></option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold">تفعيل الحساب</label>
+                                    <label class="form-label fw-bold"><?php echo __('activate_account'); ?></label>
                                     <div class="form-check form-switch">
                                         <input type="checkbox" class="form-check-input" name="is_active" id="is_active" <?php echo $driver['is_active'] ? 'checked' : ''; ?>>
-                                        <label class="form-check-label" for="is_active">السائق نشط</label>
+                                        <label class="form-check-label" for="is_active"><?php echo __('driver_active'); ?></label>
                                     </div>
                                 </div>
                             </div>
@@ -431,7 +445,7 @@ require_once '../includes/header.php';
             
             <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-lg px-5">
-                    <i class="fas fa-save me-2"></i> حفظ البيانات
+                    <i class="fas fa-save me-2"></i> <?php echo __('save_data'); ?>
                 </button>
             </div>
         </form>

@@ -4,6 +4,14 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Set default language if not set
+if (!isset($_SESSION['lang'])) {
+    $_SESSION['lang'] = 'ar';
+}
+
+// Include language file
+require_once __DIR__ . '/includes/languages.php';
+
 // Database configuration
 $db_host = 'localhost';
 $db_name = 'admin_panel';
@@ -28,6 +36,11 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/error.log');
+
+// Define base URL
+$base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
+$base_url .= $_SERVER['HTTP_HOST'];
+define('BASE_URL', $base_url);
 
 // Basic security functions
 function isLoggedIn() {
@@ -67,5 +80,14 @@ function debugQuery($query, $params = []) {
     if (!empty($params)) {
         error_log("Parameters: " . print_r($params, true));
     }
+}
+
+// Function to change language
+function setLanguage($lang) {
+    if ($lang === 'ar' || $lang === 'en') {
+        $_SESSION['lang'] = $lang;
+        return true;
+    }
+    return false;
 }
 ?> 

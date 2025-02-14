@@ -310,34 +310,34 @@ try {
 
     <!-- رأس الصفحة -->
     <div class="container-fluid px-4">
-        <h1 class="mt-4">تحليلات الإيرادات</h1>
+        <h1 class="mt-4"><?php echo __('revenue_analytics'); ?></h1>
 
         <!-- تصفية حسب التاريخ -->
         <div class="card mb-4">
             <div class="card-header bg-white d-flex justify-content-between align-items-center">
                 <div>
                     <i class="fas fa-filter me-1"></i>
-                    تصفية حسب التاريخ
+                    <?php echo __('filter_by_date'); ?>
                 </div>
             </div>
             <div class="card-body">
                 <form method="GET" action="" class="row g-3">
                     <div class="col-md-4">
-                        <label for="start_date" class="form-label">تاريخ البداية</label>
+                        <label for="start_date" class="form-label"><?php echo __('start_date'); ?></label>
                         <input type="date" class="form-control" id="start_date" name="start_date" value="<?php echo $start_date; ?>">
                     </div>
                     <div class="col-md-4">
-                        <label for="end_date" class="form-label">تاريخ النهاية</label>
+                        <label for="end_date" class="form-label"><?php echo __('end_date'); ?></label>
                         <input type="date" class="form-control" id="end_date" name="end_date" value="<?php echo $end_date; ?>">
                     </div>
                     <div class="col-md-4 d-flex align-items-end">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-filter me-1"></i>
-                            تطبيق التصفية
+                            <?php echo __('apply_filter'); ?>
                         </button>
                         <div class="col-md-3">
-                    <a href="revenue.php" class="btn btn-secondary mt-4">إعادة تعيين</a>
-                </div>
+                            <a href="revenue.php" class="btn btn-secondary mt-4"><?php echo __('reset'); ?></a>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -347,7 +347,7 @@ try {
         <div class="card mb-4">
             <div class="card-header bg-white">
                 <i class="fas fa-calculator me-1"></i>
-                التقرير المحاسبي
+                <?php echo __('accounting_report'); ?>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -356,12 +356,12 @@ try {
                         <div class="accounting-row accounting-positive">
                             <h5 class="text-success">
                                 <i class="fas fa-plus-circle"></i>
-                                إجمالي المبالغ
+                                <?php echo __('total_amounts'); ?>
                             </h5>
                             <ul class="list-unstyled mb-0">
-                                <li>• إجمالي المبالغ: <?php echo number_format($stats['total_amount'], 2); ?> ر.س</li>
-                                <li>• عدد الطلبات: <?php echo number_format($stats['completed_orders']); ?> طلب</li>
-                                <li>• صافي المبالغ (بدون التوصيل): <?php echo number_format($stats['total_minus_delivery'], 2); ?> ر.س</li>
+                                <li>• <?php echo __('total_amount'); ?>: <?php echo number_format($stats['total_amount'], 2); ?> ر.س</li>
+                                <li>• <?php echo __('total_orders'); ?>: <?php echo number_format($stats['completed_orders']); ?></li>
+                                <li>• <?php echo __('net_amounts'); ?>: <?php echo number_format($stats['total_minus_delivery'], 2); ?> ر.س</li>
                             </ul>
                         </div>
                     </div>
@@ -371,12 +371,12 @@ try {
                         <div class="accounting-row accounting-warning">
                             <h5 class="text-warning">
                                 <i class="fas fa-exclamation-circle"></i>
-                                المستحقات للشركات
+                                <?php echo __('company_dues'); ?>
                             </h5>
                             <ul class="list-unstyled mb-0">
-                                <li>• إجمالي المبالغ المتبقية: <?php echo number_format($total_remaining, 2); ?> ر.س</li>
-                                <li>• عدد الطلبات: <?php echo number_format($stats['completed_orders']); ?> طلب</li>
-                                <li>• متوسط قيمة الطلب: <?php echo number_format($stats['completed_orders'] ? $stats['total_minus_delivery'] / $stats['completed_orders'] : 0, 2); ?> ر.س</li>
+                                <li>• <?php echo __('total_remaining'); ?>: <?php echo number_format($total_remaining, 2); ?> ر.س</li>
+                                <li>• <?php echo __('total_orders'); ?>: <?php echo number_format($stats['completed_orders']); ?></li>
+                                <li>• <?php echo __('average_order_value'); ?>: <?php echo number_format($stats['completed_orders'] ? $stats['total_minus_delivery'] / $stats['completed_orders'] : 0, 2); ?> ر.س</li>
                             </ul>
                         </div>
                     </div>
@@ -386,12 +386,12 @@ try {
                         <div class="accounting-row accounting-positive">
                             <h5 class="text-success">
                                 <i class="fas fa-truck"></i>
-                                رسوم التوصيل
+                                <?php echo __('delivery_fees'); ?>
                             </h5>
                             <ul class="list-unstyled mb-0">
-                                <li>• إجمالي رسوم التوصيل: <?php echo number_format($stats['delivery_revenue'], 2); ?> ر.س</li>
-                                <li>• عدد الطلبات المكتملة: <?php echo number_format($stats['completed_orders']); ?> طلب</li>
-                                <li>• متوسط رسوم التوصيل: <?php echo number_format($stats['completed_orders'] ? $stats['delivery_revenue'] / $stats['completed_orders'] : 0, 2); ?> ر.س</li>
+                                <li>• <?php echo __('total_delivery_fees'); ?>: <?php echo number_format($stats['delivery_revenue'], 2); ?> ر.س</li>
+                                <li>• <?php echo __('completed_orders'); ?>: <?php echo number_format($stats['completed_orders']); ?></li>
+                                <li>• <?php echo __('average_delivery_fee'); ?>: <?php echo number_format($stats['completed_orders'] ? $stats['delivery_revenue'] / $stats['completed_orders'] : 0, 2); ?> ر.س</li>
                             </ul>
                         </div>
                     </div>
@@ -407,10 +407,10 @@ try {
                     <div class="card-body bg-gradient-primary text-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="mb-2">إجمالي الطلبات</h6>
+                                <h6 class="mb-2"><?php echo __('total_orders'); ?></h6>
                                 <h3 class="mb-0"><?php echo number_format($stats['completed_orders']); ?></h3>
-                                <small>طلبات مكتملة</small>
-                                <small class="d-block">إجمالي المبالغ: <?php echo number_format($stats['total_amount'], 2); ?> ر.س</small>
+                                <small><?php echo __('completed_orders'); ?></small>
+                                <small class="d-block"><?php echo __('total_amount'); ?>: <?php echo number_format($stats['total_amount'], 2); ?> ر.س</small>
                             </div>
                             <div class="stat-icon">
                                 <i class="fas fa-box fa-2x"></i>
@@ -426,10 +426,10 @@ try {
                     <div class="card-body bg-gradient-success text-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="mb-2">إجمالي المبالغ</h6>
+                                <h6 class="mb-2"><?php echo __('total_amounts'); ?></h6>
                                 <h3 class="mb-0"><?php echo number_format($stats['total_amount'], 2); ?> ر.س</h3>
-                                <small>جميع الطلبات</small>
-                                <small class="d-block">صافي المبالغ (بدون التوصيل): <?php echo number_format($stats['total_minus_delivery'], 2); ?> ر.س</small>
+                                <small><?php echo __('total_orders'); ?></small>
+                                <small class="d-block"><?php echo __('net_amounts'); ?>: <?php echo number_format($stats['total_minus_delivery'], 2); ?> ر.س</small>
                             </div>
                             <div class="stat-icon">
                                 <i class="fas fa-money-bill-wave fa-2x"></i>
@@ -445,29 +445,12 @@ try {
                     <div class="card-body bg-gradient-warning text-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="mb-2"><?php if ($company): 
-                            // حساب المبلغ المتبقي بعد خصم رسوم التوصيل
-                           
-
-                            // تحديد حالة الشركة
-                            $status = '';
-                            $status_color = '';
-                            if ($total_remaining > 0) {
-                                    $status = 'مستحق علينا ⚠️';
-                                $status_color = 'text-danger';
-                            } elseif ($total_remaining < 0) {
-                              $status = 'مستحق لنا ✅';
-                                $status_color = 'text-success';
-                            } else {
-                                $status = 'لا يوجد مستحقات✅';
-                                $status_color = 'text-success';
-                            }
-
-                            // عرض الحالة
-                            echo $status;
-                        endif; ?></h6>
+                                <h6 class="mb-2"><?php 
+                                if ($company): 
+                                    echo $total_remaining > 0 ? __('due_on_us') : ($total_remaining < 0 ? __('due_to_us') : __('no_dues'));
+                                endif; ?></h6>
                                 <h3 class="mb-0"><?php echo number_format($total_remaining, 2); ?> ر.س</h3>
-                                <small>إجمالي المبالغ المتبقية</small>
+                                <small><?php echo __('total_remaining'); ?></small>
                             </div>
                             <div class="stat-icon">
                                 <i class="fas fa-hand-holding-usd fa-2x"></i>
@@ -483,9 +466,9 @@ try {
                     <div class="card-body bg-gradient-info text-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="mb-2">رسوم التوصيل</h6>
+                                <h6 class="mb-2"><?php echo __('delivery_fees'); ?></h6>
                                 <h3 class="mb-0"><?php echo number_format($stats['delivery_revenue'], 2); ?> ر.س</h3>
-                                <small><?php echo number_format($stats['completed_orders']); ?> طلب مكتمل</small>
+                                <small><?php echo number_format($stats['completed_orders']); ?> <?php echo __('completed_orders'); ?></small>
                             </div>
                             <div class="stat-icon">
                                 <i class="fas fa-truck fa-2x"></i>
@@ -501,11 +484,11 @@ try {
             <div class="card-header bg-white d-flex justify-content-between align-items-center">
                 <div>
                     <i class="fas fa-table me-1"></i>
-                    تفاصيل حسابات الشركات
+                    <?php echo __('company_accounts'); ?>
                 </div>
                 <a href="export_payments.php" class="btn btn-success btn-sm">
                     <i class="fas fa-file-excel me-1"></i>
-                    تصدير العمليات
+                    <?php echo __('export_transactions'); ?>
                 </a>
             </div>
             <div class="card-body">
@@ -513,16 +496,16 @@ try {
                     <table class="table table-bordered table-hover text-center">
                         <thead class="table-light">
                             <tr>
-                                <th>الشركة</th>
-                                <th>رسوم التوصيل</th>
-                                <th>الطلبات المكتملة</th>
-                                <th>إجمالي المبلغ</th>
-                                <th>رسوم التوصيل</th>
-                                <th> المستحقات بعد خصم رسوم التوصيل </th>
-                                <th>المبلغ المدفوع</th>
-                                <th>المتبقي</th>
-                                <th>حالة الشركة</th>
-                                <th>الإجراءات</th>
+                                <th><?php echo __('companies'); ?></th>
+                                <th><?php echo __('delivery_fee'); ?></th>
+                                <th><?php echo __('completed_orders'); ?></th>
+                                <th><?php echo __('total_amount'); ?></th>
+                                <th><?php echo __('delivery_fees'); ?></th>
+                                <th><?php echo __('dues_after_fees'); ?></th>
+                                <th><?php echo __('paid_amount'); ?></th>
+                                <th><?php echo __('remaining'); ?></th>
+                                <th><?php echo __('company_status'); ?></th>
+                                <th><?php echo __('actions'); ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -534,13 +517,13 @@ try {
                                 $status = '';
                                 $status_color = '';
                                 if ($remaining > 0) {
-                                    $status = 'يوجد مستحقات علينا';
+                                    $status = __('due_on_us');
                                     $status_color = 'text-danger';
                                 } elseif ($remaining < 0) {
-                                    $status = 'يوجد مستحقات لنا';
+                                    $status = __('due_to_us');
                                     $status_color = 'text-success';
                                 } else {
-                                    $status = 'لايوجد مستحقات';
+                                    $status = __('no_dues');
                                     $status_color = 'text-success';
                                 }
                             ?>
@@ -581,16 +564,16 @@ try {
                                 <td class="pending-amount"><?php echo number_format($company['company_payable']-$total, 2); ?> ر.س</td>
                                 <td class="text-success">
                                     <div class="d-flex flex-column">
-                                        <small class="text-muted mb-1">مدفوع من الشركة: <?php echo number_format($company['paid_by_company'], 2); ?> ر.س</small>
-                                        <small class="text-muted">مدفوع منا إلى الشركة: <?php echo number_format($company['paid_to_company'], 2); ?> ر.س</small>
+                                        <small class="text-muted mb-1"><?php echo __('paid_by_company'); ?>: <?php echo number_format($company['paid_by_company'], 2); ?> ر.س</small>
+                                        <small class="text-muted"><?php echo __('paid_to_company'); ?>: <?php echo number_format($company['paid_to_company'], 2); ?> ر.س</small>
                                     </div>
                                 </td>
                                 <td class="<?php echo $remaining > 0 ? 'text-danger' : ($remaining < 0 ? 'text-primary' : 'text-success'); ?>">
                                     <?php echo number_format($remaining, 2); ?> ر.س
                                     <?php if ($remaining > 0): ?>
-                                        <small class="text-danger d-block">⚠️ مستحق علينا</small>
+                                        <small class="text-danger d-block"><?php echo __('due_on_us_warning'); ?></small>
                                     <?php elseif ($remaining < 0): ?>
-                                        <small class="text-primary d-block">💰 مستحق لنا</small>
+                                        <small class="text-primary d-block"><?php echo __('due_to_us_info'); ?></small>
                                     <?php endif; ?>
                                 </td>
                                 <td class="<?php echo $status_color; ?>">
@@ -600,12 +583,12 @@ try {
                                     <button type="button" 
                                             class="btn btn-sm btn-primary" 
                                             onclick="showPaymentModal(<?php echo $company['id']; ?>, '<?php echo htmlspecialchars($company['company_name']); ?>', <?php echo $remaining; ?>)">
-                                        <i class="fas fa-money-bill-wave"></i> تسجيل دفعة
+                                        <i class="fas fa-money-bill-wave"></i> <?php echo __('register_payment'); ?>
                                     </button>
                                     <button type="button" 
                                             class="btn btn-sm btn-info text-white" 
                                             onclick="window.open('get_payment_history.php?company_id=<?php echo $company['id']; ?>', '_blank', 'width=800,height=600')">
-                                        <i class="fas fa-history me-1"></i> السجل
+                                        <i class="fas fa-history me-1"></i> <?php echo __('history'); ?>
                                     </button>
                                 </td>
                             </tr>
@@ -614,7 +597,7 @@ try {
                             <tr>
                                 <td colspan="10" class="text-center py-4 text-muted">
                                     <i class="fas fa-inbox fa-3x mb-3"></i>
-                                    <p class="mb-0">لا يوجد شركات حالياً</p>
+                                    <p class="mb-0"><?php echo __('no_companies'); ?></p>
                                 </td>
                             </tr>
                             <?php endif; ?>
@@ -629,54 +612,54 @@ try {
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">تسجيل دفعة</h5>
+                        <h5 class="modal-title"><?php echo __('payment_registration'); ?></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <form id="paymentForm" method="POST" action="process_payment.php">
                         <div class="modal-body">
                             <input type="hidden" name="company_id" id="payment_company_id">
                             <div class="mb-3">
-                                <label class="form-label">اسم الشركة</label>
+                                <label class="form-label"><?php echo __('company_name'); ?></label>
                                 <input type="text" class="form-control" id="payment_company_name" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">المبلغ المتبقي</label>
+                                <label class="form-label"><?php echo __('remaining_amount'); ?></label>
                                 <input type="text" class="form-control" id="payment_remaining" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">نوع الدفعة</label>
+                                <label class="form-label"><?php echo __('payment_type'); ?></label>
                                 <select class="form-select" name="payment_type" required>
-                                    <option value="">اختر نوع الدفعة</option>
-                                    <option value="outgoing">دفع للشركة</option>
-                                    <option value="incoming">استلام من الشركة</option>
+                                    <option value=""><?php echo __('select_payment_type'); ?></option>
+                                    <option value="outgoing"><?php echo __('pay_to_company'); ?></option>
+                                    <option value="incoming"><?php echo __('receive_from_company'); ?></option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">المبلغ</label>
+                                <label class="form-label"><?php echo __('amount'); ?></label>
                                 <input type="number" step="0.01" min="0.01" class="form-control" name="amount" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">طريقة الدفع</label>
+                                <label class="form-label"><?php echo __('payment_method'); ?></label>
                                 <select class="form-select" name="payment_method" required>
-                                    <option value="">اختر طريقة الدفع</option>
-                                    <option value="cash">نقدي</option>
-                                    <option value="bank_transfer">تحويل بنكي</option>
-                                    <option value="check">شيك</option>
+                                    <option value=""><?php echo __('select_payment_method'); ?></option>
+                                    <option value="cash"><?php echo __('cash'); ?></option>
+                                    <option value="bank_transfer"><?php echo __('bank_transfer'); ?></option>
+                                    <option value="check"><?php echo __('check'); ?></option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">رقم المرجع</label>
+                                <label class="form-label"><?php echo __('reference_number'); ?></label>
                                 <input type="text" class="form-control" name="reference_number">
-                                <small class="text-muted">رقم الشيك أو رقم التحويل البنكي</small>
+                                <small class="text-muted"><?php echo __('reference_hint'); ?></small>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">ملاحظات</label>
+                                <label class="form-label"><?php echo __('notes'); ?></label>
                                 <textarea class="form-control" name="notes" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                            <button type="submit" class="btn btn-primary">تسجيل الدفعة</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo __('cancel'); ?></button>
+                            <button type="submit" class="btn btn-primary"><?php echo __('register_payment'); ?></button>
                         </div>
                     </form>
                 </div>
@@ -688,7 +671,7 @@ try {
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">سجل المدفوعات</h5>
+                        <h5 class="modal-title"><?php echo __('history'); ?></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body" id="payment_history">
@@ -705,7 +688,7 @@ try {
                 <div class="card mb-4">
                     <div class="card-header bg-white">
                         <i class="fas fa-chart-line me-1"></i>
-                        الإيرادات 
+                        <?php echo __('revenue_chart'); ?>
                     </div>
                     <div class="card-body">
                         <canvas id="monthlyRevenueChart"></canvas>
@@ -718,7 +701,7 @@ try {
                 <div class="card mb-4">
                     <div class="card-header bg-white">
                         <i class="fas fa-chart-pie me-1"></i>
-                        توزيع طرق الدفع
+                        <?php echo __('payment_methods_distribution'); ?>
                     </div>
                     <div class="card-body">
                         <canvas id="paymentMethodChart"></canvas>

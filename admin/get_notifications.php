@@ -9,9 +9,14 @@ if (!isLoggedIn()) {
 }
 
 try {
+    // تعيين المنطقة الزمنية
+    date_default_timezone_set('Asia/Riyadh');
+
     // جلب جميع الإشعارات لكل المستخدمين
     $query = "SELECT *, 
-        DATE_FORMAT(created_at, '%Y-%m-%d %H:%i') as formatted_date,
+        UNIX_TIMESTAMP(created_at) as timestamp,
+        created_at,
+        DATE_FORMAT(CONVERT_TZ(created_at, 'UTC', 'Asia/Riyadh'), '%Y-%m-%d %H:%i') as formatted_date,
         TIMESTAMPDIFF(MINUTE, created_at, NOW()) as minutes_ago
         FROM notifications
         ORDER BY created_at DESC 
@@ -29,27 +34,39 @@ try {
 
     // تنسيق الوقت المنقضي
     $formatted_notifications = [];
+    $now = new DateTime('now', new DateTimeZone('Asia/Riyadh'));
+
     foreach ($notifications as $notification) {
-        $minutes = $notification['minutes_ago'];
+        // تحويل التاريخ إلى المنطقة الزمنية الصحيحة
+        $created_at = new DateTime($notification['created_at'], new DateTimeZone('UTC'));
+        $created_at->setTimezone(new DateTimeZone('Asia/Riyadh'));
+        
+        // حساب الفرق الزمني
+        $interval = $created_at->diff($now);
+        $minutes = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
         $hours = floor($minutes / 60);
         $days = floor($hours / 24);
 
+        // تنسيق الوقت المنقضي
         if ($days > 30) {
-            $time_ago = date('d/m/Y', strtotime($notification['created_at']));
+            $time_ago = $created_at->format('Y-m-d H:i');
         } elseif ($days > 0) {
             $time_ago = "منذ $days يوم";
         } elseif ($hours > 0) {
             $time_ago = "منذ $hours ساعة";
         } else {
-            $time_ago = "منذ " . max($minutes, 1) . " دقيقة";
+            $minutes = max($minutes, 1);
+            $time_ago = "منذ $minutes دقيقة";
         }
 
         $formatted_notifications[] = [
             'id' => $notification['id'],
             'message' => htmlspecialchars($notification['message'], ENT_QUOTES),
             'type' => $notification['type'],
-            'is_read' => true, // سيصبح جميعها مقروءة
+            'is_read' => true,
             'time_ago' => $time_ago,
+            'timestamp' => $notification['timestamp'],
+            'created_at' => $created_at->format('c'), // ISO 8601 format
             'link' => $notification['link']
         ];
     }
@@ -57,7 +74,8 @@ try {
     echo json_encode([
         'success' => true,
         'notifications' => $formatted_notifications,
-        'unread_count' => $unread_count
+        'unread_count' => $unread_count,
+        'server_time' => $now->format('c')
     ]);
 
 } catch (PDOException $e) {

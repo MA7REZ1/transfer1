@@ -48,17 +48,17 @@ include '../includes/header.php';
 
 <div class="container-fluid p-0">
     <div class="row g-0">
-        <?php include '../includes/sidebar.php'; ?>
+     
         
         <main class="col ms-sm-auto px-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="h3 mb-0">إدارة الشكاوى</h1>
+                <h1 class="h3 mb-0"><?php echo __('complaints_management'); ?></h1>
             </div>
 
             <?php if (empty($complaints)): ?>
                 <div class="text-center py-5">
                     <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                    <p class="text-muted mb-0">لا توجد شكاوى حالياً</p>
+                    <p class="text-muted mb-0"><?php echo __('no_complaints'); ?></p>
                 </div>
             <?php else: ?>
                 <div class="row g-4">
@@ -68,31 +68,31 @@ include '../includes/header.php';
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <span class="badge bg-<?php echo getPriorityClass($complaint['priority']); ?>">
                                         <i class="fas fa-flag me-1"></i>
-                                        <?php echo getPriorityLabel($complaint['priority']); ?>
+                                        <?php echo __('priority_' . $complaint['priority']); ?>
                                     </span>
                                     <span class="badge bg-<?php echo getStatusClass($complaint['status']); ?>">
-                                        <?php echo getStatusLabel($complaint['status']); ?>
+                                        <?php echo __('status_' . $complaint['status']); ?>
                                     </span>
                                 </div>
                                 <div class="card-body">
                                     <div class="complaint-info mb-3">
                                         <div class="d-flex justify-content-between mb-2">
-                                            <small class="text-muted">رقم الشكوى</small>
+                                            <small class="text-muted"><?php echo __('complaint_number'); ?></small>
                                             <strong><?php echo htmlspecialchars($complaint['complaint_number'] ?? ''); ?></strong>
                                         </div>
                                         <div class="d-flex justify-content-between mb-2">
-                                            <small class="text-muted">الشركة</small>
+                                            <small class="text-muted"><?php echo __('complaint_company'); ?></small>
                                             <strong><?php echo htmlspecialchars($complaint['company_name'] ?? ''); ?></strong>
                                         </div>
                                         <?php if (!empty($complaint['driver_name'])): ?>
                                         <div class="d-flex justify-content-between mb-2">
-                                            <small class="text-muted">السائق</small>
+                                            <small class="text-muted"><?php echo __('complaint_driver'); ?></small>
                                             <strong><?php echo htmlspecialchars($complaint['driver_name'] ?? ''); ?></strong>
                                         </div>
                                         <?php endif; ?>
                                         <?php if (!empty($complaint['request_number'])): ?>
                                         <div class="d-flex justify-content-between mb-2">
-                                            <small class="text-muted">رقم الطلب</small>
+                                            <small class="text-muted"><?php echo __('complaint_request'); ?></small>
                                             <strong><?php echo htmlspecialchars($complaint['request_number'] ?? ''); ?></strong>
                                         </div>
                                         <?php endif; ?>
@@ -106,7 +106,7 @@ include '../includes/header.php';
                                         <div class="latest-response mb-3">
                                             <div class="d-flex align-items-center mb-2">
                                                 <i class="fas fa-reply text-info me-2"></i>
-                                                <small class="text-muted">آخر رد من: <?php echo htmlspecialchars($complaint['latest_response_by'] ?? ''); ?></small>
+                                                <small class="text-muted"><?php echo __('response_by'); ?>: <?php echo htmlspecialchars($complaint['latest_response_by'] ?? __('management')); ?></small>
                                             </div>
                                             <div class="response-preview">
                                                 <?php echo mb_substr(htmlspecialchars($complaint['latest_response'] ?? ''), 0, 100) . '...'; ?>
@@ -129,7 +129,7 @@ include '../includes/header.php';
                                             <?php if ($complaint['response_count'] > 0): ?>
                                                 <span class="badge bg-info">
                                                     <i class="fas fa-comments me-1"></i>
-                                                    <?php echo $complaint['response_count']; ?> رد
+                                                    <?php echo $complaint['response_count']; ?> <?php echo __('responses'); ?>
                                                 </span>
                                             <?php endif; ?>
                                         </div>
@@ -138,7 +138,7 @@ include '../includes/header.php';
                                 <div class="card-footer bg-transparent border-top-0">
                                     <button class="btn btn-primary w-100" onclick="viewComplaint(<?php echo $complaint['id']; ?>)">
                                         <i class="fas fa-eye me-1"></i>
-                                        عرض التفاصيل
+                                        <?php echo __('view_details'); ?>
                                     </button>
                                 </div>
                             </div>
@@ -157,9 +157,9 @@ include '../includes/header.php';
             <div class="modal-header">
                 <h5 class="modal-title">
                     <i class="fas fa-info-circle me-2"></i>
-                    تفاصيل الشكوى
+                    <?php echo __('complaint_details'); ?>
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?php echo __('close'); ?>"></button>
             </div>
             <div class="modal-body" id="complaintDetails">
                 <!-- Content will be loaded dynamically -->
@@ -254,6 +254,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function viewComplaint(complaintId) {
+    // Show loading state
+    document.getElementById('complaintDetails').innerHTML = `
+        <div class="text-center py-4">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2"><?php echo __('loading'); ?></p>
+        </div>
+    `;
+    
     // Load complaint details via AJAX
     fetch('ajax/get_complaint_details.php?id=' + complaintId)
         .then(response => response.text())
@@ -263,7 +271,7 @@ function viewComplaint(complaintId) {
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('حدث خطأ أثناء تحميل تفاصيل الشكوى');
+            alert('<?php echo __('response_error'); ?>');
         });
 }
 
@@ -272,14 +280,14 @@ function submitResponse(complaintId) {
     const status = document.getElementById('complaintStatus').value;
     
     if (!response) {
-        alert('الرجاء كتابة الرد');
+        alert('<?php echo __('write_response'); ?>');
         return;
     }
 
     // Disable submit button and show loading
     const submitBtn = document.querySelector('#adminResponseForm button[type="submit"]');
     const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> جاري الإرسال...';
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> <?php echo __('loading'); ?>';
     submitBtn.disabled = true;
 
     // Send request
@@ -297,16 +305,16 @@ function submitResponse(complaintId) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert(data.message || 'تم إرسال الرد بنجاح');
+            alert(data.message || '<?php echo __('response_success'); ?>');
             complaintModal.hide();
             location.reload();
         } else {
-            alert(data.message || 'حدث خطأ أثناء إرسال الرد');
+            alert(data.message || '<?php echo __('response_error'); ?>');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('حدث خطأ أثناء إرسال الرد');
+        alert('<?php echo __('response_error'); ?>');
     })
     .finally(() => {
         // Reset button state
@@ -326,15 +334,6 @@ function getPriorityClass($priority) {
     }
 }
 
-function getPriorityLabel($priority) {
-    switch ($priority) {
-        case 'high': return 'عالية';
-        case 'medium': return 'متوسطة';
-        case 'low': return 'منخفضة';
-        default: return 'غير محدد';
-    }
-}
-
 function getStatusClass($status) {
     switch ($status) {
         case 'new': return 'primary';
@@ -342,16 +341,6 @@ function getStatusClass($status) {
         case 'resolved': return 'success';
         case 'closed': return 'secondary';
         default: return 'info';
-    }
-}
-
-function getStatusLabel($status) {
-    switch ($status) {
-        case 'new': return 'جديدة';
-        case 'in_progress': return 'قيد المعالجة';
-        case 'resolved': return 'تم الحل';
-        case 'closed': return 'مغلقة';
-        default: return 'غير محدد';
     }
 }
 

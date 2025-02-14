@@ -2,10 +2,11 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 // تضمين ملف الاتصال بقاعدة البيانات
 require_once 'config/database.php';
+require_once 'config/auth.php';
 
 // التحقق من طريقة الطلب
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -42,16 +43,19 @@ try {
         $logStmt = $conn->prepare("INSERT INTO activity_log (driver_id, action, details) VALUES (?, 'login_success', 'Driver logged in successfully')");
         $logStmt->execute([$driver['id']]);
 
+        // إنشاء توكن للمستخدم
+        $token = Auth::generateToken($driver['id']);
+
         // إزالة كلمة المرور من البيانات المُرجعة
         unset($driver['password']);
 
         echo json_encode([
             'status' => true,
             'message' => 'Login successful',
-            'data' => $driver
+            'data' => $driver,
+            'token' => $token
         ]);
     } else {
-  
         http_response_code(401);
         echo json_encode([
             'status' => false,

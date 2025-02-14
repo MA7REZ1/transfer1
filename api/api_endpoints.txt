@@ -1,7 +1,7 @@
 API Endpoints - مسارات واجهة برمجة التطبيق
 ===========================================
 
-Base URL: http://alwarsh.net/api
+Base URL: https://sin-faya.com/api
 
 1. تسجيل الدخول
 -----------------

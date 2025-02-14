@@ -16,9 +16,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // التأكد من إخفاء السايدبار في البداية على الموبايل
     function initializeSidebar() {
         if (window.innerWidth <= 992) {
-            sidebar.classList.remove('show');
-            overlay.classList.remove('show');
+            sidebar?.classList.remove('show');
+            overlay?.classList.remove('show');
             document.body.style.overflow = '';
+            mainContent.style.marginLeft = '0';
+            if (isRTL) {
+                mainContent.style.marginRight = '0';
+            }
+        } else {
+            mainContent.style.marginLeft = isRTL ? '0' : '280px';
+            mainContent.style.marginRight = isRTL ? '280px' : '0';
+            sidebar?.classList.remove('show');
+            overlay?.classList.remove('show');
         }
     }
 
@@ -29,49 +38,54 @@ document.addEventListener('DOMContentLoaded', function() {
     if (mobileMenuToggle) {
         mobileMenuToggle.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             toggleSidebar();
         });
     }
 
     // دالة تبديل السايدبار
     function toggleSidebar() {
+        if (!sidebar) return;
+        
+        const isShowing = !sidebar.classList.contains('show');
+        
         sidebar.classList.toggle('show');
         overlay.classList.toggle('show');
-        document.body.style.overflow = sidebar.classList.contains('show') ? 'hidden' : '';
+        
+        // منع التمرير عند فتح السايدبار
+        document.body.style.overflow = isShowing ? 'hidden' : '';
+        
+        // تحديث هوامش المحتوى الرئيسي
+        if (window.innerWidth <= 992) {
+            mainContent.style.marginLeft = '0';
+            mainContent.style.marginRight = '0';
+        }
     }
 
     // إغلاق عند النقر على الأوفرلاي
-    overlay.addEventListener('click', function() {
-        if (window.innerWidth <= 992) {
+    overlay.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (window.innerWidth <= 992 && sidebar?.classList.contains('show')) {
             toggleSidebar();
         }
     });
 
-    // إغلاق عند الضغط على ESC في الموبايل
+    // إغلاق عند النقر خارج السايدبار
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 992 && 
+            sidebar?.classList.contains('show') && 
+            !sidebar.contains(e.target) && 
+            !mobileMenuToggle.contains(e.target)) {
+            toggleSidebar();
+        }
+    });
+
+    // إغلاق عند الضغط على ESC
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && window.innerWidth <= 992 && sidebar.classList.contains('show')) {
+        if (e.key === 'Escape' && sidebar?.classList.contains('show')) {
             toggleSidebar();
         }
     });
-    
-    // إغلاق السايدبار عند تغيير حجم النافذة للشاشات الكبيرة
-    window.addEventListener('resize', function() {
-        if (window.innerWidth >= 992 && sidebar.classList.contains('show')) {
-            toggleSidebar();
-        }
-    });
-
-    // إغلاق السايدبار عند النقر على الروابط في الموبايل فقط
-    if (sidebar) {
-        const links = sidebar.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', function() {
-                if (window.innerWidth <= 992) {
-                    setTimeout(toggleSidebar, 150);
-                }
-            });
-        });
-    }
     
     // معالجة تغيير حجم النافذة
     let resizeTimer;
@@ -81,4 +95,19 @@ document.addEventListener('DOMContentLoaded', function() {
             initializeSidebar();
         }, 250);
     });
+
+    // إغلاق السايدبار عند النقر على الروابط في الموبايل
+    if (sidebar) {
+        const links = sidebar.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (window.innerWidth <= 992) {
+                    // تأخير قصير قبل إغلاق السايدبار للسماح بالانتقال
+                    setTimeout(() => {
+                        toggleSidebar();
+                    }, 150);
+                }
+            });
+        });
+    }
 }); 

@@ -3,7 +3,7 @@ require_once '../config.php';
 
 // التحقق من الصلاحيات - فقط المدير يمكنه الوصول
 if (!isLoggedIn()) {
-    header('Location: login.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -111,13 +111,123 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
+<!-- Add this style section after your existing styles -->
+<style>
+.stats-card {
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+    color: white;
+}
+
+.stats-card i {
+    position: absolute;
+    font-size: 2.5rem;
+    opacity: 0.2;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* RTL Icons Position */
+[dir="rtl"] .stats-card i.float-left {
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+[dir="rtl"] .stats-card:hover i.float-left {
+    transform: translateY(-50%) translateX(5px);
+}
+
+/* LTR Icons Position */
+[dir="ltr"] .stats-card i.float-right {
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+[dir="ltr"] .stats-card:hover i.float-right {
+    transform: translateY(-50%) translateX(-5px);
+}
+
+.stats-card:hover i {
+    opacity: 0.4;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 2;
+}
+
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.9;
+    position: relative;
+    z-index: 2;
+}
+
+.progress {
+    position: relative;
+    z-index: 2;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar {
+    transition: width 1s ease-in-out;
+}
+
+.stats-card:hover .progress-bar {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Card Colors */
+.stats-card:nth-child(1) {
+    background: linear-gradient(135deg, #ff8f00 0%, #e65100 100%);
+}
+
+.stats-card:nth-child(2) {
+    background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+}
+
+.stats-card:nth-child(3) {
+    background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+}
+
+.stats-card:nth-child(4) {
+    background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .stats-card {
+        margin-bottom: 15px;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+    }
+    
+    .stats-card i {
+        font-size: 2rem;
+    }
+}
+</style>
+
 <!-- Statistics Cards -->
 <div class="row fade-in-up">
     <div class="col-md-3 mb-4">
         <div class="stats-card">
             <div class="stat-value"><?php echo number_format($companies_count); ?></div>
-            <div class="stat-label">الشركات النشطة</div>
-            <i class="fas fa-building"></i>
+            <div class="stat-label"><?php echo __('active_companies'); ?></div>
+            <i class="fas fa-building <?php echo $_SESSION['lang'] == 'ar' ? 'float-left' : 'float-left'; ?>"></i>
             <div class="progress mt-2">
                 <div class="progress-bar" style="width: 100%"></div>
             </div>
@@ -127,8 +237,8 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
     <div class="col-md-3 mb-4">
         <div class="stats-card" style="background: var(--success-gradient);">
             <div class="stat-value"><?php echo number_format($drivers_count); ?></div>
-            <div class="stat-label">السائقين النشطين</div>
-            <i class="fas fa-user-tie"></i>
+            <div class="stat-label"><?php echo __('active_drivers'); ?></div>
+            <i class="fas fa-user-tie <?php echo $_SESSION['lang'] == 'ar' ? 'float-left' : 'float-left'; ?>"></i>
             <div class="progress mt-2">
                 <div class="progress-bar" style="width: 100%; background: rgba(255,255,255,0.2)"></div>
             </div>
@@ -138,8 +248,8 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
     <div class="col-md-3 mb-4">
         <div class="stats-card" style="background: var(--secondary-gradient);">
             <div class="stat-value"><?php echo number_format($monthly_orders); ?></div>
-            <div class="stat-label">طلبات الشهر</div>
-            <i class="fas fa-box"></i>
+            <div class="stat-label"><?php echo __('monthly_orders'); ?></div>
+            <i class="fas fa-box <?php echo $_SESSION['lang'] == 'ar' ? 'float-left' : 'float-left'; ?>"></i>
             <div class="progress mt-2">
                 <div class="progress-bar" style="width: 100%; background: rgba(255,255,255,0.2)"></div>
             </div>
@@ -149,8 +259,8 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
     <div class="col-md-3 mb-4">
         <div class="stats-card" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
             <div class="stat-value"><?php echo number_format($new_complaints); ?></div>
-            <div class="stat-label">شكوى جديدة</div>
-            <i class="fas fa-exclamation-circle"></i>
+            <div class="stat-label"><?php echo __('new_complaints'); ?></div>
+            <i class="fas fa-exclamation-circle <?php echo $_SESSION['lang'] == 'ar' ? 'float-left' : 'float-left'; ?>"></i>
             <div class="progress mt-2">
                 <div class="progress-bar" style="width: 100%; background: rgba(255,255,255,0.2)"></div>
             </div>
@@ -162,9 +272,9 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
 <div class="row fade-in-up">
     <div class="col-md-3 mb-4">
         <div class="stats-card" style="background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);">
-            <div class="stat-value"><?php echo number_format($delivery_stats['avg_delivery_fee'], 2); ?> ر.س</div>
-            <div class="stat-label">متوسط قيمة الطلب</div>
-            <i class="fas fa-coins"></i>
+            <div class="stat-value"><?php echo number_format($delivery_stats['avg_delivery_fee'], 2); ?> <?php echo __('sar'); ?></div>
+            <div class="stat-label"><?php echo __('average_order_value'); ?></div>
+            <i class="fas fa-coins <?php echo $_SESSION['lang'] == 'ar' ? 'float-left' : 'float-left'; ?>"></i>
             <div class="progress mt-2">
                 <div class="progress-bar" style="width: 100%; background: rgba(255,255,255,0.2)"></div>
             </div>
@@ -173,9 +283,9 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
     
     <div class="col-md-3 mb-4">
         <div class="stats-card" style="background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);">
-            <div class="stat-value"><?php echo number_format($delivery_stats['total_delivery_fee'], 2); ?>  ر.س</div>
-            <div class="stat-label">إجمالي الإيرادات</div>
-            <i class="fas fa-chart-line"></i>
+            <div class="stat-value"><?php echo number_format($delivery_stats['total_delivery_fee'], 2); ?> <?php echo __('sar'); ?></div>
+            <div class="stat-label"><?php echo __('total_revenue'); ?></div>
+            <i class="fas fa-chart-line <?php echo $_SESSION['lang'] == 'ar' ? 'float-left' : 'float-left'; ?>"></i>
             <div class="progress mt-2">
                 <div class="progress-bar" style="width: 100%; background: rgba(255,255,255,0.2)"></div>
             </div>
@@ -185,8 +295,8 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
     <div class="col-md-3 mb-4">
         <div class="stats-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
             <div class="stat-value"><?php echo round(($order_stats['delivered_orders'] / $order_stats['total_orders']) * 100, 1); ?>%</div>
-            <div class="stat-label">معدل إكمال الطلبات</div>
-            <i class="fas fa-check-circle"></i>
+            <div class="stat-label"><?php echo __('orders_completion_rate'); ?></div>
+            <i class="fas fa-check-circle <?php echo $_SESSION['lang'] == 'ar' ? 'float-left' : 'float-left'; ?>"></i>
             <div class="progress mt-2">
                 <div class="progress-bar" style="width: 100%; background: rgba(255,255,255,0.2)"></div>
             </div>
@@ -196,8 +306,8 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
     <div class="col-md-3 mb-4">
         <div class="stats-card" style="background: linear-gradient(135deg, #FF9966 0%, #FF5E62 100%);">
             <div class="stat-value"><?php echo $satisfaction_metrics['avg_rating']; ?>/5</div>
-            <div class="stat-label">رضا العملاء</div>
-            <i class="fas fa-smile"></i>
+            <div class="stat-label"><?php echo __('customer_satisfaction'); ?></div>
+            <i class="fas fa-smile <?php echo $_SESSION['lang'] == 'ar' ? 'float-left' : 'float-left'; ?>"></i>
             <div class="progress mt-2">
                 <div class="progress-bar" style="width: <?php echo ($satisfaction_metrics['avg_rating']/5)*100; ?>%; background: rgba(255,255,255,0.2)"></div>
             </div>
@@ -212,7 +322,7 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="fas fa-chart-line"></i>
-                    تحليل الطلبات الشهرية
+                    <?php echo __('monthly_orders_analysis'); ?>
                 </div>
                 <div class="btn-group chart-period-selector">
                     <button type="button" class="btn btn-sm btn-outline-primary active" data-period="6">6 أشهر</button>
@@ -231,7 +341,7 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="card chart-card">
             <div class="card-header">
                 <i class="fas fa-chart-pie"></i>
-                توزيع حالات الطلبات
+                <?php echo __('orders_status_distribution'); ?>
             </div>
             <div class="card-body">
                 <div class="chart-container" style="height: 300px;">
@@ -247,7 +357,7 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="card chart-card">
             <div class="card-header">
                 <i class="fas fa-chart-bar"></i>
-                أداء السائقين
+                <?php echo __('drivers_performance'); ?>
             </div>
             <div class="card-body">
                 <div class="chart-container" style="height: 300px;">
@@ -261,7 +371,7 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="card chart-card">
             <div class="card-header">
                 <i class="fas fa-chart-line"></i>
-                معدل نمو الطلبات
+                <?php echo __('orders_growth_rate'); ?>
             </div>
             <div class="card-body">
                 <div class="chart-container" style="height: 300px;">
@@ -278,7 +388,7 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="card chart-card">
             <div class="card-header">
                 <i class="fas fa-clock"></i>
-                توزيع الطلبات حسب الساعة
+                <?php echo __('hourly_orders_distribution'); ?>
             </div>
             <div class="card-body">
                 <div class="chart-container" style="height: 300px;">
@@ -292,7 +402,7 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="card chart-card">
             <div class="card-header">
                 <i class="fas fa-trophy"></i>
-                أفضل السائقين أداءً
+                <?php echo __('top_performing_drivers'); ?>
             </div>
             <div class="card-body">
                 <div class="chart-container" style="height: 300px;">
@@ -305,188 +415,6 @@ $satisfaction_metrics = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-
-   <style>
-                .notification-icon {
-                    color: #e67e22;
-                    font-size: 20px;
-                    transition: color 0.3s ease;
-                }
-
-                .notification-icon:hover {
-                    color: #d35400;
-                }
-
-                .notification-badge {
-                    position: absolute;
-                    top: -5px;
-                    right: -5px;
-                    background: #e67e22;
-                    color: white;
-                    border-radius: 50%;
-                    padding: 3px 6px;
-                    font-size: 10px;
-                    min-width: 18px;
-                    height: 18px;
-                    text-align: center;
-                    line-height: 12px;
-                }
-
-                .notifications-dropdown {
-    position: absolute;
-    top: 100%;
-    right: -230px;
-    width: 300px;
-                    max-height: 500px;
-                    overflow-y: auto;
-                    background: #fff;
-                    border-radius: 8px;
-                    box-shadow: 0 2px 15px rgba(230, 126, 34, 0.2);
-                    z-index: 1000;
-                    margin-top: 15px;
-                    display: none;
-                }
-
-                .notifications-dropdown.show {
-                    display: block;
-                    animation: fadeIn 0.3s ease-in-out;
-                }
-
-                .notifications-header {
-                    padding: 15px 20px;
-                    border-bottom: 1px solid #f3f3f3;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    background: #fff;
-                    color: #e67e22;
-                    font-weight: bold;
-                }
-
-                .notifications-header .badge {
-                    background-color: #e67e22 !important;
-                    color: white;
-                }
-
-                .notification-item {
-                    padding: 15px 20px;
-                    border-bottom: 1px solid #f3f3f3;
-                    cursor: pointer;
-                    transition: background-color 0.2s;
-                }
-
-                .notification-item:hover {
-                    background-color: #fff5e6;
-                }
-
-                .notification-item.unread {
-                    background-color: #fff5e6;
-                }
-
-                .notification-item.unread:hover {
-                    background-color: #ffe5cc;
-                }
-
-                .notification-content {
-                    display: flex;
-                    align-items: flex-start;
-                    gap: 12px;
-                }
-
-                .notification-content p {
-                    margin: 0;
-                    color: #333;
-                    font-size: 14px;
-                    line-height: 1.5;
-                }
-
-                .notification-time {
-                    font-size: 12px;
-                    color: #e67e22;
-                    margin-top: 5px;
-                }
-
-                .notification-time i {
-                    color: #e67e22;
-                }
-
-                .notification-footer {
-                    padding: 12px 15px;
-                    text-align: center;
-                    border-top: 1px solid #f3f3f3;
-                    background: #fff;
-                }
-
-                .notification-footer a {
-                    color: #e67e22;
-                    text-decoration: none;
-                    font-weight: bold;
-                }
-
-                .notification-footer a:hover {
-                    color: #d35400;
-                }
-
-                /* تحسين مظهر شريط التمرير */
-                .notifications-dropdown::-webkit-scrollbar {
-                    width: 8px;
-                }
-
-                .notifications-dropdown::-webkit-scrollbar-track {
-                    background: #fff5e6;
-                    border-radius: 4px;
-                }
-
-                .notifications-dropdown::-webkit-scrollbar-thumb {
-                    background: #e67e22;
-                    border-radius: 4px;
-                }
-
-                .notifications-dropdown::-webkit-scrollbar-thumb:hover {
-                    background: #d35400;
-                }
-
-                /* إضافة سهم صغير في الأعلى */
-                .notifications-dropdown::before {
-                    content: '';
-                    position: absolute;
-                    top: -8px;
-                    right: 310px;
-                    width: 16px;
-                    height: 16px;
-                    background: #fff;
-                    transform: rotate(45deg);
-                    border-top: 1px solid rgba(230, 126, 34, 0.1);
-                    border-left: 1px solid rgba(230, 126, 34, 0.1);
-                }
-
-                /* تأثير حركي لأيقونة الجرس */
-                @keyframes bellRing {
-                    0% { transform: rotate(0); }
-                    10% { transform: rotate(15deg); }
-                    20% { transform: rotate(-15deg); }
-                    30% { transform: rotate(10deg); }
-                    40% { transform: rotate(-10deg); }
-                    50% { transform: rotate(5deg); }
-                    60% { transform: rotate(-5deg); }
-                    70% { transform: rotate(2deg); }
-                    80% { transform: rotate(-2deg); }
-                    90% { transform: rotate(1deg); }
-                    100% { transform: rotate(0); }
-                }
-
-                .notification-icon i {
-                    display: inline-block;
-                    transform-origin: top;
-                    color: #e67e22;
-                    font-size: 20px;
-                    transition: color 0.3s ease;
-                }
-
-                .notification-icon i.ringing {
-                    animation: bellRing 1s ease-in-out;
-                }
-                </style>
 
 <script>
 // إضافة صوت الجرس
@@ -531,7 +459,7 @@ const ordersChart = new Chart(ctx, {
     data: {
         labels: ordersData.map(row => row.month),
         datasets: [{
-            label: 'إجمالي الطلبات',
+            label: '<?php echo __("total_orders"); ?>',
             data: ordersData.map(row => row.total),
             borderColor: '#e67e22',
             backgroundColor: gradient1,
@@ -563,7 +491,7 @@ const ordersChart = new Chart(ctx, {
                 return current > prev ? 0 : 180;
             }
         }, {
-            label: 'الطلبات المكتملة',
+            label: '<?php echo __("completed_orders"); ?>',
             data: ordersData.map(row => row.completed),
             borderColor: '#f39c12',
             backgroundColor: gradient2,
@@ -643,8 +571,8 @@ const ordersChart = new Chart(ctx, {
                         const growth = ((current - prev) / prev * 100).toFixed(1);
                         const arrow = current >= prev ? '↑' : '↓';
                         return [
-                            `${context.dataset.label}: ${current} طلب`,
-                            `النمو: ${arrow} ${Math.abs(growth)}%`
+                            `${context.dataset.label}: ${current} <?php echo __("orders"); ?>`,
+                            `<?php echo __("growth"); ?>: ${arrow} ${Math.abs(growth)}%`
                         ];
                     }
                 }
@@ -797,7 +725,7 @@ new Chart(driversCtx, {
             return $row['username'];
         }, $driversData)); ?>,
         datasets: [{
-            label: 'معدل الإكمال',
+            label: '<?php echo __("completion_rate"); ?>',
             data: <?php echo json_encode(array_map(function($row) {
                 return $row['completion_rate'];
             }, $driversData)); ?>,
@@ -805,7 +733,7 @@ new Chart(driversCtx, {
             borderRadius: 5,
             yAxisID: 'y'
         }, {
-            label: 'التقييم',
+            label: '<?php echo __("rating"); ?>',
             data: <?php echo json_encode(array_map(function($row) {
                 return $row['avg_rating'] * 20; // Convert to percentage
             }, $driversData)); ?>,
@@ -813,7 +741,7 @@ new Chart(driversCtx, {
             borderRadius: 5,
             yAxisID: 'y'
         }, {
-            label: 'متوسط وقت التوصيل (دقيقة)',
+            label: '<?php echo __("average_delivery_time"); ?> (<?php echo __("minutes"); ?>)',
             data: <?php echo json_encode(array_map(function($row) {
                 return $row['avg_delivery_time'];
             }, $driversData)); ?>,
@@ -855,12 +783,12 @@ new Chart(driversCtx, {
                 callbacks: {
                     label: function(context) {
                         switch(context.dataset.label) {
-                            case 'معدل الإكمال':
-                                return `معدل الإكمال: ${context.parsed.y}%`;
-                            case 'التقييم':
-                                return `التقييم: ${(context.parsed.y / 20).toFixed(1)}/5`;
-                            case 'متوسط وقت التوصيل (دقيقة)':
-                                return `متوسط وقت التوصيل: ${context.parsed.y} دقيقة`;
+                            case '<?php echo __("completion_rate"); ?>':
+                                return `<?php echo __("completion_rate"); ?>: ${context.parsed.y}%`;
+                            case '<?php echo __("rating"); ?>':
+                                return `<?php echo __("rating"); ?>: ${(context.parsed.y / 20).toFixed(1)}/5`;
+                            case '<?php echo __("average_delivery_time"); ?> (<?php echo __("minutes"); ?>)':
+                                return `<?php echo __("average_delivery_time"); ?>: ${context.parsed.y} <?php echo __("minutes"); ?>`;
                             default:
                                 return context.parsed.y;
                         }
@@ -912,7 +840,7 @@ new Chart(growthCtx, {
     data: {
         labels: ordersData.map(row => row.month),
         datasets: [{
-            label: 'إجمالي المبيعات',
+            label: '<?php echo __("sales_amount"); ?>',
             data: ordersData.map(row => row.amount),
             borderColor: '#2ecc71',
             backgroundColor: growthGradient,
@@ -970,8 +898,8 @@ new Chart(growthCtx, {
                         const growth = ((current - prev) / prev * 100).toFixed(1);
                         const arrow = current >= prev ? '↑' : '↓';
                         return [
-                            `المبيعات: ${current.toLocaleString()} ر.س`,
-                            `النمو: ${arrow} ${Math.abs(growth)}%`
+                            `<?php echo __("sales_amount"); ?>: ${current.toLocaleString()} <?php echo __("sar"); ?>`,
+                            `<?php echo __("growth_rate"); ?>: ${arrow} ${Math.abs(growth)}%`
                         ];
                     }
                 }
@@ -1017,6 +945,15 @@ document.querySelectorAll('.chart-period-selector button').forEach(button => {
     });
 });
 
+// Update period selector buttons text
+document.querySelectorAll('.chart-period-selector button').forEach(button => {
+    if (button.dataset.period === '6') {
+        button.textContent = '<?php echo __("6_months"); ?>';
+    } else {
+        button.textContent = '<?php echo __("1_year"); ?>';
+    }
+});
+
 // Hourly Distribution Chart
 const hourlyCtx = document.getElementById('hourlyDistributionChart').getContext('2d');
 new Chart(hourlyCtx, {
@@ -1026,7 +963,7 @@ new Chart(hourlyCtx, {
             return sprintf('%02d:00', $row['hour']);
         }, $hourly_distribution)); ?>,
         datasets: [{
-            label: 'عدد الطلبات',
+            label: '<?php echo __("orders_count"); ?>',
             data: <?php echo json_encode(array_map(function($row) {
                 return $row['order_count'];
             }, $hourly_distribution)); ?>,
@@ -1051,7 +988,7 @@ new Chart(hourlyCtx, {
                 borderWidth: 1,
                 callbacks: {
                     label: function(context) {
-                        return `عدد الطلبات: ${context.parsed.y}`;
+                        return `<?php echo __("orders_count"); ?>: ${context.parsed.y}`;
                     }
                 }
             }
@@ -1081,14 +1018,14 @@ new Chart(performanceCtx, {
             return $row['username'];
         }, $driver_performance)); ?>,
         datasets: [{
-            label: 'معدل الإكمال',
+            label: '<?php echo __("completion_rate"); ?>',
             data: <?php echo json_encode(array_map(function($row) {
                 return $row['completion_rate'];
             }, $driver_performance)); ?>,
             backgroundColor: createGradient(performanceCtx, 'rgba(46, 204, 113, 1)', 'rgba(39, 174, 96, 1)', 0.8, 0.6),
             borderRadius: 5
         }, {
-            label: 'التقييم',
+            label: '<?php echo __("rating"); ?>',
             data: <?php echo json_encode(array_map(function($row) {
                 return $row['avg_rating'] * 20; // Convert to percentage
             }, $driver_performance)); ?>,
@@ -1119,10 +1056,10 @@ new Chart(performanceCtx, {
                 borderWidth: 1,
                 callbacks: {
                     label: function(context) {
-                        if (context.dataset.label === 'معدل الإكمال') {
-                            return `معدل الإكمال: ${context.parsed.y}%`;
+                        if (context.dataset.label === '<?php echo __("completion_rate"); ?>') {
+                            return `<?php echo __("completion_rate"); ?>: ${context.parsed.y}%`;
                         } else {
-                            return `التقييم: ${(context.parsed.y / 20).toFixed(1)}/5`;
+                            return `<?php echo __("rating"); ?>: ${(context.parsed.y / 20).toFixed(1)}/5`;
                         }
                     }
                 }

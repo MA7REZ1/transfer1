@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             width: 100%;
             max-width: 440px;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+         
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             padding: 2.5rem;

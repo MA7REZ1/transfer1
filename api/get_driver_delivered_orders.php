@@ -62,7 +62,7 @@ try {
     // تحويل مسار الصور إلى مسار كامل
     foreach ($orders as &$order) {
         if (!empty($order['company_logo'])) {
-            $order['company_logo'] = 'http://alwarsh.net/END/uploads/company_logos/' . $order['company_logo'];
+            $order['company_logo'] = 'https://sin-faya.com/END/uploads/company_logos/' . $order['company_logo'];
         }
     }
 

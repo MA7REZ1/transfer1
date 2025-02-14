@@ -1,0 +1,101 @@
+# Enable Apache Rewrite Engine
+RewriteEngine On
+
+# Set JSON as default content type
+Header always set Content-Type "application/json; charset=utf-8"
+
+# Enable CORS for specific domains
+Header always set Access-Control-Allow-Origin "https://sin-faya.com"
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header always set Access-Control-Allow-Headers "Authorization, Content-Type, X-Requested-With"
+Header always set Access-Control-Max-Age "3600"
+
+# Block all requests except from allowed domains
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?(sin-faya\.com|localhost|127\.0\.0\.1) [NC]
+RewriteRule .* - [F,L]
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# API Rate Limiting (400 requests per minute)
+<IfModule mod_ratelimit.c>
+    SetOutputFilter RATE_LIMIT
+    SetEnv rate-limit 400
+</IfModule>
+
+# Protect against SQL injection and XSS
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} union([^a]*a)+ll([^s]*s)+elect [NC]
+RewriteRule ^(.*)$ - [F,L]
+
+# Block access to sensitive files
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|inc|bak|env|config|json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect config directory
+RewriteRule ^config/.* - [F,L]
+
+# Allow only specific HTTP methods
+RewriteCond %{REQUEST_METHOD} !^(GET|POST|PUT|DELETE|OPTIONS)$ [NC]
+RewriteRule .* - [F,L]
+
+# Add security headers
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-XSS-Protection "1; mode=block"
+Header always set X-Frame-Options "DENY"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Block bad bots and crawlers
+RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+RewriteCond %{HTTP_USER_AGENT} ^(java|curl|python|perl|ruby|bash|wget).* [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^.*(winhttp|HTTrack|clshttp|archiver|loader|email|harvest|extract|grab|miner).* [NC]
+RewriteRule .* - [F,L]
+
+# Require API key in header (if using API keys)
+RewriteCond %{HTTP:X-API-KEY} ^$
+RewriteRule ^(.*)$ - [F,L]
+
+# Protect specific endpoints with additional authentication
+<LocationMatch "^/(update_driver_profile|update_driver_password|update_driver_status)\.php$">
+    Require valid-user
+    AuthType Basic
+    AuthName "API Access"
+    AuthUserFile /path/to/.htpasswd
+</LocationMatch>
+
+# Enable compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE text/plain
+</IfModule>
+
+# Set cache control for API responses
+Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+Header always set Pragma "no-cache"
+Header always set Expires "0"
+
+# Log API requests (optional)
+# CustomLog "logs/api_access.log" combined
+
+# Prevent directory listing
+Options -Indexes
+
+# Set PHP configuration for API
+<IfModule mod_php.c>
+    php_flag display_errors off
+    php_value max_execution_time 30
+    php_value memory_limit 128M
+    php_value post_max_size 20M
+    php_value upload_max_filesize 10M
+    php_flag session.cookie_httponly on
+    php_flag session.use_only_cookies on
+    php_flag session.cookie_secure on
+</IfModule> 

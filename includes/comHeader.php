@@ -353,7 +353,7 @@ $company = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="profile.php">
                 <?php if (!empty($company['logo'])): ?>
-                    <img src="../uploads/companies/<?php echo htmlspecialchars($company['logo']); ?>" alt="شعار الشركة" class="rounded">
+                    <img src="../uploads/company_logos/<?php echo htmlspecialchars($company['logo']); ?>" alt="شعار الشركة" class="rounded">
                 <?php else: ?>
                     <i class="bi bi-building"></i>
                 <?php endif; ?>

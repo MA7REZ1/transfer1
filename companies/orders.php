@@ -131,7 +131,7 @@ $complaint_responses = $stmt->fetchAll();
 
         .profile-header {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+ 
             padding: 2rem 0;
             margin-bottom: 2rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -578,7 +578,7 @@ $complaint_responses = $stmt->fetchAll();
             padding: 15px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            backdrop-filter: blur(5px);
+          
         }
 
         .btn-action {
@@ -810,7 +810,7 @@ $complaint_responses = $stmt->fetchAll();
 
         .search-and-actions {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+           
             border-radius: 20px;
             padding: 1.5rem;
             margin-bottom: 2rem;
@@ -910,7 +910,7 @@ $complaint_responses = $stmt->fetchAll();
                 <div class="col-md-8">
                     <div class="d-flex align-items-center gap-4">
                         <?php if($company['logo']): ?>
-                            <img src="../uploads/companies/<?php echo htmlspecialchars($company['logo']); ?>" alt="Company Logo" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+                            <img src="../uploads/company_logos/<?php echo htmlspecialchars($company['logo']); ?>" alt="Company Logo" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
                         <?php endif; ?>
                         <div>
                             <h2 class="mb-0"><?php echo htmlspecialchars($staff['name']); ?></h2>

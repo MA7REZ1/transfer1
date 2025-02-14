@@ -52,10 +52,10 @@ try {
     // تحويل مسار الصور إلى مسار كامل
     foreach ($orders as &$order) {
         if (!empty($order['company_logo'])) {
-            $order['company_logo'] = 'http://alwarsh.net/uploads/companies/' . $order['company_logo'];
+            $order['company_logo'] = 'https://sin-faya.com/uploads/company_logos/' . $order['company_logo'];
         }
         if (!empty($order['invoice_file'])) {
-            $order['invoice_file'] = 'http://alwarsh.net/uploads/invoices/' . $order['invoice_file'];
+            $order['invoice_file'] = 'https://sin-faya.com/uploads/invoices/' . $order['invoice_file'];
         }
     }
 

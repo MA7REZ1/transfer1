@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
+     
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .login-container::before {
@@ -277,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            backdrop-filter: blur(5px);
+           
             border-radius: 24px;
         }
         .loading.active {

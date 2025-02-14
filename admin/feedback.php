@@ -1,6 +1,13 @@
 <?php
-require_once 'config.php';
+require_once '../config.php';
 
+// Get current language direction
+$dir = $_SESSION['lang'] === 'ar' ? 'rtl' : 'ltr';
+$lang = $_SESSION['lang'];
+
+// Include language file
+
+include '../includes/header.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['admin_id'])) {
@@ -34,7 +41,7 @@ $stmt = $conn->query($query);
 $feedbacks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Include header
-include '../includes/header.php';
+
 ?>
 
 <style>
@@ -82,22 +89,22 @@ include '../includes/header.php';
         <div class="col-12">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">ملاحظات العملاء</h5>
+                    <h5 class="mb-0"><?php echo __('customer_feedback'); ?></h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover" id="feedbackTable">
                             <thead>
                                 <tr>
-                                    <th>رقم الطلب</th>
-                                    <th>العميل</th>
-                                    <th>رقم الهاتف</th>
-                                    <th>السائق</th>
-                                    <th>من</th>
-                                    <th>إلى</th>
-                                    <th>الملاحظات</th>
-                                    <th>تاريخ الملاحظة</th>
-                                    <th>حالة الطلب</th>
+                                    <th><?php echo __('order_number'); ?></th>
+                                    <th><?php echo __('customer'); ?></th>
+                                    <th><?php echo __('phone_number'); ?></th>
+                                    <th><?php echo __('driver'); ?></th>
+                                    <th><?php echo __('from'); ?></th>
+                                    <th><?php echo __('to'); ?></th>
+                                    <th><?php echo __('feedback'); ?></th>
+                                    <th><?php echo __('feedback_date'); ?></th>
+                                    <th><?php echo __('feedback_order_status'); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,7 +123,7 @@ include '../includes/header.php';
                                                 <br>
                                                 <small class="text-muted"><?php echo htmlspecialchars($feedback['driver_phone']); ?></small>
                                             <?php else: ?>
-                                                <span class="text-muted">لم يتم تعيين سائق</span>
+                                                <span class="text-muted"><?php echo __('no_driver'); ?></span>
                                             <?php endif; ?>
                                         </td>
                                         <td><?php echo htmlspecialchars($feedback['pickup_location']); ?></td>
@@ -124,7 +131,7 @@ include '../includes/header.php';
                                         <td>
                                             <button type="button" class="btn btn-sm btn-info btn-view-feedback" 
                                                     onclick="showFeedback('<?php echo htmlspecialchars(addslashes($feedback['feedback'])); ?>', '<?php echo htmlspecialchars($feedback['order_number']); ?>')">
-                                                عرض الملاحظات
+                                                <?php echo __('view_feedback'); ?>
                                             </button>
                                         </td>
                                         <td><?php echo date('Y-m-d H:i', strtotime($feedback['created_at'])); ?></td>
@@ -149,41 +156,48 @@ include '../includes/header.php';
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">ملاحظات الطلب رقم <span id="modalOrderNumber"></span></h5>
+                <h5 class="modal-title"><?php echo __('feedback_for_order'); ?> <span id="modalOrderNumber"></span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalFeedbackContent">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo __('close'); ?></button>
             </div>
         </div>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
 function showFeedback(feedback, orderNumber) {
+    feedback = feedback.replace(/\\(.)/g, "$1");
+    
     document.getElementById('modalOrderNumber').textContent = orderNumber;
     document.getElementById('modalFeedbackContent').textContent = feedback;
     
-    const modal = new bootstrap.Modal(document.getElementById('feedbackModal'));
-    modal.show();
+    const modalElement = document.getElementById('feedbackModal');
+    if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    }
 }
 
 // تهيئة DataTables
 $(document).ready(function() {
     $('#feedbackTable').DataTable({
         "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Arabic.json"
+            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/<?php echo ($lang === 'ar' ? 'Arabic' : 'English'); ?>.json"
         },
-        "order": [[7, "desc"]], // ترتيب حسب تاريخ الملاحظة تنازلياً
+        "order": [[7, "desc"]],
         "pageLength": 25
     });
 });
 </script>
 
 <?php
-// Helper functions for status
+// Helper functions for status with language support
 function getStatusClass($status) {
     return match($status) {
         'pending' => 'warning',
@@ -197,12 +211,12 @@ function getStatusClass($status) {
 
 function getStatusText($status) {
     return match($status) {
-        'pending' => 'قيد الانتظار',
-        'accepted' => 'تم القبول',
-        'in_transit' => 'جاري التوصيل',
-        'delivered' => 'تم التوصيل',
-        'cancelled' => 'ملغي',
-        default => 'غير معروف'
+        'pending' => __('status_pending'),
+        'accepted' => __('status_accepted'),
+        'in_transit' => __('status_in_transit'),
+        'delivered' => __('status_delivered'),
+        'cancelled' => __('status_cancelled'),
+        default => __('status_unknown')
     };
 }
 ?> 

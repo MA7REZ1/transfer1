@@ -403,7 +403,7 @@ if ($company) {
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="card-title text-white mb-2">سعر التوصيل</h6>
-                                <h3 class="mb-0 text-white"><?php echo htmlspecialchars($company['delivery_fee']); ?> ريال</h3>
+                                <h3 class="mb-0 text-white"><?php echo htmlspecialchars($company['delivery_fee'] ?? '0'); ?> ريال</h3>
                             </div>
                             <div class="stat-icon text-white">
                                 <i class="bi bi-currency-dollar"></i>

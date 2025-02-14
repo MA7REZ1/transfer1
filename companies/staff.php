@@ -1,10 +1,14 @@
 <?php
 require_once '../config.php';
 if (!isset($_SESSION['company_email'])) {
-      header("Location: login.php");
+    header("Location: login.php");
     exit();
 }
-    
+
+// Generate CSRF token if not exists
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
 $company_id = $_SESSION['company_id'];
 
@@ -647,7 +651,7 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
                 background: rgba(255, 255, 255, 0.1);
                 padding: 1rem;
                 border-radius: 10px;
-                backdrop-filter: blur(10px);
+              
                 margin-top: 1rem;
             }
         }
@@ -676,23 +680,27 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="addStaffForm" method="post" action="ajax/add_staff.php">
+                                <form id="addStaffForm" method="post">
+                                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                     <div class="row g-3">
                                         <div class="col-md-6">
-                                            <label class="form-label">الاسم</label>
-                                            <input type="text" name="name" class="form-control" required>
+                                            <label class="form-label">الاسم <span class="text-danger">*</span></label>
+                                            <input type="text" name="name" class="form-control" required minlength="3">
+                                            <div class="form-text">يجب أن يكون الاسم 3 أحرف على الأقل</div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label">البريد الإلكتروني</label>
+                                            <label class="form-label">البريد الإلكتروني <span class="text-danger">*</span></label>
                                             <input type="email" name="email" class="form-control" required>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label">رقم الجوال</label>
-                                            <input type="tel" name="phone" class="form-control" required>
+                                            <label class="form-label">رقم الجوال <span class="text-danger">*</span></label>
+                                            <input type="text" name="phone" class="form-control" required>
+                                            <div class="form-text">يمكنك إدخال رقم الجوال بالصيغة المناسبة</div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label">الدور</label>
+                                            <label class="form-label">الدور <span class="text-danger">*</span></label>
                                             <select name="role" class="form-select" required>
+                                                <option value="">اختر الدور</option>
                                                 <option value="staff">موظف</option>
                                                 <option value="order_manager">مدير طلبات</option>
                                             </select>
@@ -755,29 +763,70 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
                     document.getElementById('addStaffForm').addEventListener('submit', function(e) {
                         e.preventDefault();
                         
-                        fetch(this.action, {
+                        const formData = new FormData(this);
+                        
+                        // Show loading state
+                        const submitButton = this.querySelector('button[type="submit"]');
+                        const originalText = submitButton.innerHTML;
+                        submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> جاري الإضافة...';
+                        submitButton.disabled = true;
+                        
+                        fetch('ajax/add_staff.php', {
                             method: 'POST',
-                            body: new FormData(this)
+                            body: formData,
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
                         })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                // إخفاء المودال
-                                bootstrap.Modal.getInstance(document.getElementById('addStaffModal')).hide();
-                                // عرض رسالة النجاح
-                                showAlert(data.message || 'تم إضافة الموظف بنجاح');
-                                // إعادة تحميل الصفحة بعد 3 ثواني
+                                // Hide modal
+                                const modal = bootstrap.Modal.getInstance(document.getElementById('addStaffModal'));
+                                if (modal) {
+                                    modal.hide();
+                                }
+                                
+                                // Show success message
+                                showAlert(`تم إضافة الموظف بنجاح
+                                        ${data.password ? `\nكلمة المرور الافتراضية هي: ${data.password}` : ''}
+                                        يرجى تنبيه الموظف بتغيير كلمة المرور فور تسجيل الدخول`);
+                                
+                                // Reload page after delay
                                 setTimeout(() => {
                                     location.reload();
                                 }, 3000);
                             } else {
-                                showAlert(data.message || 'حدث خطأ أثناء إضافة الموظف');
+                                showAlert(data.message || 'حدث خطأ أثناء إضافة الموظف', 'error');
                             }
                         })
                         .catch(error => {
-                            showAlert('حدث خطأ في إرسال البيانات');
+                            console.error('Error:', error);
+                            showAlert('حدث خطأ في إرسال البيانات. يرجى المحاولة مرة أخرى.', 'error');
+                        })
+                        .finally(() => {
+                            // Restore button state
+                            submitButton.innerHTML = originalText;
+                            submitButton.disabled = false;
                         });
                     });
+
+                    // Alert function
+                    function showAlert(message, type = 'success') {
+                        const alertDiv = document.createElement('div');
+                        alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3`;
+                        alertDiv.style.zIndex = '9999';
+                        alertDiv.innerHTML = `
+                            ${message}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        `;
+                        document.body.appendChild(alertDiv);
+                        
+                        // Auto dismiss after 5 seconds
+                        setTimeout(() => {
+                            alertDiv.remove();
+                        }, 5000);
+                    }
                 </script>
 
                 <?php if (isset($_GET['success'])): ?>
@@ -957,6 +1006,7 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
                 </div>
                 <div class="modal-body">
                     <form id="editStaffForm" method="post" action="ajax/update_staff.php">
+                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                         <input type="hidden" name="staff_id" id="edit_staff_id">
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -969,7 +1019,7 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">رقم الجوال</label>
-                                <input type="tel" name="phone" id="edit_phone" class="form-control" required>
+                                <input type="text" name="phone" id="edit_phone" class="form-control" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">الدور</label>
@@ -1121,23 +1171,60 @@ if (isset($_POST['reset_password']) && isset($_POST['staff_id'])) {
         document.getElementById('editStaffForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            const formData = new FormData(this);
+            
+            // Show loading state
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> جاري التحديث...';
+            submitButton.disabled = true;
+            
             fetch(this.action, {
                 method: 'POST',
-                body: new FormData(this)
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin'
             })
-            .then(response => response.json())
+            .then(async response => {
+                const contentType = response.headers.get('content-type');
+                if (!response.ok) {
+                    const text = await response.text();
+                    console.error('Response:', text);
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json();
+                }
+                throw new TypeError("Response was not JSON");
+            })
             .then(data => {
                 if (data.success) {
                     // إخفاء المودال
-                    bootstrap.Modal.getInstance(document.getElementById('editStaffModal')).hide();
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('editStaffModal'));
+                    if (modal) {
+                        modal.hide();
+                    }
                     // عرض رسالة النجاح
                     showAlert(data.message || 'تم تحديث بيانات الموظف بنجاح');
+                    // إعادة تحميل الصفحة بعد ثانيتين
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
                 } else {
                     showAlert(data.message || 'حدث خطأ أثناء تحديث بيانات الموظف', 'error');
                 }
             })
             .catch(error => {
-                showAlert('حدث خطأ في إرسال البيانات', 'error');
+                console.error('Error:', error);
+                showAlert('حدث خطأ في إرسال البيانات. يرجى المحاولة مرة أخرى.', 'error');
+            })
+            .finally(() => {
+                // Restore button state
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
             });
         });
 

@@ -1,6 +1,13 @@
 <?php
 require_once '../config.php';
 
+// Get current language direction
+$dir = $_SESSION['lang'] === 'ar' ? 'rtl' : 'ltr';
+$lang = $_SESSION['lang'];
+
+// Include language file
+require_once '../includes/languages.php';
+
 // التحقق من الصلاحيات - فقط المدير يمكنه الوصول
 if (!isLoggedIn()) {
     header('Location: login.php');
@@ -28,7 +35,7 @@ $employee = $stmt->fetch();
 
 // التحقق من وجود الموظف
 if (!$employee) {
-    $_SESSION['error'] = "الموظف غير موجود";
+    $_SESSION['error'] = __('employee_not_found');
     header('Location: employees.php');
     exit;
 }
@@ -37,7 +44,7 @@ if (!$employee) {
 if ($_SESSION['admin_role'] !== 'super_admin' && 
     $_SESSION['admin_id'] !== $employee['id'] && 
     $_SESSION['admin_role'] !== 'مدير_عام') {
-    $_SESSION['error'] = "ليس لديك صلاحية تعديل بيانات هذا الموظف";
+    $_SESSION['error'] = __('no_permission_edit');
     header('Location: employees.php');
     exit;
 }
@@ -46,7 +53,7 @@ if ($_SESSION['admin_role'] !== 'super_admin' &&
 if ($employee['role'] === 'مدير_عام' && 
     $_SESSION['admin_id'] !== $employee['id'] && 
     $_SESSION['admin_role'] !== 'super_admin') {
-    $_SESSION['error'] = "لا يمكن تعديل بيانات المدير العام";
+    $_SESSION['error'] = __('cannot_edit_gm');
     header('Location: employees.php');
     exit;
 }
@@ -55,7 +62,7 @@ if ($employee['role'] === 'مدير_عام' &&
 if ($employee['role'] === 'super_admin' && 
     $_SESSION['admin_id'] !== $employee['id'] && 
     $_SESSION['admin_role'] !== 'super_admin') {
-    $_SESSION['error'] = "لا يمكن تعديل بيانات مدير النظام";
+    $_SESSION['error'] = __('cannot_edit_admin');
     header('Location: employees.php');
     exit;
 }
@@ -74,7 +81,7 @@ if (isset($_POST['update_employee'])) {
     $stmt = $conn->prepare("SELECT id FROM employees WHERE (username = ? OR email = ?) AND id != ?");
     $stmt->execute([$username, $email, $employee_id]);
     if ($stmt->rowCount() > 0) {
-        $_SESSION['error'] = "اسم المستخدم أو البريد الإلكتروني مستخدم بالفعل";
+        $_SESSION['error'] = __('duplicate_username_email');
     } else {
         // تحديث البيانات الأساسية
         $sql = "UPDATE employees SET 
@@ -99,17 +106,36 @@ if (isset($_POST['update_employee'])) {
 
         $stmt = $conn->prepare($sql);
         if ($stmt->execute($params)) {
-            $_SESSION['success'] = "تم تحديث بيانات الموظف بنجاح";
+            $_SESSION['success'] = __('employee_updated');
             header('Location: employees.php');
             exit;
         } else {
-            $_SESSION['error'] = "حدث خطأ أثناء تحديث البيانات";
+            $_SESSION['error'] = __('error_updating_employee');
         }
     }
 }
 
 include '../includes/header.php';
 ?>
+
+<!DOCTYPE html>
+<html lang="<?php echo $lang; ?>" dir="<?php echo $dir; ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo __('edit_employee'); ?> - <?php echo __('admin_panel'); ?></title>
+    
+    <!-- Bootstrap CSS -->
+    <?php if ($dir === 'rtl'): ?>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <?php else: ?>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <?php endif; ?>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
 
 <div class="container-fluid py-4">
     <div class="row">
@@ -118,24 +144,24 @@ include '../includes/header.php';
         <main class="col-md-9 ms-sm-auto col-lg-12 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <div>
-                    <h1 class="h2 mb-0">تعديل بيانات الموظف</h1>
+                    <h1 class="h2 mb-0"><?php echo __('edit_employee'); ?></h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 mt-2">
-                            <li class="breadcrumb-item"><a href="index.php">الرئيسية</a></li>
-                            <li class="breadcrumb-item"><a href="employees.php">الموظفين</a></li>
-                            <li class="breadcrumb-item active">تعديل موظف</li>
+                            <li class="breadcrumb-item"><a href="index.php"><?php echo __('dashboard'); ?></a></li>
+                            <li class="breadcrumb-item"><a href="employees.php"><?php echo __('employees'); ?></a></li>
+                            <li class="breadcrumb-item active"><?php echo __('edit_employee'); ?></li>
                         </ol>
                     </nav>
                 </div>
                 <a href="employees.php" class="btn btn-secondary">
-                    <i class="fas fa-arrow-right me-2"></i>
-                    عودة للقائمة
+                    <i class="fas fa-arrow-<?php echo $dir === 'rtl' ? 'left' : 'right'; ?> <?php echo $dir === 'rtl' ? 'ms-2' : 'me-2'; ?>"></i>
+                    <?php echo __('back'); ?>
                 </a>
             </div>
 
             <?php if (isset($_SESSION['error'])): ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <i class="fas fa-exclamation-circle <?php echo $dir === 'rtl' ? 'ms-2' : 'me-2'; ?>"></i>
                     <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -154,12 +180,12 @@ include '../includes/header.php';
                             <p class="text-muted mb-3"><?php echo htmlspecialchars($employee['username']); ?></p>
                             <div class="d-flex justify-content-center gap-2">
                                 <span class="badge <?php echo $employee['role'] === 'مدير_عام' ? 'bg-primary' : 'bg-info'; ?>">
-                                    <i class="fas <?php echo $employee['role'] === 'مدير_عام' ? 'fa-user-tie' : 'fa-user'; ?> me-1"></i>
-                                    <?php echo $employee['role'] === 'مدير_عام' ? 'مدير عام' : 'موظف'; ?>
+                                    <i class="fas <?php echo $employee['role'] === 'مدير_عام' ? 'fa-user-tie' : 'fa-user'; ?> <?php echo $dir === 'rtl' ? 'ms-1' : 'me-1'; ?>"></i>
+                                    <?php echo $employee['role'] === 'مدير_عام' ? __('general_manager') : __('employee'); ?>
                                 </span>
                                 <span class="badge <?php echo $employee['status'] === 'active' ? 'bg-success' : 'bg-danger'; ?>">
-                                    <i class="fas <?php echo $employee['status'] === 'active' ? 'fa-check-circle' : 'fa-times-circle'; ?> me-1"></i>
-                                    <?php echo $employee['status'] === 'active' ? 'نشط' : 'غير نشط'; ?>
+                                    <i class="fas <?php echo $employee['status'] === 'active' ? 'fa-check-circle' : 'fa-times-circle'; ?> <?php echo $dir === 'rtl' ? 'ms-1' : 'me-1'; ?>"></i>
+                                    <?php echo $employee['status'] === 'active' ? __('status_active') : __('status_inactive'); ?>
                                 </span>
                             </div>
                         </div>
@@ -167,7 +193,7 @@ include '../includes/header.php';
                             <form method="POST" class="needs-validation" novalidate>
                                 <div class="row g-3">
                                     <div class="col-md-6">
-                                        <label class="form-label">اسم المستخدم</label>
+                                        <label class="form-label"><?php echo __('username'); ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             <input type="text" class="form-control" name="username" value="<?php echo htmlspecialchars($employee['username']); ?>" required>
@@ -175,15 +201,15 @@ include '../includes/header.php';
                                     </div>
                                     
                                     <div class="col-md-6">
-                                        <label class="form-label">كلمة المرور الجديدة</label>
+                                        <label class="form-label"><?php echo __('new_password'); ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                            <input type="password" class="form-control" name="password" placeholder="اتركها فارغة إذا لم ترد تغييرها">
+                                            <input type="password" class="form-control" name="password" placeholder="<?php echo __('leave_empty_password'); ?>">
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label">الاسم الكامل</label>
+                                        <label class="form-label"><?php echo __('full_name'); ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user-circle"></i></span>
                                             <input type="text" class="form-control" name="full_name" value="<?php echo htmlspecialchars($employee['full_name']); ?>" required>
@@ -191,7 +217,7 @@ include '../includes/header.php';
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label">البريد الإلكتروني</label>
+                                        <label class="form-label"><?php echo __('email'); ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                             <input type="email" class="form-control" name="email" value="<?php echo htmlspecialchars($employee['email']); ?>" required>
@@ -199,7 +225,7 @@ include '../includes/header.php';
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label">رقم الهاتف</label>
+                                        <label class="form-label"><?php echo __('phone'); ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                             <input type="text" class="form-control" name="phone" value="<?php echo htmlspecialchars($employee['phone']); ?>">
@@ -207,31 +233,31 @@ include '../includes/header.php';
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label">القسم</label>
+                                        <label class="form-label"><?php echo __('department'); ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             <select class="form-select" name="department" required>
-                                                   <option value="management">ادارة</option>
-                                    <option value="accounting">محاسبة</option>
-                                    <option value="drivers_supervisor">مشرف السواقين</option>
-                            </select>
+                                                <option value="management" <?php echo $employee['department'] === 'management' ? 'selected' : ''; ?>><?php echo __('management_dept'); ?></option>
+                                                <option value="accounting" <?php echo $employee['department'] === 'accounting' ? 'selected' : ''; ?>><?php echo __('accounting_dept'); ?></option>
+                                                <option value="drivers_supervisor" <?php echo $employee['department'] === 'drivers_supervisor' ? 'selected' : ''; ?>><?php echo __('drivers_supervisor_dept'); ?></option>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label">الدور</label>
+                                        <label class="form-label"><?php echo __('role'); ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
                                             <select class="form-select" name="role" required 
                                                 <?php echo ($_SESSION['admin_role'] !== 'super_admin' && 
                                                           ($employee['role'] === 'مدير_عام' || 
                                                            $employee['role'] === 'super_admin')) ? 'disabled' : ''; ?>>
-                                                <option value="موظف" <?php echo $employee['role'] === 'موظف' ? 'selected' : ''; ?>>موظف</option>
+                                                <option value="موظف" <?php echo $employee['role'] === 'موظف' ? 'selected' : ''; ?>><?php echo __('employee'); ?></option>
                                                 <?php if ($_SESSION['admin_role'] === 'مدير_عام' || $_SESSION['admin_role'] === 'super_admin'): ?>
-                                                <option value="مدير_عام" <?php echo $employee['role'] === 'مدير_عام' ? 'selected' : ''; ?>>مدير عام</option>
+                                                <option value="مدير_عام" <?php echo $employee['role'] === 'مدير_عام' ? 'selected' : ''; ?>><?php echo __('general_manager'); ?></option>
                                                 <?php endif; ?>
                                                 <?php if ($_SESSION['admin_role'] === 'super_admin'): ?>
-                                                <option value="super_admin" <?php echo $employee['role'] === 'super_admin' ? 'selected' : ''; ?>>مدير النظام</option>
+                                                <option value="super_admin" <?php echo $employee['role'] === 'super_admin' ? 'selected' : ''; ?>><?php echo __('system_admin'); ?></option>
                                                 <?php endif; ?>
                                             </select>
                                         </div>
@@ -243,15 +269,15 @@ include '../includes/header.php';
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label">الحالة</label>
+                                        <label class="form-label"><?php echo __('status'); ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
                                             <select class="form-select" name="status" required 
                                                 <?php echo ($_SESSION['admin_role'] !== 'super_admin' && 
                                                           ($employee['role'] === 'مدير_عام' || 
                                                            $employee['role'] === 'super_admin')) ? 'disabled' : ''; ?>>
-                                                <option value="active" <?php echo $employee['status'] === 'active' ? 'selected' : ''; ?>>نشط</option>
-                                                <option value="inactive" <?php echo $employee['status'] === 'inactive' ? 'selected' : ''; ?>>غير نشط</option>
+                                                <option value="active" <?php echo $employee['status'] === 'active' ? 'selected' : ''; ?>><?php echo __('status_active'); ?></option>
+                                                <option value="inactive" <?php echo $employee['status'] === 'inactive' ? 'selected' : ''; ?>><?php echo __('status_inactive'); ?></option>
                                             </select>
                                         </div>
                                         <?php if ($_SESSION['admin_role'] !== 'super_admin' && 
@@ -264,10 +290,10 @@ include '../includes/header.php';
 
                                 <div class="d-flex justify-content-end gap-2 mt-4">
                                     <a href="employees.php" class="btn btn-secondary">
-                                        <i class="fas fa-times me-2"></i>إلغاء
+                                        <i class="fas fa-times <?php echo $dir === 'rtl' ? 'ms-2' : 'me-2'; ?>"></i><?php echo __('cancel'); ?>
                                     </a>
                                     <button type="submit" name="update_employee" class="btn btn-primary">
-                                        <i class="fas fa-save me-2"></i>حفظ التغييرات
+                                        <i class="fas fa-save <?php echo $dir === 'rtl' ? 'ms-2' : 'me-2'; ?>"></i><?php echo __('save'); ?>
                                     </button>
                                 </div>
                             </form>

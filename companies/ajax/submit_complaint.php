@@ -62,7 +62,7 @@ try {
     ");
     
     if (!$stmt) {
-        error_log("Complaint submission - Statement preparation failed: " . $conn->error);
+        error_log("Complaint submission - Statement preparation failed: " . $conn->errorInfo()[2]);
         throw new Exception('حدث خطأ في النظام، يرجى المحاولة مرة أخرى');
     }
     
@@ -84,7 +84,7 @@ try {
     ");
     
     if (!$stmt) {
-        error_log("Complaint submission - Check duplicate statement preparation failed: " . $conn->error);
+        error_log("Complaint submission - Check duplicate statement preparation failed: " . $conn->errorInfo()[2]);
         throw new Exception('حدث خطأ في النظام، يرجى المحاولة مرة أخرى');
     }
     
@@ -115,7 +115,7 @@ try {
     ");
     
     if (!$stmt) {
-        error_log("Complaint submission - Insert statement preparation failed: " . $conn->error);
+        error_log("Complaint submission - Insert statement preparation failed: " . $conn->errorInfo()[2]);
         throw new Exception('حدث خطأ في حفظ الشكوى، يرجى المحاولة مرة أخرى');
     }
     
@@ -130,28 +130,34 @@ try {
     ]);
 
     if (!$result) {
-        error_log("Complaint submission - Insert failed: " . $stmt->error);
+        error_log("Complaint submission - Insert failed: " . $stmt->errorInfo()[2]);
         throw new Exception('فشل في حفظ الشكوى، يرجى المحاولة مرة أخرى');
     }
 
     // Add notification for admin
+    $saudi_timezone = new DateTimeZone('Asia/Riyadh');
+    $date = new DateTime('now', $saudi_timezone);
+    $formatted_date = $date->format('Y-m-d H:i:s');
+
     $stmt = $conn->prepare("
         INSERT INTO notifications (
             admin_id,
             message,
             type,
-            link
+            link,
+            created_at
         ) SELECT 
             id,
             CONCAT('شكوى جديدة رقم: ', ?, ' من شركة رقم: ', ?),
             'complaint',
-            'complaints.php'
+            'complaints.php',
+            ?
         FROM admins 
         WHERE role = 'super_admin' OR department = 'complaints'
     ");
     
-    if (!$stmt->execute([$complaint_number, $company_id])) {
-        error_log("Complaint submission - Notification insert failed: " . $stmt->error);
+    if (!$stmt->execute([$complaint_number, $company_id, $formatted_date])) {
+        error_log("Complaint submission - Notification insert failed");
     }
 
     error_log("Complaint submission - Successfully submitted complaint: " . $complaint_number);

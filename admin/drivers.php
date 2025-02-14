@@ -40,13 +40,17 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
             $stmt = $conn->prepare("UPDATE drivers SET is_active = 1 WHERE id = ?");
             $stmt->execute([$driver_id]);
             
-            // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'success', ?)");
-            $stmt->execute([
+            $saudi_timezone = new DateTimeZone('Asia/Riyadh');
+            $date = new DateTime('now', $saudi_timezone);
+            $formatted_date = $date->format('Y-m-d H:i:s');
+
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link, created_at) VALUES (?, ?, ?, 'success', ?, ?)");
+            $stmt->execute([ 
                 $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
                 $_SESSION['admin_role'] ?? 'مدير_عام',
-                "تم تفعيل السائق: " . $driver_name,
-                "drivers.php"
+                "تم تفعيل حساب السائق: " . $driver_name . " " . ($_SESSION['admin_name'] ?? $_SESSION['employee_name']) . " | التاريخ: " . $formatted_date,
+                "drivers.php",
+                $formatted_date
             ]);
             
             header('Location: drivers.php');
@@ -57,28 +61,53 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
             $stmt->execute([$driver_id]);
             
             // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'warning', ?)");
+            $saudi_timezone = new DateTimeZone('Asia/Riyadh');
+            $date = new DateTime('now', $saudi_timezone);
+            $formatted_date = $date->format('Y-m-d H:i:s');
+
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link, created_at) VALUES (?, ?, ?, 'warning', ?, ?)");
             $stmt->execute([
                 $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
                 $_SESSION['admin_role'] ?? 'مدير_عام',
-                "تم تعطيل السائق: " . $driver_name,
-                "drivers.php"
+                "تم تعطيل حساب السائق: " . $driver_name . " " . ($_SESSION['admin_name'] ?? $_SESSION['employee_name']) . " | التاريخ: " . $formatted_date,
+                "drivers.php",
+                $formatted_date
             ]);
             
             header('Location: drivers.php');
             exit;
             
         case 'delete':
+            // Get driver details before deletion
+            $stmt = $conn->prepare("SELECT username, phone, vehicle_type FROM drivers WHERE id = ?");
+            $stmt->execute([$driver_id]);
+            $driver_details = $stmt->fetch();
+
+            // Delete the driver
             $stmt = $conn->prepare("DELETE FROM drivers WHERE id = ?");
             $stmt->execute([$driver_id]);
             
-            // Add notification
-            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link) VALUES (?, ?, ?, 'danger', ?)");
+            // Add notification with details
+            $saudi_timezone = new DateTimeZone('Asia/Riyadh');
+            $date = new DateTime('now', $saudi_timezone);
+            $formatted_date = $date->format('Y-m-d H:i:s');
+
+            $details_message = sprintf(
+                "تم حذف حساب السائق: %s | رقم الهاتف: %s | نوع المركبة: %s %s | التاريخ: %s",
+                $driver_details['username'],
+                $driver_details['phone'],
+                $driver_details['vehicle_type'],
+                $_SESSION['admin_name'] ?? $_SESSION['employee_name'],
+                $formatted_date
+            );
+
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, user_type, message, type, link, created_at) VALUES (?, ?, ?, 'danger', ?, ?)");
             $stmt->execute([
                 $_SESSION['admin_id'] ?? $_SESSION['employee_id'],
                 $_SESSION['admin_role'] ?? 'مدير_عام',
-                "تم حذف السائق: " . $driver_name,
-                "drivers.php"
+                $details_message,
+                "drivers.php",
+                $formatted_date
             ]);
             
             header('Location: drivers.php');
@@ -245,9 +274,9 @@ require_once '../includes/header.php';
 }
 </style>
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3 mb-0">إدارة السائقين</h1>
+    <h1 class="h3 mb-0"><?php echo __('driver_management'); ?></h1>
     <a href="driver_form.php" class="btn btn-primary">
-        <i class="fas fa-plus me-1"></i> إضافة سائق جديد
+        <i class="fas fa-plus me-1"></i> <?php echo __('add_new_driver'); ?>
     </a>
 </div>
 
@@ -256,7 +285,7 @@ require_once '../includes/header.php';
         <form class="row g-3 mb-4">
             <div class="col-md-6">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="البحث عن سائق..." value="<?php echo htmlspecialchars($search); ?>">
+                    <input type="text" class="form-control" name="search" placeholder="<?php echo __('search_drivers'); ?>" value="<?php echo htmlspecialchars($search); ?>">
                     <button class="btn btn-outline-secondary" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
@@ -273,7 +302,7 @@ require_once '../includes/header.php';
                                 <div class="d-flex align-items-center mb-3">
                                     <div class="driver-avatar me-3">
                                         <?php if ($driver['profile_image']): ?>
-                                            <img src="..\Drivers\uploads\driver\<?php echo $driver['profile_image']; ?>" alt="Profile" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
+                                            <img src="..\Drivers\uploads\driver\<?php echo $driver['profile_image']; ?>" alt="<?php echo __('driver_profile'); ?>" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
                                         <?php else: ?>
                                             <div class="avatar-placeholder">
                                                 <i class="fas fa-user-circle fa-3x text-muted"></i>
@@ -283,7 +312,7 @@ require_once '../includes/header.php';
                                     <div>
                                         <h5 class="card-title mb-1"><?php echo htmlspecialchars($driver['username']); ?></h5>
                                         <span class="badge bg-<?php echo $driver['is_active'] ? 'success' : 'danger'; ?>">
-                                            <?php echo $driver['is_active'] ? 'نشط' : 'غير نشط'; ?>
+                                            <?php echo $driver['is_active'] ? __('status_active') : __('status_inactive'); ?>
                                         </span>
                                     </div>
                                 </div>
@@ -307,7 +336,7 @@ require_once '../includes/header.php';
                                     <div class="row g-2">
                                         <div class="col-6">
                                             <div class="p-2 rounded bg-light">
-                                                <small class="d-block text-muted">التقييم</small>
+                                                <small class="d-block text-muted"><?php echo __('driver_rating'); ?></small>
                                                 <div class="text-warning">
                                                     <?php
                                                     $rating = $driver['rating'];
@@ -320,7 +349,7 @@ require_once '../includes/header.php';
                                         </div>
                                         <div class="col-6">
                                             <div class="p-2 rounded bg-light">
-                                                <small class="d-block text-muted">عدد الرحلات</small>
+                                                <small class="d-block text-muted"><?php echo __('total_trips'); ?></small>
                                                 <strong><?php echo $driver['total_trips']; ?></strong>
                                             </div>
                                         </div>
@@ -331,15 +360,15 @@ require_once '../includes/header.php';
                                     <?php
                                     $status = $driver['current_status'];
                                     $statusMap = [
-                                        'available' => ['ar' => 'السائق متاح', 'class' => 'success'],
-                                        'busy' => ['ar' => 'مشغول في توصيل', 'class' => 'warning'],
-                                        'offline' => ['ar' => 'غير متصل', 'class' => 'danger']
+                                        'available' => ['text' => __('driver_available'), 'class' => 'success'],
+                                        'busy' => ['text' => __('driver_busy'), 'class' => 'warning'],
+                                        'offline' => ['text' => __('driver_offline'), 'class' => 'danger']
                                     ];
-                                    $displayStatus = $statusMap[$status]['ar'] ?? 'حالة غير معروفة';
+                                    $displayStatus = $statusMap[$status]['text'] ?? __('status_unknown');
                                     $badgeClass = $statusMap[$status]['class'] ?? 'secondary';
                                     ?>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted">الحالة الحالية:</span>
+                                        <span class="text-muted"><?php echo __('current_status'); ?>:</span>
                                         <span class="badge bg-<?php echo $badgeClass; ?>">
                                             <?php echo htmlspecialchars($displayStatus); ?>
                                         </span>
@@ -350,39 +379,39 @@ require_once '../includes/header.php';
                                     <button type="button" 
                                            class="action-btn whatsapp-btn"
                                            onclick="openCompanyWhatsApp('<?php echo htmlspecialchars($driver['phone']); ?>')"
-                                           data-title="تواصل عبر واتساب">
+                                           data-title="<?php echo __('whatsapp'); ?>">
                                         <i class="fab fa-whatsapp"></i>
                                     </button>
                                     <a href="driver_form.php?id=<?php echo $driver['id']; ?>" 
                                        class="action-btn edit-btn"
-                                       data-title="تعديل">
+                                       data-title="<?php echo __('edit'); ?>">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <?php if ($driver['is_active']): ?>
                                         <a href="?action=deactivate&id=<?php echo $driver['id']; ?>&token=<?php echo $_SESSION['token']; ?>" 
                                            class="action-btn deactivate-btn"
-                                           data-title="تعطيل"
-                                           onclick="return confirm('هل أنت متأكد من تعطيل هذا السائق؟')">
+                                           data-title="<?php echo __('deactivate'); ?>"
+                                           onclick="return confirm('<?php echo __('confirm_deactivate'); ?>')">
                                             <i class="fas fa-ban"></i>
                                         </a>
                                     <?php else: ?>
                                         <a href="?action=activate&id=<?php echo $driver['id']; ?>&token=<?php echo $_SESSION['token']; ?>" 
                                            class="action-btn activate-btn"
-                                           data-title="تفعيل"
-                                           onclick="return confirm('هل أنت متأكد من تفعيل هذا السائق؟')">
+                                           data-title="<?php echo __('activate'); ?>"
+                                           onclick="return confirm('<?php echo __('confirm_activate'); ?>')">
                                             <i class="fas fa-check"></i>
                                         </a>
                                     <?php endif; ?>
                                     <a href="?action=delete&id=<?php echo $driver['id']; ?>&token=<?php echo $_SESSION['token']; ?>" 
                                        class="action-btn delete-btn"
-                                       data-title="حذف"
-                                       onclick="return confirm('هل أنت متأكد من حذف هذا السائق؟')">
+                                       data-title="<?php echo __('delete'); ?>"
+                                       onclick="return confirm('<?php echo __('confirm_delete'); ?>')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                     <button type="button" 
                                             class="action-btn info-btn" 
                                             onclick="showDriverDetails(<?php echo $driver['id']; ?>)" 
-                                            data-title="عرض التفاصيل"
+                                            data-title="<?php echo __('view_details'); ?>"
                                             style="background-color: #17a2b8; color: white;">
                                         <i class="fas fa-info-circle"></i>
                                     </button>
@@ -394,15 +423,15 @@ require_once '../includes/header.php';
             <?php else: ?>
                 <div class="col-12">
                     <div class="text-center py-5">
-                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                        <p class="text-muted">لا يوجد سائقين مسجلين</p>
+                        <i class="fas fa-inbox fa-3x mb-3"></i>
+                        <p class="text-muted"><?php echo __('no_drivers'); ?></p>
                     </div>
                 </div>
             <?php endif; ?>
         </div>
 
         <?php if ($total_pages > 1): ?>
-            <nav aria-label="Page navigation" class="mt-4">
+            <nav aria-label="<?php echo __('page_navigation'); ?>" class="mt-4">
                 <ul class="pagination justify-content-center">
                     <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                         <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
@@ -421,8 +450,8 @@ require_once '../includes/header.php';
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="driverDetailsModalLabel">تفاصيل السائق</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="driverDetailsModalLabel"><?php echo __('driver_details'); ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?php echo __('close'); ?>"></button>
             </div>
             <div class="modal-body">
                 <div id="driverDetailsContent">
@@ -430,7 +459,7 @@ require_once '../includes/header.php';
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo __('close'); ?></button>
             </div>
         </div>
     </div>
@@ -441,15 +470,15 @@ require_once '../includes/header.php';
 <!-- Add JavaScript for copy functionality -->
 <script>
 function copyDriverInfo(name, email, phone, password) {
-    const text = `اسم السائق: ${name}\nالبريد الإلكتروني: ${email}\nرقم الهاتف: ${phone}\nكلمة المرور: ${password}`;
+    const text = `<?php echo __('driver_name'); ?>: ${name}\n<?php echo __('driver_email'); ?>: ${email}\n<?php echo __('driver_phone'); ?>: ${phone}\n<?php echo __('driver_password'); ?>: ${password}`;
     navigator.clipboard.writeText(text).then(() => {
-        alert('تم نسخ بيانات السائق بنجاح');
+        alert('<?php echo __('copy_success'); ?>');
     }).catch(err => {
-        console.error('فشل في نسخ البيانات:', err);
+        console.error('<?php echo __('copy_error'); ?>:', err);
     });
 }
 
-// دالة لفتح محادثة واتساب مع الشركة
+// دالة لفتح محادثة واتساب مع السائق
 function openCompanyWhatsApp(phone) {
     // تنسيق رقم الهاتف (إزالة الصفر الأول إذا وجد وإضافة رمز الدولة)
     let formattedPhone = phone.replace(/^0+/, '');
@@ -458,22 +487,23 @@ function openCompanyWhatsApp(phone) {
     }
     
     // إنشاء نص الرسالة
-    const message = `مرحباً، أود الاستفسار عن خدماتكم`;
+    const message = '<?php echo __('whatsapp_message'); ?>';
 
     // فتح رابط واتساب
     const whatsappUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
+
 function showDriverDetails(driverId) {
     fetch(`ajax/get_driver_details.php?id=${driverId}`)
         .then(response => {
-            if (!response.ok) throw new Error('فشل الاتصال بالخادم');
+            if (!response.ok) throw new Error('<?php echo __('server_connection_error'); ?>');
             return response.json();
         })
         .then(data => {
-            if (!data.success) throw new Error(data.message || 'فشل في جلب البيانات');
+            if (!data.success) throw new Error(data.message || '<?php echo __('data_fetch_error'); ?>');
             
-            const { driver, order_statuses, activity_logs } = data;
+            const { driver, order_statuses, activity_logs, translations } = data;
             const dateOptions = { 
                 year: 'numeric', 
                 month: 'long', 
@@ -489,7 +519,7 @@ function showDriverDetails(driverId) {
                     <div class="d-flex gap-3">
                         <span class="badge bg-secondary">${driver.vehicle_type}</span>
                         <span class="badge ${driver.is_active ? 'bg-success' : 'bg-danger'}">
-                            ${driver.is_active ? 'نشط' : 'غير نشط'}
+                            ${driver.is_active ? translations.status_active : translations.status_inactive}
                         </span>
                     </div>
                 </div>
@@ -498,7 +528,7 @@ function showDriverDetails(driverId) {
                     <div class="col-md-6">
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title mb-3 text-muted">معلومات الاتصال</h5>
+                                <h5 class="card-title mb-3 text-muted">${translations.contact_info}</h5>
                                 <p class="mb-2">
                                     <i class="fas fa-envelope me-2"></i>
                                     ${driver.email}
@@ -514,13 +544,13 @@ function showDriverDetails(driverId) {
                     <div class="col-md-6">
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title mb-3 text-muted">إحصائيات الرحلات</h5>
+                                <h5 class="card-title mb-3 text-muted">${translations.trip_statistics}</h5>
                                 <div class="d-flex justify-content-between mb-2">
-                                    <span>المكتملة:</span>
+                                    <span>${translations.completed_trips}:</span>
                                     <span class="fw-bold text-success">${driver.total_trips}</span>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <span>الملغاة:</span>
+                                    <span>${translations.cancelled_trips}:</span>
                                     <span class="fw-bold text-danger">${driver.cancelled_orders}</span>
                                 </div>
                             </div>
@@ -531,12 +561,12 @@ function showDriverDetails(driverId) {
             // بناء حالة الطلبات
             const ordersContent = `
                 <div class="mt-4">
-                    <h5 class="mb-3 text-muted">حالة الطلبات الحالية</h5>
+                    <h5 class="mb-3 text-muted">${translations.current_orders}</h5>
                     <div class="row g-3">
                         <div class="col-md-4">
                             <div class="card bg-warning bg-opacity-10 border-warning">
                                 <div class="card-body">
-                                    <h6 class="card-subtitle mb-2">قيد الانتظار</h6>
+                                    <h6 class="card-subtitle mb-2">${translations.status_pending}</h6>
                                     <p class="display-6 text-center">${order_statuses.pending_orders}</p>
                                 </div>
                             </div>
@@ -544,7 +574,7 @@ function showDriverDetails(driverId) {
                         <div class="col-md-4">
                             <div class="card bg-info bg-opacity-10 border-info">
                                 <div class="card-body">
-                                    <h6 class="card-subtitle mb-2">تم القبول</h6>
+                                    <h6 class="card-subtitle mb-2">${translations.status_accepted}</h6>
                                     <p class="display-6 text-center">${order_statuses.accepted_orders}</p>
                                 </div>
                             </div>
@@ -552,7 +582,7 @@ function showDriverDetails(driverId) {
                         <div class="col-md-4">
                             <div class="card bg-primary bg-opacity-10 border-primary">
                                 <div class="card-body">
-                                    <h6 class="card-subtitle mb-2">جاري التوصيل</h6>
+                                    <h6 class="card-subtitle mb-2">${translations.status_in_transit}</h6>
                                     <p class="display-6 text-center">${order_statuses.in_transit_orders}</p>
                                 </div>
                             </div>
@@ -561,29 +591,23 @@ function showDriverDetails(driverId) {
                 </div>`;
 
             // بناء سجل النشاط
-         const activityContent = `
-    <div class="mt-4">
-        <h5 class="mb-3 text-muted">أحدث الأنشطة</h5>
-        <div class="list-group">
-            ${activity_logs.map(log => `
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="mb-1">${log.activity_type || 'نشاط غير معروف'}</h6>
-                        <p class="mb-0 text-muted small">${log.activity_details || 'لا توجد تفاصيل إضافية'}</p>
+            const activityContent = `
+                <div class="mt-4">
+                    <h5 class="mb-3 text-muted">${translations.latest_activities}</h5>
+                    <div class="list-group">
+                        ${activity_logs.map(log => `
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">${log.activity_type}</h6>
+                                    <p class="mb-0 text-muted small">${log.activity_details}</p>
+                                </div>
+                                <small class="text-muted">
+                                    ${new Date(log.created_at).toLocaleDateString('<?php echo $_SESSION['lang'] == 'en' ? 'en-US' : 'ar-SA'; ?>', dateOptions)}
+                                </small>
+                            </div>
+                        `).join('')}
                     </div>
-                    <small class="text-muted">
-                        ${new Date(log.created_at).toLocaleDateString('ar-EG', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        })}
-                    </small>
-                </div>
-            `).join('')}
-        </div>
-    </div>`;
+                </div>`;
 
             // دمج المحتوى
             const fullContent = `

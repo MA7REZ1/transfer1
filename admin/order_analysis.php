@@ -84,7 +84,7 @@ include '../includes/header.php';
 
 <div class="container-fluid p-0">
     <div class="row g-0">
-        <?php include '../includes/sidebar.php'; ?>
+ 
         
         <main class="col ms-sm-auto px-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
