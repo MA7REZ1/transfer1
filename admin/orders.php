@@ -205,11 +205,11 @@ $drivers = $stmt->fetchAll();
                                     <span class="ms-2"><?php echo number_format($order['total_cost'], 2); ?> <?php echo __('currency_sar'); ?></span>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <i class="fas fa-credit-card text-primary me-2"></i>
-                                    <strong><?php echo __('payment_status'); ?>:</strong>
-                                    <span class="badge bg-<?php echo $order['payment_status'] === 'paid' ? 'success' : 'warning'; ?> ms-2">
+                                    <!-- <i class="fas fa-credit-card text-primary me-2"></i>
+                                    <strong><?php echo __('payment_status'); ?>:</strong> -->
+                                    <!-- <span class="badge bg-<?php echo $order['payment_status'] === 'paid' ? 'success' : 'warning'; ?> ms-2">
                                         <?php echo $order['payment_status'] === 'paid' ? __('paid') : __('unpaid'); ?>
-                                    </span>
+                                    </span> -->
                                 </div>
                             </div>
                             <div class="d-flex align-items-center mb-2">
@@ -231,10 +231,10 @@ $drivers = $stmt->fetchAll();
                                         <i class="fas fa-clock me-1"></i>
                                         <?php echo date('Y/m/d H:i', strtotime($order['created_at'])); ?>
                                     </small>
-                                    <span class="badge bg-<?php echo $order['payment_status'] === 'paid' ? 'success' : 'warning'; ?>">
+                                    <!-- <span class="badge bg-<?php echo $order['payment_status'] === 'paid' ? 'success' : 'warning'; ?>">
                                         <i class="fas fa-<?php echo $order['payment_status'] === 'paid' ? 'check-circle' : 'clock'; ?> me-1"></i>
                                         <?php echo $order['payment_status'] === 'paid' ? __('paid') : __('unpaid'); ?>
-                                    </span>
+                                    </span> -->
                                 </div>
                                 <div class="d-flex justify-content-between gap-2">
                                     <div class="btn-group flex-grow-1">
@@ -273,9 +273,7 @@ $drivers = $stmt->fetchAll();
                                     </div>
                                     
                                     <div class="dropdown">
-                                        <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
+                                     
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li>
                                                 <a class="dropdown-item text-primary" href="order_form.php?id=<?php echo $order['id']; ?>">
@@ -835,7 +833,19 @@ function showOrderDetails(
 
 // دالة لطباعة الفاتورة
 function printInvoice(orderId) {
-    // ... existing code ...
+    // فتح نافذة جديدة للطباعة
+    const printWindow = window.open(`print_invoice.php?order_id=${orderId}`, '_blank', 'width=800,height=600');
+    
+    // التأكد من فتح النافذة بنجاح
+    if (printWindow) {
+        // الانتظار حتى تحميل المحتوى
+        printWindow.onload = function() {
+            // طباعة المحتوى تلقائياً
+            printWindow.print();
+        };
+    } else {
+        showAlert('يرجى السماح بالنوافذ المنبثقة للطباعة', 'warning');
+    }
 }
 
 // دالة لتحديث حالة الطلب

@@ -62,6 +62,9 @@ $ب = $stmt->fetchColumn();
 $stmt = $conn->prepare("SELECT name, logo, delivery_fee FROM companies WHERE id = ?");
 $stmt->execute([$company_id]);
 $company = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Get current page filename
+$current_page = basename($_SERVER['PHP_SELF']);
 ?>
 <head>
     <meta charset="UTF-8">
@@ -364,30 +367,34 @@ $company = $stmt->fetch(PDO::FETCH_ASSOC);
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                       <li class="nav-item">
-                            <a class="nav-link active" href="dashboard.php">
-                                <i class="bi bi-speedometer2"></i> لوحة التحكم
-                            </a>
-                        </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#requests"><i class="bi bi-list-check"></i> الطلبات</a>
-                    </li>
-                 
-                    <li class="nav-item">
-                        <a class="nav-link" href="statistics.php"><i class="bi bi-bar-chart"></i> تقارير مفصلة</a>
+                        <a class="nav-link <?php echo $current_page === 'dashboard.php' ? 'active' : ''; ?>" href="dashboard.php">
+                            <i class="bi bi-speedometer2"></i> لوحة التحكم
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="staff.php"><i class="bi bi-people"></i> إدارة الموظفين</a>
+                        <a class="nav-link <?php echo $current_page === 'ordersadmin.php' ? 'active' : ''; ?>" href="ordersadmin.php">
+                            <i class="bi bi-list-check"></i> الطلبات
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="complaints.php">
+                        <a class="nav-link <?php echo $current_page === 'statistics.php' ? 'active' : ''; ?>" href="statistics.php">
+                            <i class="bi bi-bar-chart"></i> تقارير مفصلة
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo $current_page === 'staff.php' ? 'active' : ''; ?>" href="staff.php">
+                            <i class="bi bi-people"></i> إدارة الموظفين
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo $current_page === 'complaints.php' ? 'active' : ''; ?>" href="complaints.php">
                             <i class="bi bi-exclamation-circle"></i> الشكاوى
                             <?php if ($ب > 0): ?>
                                 <span class="badge bg-danger"><?php echo $ب; ?></span>
                             <?php endif; ?>
                         </a>
                     </li>
-                    
                 </ul>
                 <ul class="navbar-nav">
                     <!-- Notifications Dropdown -->

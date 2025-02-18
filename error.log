@@ -2900,3 +2900,272 @@ giza444444
 [14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
 [14-Feb-2025 17:38:51 Asia/Riyadh] PHP Deprecated:  DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\xampp\htdocs\proo\admin\get_notifications.php on line 36
 [14-Feb-2025 18:25:53 Asia/Riyadh] PHP Warning:  Undefined array key "employee_name" in C:\xampp\htdocs\proo\admin\drivers.php on line 72
+[15-Feb-2025 00:21:16 Asia/Riyadh] PHP Warning:  Undefined array key "employee_name" in C:\xampp\htdocs\proo\admin\drivers.php on line 51
+[17-Feb-2025 17:07:13 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:07:13 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:07:13 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:09:46 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:09:46 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:09:46 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:11:32 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:11:32 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:11:32 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:16:02 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:16:02 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:16:02 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:19:20 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:19:20 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:19:20 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:23:35 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:23:35 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:23:35 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:25:35 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:25:35 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:25:35 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:25:43 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:25:43 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:25:43 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:28:40 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:28:40 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 17:28:40 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 23:40:14 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 23:40:14 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[17-Feb-2025 23:40:14 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:31:51 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:31:51 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:31:51 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:32:00 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:32:00 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:32:00 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:36:43 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:36:43 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:36:43 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:37:11 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:37:11 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:37:11 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:37:17 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:37:17 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:37:17 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:37:21 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:37:21 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:37:21 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:42:36 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:42:36 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:42:36 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:53:49 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:53:49 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:53:49 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:53:53 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:53:53 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 01:53:53 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:07:28 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:07:28 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:07:28 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:13:07 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:13:07 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:13:07 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:13:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:13:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:13:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:15:29 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:15:29 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:15:29 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:15:36 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:15:36 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:15:36 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:15:44 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:15:44 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:15:44 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:17:49 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:17:49 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:17:49 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:17:56 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:17:56 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:17:56 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:22:34 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:22:34 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:22:34 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:23:10 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:23:10 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:23:10 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:23:16 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:23:16 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:23:16 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:27:25 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:27:25 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:27:25 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:27:28 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''10' OFFSET '0'' at line 24 in C:\xampp\htdocs\proo\companies\ordersadmin.php:83
+Stack trace:
+#0 C:\xampp\htdocs\proo\companies\ordersadmin.php(83): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 83
+[18-Feb-2025 02:35:46 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:35:46 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:35:46 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:35:52 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:35:52 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:35:52 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:37:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:37:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:37:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:37:11 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:37:11 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:37:11 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:42:34 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:42:34 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:42:34 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Undefined variable $start_date in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 132
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Undefined variable $end_date in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 136
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 156
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 156
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 171
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 171
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 186
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 186
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Undefined variable $status_color in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 219
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Undefined variable $status in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 220
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Undefined variable $total_remaining in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 222
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 222
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Undefined variable $total_remaining in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 224
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 224
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  Undefined variable $requests in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 285
+[18-Feb-2025 02:42:36 Asia/Riyadh] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 285
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Undefined variable $start_date in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 132
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Undefined variable $end_date in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 136
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 156
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 156
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 171
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 171
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 186
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 186
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Undefined variable $status_color in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 219
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Undefined variable $status in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 220
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Undefined variable $total_remaining in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 222
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 222
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Undefined variable $total_remaining in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 224
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 224
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  Undefined variable $requests in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 285
+[18-Feb-2025 02:44:19 Asia/Riyadh] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 285
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Undefined variable $start_date in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 132
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Undefined variable $end_date in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 136
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 156
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 156
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 171
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 171
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 186
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 186
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Undefined variable $status_color in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 219
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Undefined variable $status in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 220
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Undefined variable $total_remaining in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 222
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 222
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Undefined variable $total_remaining in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 224
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 224
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  Undefined variable $requests in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 285
+[18-Feb-2025 02:44:28 Asia/Riyadh] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 285
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Undefined variable $start_date in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 132
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Undefined variable $end_date in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 136
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 156
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 156
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 171
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 171
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 186
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 186
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Undefined variable $status_color in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 219
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Undefined variable $status in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 220
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Undefined variable $total_remaining in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 222
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 222
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Undefined variable $total_remaining in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 224
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 224
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  Undefined variable $requests in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 285
+[18-Feb-2025 02:45:12 Asia/Riyadh] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 285
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Undefined variable $start_date in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 132
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Undefined variable $end_date in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 136
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 156
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 156
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 171
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 171
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 186
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 186
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Undefined variable $status_color in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 219
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Undefined variable $status in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 220
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Undefined variable $total_remaining in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 222
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 222
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Undefined variable $total_remaining in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 224
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 224
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Undefined variable $stats in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 240
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  Undefined variable $requests in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 285
+[18-Feb-2025 02:45:26 Asia/Riyadh] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\proo\companies\ordersadmin.php on line 285
+[18-Feb-2025 02:48:39 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:48:39 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:48:39 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:48:54 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:48:54 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:48:54 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:49:05 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:49:05 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:49:05 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:49:11 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:49:11 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:49:11 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:51:57 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:51:57 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:51:57 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:53:42 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:53:42 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:53:42 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:54:00 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:54:00 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:54:00 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:54:46 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:54:46 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:54:46 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:55:16 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:55:16 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:55:16 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:55:23 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:55:23 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 02:55:23 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 408
+[18-Feb-2025 03:09:52 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:09:52 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:09:52 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:09:56 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:09:56 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:09:56 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:10:01 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:10:01 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:10:01 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:14:32 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:14:32 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:14:32 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:14:38 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:14:38 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415
+[18-Feb-2025 03:14:38 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\proo\includes\comHeader.php on line 415

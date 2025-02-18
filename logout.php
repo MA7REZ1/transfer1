@@ -67,13 +67,13 @@ header("Pragma: no-cache");
 $current_path = dirname($_SERVER['PHP_SELF']);
 
 if (strpos($current_path, '/admin') !== false) {
-    header('Location: ../admin/index.php');
+    header('Location: login.php');
 } elseif (strpos($current_path, '/companies') !== false) {
-    header('Location: ../companies/login.php');
+    header('Location: login.php');
 } elseif (strpos($current_path, '/drivers') !== false) {
-    header('Location: ../Drivers/login.php');
+    header('Location: login.php');
 } else {
-    header('Location: index.php');
+    header('Location: login.php');
 }
 
 exit();

@@ -5,8 +5,215 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
     exit();
 }?>
 
+<!-- تحميل المكتبات المطلوبة -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <!-- تحديث سكربت خرائط Google -->
-<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&language=ar&callback=initMapsCallback" async defer></script>
+<script>
+// تعريف دالة callback قبل تحميل الخريطة
+function initMapsCallback() {
+    console.log('Maps callback initiated');
+    initMap('pickup_map');
+    initMap('delivery_map');
+}
+
+window.initMapsCallback = initMapsCallback;
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVVKK9ZJ_ZnugxJmw3BSns-BsJ4V_pxIA&libraries=places&language=ar&callback=initMapsCallback" async defer></script>
+
+<!-- تحسين مظهر الخريطة -->
+<style>
+.map-container {
+    position: relative;
+    height: 350px;
+    margin: 8px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+#pickup_map, #delivery_map, #edit_pickup_map, #edit_delivery_map {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 350px;
+}
+
+.location-input-group {
+    margin-bottom: 15px;
+}
+
+.location-search-container {
+    margin-bottom: 10px;
+}
+
+.location-search-input {
+    border-radius: 8px !important;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.location-search-input:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.location-search-button {
+    border-radius: 8px !important;
+    padding: 8px 15px;
+    margin-right: 5px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.location-search-button:hover {
+    background-color: #e9ecef;
+    border-color: #ddd;
+}
+
+.location-details {
+    margin-top: 12px;
+}
+
+.location-address-input {
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+}
+
+.location-address-input:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.custom-map-control {
+    background-color: #fff;
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    cursor: pointer;
+    margin: 10px;
+    padding: 8px 15px;
+    text-align: center;
+    direction: rtl;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.custom-map-control:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0,0,0,.2);
+}
+
+.custom-map-control i {
+    margin-left: 5px;
+}
+
+.pac-container {
+    direction: rtl;
+    text-align: right;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,.1);
+    margin-top: 5px;
+    font-family: inherit;
+}
+
+.pac-item {
+    padding: 8px 15px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.pac-item:hover {
+    background-color: #f8f9fa;
+}
+
+.location-section {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.location-section-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.input-group {
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.input-group:focus-within {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.input-group-text {
+    border-radius: 8px 0 0 8px !important;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    color: #666;
+}
+
+.input-group .form-control {
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    font-size: 14px;
+}
+
+.input-group .form-control:focus {
+    border-color: #80bdff;
+    box-shadow: none;
+}
+
+.input-group-text, .form-control {
+    background-color: #fff !important;
+}
+
+/* تحسين مظهر الاقتراحات */
+.pac-container {
+    border-radius: 8px;
+    margin-top: 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: none;
+    padding: 5px 0;
+}
+
+.pac-item {
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.pac-item:hover {
+    background-color: #f8f9fa;
+}
+
+.pac-item-query {
+    font-size: 14px;
+    color: #333;
+}
+
+.pac-matched {
+    font-weight: bold;
+    color: #007bff;
+}
+</style>
 
 <!-- New Order Modal -->
 <div class="modal fade" id="newRequestModal" tabindex="-1">
@@ -63,9 +270,12 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
                                         <input type="text" 
                                                class="form-control border-end-0 shadow-none ps-0" 
                                                id="pickup_search" 
-                                               placeholder="ابحث عن موقع الاستلام..." 
+                                               placeholder="ابحث عن موقع الاستلام (مثال: حي النزهة، شارع التحلية، الرياض)" 
                                                autocomplete="off"
                                                style="border-radius: 8px;">
+                                        <button type="button" class="btn btn-primary ms-2" onclick="getCurrentLocation('pickup')">
+                                            <i class="bi bi-geo-alt"></i> موقعي الحالي
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="location-details">
@@ -372,323 +582,107 @@ if (!isset($_SESSION['company_id']) && !isset($_SESSION['staff_id'])) {
     </div>
 </div>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
-<style>
-.map-container {
-    position: relative;
-    height: 350px;
-    margin: 8px 0;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.location-input-group {
-    position: relative;
-    margin-bottom: 15px;
-}
-
-.location-search-container {
-    margin-bottom: 10px;
-}
-
-.location-search-input {
-    border-radius: 8px !important;
-    padding: 10px 15px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    transition: all 0.3s ease;
-}
-
-.location-search-input:focus {
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-}
-
-.location-search-button {
-    border-radius: 8px !important;
-    padding: 8px 15px;
-    margin-right: 5px;
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
-    transition: all 0.3s ease;
-}
-
-.location-search-button:hover {
-    background-color: #e9ecef;
-    border-color: #ddd;
-}
-
-.location-details {
-    margin-top: 12px;
-}
-
-.location-address-input {
-    border-radius: 8px;
-    padding: 10px 15px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    transition: all 0.3s ease;
-    margin-top: 8px;
-}
-
-.location-address-input:focus {
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-}
-
-.custom-map-control {
-    background-color: #fff;
-    border: none !important;
-    border-radius: 8px !important;
-    box-shadow: 0 2px 6px rgba(0,0,0,.2);
-    cursor: pointer;
-    margin: 10px;
-    padding: 8px 15px;
-    text-align: center;
-    direction: rtl;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.custom-map-control:hover {
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 8px rgba(0,0,0,.2);
-}
-
-.custom-map-control i {
-    margin-left: 5px;
-}
-
-.pac-container {
-    direction: rtl;
-    text-align: right;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,.1);
-    margin-top: 5px;
-    font-family: inherit;
-}
-
-.pac-item {
-    padding: 8px 15px;
-    font-size: 14px;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.pac-item:hover {
-    background-color: #f8f9fa;
-}
-
-.location-section {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.location-section-title {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-.input-group {
-    position: relative;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.input-group:focus-within {
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.input-group-text {
-    border-radius: 8px 0 0 8px !important;
-    border: 1px solid #ddd;
-    padding: 0.5rem 1rem;
-    color: #666;
-}
-
-.input-group .form-control {
-    border: 1px solid #ddd;
-    padding: 0.5rem 1rem;
-    font-size: 14px;
-}
-
-.input-group .form-control:focus {
-    border-color: #80bdff;
-    box-shadow: none;
-}
-
-.input-group-text, .form-control {
-    background-color: #fff !important;
-}
-
-.location-input-group {
-    margin-bottom: 15px;
-}
-
-/* تحسين مظهر الاقتراحات */
-.pac-container {
-    border-radius: 8px;
-    margin-top: 5px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border: none;
-    padding: 5px 0;
-}
-
-.pac-item {
-    padding: 8px 15px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.pac-item:hover {
-    background-color: #f8f9fa;
-}
-
-.pac-item-query {
-    font-size: 14px;
-    color: #333;
-}
-
-.pac-matched {
-    font-weight: bold;
-    color: #007bff;
-}
-</style>
-
 <script>
 let maps = {};
 let markers = {};
 let searchBoxes = {};
 
-// دالة callback للتهيئة
-function initMapsCallback() {
-    // تهيئة الخرائط في النافذة الرئيسية إذا كانت موجودة
-    ['pickup_map', 'delivery_map'].forEach(mapId => {
-        const mapElement = document.getElementById(mapId);
-        if (mapElement) {
-            initMap(mapId);
-        }
-    });
-}
-
 // تحديث دالة تهيئة الخريطة
 function initMap(elementId, defaultLat = 24.7136, defaultLng = 46.6753) {
+    console.log('Initializing map:', elementId);
     const mapElement = document.getElementById(elementId);
-    if (!mapElement) return;
-
-    const mapOptions = {
-        center: { lat: defaultLat, lng: defaultLng },
-        zoom: 13,
-        mapTypeControl: true,
-        mapTypeControlOptions: {
-            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-            position: google.maps.ControlPosition.TOP_RIGHT
-        },
-        fullscreenControl: true,
-        streetViewControl: true,
-        zoomControl: true
-    };
-
-    const map = new google.maps.Map(mapElement, mapOptions);
-    
-    // إضافة علامة قابلة للسحب
-    const marker = new google.maps.Marker({
-        position: { lat: defaultLat, lng: defaultLng },
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP
-    });
-
-    // إضافة مربع البحث
-    const searchInput = document.getElementById(elementId.replace('map', 'search'));
-    if (searchInput) {
-        const searchBox = new google.maps.places.SearchBox(searchInput);
-        
-        // تحديث الخريطة عند اختيار موقع
-        searchBox.addListener('places_changed', () => {
-            const places = searchBox.getPlaces();
-            if (places.length === 0) return;
-
-            const place = places[0];
-            if (!place.geometry || !place.geometry.location) return;
-
-            // تحريك الخريطة إلى الموقع المحدد
-            map.setCenter(place.geometry.location);
-            map.setZoom(17);
-            marker.setPosition(place.geometry.location);
-
-            // تحديث معلومات الموقع
-            updateLocation(elementId, {
-                lat: place.geometry.location.lat(),
-                lng: place.geometry.location.lng()
-            }, place.formatted_address);
-        });
-
-        // تحديث مربع البحث عند تحريك الخريطة
-        map.addListener('bounds_changed', () => {
-            searchBox.setBounds(map.getBounds());
-        });
+    if (!mapElement) {
+        console.error('Map element not found:', elementId);
+        return;
     }
 
-    // إضافة زر تحديد الموقع الحالي
-    const locationButton = document.createElement("button");
-    locationButton.classList.add("custom-map-control");
-    locationButton.innerHTML = '<i class="fas fa-location-arrow"></i> موقعي الحالي';
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(locationButton);
+    try {
+        const mapOptions = {
+            center: { lat: defaultLat, lng: defaultLng },
+            zoom: 13,
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                position: google.maps.ControlPosition.TOP_RIGHT
+            },
+            fullscreenControl: true,
+            streetViewControl: true,
+            zoomControl: true
+        };
 
-    locationButton.addEventListener("click", () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    map.setCenter(pos);
-                    marker.setPosition(pos);
-                    map.setZoom(17);
-                    updateLocation(elementId, pos);
-                },
-                () => {
-                    showAlert("تعذر الوصول إلى موقعك الحالي", "warning");
+        const map = new google.maps.Map(mapElement, mapOptions);
+        console.log('Map created successfully');
+        
+        // إضافة علامة قابلة للسحب
+        const marker = new google.maps.Marker({
+            position: { lat: defaultLat, lng: defaultLng },
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP
+        });
+
+        // تحسين البحث باستخدام Autocomplete
+        const searchInput = document.getElementById(elementId.replace('map', 'search'));
+        if (searchInput) {
+            const autocomplete = new google.maps.places.Autocomplete(searchInput, {
+                componentRestrictions: { country: 'sa' },
+                fields: ['address_components', 'geometry', 'name', 'formatted_address'],
+                types: ['address', 'establishment', 'geocode']
+            });
+
+            autocomplete.bindTo('bounds', map);
+
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                
+                if (!place.geometry || !place.geometry.location) {
+                    showAlert('لم يتم العثور على الموقع المحدد', 'warning');
+                    return;
                 }
-            );
-        } else {
-            showAlert("متصفحك لا يدعم تحديد الموقع", "warning");
+
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);
+                }
+
+                marker.setPosition(place.geometry.location);
+                
+                updateLocation(elementId, {
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng()
+                }, place.formatted_address);
+            });
         }
-    });
 
-    // تحديث عند سحب العلامة
-    marker.addListener('dragend', () => {
-        const position = marker.getPosition();
-        updateLocation(elementId, {
-            lat: position.lat(),
-            lng: position.lng()
+        // حفظ المراجع
+        maps[elementId] = map;
+        markers[elementId] = marker;
+
+        // تحديث عند سحب العلامة
+        marker.addListener('dragend', () => {
+            const position = marker.getPosition();
+            updateLocation(elementId, {
+                lat: position.lat(),
+                lng: position.lng()
+            });
         });
-    });
 
-    // تحديث عند النقر على الخريطة
-    map.addListener('click', (e) => {
-        marker.setPosition(e.latLng);
-        updateLocation(elementId, {
-            lat: e.latLng.lat(),
-            lng: e.latLng.lng()
+        // تحديث عند النقر على الخريطة
+        map.addListener('click', (e) => {
+            marker.setPosition(e.latLng);
+            updateLocation(elementId, {
+                lat: e.latLng.lat(),
+                lng: e.latLng.lng()
+            });
         });
-    });
 
-    // حفظ المراجع
-    maps[elementId] = map;
-    markers[elementId] = marker;
-    searchBoxes[elementId] = searchBox;
-
-    return { map, marker, searchBox };
+        return { map, marker };
+    } catch (error) {
+        console.error('Error initializing map:', error);
+        showAlert('حدث خطأ أثناء تحميل الخريطة', 'danger');
+    }
 }
 
 // تحديث دالة تحديث الموقع
@@ -708,11 +702,17 @@ function updateLocation(mapId, position, address = null) {
     if (locationInput) {
         if (address) {
             locationInput.value = address;
+            showAlert('تم تحديث العنوان بنجاح', 'success');
         } else {
             const geocoder = new google.maps.Geocoder();
             geocoder.geocode({ location: position }, (results, status) => {
                 if (status === "OK" && results[0]) {
                     locationInput.value = results[0].formatted_address;
+                    // تحديث حقل البحث أيضاً
+                    const searchInput = document.getElementById(`${prefix}${type}_search`);
+                    if (searchInput) {
+                        searchInput.value = results[0].formatted_address;
+                    }
                 } else {
                     locationInput.value = `${position.lat}, ${position.lng}`;
                 }
@@ -722,16 +722,21 @@ function updateLocation(mapId, position, address = null) {
 }
 
 // تحديث الخرائط عند فتح النوافذ المنبثقة
-document.getElementById('newRequestModal').addEventListener('shown.bs.modal', function() {
-    setTimeout(() => {
-        ['pickup_map', 'delivery_map'].forEach(mapId => {
-            if (!maps[mapId]) {
-                initMap(mapId);
-            } else {
-                google.maps.event.trigger(maps[mapId], 'resize');
-            }
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('newRequestModal');
+    if (modal) {
+        modal.addEventListener('shown.bs.modal', function() {
+            console.log('Modal shown, initializing maps');
+            setTimeout(() => {
+                initMap('pickup_map');
+                initMap('delivery_map');
+                // تحديث حجم الخرائط
+                Object.values(maps).forEach(map => {
+                    google.maps.event.trigger(map, 'resize');
+                });
+            }, 500);
         });
-    }, 100);
+    }
 });
 
 document.getElementById('editOrderModal').addEventListener('shown.bs.modal', function() {
@@ -1042,5 +1047,57 @@ function showAlert(message, type = 'success') {
             alertContainer.remove();
         }
     }, 5000);
+}
+
+// دالة للحصول على الموقع الحالي
+function getCurrentLocation(type) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                
+                // تحديث الخريطة بالموقع الحالي
+                const map = maps[type + '_map'];
+                const marker = markers[type + '_map'];
+                if (map && marker) {
+                    map.setCenter(pos);
+                    marker.setPosition(pos);
+                    map.setZoom(17);
+                    
+                    // تحديث تفاصيل العنوان
+                    const geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({ location: pos }, (results, status) => {
+                        if (status === "OK" && results[0]) {
+                            document.getElementById(type + '_search').value = results[0].formatted_address;
+                            updateLocation(type + '_map', pos, results[0].formatted_address);
+                            showAlert('تم تحديد موقعك بنجاح', 'success');
+                        }
+                    });
+                }
+            },
+            (error) => {
+                let message = 'تعذر الوصول إلى موقعك: ';
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        message += 'تم رفض الإذن';
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        message += 'معلومات الموقع غير متوفرة';
+                        break;
+                    case error.TIMEOUT:
+                        message += 'انتهت مهلة طلب الموقع';
+                        break;
+                    default:
+                        message += 'حدث خطأ غير معروف';
+                }
+                showAlert(message, 'warning');
+            }
+        );
+    } else {
+        showAlert('متصفحك لا يدعم تحديد الموقع', 'warning');
+    }
 }
 </script>
